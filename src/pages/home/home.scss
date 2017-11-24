@@ -1,3 +1,80 @@
-page-home {
+$xl-button: 120px;
+$sm-button: 65px;
+$y-offset: 5px;
+$x-offset: 20px;
 
+page-home {
+  ion-header, .header {
+    background: transparent;
+  }
+
+  ion-grid, [ion-grid] {
+    position: relative;
+  }
+
+  .rhombus {
+    transform: rotate(45deg);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    cursor: pointer;
+  }
+
+  .rhombus:before {
+    content: "";
+    position: absolute;
+    left: -10%;
+    top: -10%;
+    width: 120%;
+    height: 120%;
+    z-index: -1;
+    pointer-events: none;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+
+  .btn-play {
+    width: $xl-button;
+    height: $xl-button;
+    margin-top: -($xl-button + $y-offset);
+    margin-left: -$xl-button / 2;
+  }
+
+  .btn-play:before {
+    background-image: url('../assets/imgs/btn_play.png');
+  }
+
+  .btn-contents, .btn-progress, .btn-help {
+    width: $sm-button;
+    height: $sm-button;
+  }
+
+
+  .btn-contents {
+    margin-left: -($sm-button + $x-offset);
+    &:before {
+      background-image: url('../assets/imgs/btn_contents.png');
+    }
+  }
+
+  .btn-progress {
+    margin-left: $x-offset;
+    &:before {
+      background-image: url('../assets/imgs/btn_progress.png');
+    }
+  }
+
+  .btn-help {
+    margin-top: $sm-button - $y-offset;
+    margin-left: -$sm-button / 2;
+    &:before {
+      background-image: url('../assets/imgs/btn_help.png');
+    }
+  }
 }

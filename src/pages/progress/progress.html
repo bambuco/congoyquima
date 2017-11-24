@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only class="btn-circle" (click)="goHome()">
+        <ion-icon name="arrow-round-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button icon-only class="btn-circle">
+        <ion-icon name="cog"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div ion-grid>
+    <h1 text-center>Aún no tenemos informes de tu avance, debes empezar a jugar y completar los diferentes niveles para ver aquí tu progreso</h1>
+  </div>  
+</ion-content>
+<ion-footer>
+  <div ion-grid padding>
+    <div class="game-progress-bar">
+      <div ion-col *ngFor="let player of players" class="player-info">
+        <img src="{{player.avatar}}"/>
+        <span class="player-score">{{player.score}}</span>
+      </div>
+    </div>
+  </div>
+</ion-footer>

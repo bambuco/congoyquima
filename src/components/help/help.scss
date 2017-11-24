@@ -1,0 +1,19 @@
+help-content {
+  background-color: map-get($colors, lightgreencustom);
+  color: #000;
+
+  .header-ios, .header-md {
+    background-color: map-get($colors, darkgreencustom);
+  }
+
+  .content-ios, .content-md {
+    background-color: map-get($colors, lightgreencustom);
+    color: #fff;
+  }
+
+  ion-content {
+    background-image: none;
+    background-color: map-get($colors, lightgreencustom);
+  }
+}
+

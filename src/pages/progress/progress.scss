@@ -1,0 +1,28 @@
+page-progress {
+
+  .game-progress-bar {
+    background-image: url('../assets/imgs/game_progress_bg.png');
+    background-size: 100% 100%;
+  }
+
+  .player-info {
+    border-radius: 5px;
+    border: solid 2px #fff;
+    background-color: #ccc;
+    position: relative;
+    display: inline-block;
+    max-width: 70px;
+    
+    .player-score {
+      position: absolute;
+      background-color: map-get($colors, lightgreencustom);
+      border-radius: 50%;
+      width: 30px;
+      border: solid 2px #fff;
+      padding: 5px;
+      bottom: 0;
+      right: 0;
+    }
+  }
+  
+}

@@ -38,14 +38,20 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  darkgreencustom: #3AAFA9,
+  lightgreencustom: #87CCC0
 );
+
+
+$text-color: map-get($colors, darkgreencustom);
+$toolbar-background: transparent;
 
 
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
-
+$toolbar-ios-border-color: rgba(0, 0, 0, 0);
 
 
 

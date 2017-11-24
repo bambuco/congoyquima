@@ -1,6 +1,8 @@
 {
-  "name": "aprentura",
+  "name": "congoyquima",
   "app_id": "",
   "type": "ionic-angular",
-  "integrations": {}
+  "integrations": {
+    "cordova": {}
+  }
 }
