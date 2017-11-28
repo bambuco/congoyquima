@@ -15,20 +15,25 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+/************************************************
+Application General
+************************************************/
+
 ion-content {
   background-image: url('../assets/imgs/background.png');
   background-size: auto 100%;
   height: 100%;
-  /*background-size: cover;*/
 }
 
 .header-md:after {
   background-image: none;
 }
 
-ion-grid, [ion-grid] {
-  height: 100%;
-  justify-content: center;
+.center-vertical {
+  &.ion-grid, &[ion-grid] {
+    height: 100%;
+    justify-content: center;
+  }
 }
 
 .btn-circle {
@@ -36,3 +41,47 @@ ion-grid, [ion-grid] {
   border: solid 2px #7cd8b8;
   border-radius: 50%;
 }
+
+
+/************************************************
+Application Icons
+************************************************/
+@mixin appSpriteIcons($icon-list, $xstart, $ystart, $xoffset, $yoffset, $width, $height){
+  @for $i from 1 through length($icon-list){
+    $name: nth($icon-list, $i);
+    &.#{$name} {
+      background-position: (-(($xstart + (($xoffset + $width) * ($i - 1))))) (-$ystart);
+      width: $width;
+      height: $height;
+      &:active, &:hover {
+        background-position: (-($xstart + (($xoffset + $width) * ($i - 1)))) (-($ystart + $yoffset + $height));
+      }
+    }
+  }
+}
+
+.app-icon {
+  background-image: url('../assets/imgs/icons.png');
+  background-color: transparent;
+  background-repeat: no-repeat;
+  display: inline-block;
+
+  $menus: m-contents m-progress m-help;
+  @include appSpriteIcons($menus, 50px, 50px, 10px, 10px, 90px, 90px);
+
+  $menus: m-play;
+  @include appSpriteIcons($menus, 350px, 50px, 24px, 24px, 176px, 176px);
+
+  $actions: settings tools;
+  @include appSpriteIcons($actions, 550px, 50px, 52px, 52px, 48px, 48px);
+
+  $actions: close listen repeat home back next verify help;
+  @include appSpriteIcons($actions, 750px, 50px, 30px, 30px, 70px, 70px);
+
+  $actions: close-xs;
+  @include appSpriteIcons($actions, 550px, 300px, 70px, 70px, 30px, 30px);
+}
+/***********************************************/
+
+
+

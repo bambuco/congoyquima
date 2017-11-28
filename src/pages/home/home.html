@@ -1,18 +1,25 @@
 <ion-header>
   <ion-navbar>
     <ion-buttons end>
-      <button ion-button icon-only class="btn-circle">
-        <ion-icon name="cog"></ion-icon>
+      <button ion-button class="app-icon settings">
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <div ion-grid>
-    <div class="rhombus btn-play" (click)="goTo('game')"></div>
-    <div class="rhombus btn-contents" (click)="goTo('contents')"></div>
-    <div class="rhombus btn-progress" (click)="goTo('progress')"></div>
-    <div class="rhombus btn-help" (click)="goTo('help')"></div>
+  <div ion-grid class="center-vertical">
+    <div ion-row>
+      <div ion-col text-center>
+        <button class="app-icon m-play" (click)="goTo('game')"></button>
+      </div>
+    </div>
+    <div ion-row>
+      <div ion-col text-center>
+        <button class="app-icon m-contents" (click)="goTo('contents')"></button>
+        <button class="app-icon m-progress" (click)="goTo('progress')"></button>
+        <button class="app-icon m-help" (click)="goTo('help')"></button>
+      </div>
+    </div>
   </div>
 </ion-content>

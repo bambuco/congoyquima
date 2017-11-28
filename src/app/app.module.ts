@@ -1,16 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { HttpClientModule } from '@angular/common/http';
 //import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { GamePage } from '../pages/game/game';
+import { GamePage, GameSampleComponent } from '../pages/game/game';
 import { ContentPage } from '../pages/content/content';
 import { ProgressPage } from '../pages/progress/progress';
 
 import { HelpComponent } from '../components/help/help';
+
+import { ContentProvider } from '../providers/content';
 
 @NgModule({
   declarations: [
@@ -19,10 +22,12 @@ import { HelpComponent } from '../components/help/help';
     GamePage,
     ContentPage,
     ProgressPage,
-    HelpComponent
+    HelpComponent,
+    GameSampleComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -32,12 +37,14 @@ import { HelpComponent } from '../components/help/help';
     GamePage,
     ContentPage,
     ProgressPage,
-    HelpComponent
+    HelpComponent,
+    GameSampleComponent
   ],
   providers: [
     StatusBar,
     //SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ContentProvider
   ]
 })
 export class AppModule {}

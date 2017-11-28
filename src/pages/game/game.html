@@ -4,17 +4,22 @@
       <button ion-button icon-only class="btn-circle" (click)="goHome()">
         <ion-icon name="arrow-round-back"></ion-icon>
       </button>
+      <!--button ion-button class="app-icon back" (click)="goHome()"></button-->
     </ion-buttons>
     <ion-buttons end>
-      <button ion-button icon-only class="btn-circle">
-        <ion-icon name="cog"></ion-icon>
-      </button>
+      <button ion-button class="app-icon settings"></button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <div ion-grid>
-    <h1 text-center>Hola!!!<br/>Muy pronto encontrarás aquí numerosas formas de aprender mientras te diviertes.</h1>
+    <button ion-button block (click)="showGame('Reto1_640')">Reto 1 - Juego 640</button>
+    <button ion-button block (click)="showGame('Reto1_SI_640')">Reto 1 - Bien 640</button>
+    <button ion-button block (click)="showGame('Reto1_NO_640')">Reto 1 - Mal 640</button>
+    <button ion-button block (click)="showGame('Reto1_1080')">Reto 1 - Juego 1080</button>
+    <button ion-button block (click)="showGame('Reto1_SI_1080')">Reto 1 - Bien 1080</button>
+    <button ion-button block (click)="showGame('Reto1_NO_1080')">Reto 1 - Mal 1080</button>
   </div>
+
 </ion-content>

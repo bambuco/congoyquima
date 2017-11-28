@@ -1,3 +1,76 @@
 page-game {
+
   
+}
+
+mini-game {
+  ion-content {
+    background-image: url('../assets/imgs/game/mini_game_bg.png');  
+    background-size: 100% 100%;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    height: 100%;
+  }
+
+  [ion-grid] {
+    position: relative;
+    height: 100%;
+  }
+
+  [ion-row] {
+    position:absolute;
+    width: 100%;
+    &.row-0 {
+      bottom: 80%;
+    }
+    &.row-1 {
+      bottom: 60%;
+    }
+    &.row-2 {
+      bottom: 35%;
+    }
+  }
+
+  .seed_bag {
+    width: 62px;
+    height: 86.8px;
+    display: inline-block;
+    background-image: url('../assets/imgs/game/seed_bag_bg.png');
+    background-size: cover;
+    font-size: 2.5em;
+    line-height: 2.9em;
+    font-family: verdana;
+    margin-top: 10px;
+    color: #fff;
+    font-weight: bold;
+  }
+
+  div.challenge2 {
+    background-size: cover;
+    height: 100%;
+
+    &.Reto1_640 {
+     background-image: url('../assets/imgs/game/Reto1_640.png');  
+    }
+
+    &.Reto1_SI_640 {
+     background-image: url('../assets/imgs/game/Reto1_SI_640.png');  
+    }
+
+    &.Reto1_NO_640 {
+     background-image: url('../assets/imgs/game/Reto1_NO_640.png');  
+    }
+
+    &.Reto1_1080 {
+     background-image: url('../assets/imgs/game/Reto1_1080.png');  
+    }
+
+    &.Reto1_SI_1080 {
+     background-image: url('../assets/imgs/game/Reto1_SI_1080.png');  
+    }
+
+    &.Reto1_NO_1080 {
+     background-image: url('../assets/imgs/game/Reto1_NO_1080.png');  
+    }
+  }
 }

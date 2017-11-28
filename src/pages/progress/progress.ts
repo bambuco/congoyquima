@@ -13,11 +13,11 @@ export class ProgressPage {
 
   constructor(public navCtrl: NavController) {
     this.players = [
-      { avatar: '../assets/avatars/001.png', score: 10 },
-      { avatar: '../assets/avatars/002.png', score: 15 },
-      { avatar: '../assets/avatars/003.png', score: 30 },
-      { avatar: '../assets/avatars/004.png', score: 20 },
-      { avatar: '../assets/avatars/005.png', score: 5 }
+      { avatar: '../assets/imgs/avatars/001.png', score: 10 },
+      { avatar: '../assets/imgs/avatars/002.png', score: 15 },
+      { avatar: '../assets/imgs/avatars/003.png', score: 30 },
+      { avatar: '../assets/imgs/avatars/004.png', score: 20 },
+      { avatar: '../assets/imgs/avatars/005.png', score: 5 }
     ];
   }
   
