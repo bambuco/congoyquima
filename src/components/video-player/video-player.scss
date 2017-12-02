@@ -1,0 +1,23 @@
+/***************************************
+Video Player Component
+***************************************/
+.modal-wrapper {
+  width: 100%;
+  height: 100%;    
+  top: 0;
+  left: 0;
+}
+
+video-player {
+  text-align: center;
+  video {
+    height: 100%;
+  }
+
+  .exit {
+    position: absolute;
+    bottom: 45px;
+    right: 5px;
+    z-index: 10;
+  }
+}

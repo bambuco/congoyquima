@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { GamePage } from '../game/game';
 import { ContentPage } from '../content/content';
@@ -16,8 +17,15 @@ export class HomePage {
   pages: any = { game: GamePage, contents: ContentPage, progress: ProgressPage };
   help: any;
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
+  constructor(private navCtrl: NavController,
+    private modalCtrl: ModalController,
+    private splashScreen: SplashScreen
+    ) {
 
+  }
+
+  ionViewDidEnter() {
+    this.splashScreen.hide();
   }
   
   goTo(page){

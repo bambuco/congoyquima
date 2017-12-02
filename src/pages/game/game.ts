@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
+import { NavController, ViewController, ModalController } from 'ionic-angular';
 
 import { HomePage } from '../home/home';
 
@@ -30,15 +30,22 @@ export class GamePage {
 })
 export class GameSampleComponent {
   items: Array<any>;
-  constructor(private viewCtrl: ViewController, private params: NavParams) {
-    this.items = "123456AEIU".split('');
+
+  constructor(private viewCtrl: ViewController) {
+    this.items = "12,34,56,3,5,9,A,E,I,U".split(',');
     this.shuffle();
     this.partition([4,3,3]);
+  }
+
+  isNaN(value) {
+    console.log(value + '::' + Number.isNaN(value)); // ;
+    return Number.isNaN(value);
   }
 
   dismiss() {
     this.viewCtrl.dismiss({}); //Any data can be passed back here
   }
+
 
   shuffle() {
     let arr: Array<any> = this.items;

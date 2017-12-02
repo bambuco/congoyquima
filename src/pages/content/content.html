@@ -1,22 +1,41 @@
 <ion-header>
   <ion-navbar>
-    <ion-buttons left>
-      <button ion-button icon-only class="btn-circle" (click)="goHome()">
-        <ion-icon name="arrow-round-back"></ion-icon>
-      </button>
-    </ion-buttons>
-    <ion-buttons end>
-      <button ion-button icon-only class="btn-circle">
-        <ion-icon name="cog"></ion-icon>
-      </button>
-    </ion-buttons>
+    <ion-title center>Contenidos</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <div ion-grid>
-    <h1 text-center ngDraggable>Wow, no sabes lo mucho que nos estamos esforzando en tener pronto muchos contenidos que ayuden a reforzar tu aprendizaje!</h1>
-    <div [innerHTML]="content">
+<ion-content>  
+  <div ion-list padding>
+    <div ion-item *ngIf="noContent" text-wrap text-center>
+      No hay contenidos disponibles en está sección
+    </div>
+    <div ion-item text-wrap *ngFor="let item of contents | async" (click)="open(item, $event)">
+      <div ion-thumbnail item-start>
+        <div *ngIf="viewType!='images' && viewType!='video'" class="app-icon media-{{viewType}}"></div>
+        <img *ngIf="viewType=='images'" src="assets/content/{{viewType}}/{{item.path}}" imageViewer />
+        <video *ngIf="viewType=='video'" no-controls>
+          <source src="assets/content/video/{{item.path}}#t=3" type="video/mp4">
+        </video>
+      </div>
+      <h2>{{item.title}}</h2>
+      <p>{{item.description}}</p>
+      <div *ngIf="viewType=='audio'">
+        <audio controls preload="none">
+          <source src="assets/content/audio/{{item.path}}"/>
+        </audio>
+      </div>
     </div>
   </div>
 </ion-content>
+
+<ion-footer>
+  <ion-navbar no-padding no-margin>
+    <ion-buttons no-padding no-margin text-center>
+      <button ion-button no-margin [ngClass]="{active:viewType=='audio'}" class="app-icon content-audio" (click)="setViewType('audio')"></button>
+      <button ion-button no-margin [ngClass]="{active:viewType=='video'}" class="app-icon content-video" (click)="setViewType('video')"></button>
+      <button ion-button no-margin [ngClass]="{active:viewType=='images'}" class="app-icon content-images" (click)="setViewType('images')"></button>
+      <button ion-button no-margin [ngClass]="{active:viewType=='docs'}" class="app-icon content-docs" (click)="setViewType('docs')"></button>
+      <button ion-button no-margin class="app-icon exit" (click)="goHome()"></button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-footer>

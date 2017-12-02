@@ -5,8 +5,8 @@ page-game {
 
 mini-game {
   ion-content {
-    background-image: url('../assets/imgs/game/mini_game_bg.png');  
-    background-size: 100% 100%;
+    background-image: url('../assets/imgs/game/cupboard_bg.png');  
+    background-size: auto 100%;
     background-position: center bottom;
     background-repeat: no-repeat;
     height: 100%;
@@ -17,32 +17,82 @@ mini-game {
     height: 100%;
   }
 
+  .modal-wrapper {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+  
   [ion-row] {
     position:absolute;
     width: 100%;
     &.row-0 {
-      bottom: 80%;
+      bottom: 71%;
     }
     &.row-1 {
-      bottom: 60%;
+      bottom: 52%;
     }
     &.row-2 {
-      bottom: 35%;
+      bottom: 29%;
     }
   }
 
   .seed_bag {
     width: 62px;
     height: 86.8px;
+    margin: 5px;
     display: inline-block;
-    background-image: url('../assets/imgs/game/seed_bag_bg.png');
+    background-image: url('../assets/imgs/game/item_seed_bag.png');
     background-size: cover;
-    font-size: 2.5em;
-    line-height: 2.9em;
-    font-family: verdana;
-    margin-top: 10px;
-    color: #fff;
+    font-size: 26px;
+    line-height: 38px;
+    font-family: Arial;
     font-weight: bold;
+    position: relative;
+    color: #fff;
+
+    span {
+      position:absolute;
+      left: 50%;
+      top: 50%;
+      margin-top: -10px;
+      margin-left: -20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: solid 3px #fff;
+      background-color: #333333;
+      text-align: center;
+
+      /*&:before {
+        display: inline-block;
+
+        content: "";
+        width: 40px;
+        height: 40px;
+        margin-top: -6px;
+        margin-left: -6px;
+        border-radius: 50%;
+        background-color: transparent;
+        border: solid 4px #fff;
+      }*/
+    }    
+    
+    &.tepuy-selected {
+      span {
+        background-color: #FBB03B;
+        /*border: solid 2px #fff;*/
+      }
+    }
+    &.tepuy-completed {
+      .tepuy-fine {
+        background-color: #F2674C;
+      }
+      .tepuy-wrong {
+        background-color: #3DB77A;
+      }
+    }
   }
 
   div.challenge2 {

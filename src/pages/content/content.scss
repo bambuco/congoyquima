@@ -1,3 +1,31 @@
 page-content {
   
+  ion-content {
+    background-image: url('../assets/imgs/content_bg.png');
+  }
+
+  .app-icon.bar-button:after {
+    content: none;
+    position: inherit;
+    left:0;
+    top:0;
+  }
+
+  audio {
+    width: 100%;
+  }
+
+  .item ion-thumbnail, .item [ion-thumbnail] {
+      min-width: 30px;    
+      min-height: 30px;
+      img {
+          max-width: 70px;    
+          min-width: 70px;
+      }      
+      video {
+        max-width: 70px; 
+      }
+
+  }
+  
 }

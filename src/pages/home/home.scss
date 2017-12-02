@@ -7,74 +7,68 @@ page-home {
   ion-header, .header {
     background: transparent;
   }
+  ion-content {
+    background-image: url('../assets/imgs/home_bg.png');
+  }
 
   ion-grid, [ion-grid] {
     position: relative;
   }
 
-  .rhombus {
-    transform: rotate(45deg);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    cursor: pointer;
+  .menu-container button {
+    @include animation(falling-buttons, 2s, ease-out);
+    z-index: 10;
   }
 
-  .rhombus:before {
-    content: "";
+  .cloud {
+    display:block;
     position: absolute;
-    left: -10%;
-    top: -10%;
-    width: 120%;
-    height: 120%;
-    z-index: -1;
-    pointer-events: none;
-    background-size: 100%;
+    width: 80px;
+    height: 80px;
+    background-position: center center;
     background-repeat: no-repeat;
-    background-position: center;
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    -o-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-  }
+    background-size: 100% auto;
+    @include animation(clouds, 15s, linear, $iteration:infinite);
 
-  .btn-play {
-    width: $xl-button;
-    height: $xl-button;
-    margin-top: -($xl-button + $y-offset);
-    margin-left: -$xl-button / 2;
-  }
+    @each $i in 1, 2, 3 {
+      left: 5%;
+      top: 5%;
+      &.cloud-#{$i} {
+        background-image: url('../assets/imgs/cloud-#{$i}.png');
+      }
+    }
 
-  .btn-play:before {
-    background-image: url('../assets/imgs/btn_play.png');
-  }
-
-  .btn-contents, .btn-progress, .btn-help {
-    width: $sm-button;
-    height: $sm-button;
-  }
-
-
-  .btn-contents {
-    margin-left: -($sm-button + $x-offset);
-    &:before {
-      background-image: url('../assets/imgs/btn_contents.png');
+    &:nth-child(2n+0) {
+      left: 30%;
+      @include animation-delay(0s);
+    }
+    &:nth-child(3n+0) {
+      left: 60%;
+      @include animation-delay(2s);
+    }
+    &:nth-child(5n+0) {
+      left: 75%;
+      @include animation-delay(8s);
+    }
+    &:nth-child(2n+3) {
+      top: 20%;
+      @include animation-delay(4s);
+    }
+    &:nth-child(3n+1) {
+      top: 15%;
+      @include animation-delay(5s);
+    }
+    &:nth-child(5n+0) {
+      top: 5%;
     }
   }
 
-  .btn-progress {
-    margin-left: $x-offset;
-    &:before {
-      background-image: url('../assets/imgs/btn_progress.png');
-    }
+  .settings {
+    position: absolute;
+    top: 2px;
+    right: 5px;
+    -web-kit-box-shadow: none;
+    box-shadow:none;
   }
 
-  .btn-help {
-    margin-top: $sm-button - $y-offset;
-    margin-left: -$sm-button / 2;
-    &:before {
-      background-image: url('../assets/imgs/btn_help.png');
-    }
-  }
 }
