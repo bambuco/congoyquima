@@ -1,20 +1,37 @@
 import { Component } from '@angular/core';
 import { NavController, ViewController, ModalController } from 'ionic-angular';
 
+import { Observable } from 'rxjs/Rx';
+import { GameDataProvider } from '../../providers/game-data';
+
 import { HomePage } from '../home/home';
+import { GameLevelPage } from './game-level';
 
 @Component({
   selector: 'page-game',
   templateUrl: 'game.html'
 })
 export class GamePage {
+  levels: Observable<any>;
 
-  constructor(private navCtrl: NavController, private modalCtrl: ModalController) {
-
+  constructor(private navCtrl: NavController,
+      private modalCtrl: ModalController,
+      private gameDataProvider: GameDataProvider) {
+    this.levels = gameDataProvider.levels();
   }
   
   goHome(){
     this.navCtrl.setRoot(HomePage);
+  }
+
+  openLevel(level) {
+    if (!level.unlocked) return false;
+
+    this.navCtrl.setRoot(GameLevelPage, { 'levelId': level.id });
+  }
+
+  showHelp(){
+
   }
 
   showGame(viewClass) {

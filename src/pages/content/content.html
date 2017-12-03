@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>  
-  <div ion-list padding>
+  <div ion-list>
     <div ion-item *ngIf="noContent" text-wrap text-center>
       No hay contenidos disponibles en está sección
     </div>
@@ -35,7 +35,7 @@
       <button ion-button no-margin [ngClass]="{active:viewType=='video'}" class="app-icon content-video" (click)="setViewType('video')"></button>
       <button ion-button no-margin [ngClass]="{active:viewType=='images'}" class="app-icon content-images" (click)="setViewType('images')"></button>
       <button ion-button no-margin [ngClass]="{active:viewType=='docs'}" class="app-icon content-docs" (click)="setViewType('docs')"></button>
-      <button ion-button no-margin class="app-icon exit" (click)="goHome()"></button>
+      <button ion-button no-margin class="app-icon home" (click)="goHome()"></button>
     </ion-buttons>
   </ion-navbar>
 </ion-footer>

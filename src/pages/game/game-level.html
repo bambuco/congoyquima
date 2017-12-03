@@ -1,11 +1,12 @@
 <ion-content>
-  <div ion-list>
-    <div ion-item *ngFor="let level of levels | async" (click)="openLevel(level)">
-      {{level.label}}
+  <ion-list>
+    <div ion-item *ngFor="let item of challenges | async" [ngClass]="getClass(item)">
+      {{item.label}}
     </div>
-  </div>
+  </ion-list>  
 </ion-content>
-<ion-footer>
+
+<ion-footer no-padding>
   <ion-navbar text-center>
     <ion-buttons>
       <button class="app-icon help" (click)="showHelp()"></button>

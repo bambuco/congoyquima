@@ -1,0 +1,52 @@
+/***************************************
+Game Level
+***************************************/
+
+page-game-level {
+  ion-content {
+    background-image: url('../assets/imgs/game_level_bg.png');
+  }
+
+  .item-md, .item-ios {
+    font-family : Arial;
+    font-weight : bold;
+    font-size : 48px;
+    color : #FFFFFF;
+    text-shadow : 6px 6px 0px rgba(0, 0, 0, 0.1);
+    background-color: transparent;
+
+    &.playing {
+      background : linear-gradient(0deg, rgba(247, 183, 51, 1) 0%, rgba(247, 188, 49, 1) 50%, rgba(247, 209, 42, 1) 50%, rgba(247, 211, 41, 1) 100%);
+      opacity: 0.95;
+      color : #0D1B40;
+    }
+    &.locked {
+      background : linear-gradient(0deg, rgba(44, 44, 44, 1) 0%, rgba(42, 42, 42, 1) 50%, rgba(25, 27, 27, 1) 50%, rgba(24, 26, 26, 1) 100%);
+      opacity: 0.97;
+    }
+  }
+
+  .list-ios, .list-md {
+    & > .item-block {
+      border-bottom: .55px solid #9FDA7E;
+
+      .item-inner {
+        border-bottom: 0;
+      }
+
+      &:first-child {
+        border-top: .55px solid #9FDA7E;
+      }
+      &:last-child {
+        
+      }
+
+      &.playing {
+        border-bottom: .55px solid #999999;
+      }
+      &.locked {
+        border-bottom: .55px solid #999999;
+      }
+    }
+  }
+}

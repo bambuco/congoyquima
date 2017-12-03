@@ -1,6 +1,11 @@
-page-game {
+/***************************************
+Game
+***************************************/
 
-  
+page-game {
+  ion-content {
+    background-image: url('../assets/imgs/game_bg.png');
+  }
 }
 
 mini-game {

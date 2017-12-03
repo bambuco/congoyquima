@@ -1,0 +1,76 @@
+{
+  "levels": [
+    {
+      "id": 1,
+      "label": "Nivel 1",
+      "challenges": [
+        {
+          "label":"1",
+          "type": "tepuy-selectable",
+          "parameters": {
+          }
+        },
+        {
+          "label":"2",
+          "type": "tepuy-selectable",
+          "parameters": {
+          }
+        },
+        {
+          "label":"3",
+          "type": "tepuy-selectable",
+          "parameters": {
+          }
+        },
+        {
+          "label":"4",
+          "type": "tepuy-selectable",
+          "parameters": {
+          }
+        },
+        {
+          "label":"5",
+          "type": "tepuy-selectable",
+          "parameters": {
+          }
+        },
+        {
+          "label":"6",
+          "type": "tepuy-selectable",
+          "parameters": {
+          }
+        },
+        {
+          "label":"7",
+          "type": "tepuy-selectable",
+          "parameters": {
+          }
+        },
+        {
+          "label":"8",
+          "type": "tepuy-selectable",
+          "parameters": {
+          }
+        },
+        {
+          "label":"9",
+          "type": "tepuy-selectable",
+          "parameters": {
+          }
+        },
+        {
+          "label":"10",
+          "type": "tepuy-selectable",
+          "parameters": {
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Nivel 2",
+      "challenges": [
+      ]
+    }
+  ]
+}
