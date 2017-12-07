@@ -97,15 +97,22 @@ export class GameDataProvider {
   }
 
   getChallenge(id, levelId) {
+    const httpOptions:any = {
+      headers: { 'content-type': 'text/html' },
+      responseType: 'text'
+    };
     return Observable.create(observer => {
       Observable.forkJoin([
-        this.getLevel(levelId), this.http.get('assets/game/level_'+levelId+'/challenge_'+id+'.html', { headers: { 'content-type': 'text/html' }, responseType: 'text' })
+        this.getLevel(levelId),
+        this.http.get('assets/game/level_'+levelId+'/challenge_'+id+'.html', httpOptions),
+        this.http.get('assets/game/level_'+levelId+'/challenge_'+id+'.css', httpOptions).catch(error => {
+          return Observable.of('');
+        })
       ]).subscribe(data => {
-        console.log(data);
-
         let challengeInfo = {
           setup: data[0].challenges[id-1],
-          template: data[1]
+          template: data[1],
+          css: data[2]
         };
 
         observer.next(challengeInfo);

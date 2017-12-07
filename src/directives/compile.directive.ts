@@ -1,7 +1,7 @@
 import {
   Compiler, NgModule, Component, Input, ComponentRef, Directive, 
   ModuleWithComponentFactories, OnChanges, Type, Output,
-  ViewContainerRef, EventEmitter, Injectable
+  ViewContainerRef, EventEmitter, Injectable, ViewEncapsulation
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from 'ionic-angular';
@@ -32,6 +32,7 @@ export class CompileService {
 })
 export class CompileDirective implements OnChanges {
   @Input() compile: string;
+  @Input() compileCss: string;
   @Input() compileContext: any;
 
   compRef: ComponentRef<any>;
@@ -53,7 +54,7 @@ export class CompileDirective implements OnChanges {
     this.vcRef.clear();
     this.compRef = null;
 
-    const component = this.createDynamicComponent(this.compile);
+    const component = this.createDynamicComponent(this.compile, this.compileCss );
     const module = this.createDynamicModule(component);
     this.compiler.compileModuleAndAllComponentsAsync(module)
       .then((moduleWithFactories: ModuleWithComponentFactories<any>) => {
@@ -73,10 +74,12 @@ export class CompileDirective implements OnChanges {
     }
   }
 
-  private createDynamicComponent (template:string) {
+  private createDynamicComponent (template:string, css:string) {
     @Component({
       selector: 'mini-game',
       template: template,
+      styles: [ css || '' ],
+      encapsulation: ViewEncapsulation.None
     })
     class CustomDynamicComponent {}
     return CustomDynamicComponent;

@@ -9,19 +9,19 @@ import { TepuyUtils } from '../../tepuy-utils';
 @Injectable()
 export class TepuySelectableService extends TepuyActivityService {
   private itemCount: number = 0;
-  private items: Array<any>;
- 
+  private items: Array<any> = [];
+  private groups: Array<any> = [];
+
   constructor() {
     super();
     //Register required events
     this.registerEvent('itemAdded');
     this.registerEvent('itemChanged');
-    this.items = [];
   }
 
-  /*newId() {
-    return this.itemCount++;
-  }*/
+  newGroupId() {
+    return this.groups.length;
+  }
 
   itemAdded(item: any) {
     this.items.push(item);
@@ -42,6 +42,7 @@ export class TepuySelectableService extends TepuyActivityService {
     for(let item of this.items) {
       let val = item.el.nativeElement.innerText;
       item.succeed = (item.correct && item.selected);
+      item.done = true;
       expected += TepuyUtils.bValue(item.correct) + TepuyUtils.bValue((!item.correct && item.selected));
       right += TepuyUtils.bValue(item.succeed);
     }

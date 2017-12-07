@@ -22,11 +22,11 @@ export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
   done: boolean;
   succeed: boolean;
 
-  //private service: TepuySelectableService;
+  private service: TepuySelectableService;
 
-  constructor(private el: ElementRef, private renderer: Renderer2, private service: TepuyActivityService) 
+  constructor(private el: ElementRef, private renderer: Renderer2, serviceWrapper: TepuyActivityService) 
   { 
-    //this.service = serviceWrapper as TepuySelectableService;
+    this.service = serviceWrapper as TepuySelectableService;
   }
 
   ngOnInit() {
@@ -49,7 +49,8 @@ export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
     }
 
     this.id = this.service.childId();
-    this.service.emit('itemAdded', this);
+    //this.service.emit('itemAdded', this);
+    this.service.itemAdded(this);
     this.service.on('activityReset').subscribe(() => {
       this.refresh();
     });
@@ -89,7 +90,8 @@ export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
     //toogle only if has not been resolved
     if (this.done) return;
     this.selected = !this.selected;
-    this.service.emit('itemChanged', this);
+    //this.service.emit('itemChanged', this);
+    this.service.itemChanged(this);
   }
 
   value() {

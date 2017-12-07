@@ -10,14 +10,14 @@
 
 <ion-content [ngClass]="{'center-vertical': loading}" #content>
   <div class="content-zone" [ngStyle]="pzStyle" #playZone (window:resize)="onResize($event)">
-    <ng-container *compile="template; context: settings;" #dynamicComponent></ng-container>
+    <ng-container *compile="template; css: templateCss; context: settings;" #dynamicComponent></ng-container>
   </div>
 </ion-content>
 <ion-footer>
   <ion-toolbar text-center>
     <ion-buttons>
       <button ion-button class="app-icon game-start" (click)="restart()"></button>
-      <button ion-button class="app-icon verify" tepuy-activity-verify></button>
+      <button ion-button class="app-icon verify" (click)="verify()"></button>
       <button ion-button class="app-icon exit" (click)="dismiss()"></button>
     </ion-buttons>
   </ion-toolbar>

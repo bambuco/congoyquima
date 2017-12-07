@@ -9,11 +9,13 @@ import { TepuyActivityVerifyDirective } from './directives/activity-verify.direc
 import { TepuyActivityComponent } from './activities/activity.component';
 import { TepuySelectableComponent } from './activities/selectable/selectable.component';
 //Activity directives
+import { TepuySelectableGroupDirective } from './activities/selectable/selectable-group.directive';
 import { TepuySelectableItemDirective } from './activities/selectable/selectable-item.directive';
 
 //Activity providers
 //import { TepuySelectableService } from './activities/selectable/selectable.provider';
 import { TepuyActivityService } from './activities/activity.provider';
+import { TepuyErrorProvider } from './providers/error.provider';
 import { TepuyUtils } from './tepuy-utils';
 
 @NgModule({
@@ -23,6 +25,7 @@ import { TepuyUtils } from './tepuy-utils';
     TepuyTemplateCompileDirective,
     TepuyActivityVerifyDirective,
     TepuySelectableComponent,
+    TepuySelectableGroupDirective,
     TepuySelectableItemDirective
   ],
   entryComponents: [
@@ -33,10 +36,11 @@ import { TepuyUtils } from './tepuy-utils';
     TepuyTemplateCompileDirective,
     TepuyActivityVerifyDirective,
     TepuySelectableComponent,
+    TepuySelectableGroupDirective,
     TepuySelectableItemDirective
   ],
   providers: [
-    TepuyActivityService
+    TepuyActivityService, TepuyErrorProvider
   ]
 })
 export class TepuyModule {}

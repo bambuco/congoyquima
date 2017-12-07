@@ -12,7 +12,7 @@ import { GameLevelPage } from '../game/game-level';
 @Component({
   selector: 'page-game-challenge',
   templateUrl: 'game-challenge.html',
-  providers: [ CompileService, TepuyActivityService ]
+  providers: [ CompileService ]
 })
 export class GameChallengePage {
   @ViewChild('content')
@@ -23,6 +23,7 @@ export class GameChallengePage {
   loading: boolean = true;
   challengeInfo: any;
   template: string = '<div class="container" text-center><ion-spinner name="circles"></ion-spinner></div>';
+  templateCss: string = '';
   message: string = "";
   settings: any;
   challenge: any;
@@ -30,12 +31,12 @@ export class GameChallengePage {
   private levelId: string;
   private pzStyle: any;
   private items: any;
+  private activityService: TepuyActivityService;
 
   constructor(private el: ElementRef,
       private navCtrl: NavController,
       private params: NavParams,
-      private gameDataProvider: GameDataProvider,
-      private activityService: TepuyActivityService
+      private gameDataProvider: GameDataProvider
       ) {
     this.id = params.get('id');
     this.levelId = params.get('levelId');
@@ -48,26 +49,31 @@ export class GameChallengePage {
       this.partition([4,3,3]); //4,3,3
 
       this.settings = {
-        items: this.items
+        items: this.items,
+        init: this.activityInitialized.bind(this)
       };
 
       if (data != null) {
         this.challengeInfo = data.setup;
         this.template = data.template;
+        this.templateCss = data.css;
       }
       else {
         this.exit('levelNotFound');
       }
-    });
-
-    this.activityService.on('activityVerified').subscribe(data => {
-      this.activityVerified(data);
     });
   }
 
   ionViewDidEnter(){
     this.loading = false;
     this.onResize();
+  }
+
+  activityInitialized(service) {
+    this.activityService = service;
+    this.activityService.on('activityVerified').subscribe(data => {
+      this.activityVerified(data);
+    });
   }
 
   onResize($event=null) {
@@ -91,6 +97,12 @@ export class GameChallengePage {
 
   activityVerified(result){
     console.log(result);  
+  }
+
+  verify() {
+    console.log('About to verify');
+    console.log(this.activityService);
+    this.activityService.verify();
   }
 
   restart() {
