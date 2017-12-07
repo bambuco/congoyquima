@@ -28,7 +28,6 @@ export class VideoPlayerComponent {
   }
 
   dismiss() {
-    console.log('dismissing...');
     this.viewCtrl.dismiss({}); //Any data can be passed back here
   }
 

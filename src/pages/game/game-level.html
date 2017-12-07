@@ -1,16 +1,24 @@
-<ion-content>
-  <ion-list>
-    <div ion-item *ngFor="let item of challenges | async" [ngClass]="getClass(item)">
-      {{item.label}}
+<ion-content #content>
+  <div class="content-zone" #contentZone>
+    <div *ngFor="let item of challenges | async" class="item-challenge" [ngClass]="getClass(item)" [ngStyle]="{'height.px': itemHeight}">
+      <span class="level-label">{{item.label}}</span>
+      <div *ngIf="item.unlocked" class="prize-viewer">
+        <span class="app-icon prize-{{item.prize_1}}"></span>
+        <span class="app-icon prize-{{item.prize_2}}"></span>
+        <span class="app-icon prize-{{item.prize_3}}"></span>
+      </div>
+      <button *ngIf="item.unlocked" class="app-icon game-start" (click)="play(item)"></button>
+      <button *ngIf="!item.unlocked" class="app-icon lock-xs"></button>
     </div>
-  </ion-list>  
+  </div>  
 </ion-content>
 
-<ion-footer no-padding>
+<ion-footer no-padding #footer>
   <ion-navbar text-center>
     <ion-buttons>
       <button class="app-icon help" (click)="showHelp()"></button>
-      <button class="app-icon home" (click)="goHome()"></button>
+      <button class="app-icon home" (click)="go('home')"></button>
+      <button class="app-icon exit" (click)="go('game')"></button>
     </ion-buttons>
   </ion-navbar>
 </ion-footer>

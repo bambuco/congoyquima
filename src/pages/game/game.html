@@ -1,7 +1,16 @@
-<ion-content>
-  <div ion-list>
-    <div ion-item *ngFor="let level of levels | async" (click)="openLevel(level)">
-      {{level.label}}
+<ion-content #content>
+  <div class="content-zone" #contentZone>
+    <div class="board" [ngStyle]="{'width.px':boardWidth}">
+      <div *ngFor="let item of levels | async; let i = index"
+          (click)="openLevel(item)"
+          class="level-block level-block-{{i+1}}" 
+          [ngClass]="{'unlocked': item.unlocked }" 
+          [ngStyle]="tileDimensions(item, i)" #levelItem>
+        <div class="level-progress-icon" 
+          [ngClass]="lpbCss[i].classname" 
+          [ngStyle]="lpbCss[i].style">            
+        </div>
+      </div>
     </div>
   </div>
 </ion-content>

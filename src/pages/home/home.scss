@@ -1,8 +1,6 @@
-$xl-button: 120px;
-$sm-button: 65px;
-$y-offset: 5px;
-$x-offset: 20px;
-
+/************************************************
+Home Page
+************************************************/
 page-home {
   ion-header, .header {
     background: transparent;
@@ -15,7 +13,7 @@ page-home {
     position: relative;
   }
 
-  .menu-container button {
+  .menu-container [ion-col] {
     @include animation(falling-buttons, 2s, ease-out);
     z-index: 10;
   }
@@ -28,7 +26,7 @@ page-home {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: 100% auto;
-    @include animation(clouds, 15s, linear, $iteration:infinite);
+    @include animation(clouds, 20s, linear, $iteration:infinite);
 
     @each $i in 1, 2, 3 {
       left: 5%;
@@ -38,25 +36,25 @@ page-home {
       }
     }
 
-    &:nth-child(2n+0) {
-      left: 30%;
+    &:nth-child(3n+2) {
+      left: -20%;
       @include animation-delay(0s);
     }
-    &:nth-child(3n+0) {
-      left: 60%;
-      @include animation-delay(2s);
-    }
-    &:nth-child(5n+0) {
-      left: 75%;
-      @include animation-delay(8s);
-    }
-    &:nth-child(2n+3) {
-      top: 20%;
+    &:nth-child(5n+2) {
+      left: -20%;
       @include animation-delay(4s);
     }
-    &:nth-child(3n+1) {
-      top: 15%;
-      @include animation-delay(5s);
+    &:nth-child(7n+1) {
+      left: -20%;
+      @include animation-delay(12s);
+    }
+    &:nth-child(3n+4) {
+      top: 25%;
+      @include animation-delay(6s);
+    }
+    &:nth-child(6n+2) {
+      top: 18%;
+      @include animation-delay(7s);
     }
     &:nth-child(5n+0) {
       top: 5%;
@@ -71,4 +69,7 @@ page-home {
     box-shadow:none;
   }
 
+  .flashing {
+    @include animation(flash-1, 4s, linear, $iteration:infinite);
+  }
 }

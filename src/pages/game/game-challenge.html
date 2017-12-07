@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="prize-viewer">
+      <span class="app-icon prize-{{challenge?.prize_1}}"></span>
+      <span class="app-icon prize-{{challenge?.prize_2}}"></span>
+      <span class="app-icon prize-{{challenge?.prize_3}}"></span>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [ngClass]="{'center-vertical': loading}" #content>
+  <div class="content-zone" [ngStyle]="pzStyle" #playZone (window:resize)="onResize($event)">
+    <ng-container *compile="template; context: settings;" #dynamicComponent></ng-container>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-toolbar text-center>
+    <ion-buttons>
+      <button ion-button class="app-icon game-start" (click)="restart()"></button>
+      <button ion-button class="app-icon verify" tepuy-activity-verify></button>
+      <button ion-button class="app-icon exit" (click)="dismiss()"></button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

@@ -2,7 +2,11 @@
   "levels": [
     {
       "id": 1,
-      "label": "Nivel 1",
+      "label": "1",
+      "tile": {
+        "size": [1080, 649],
+        "progress": ["l", 400, 280]
+      },
       "challenges": [
         {
           "label":"1",
@@ -68,7 +72,31 @@
     },
     {
       "id": 2,
-      "label": "Nivel 2",
+      "label": "2",
+       "tile": {
+        "size": [1080, 703],
+        "progress": ["r", 402, 280]
+      },
+      "challenges": [
+      ]
+    },
+    {
+      "id": 3,
+      "label": "3",
+      "tile": {
+        "size": [1080, 766],
+        "progress": ["l", 450, 280]
+      },
+      "challenges": [
+      ]
+    },
+    {
+      "id": 4,
+      "label": "4",
+      "tile": {
+        "size": [1080, 699],
+        "progress": ["l", 600, 300]
+      },
       "challenges": [
       ]
     }

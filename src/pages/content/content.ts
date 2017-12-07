@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, TemplateRef } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import { ImageViewerController } from 'ionic-img-viewer';
@@ -16,7 +16,16 @@ export class ContentPage {
   noContent: boolean = false;
   contents: Observable<any>;
   viewType: string;
-  private basePath:string;
+
+ @ViewChild('audios_thumb')
+  private audioThumbTpl: TemplateRef<any>;
+ @ViewChild('videos_thumb')
+  private videoThumbTpl: TemplateRef<any>;
+ @ViewChild('images_thumb')
+  private imagesThumbTpl: TemplateRef<any>;
+ @ViewChild('docs_thumb')
+  private docsThumbTpl: TemplateRef<any>;
+
 
   constructor(private navCtrl: NavController,
       private contentProvider: ContentProvider,
@@ -36,16 +45,17 @@ export class ContentPage {
     this.contents = this.contentProvider.list(this.viewType);
     this.contents.subscribe((data) => {
       this.noContent = !data.length;
-    })
+    });
   }
 
   open(content, $event) {
     if (this.viewType === 'video') {
-      this.mediaPlayer.playVideo({ path: content.path });
+      this.mediaPlayer.playVideo({ path: 'content/video/' + content.path });
     }
+
     if (this.viewType === 'audio') {
-      console.log('opening audio');
     }
+
     if (this.viewType == 'images') {
       let img = $event.currentTarget.querySelector('img');
       let imgViewer = this.imageViewerCtrl.create(img);
@@ -53,5 +63,7 @@ export class ContentPage {
     }
   }
 
-
+  viewTemplate() {
+    return this[this.viewType+'ThumbTpl'];
+  }
 }

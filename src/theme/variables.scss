@@ -36,11 +36,16 @@ $app-direction: ltr;
 $colors: (
   primary:    #488aff,
   secondary:  #32db64,
-  danger:     #f53d3d,
+  danger:     #f2674c,
   light:      #f4f4f4,
   dark:       #222,
   darkgreencustom: #3AAFA9,
-  lightgreencustom: #87CCC0
+  lightgreencustom: #87CCC0,
+  border:       #9FDA7E,
+  border-dark:  #999999,
+  fine:       #3DB77A,
+  wrong:      #F2674C,
+  neutral:    #FBB03B
 );
 
 $text-color: map-get($colors, darkgreencustom);

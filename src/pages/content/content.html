@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title center>Contenidos</ion-title>
+    <ion-title text-center>Contenidos</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -9,13 +9,30 @@
     <div ion-item *ngIf="noContent" text-wrap text-center>
       No hay contenidos disponibles en está sección
     </div>
-    <div ion-item text-wrap *ngFor="let item of contents | async" (click)="open(item, $event)">
-      <div ion-thumbnail item-start>
-        <div *ngIf="viewType!='images' && viewType!='video'" class="app-icon media-{{viewType}}"></div>
-        <img *ngIf="viewType=='images'" src="assets/content/{{viewType}}/{{item.path}}" imageViewer />
+    
+    <ng-template #audios_thumb let-item="item">
+      <div class="app-icon media-audio"></div>
+    </ng-template>
+
+    <ng-template #videos_thumb let-item="item">
+      <div class="app-icon video-over" text-center> 
         <video *ngIf="viewType=='video'" no-controls>
           <source src="assets/content/video/{{item.path}}#t=3" type="video/mp4">
         </video>
+      </div>
+    </ng-template>
+    <ng-template #images_thumb let-item="item">
+      <div class="app-icon img-frame" text-center> 
+        <img *ngIf="viewType=='images'" src="assets/content/{{viewType}}/{{item.path}}" imageViewer />
+      </div>
+    </ng-template>
+    <ng-template #docs_thumb let-item="item">
+      <div class="app-icon media-docs"></div>
+    </ng-template>
+    
+    <div ion-item text-wrap *ngFor="let item of contents | async" (click)="open(item, $event)">
+      <div ion-thumbnail item-start>
+        <ng-container *ngTemplateOutlet="viewTemplate();context: {item: item} "></ng-container>
       </div>
       <h2>{{item.title}}</h2>
       <p>{{item.description}}</p>

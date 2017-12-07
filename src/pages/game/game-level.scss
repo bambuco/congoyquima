@@ -3,11 +3,20 @@ Game Level
 ***************************************/
 
 page-game-level {
-  ion-content {
+  .content-zone {
     background-image: url('../assets/imgs/game_level_bg.png');
+    background-size: cover;
+    overflow: auto;
   }
 
-  .item-md, .item-ios {
+  ion-footer {
+    background: linear-gradient(0deg, rgba(44, 44, 44, 1) 0%, rgba(42, 42, 42, 1) 100%); 
+    opacity: 0.97;
+  }
+
+  .item-challenge {
+    width: 100%;
+    position: relative;
     font-family : Arial;
     font-weight : bold;
     font-size : 48px;
@@ -15,38 +24,51 @@ page-game-level {
     text-shadow : 6px 6px 0px rgba(0, 0, 0, 0.1);
     background-color: transparent;
 
+    &:first-child {
+      border-top: .55px solid map-get($colors, border);
+    }
+
     &.playing {
       background : linear-gradient(0deg, rgba(247, 183, 51, 1) 0%, rgba(247, 188, 49, 1) 50%, rgba(247, 209, 42, 1) 50%, rgba(247, 211, 41, 1) 100%);
       opacity: 0.95;
       color : #0D1B40;
+      border-bottom: .55px solid map-get($colors, border-dark);
     }
     &.locked {
       background : linear-gradient(0deg, rgba(44, 44, 44, 1) 0%, rgba(42, 42, 42, 1) 50%, rgba(25, 27, 27, 1) 50%, rgba(24, 26, 26, 1) 100%);
       opacity: 0.97;
+      border-bottom: .55px solid map-get($colors, border-dark);
     }
-  }
 
-  .list-ios, .list-md {
-    & > .item-block {
-      border-bottom: .55px solid #9FDA7E;
+    .game-start, .lock-xs, .level-label, .prize-viewer {
+      position: absolute;
+      top: 50%;
+    }
+    
+    .game-start {
+      transform: scale(0.85);
+      right: 5px;
+      margin-top: -36px;
+    }
 
-      .item-inner {
-        border-bottom: 0;
-      }
+    .lock-xs {
+      left: 50%;
+      margin-left: -7px;
+      margin-top: -15px;
+    }
+    
+    .level-label {
+      left: 0px;
+      margin-top: -30px;
+      width: 60px;
+      text-align: center;
+    }
 
-      &:first-child {
-        border-top: .55px solid #9FDA7E;
-      }
-      &:last-child {
-        
-      }
-
-      &.playing {
-        border-bottom: .55px solid #999999;
-      }
-      &.locked {
-        border-bottom: .55px solid #999999;
-      }
+    .prize-viewer {
+      float: left;
+      left: 65px;
+      margin-top: -20px;
+      display: inline-table;
     }
   }
 }

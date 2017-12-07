@@ -31,24 +31,33 @@ ion-content {
 }
 
 .center-vertical {
-  &.ion-grid, &[ion-grid] {
+  &.ion-grid, &[ion-grid], .container {
     height: 100%;
     justify-content: center;
   }
 }
 
+.content-zone {
+  background-size: auto 100%;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  height: 100%;
+} 
+
 /************************************************
 Application Icons
 ************************************************/
-@mixin appSpriteIcons($icon-list, $xstart, $ystart, $xoffset, $yoffset, $width, $height, $active: false){
+@mixin appSpriteIcons($icon-list, $xstart, $ystart, $xoffset, $yoffset,
+    $width, $height, $alternate: ':hover', $active: false){
   @for $i from 1 through length($icon-list){
     $name: nth($icon-list, $i);
     &.#{$name} {
       background-position: (-(($xstart + (($xoffset + $width) * ($i - 1))))) (-$ystart);
       width: $width;
       height: $height;
+      @content;
       @if $yoffset > 0 {
-        &:hover {
+        &#{$alternate} {
           background-position: (-($xstart + (($xoffset + $width) * ($i - 1)))) (-($ystart + $yoffset + $height));
         }
       }
@@ -67,48 +76,58 @@ Application Icons
   background-repeat: no-repeat;
   display: inline-block;
 
-  $menus: m-contents m-progress m-help;
-  @include appSpriteIcons($menus, 50px, 50px, 10px, 10px, 90px, 90px);
+  //Main menu Icons
+  $icons: m-progress m-help m-contents m-intro;
+  @include appSpriteIcons($icons, 50px, 50px, 10px, 10px, 90px, 90px);
 
-  $menus: m-play;
-  @include appSpriteIcons($menus, 350px, 50px, 24px, 24px, 176px, 176px);
+  $icons: m-play;
+  @include appSpriteIcons($icons, 50px, 300px, 24px, 24px, 176px, 176px);
 
-  $actions: settings tools;
-  @include appSpriteIcons($actions, 550px, 50px, 52px, 52px, 48px, 48px);
+  //General Actions
+  $icons: accept cancel game-start-alt game-start close listen repeat home back next verify help video
+    act-classify act-select act-drag act-mark act-sort no-internet progress info intro;
+  @include appSpriteIcons($icons, 50px, 750px, 30px, 30px, 70px, 70px);
 
-  $actions: close listen repeat home back next verify help;
-  @include appSpriteIcons($actions, 750px, 50px, 30px, 30px, 70px, 70px);
+  //General Actions Small icons
+  $icons: close-sm listen-sm repeat-sm home-sm back-sm next-sm verify-sm help-sm info-sm;
+  @include appSpriteIcons($icons, 1300px, 550px, 52, 52, 48px, 48px);
 
-  $actions: video;
-  @include appSpriteIcons($actions, 1750px, 50px, 30px, 30px, 70px, 70px);
+  //For settings and configuration
+  $icons: settings tools;
+  @include appSpriteIcons($icons, 1300px, 300px, 52px, 52px, 48px, 48px);
 
-  $actions: play pause;
-  @include appSpriteIcons($actions, 1850px, 50px, 27px, 27px, 73px, 73px);
+  //Contents icons
+  $icons: content-audio content-video content-images content-docs content-links exit;
+  @include appSpriteIcons($icons, 50px, 950px, 35px, 35px, 65px, 65px, $active:true);
 
-  $actions: pause accept cancel game-start-y game-start-g;
-  @include appSpriteIcons($actions, 1950px, 50px, 30px, 30px, 70px, 70px);
+  //Hover Media Icons
+  $icons: media-audio media-video media-images media-docs media-links;
+  @include appSpriteIcons($icons, 800px, 550px, 50, 0, 50px, 50px);
 
-  $actions: act-classify act-select act-drag act-mark act-sort;
-  @include appSpriteIcons($actions, 2900px, 50px, 30px, 30px, 70px, 70px);
+  //Hover General Icons
+  $icons: lock;
+  @include appSpriteIcons($icons, 1500px, 300px, 20, 0, 80px, 100px);
 
-  $actions: content-audio content-video content-images content-docs content-links;
-  @include appSpriteIcons($actions, 3400px, 50px, 35px, 35px, 65px, 65px, true);
+  $icons: lock-xs;
+  @include appSpriteIcons($icons, 1600px, 300px, 73, 0, 27px, 33px);
 
-  $actions: exit no-internet;
-  @include appSpriteIcons($actions, 3900px, 50px, 35px, 35px, 65px, 65px);
+  //Prize Icons
+  $icons: prize-good prize-excellent prize-empty;
+  @include appSpriteIcons($icons, 1700px, 300px, 57, 0, 43px, 43px);
 
-  $actions: media-audio media-video media-images media-docs media-links;
-  @include appSpriteIcons($actions, 4100px, 50px, 50, 0, 50px, 50px);
+  $icons: prize-good-xs prize-excellent-xs prize-empty-xs;
+  @include appSpriteIcons($icons, 1700px, 350px, 71, 0, 29px, 29px);
 
-  $actions: play-xs;
-  @include appSpriteIcons($actions, 4600px, 50px, 85, 0, 15px, 15px);
+  //Avatar icons
+  $icons: avatar-1 avatar-2;
+  @include appSpriteIcons($icons, 1300px, 500px, 40px, 0px, 60px, 76px);
 
-  $actions: close-xs;
-  @include appSpriteIcons($actions, 550px, 300px, 70px, 70px, 30px, 30px);
+  //Frames
+  $icons: video-over img-frame;
+  @include appSpriteIcons($icons, 250px, 300px, 57px, 0px, 93px, 91px);
 
-  $objects: quima-1 quima-2;
-  @include appSpriteIcons($actions, 1550px, 300px, 40px, 0px, 60px, 76px);
-
+  $icons: game-progress;
+  @include appSpriteIcons($icons, 550px, 300px, 57px, 0px, 78px, 81px);
 }
 /***********************************************/
 
@@ -146,6 +165,25 @@ Application Icons
 /***********************************************
   Animations
 ***********************************************/
+// https://dvcs.w3.org/hg/FXTF/raw-file/tip/filters/index.html 
+//
+// grayscale      ex: filter: grayscale(100%);
+// sepia          ex: filter: sepia(100%);
+// saturate       ex: filter: saturate(0%);
+// hue-rotate     ex: filter: hue-rotate(45deg);
+// invert         ex: filter: invert(100%);
+// brightness     ex: filter: brightness(15%);
+// contrast       ex: filter: contrast(200%);
+// blur           ex: filter: blur(2px);
+
+@mixin filter($filter-type,$filter-amount) { 
+  -webkit-filter: $filter-type+unquote('(#{$filter-amount})');
+  -moz-filter: $filter-type+unquote('(#{$filter-amount})');
+  -ms-filter: $filter-type+unquote('(#{$filter-amount})');
+  -o-filter: $filter-type+unquote('(#{$filter-amount})');
+  filter: $filter-type+unquote('(#{$filter-amount})');
+}
+
 @mixin animation-duration($duration) {
  -webkit-animation-duration: $duration;
          animation-duration: $duration;
@@ -191,21 +229,21 @@ Application Icons
 }
 
 @mixin keyframes($animation-name) {
-    @-webkit-keyframes #{$animation-name} {
-        @content;
-    }
-    @-moz-keyframes #{$animation-name} {
-        @content;
-    }  
-    @-ms-keyframes #{$animation-name} {
-        @content;
-    }
-    @-o-keyframes #{$animation-name} {
-        @content;
-    }  
-    @keyframes #{$animation-name} {
-        @content;
-    }
+  @-webkit-keyframes #{$animation-name} {
+    @content;
+  }
+  @-moz-keyframes #{$animation-name} {
+    @content;
+  }  
+  @-ms-keyframes #{$animation-name} {
+    @content;
+  }
+  @-o-keyframes #{$animation-name} {
+    @content;
+  }  
+  @keyframes #{$animation-name} {
+    @content;
+  }
 }
 
 
@@ -226,12 +264,99 @@ Application Icons
 
 @include keyframes(clouds){
   0% {
-    margin-left: -50%;
+    margin-left: -100%;
   }
   100% {
     margin-left: 100%;
   }
 }
 
+@include keyframes(flash){
+  0% { 
+    opacity: 1.0; 
+    @include scale(1);
+  }
+  50% { 
+    opacity: 0.95;
+    @include scale(.95);
+  }
+  100% { 
+    opacity: 1.0;
+    @include scale(1);
+  }
+}
 
+@include keyframes(flash-1){
+  0% { 
+    opacity: 1.0; 
+    @include scale(1);
+  }
+  12.5% { 
+    opacity: 0.9; 
+    @include scale(0.95);
+  }
+  25% { 
+    opacity: 1.0; 
+    @include scale(1);
+  }
+  37.5% { 
+    opacity: 0.9; 
+    @include scale(0.95);
+  }
+  50% { 
+    opacity: 1.0; 
+    @include scale(1);
+  }
+  100% { 
+    opacity: 1.0; 
+    @include scale(1);
+  }
+}
 
+@include keyframes(flash-2){
+  0% { 
+    @include rotate(0deg);
+    @include scale(1);
+  }
+  12.5% { 
+    @include rotate(2deg);
+    @include scale(0.95);
+  }
+  25% { 
+    @include rotate(-2deg);
+    @include scale(1);
+  }
+  37.5% { 
+    @include rotate(2deg);
+    @include scale(0.95);
+  }
+  50% { 
+    @include rotate(0deg);
+    @include scale(1);
+  }
+  100% { 
+    @include rotate(0deg);
+    @include scale(1);
+  }
+}
+
+@include keyframes(flash-3){
+  0% { 
+    @include filter(brightness, 100%);
+  }
+  12.5% { 
+    @include filter(brightness, 50%);
+  }
+  25% { 
+    @include filter(brightness, 100%);
+  }
+  37.5% { 
+    @include filter(brightness, 50%);
+  }
+  50% { 
+    @include filter(brightness, 100%);
+  }
+  100% { 
+    @include filter(brightness, 100%);
+  }
+}

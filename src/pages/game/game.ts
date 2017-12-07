@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { NavController, ViewController, ModalController } from 'ionic-angular';
+import { Component, ViewChild, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
+import { Platform, NavController, ViewController, ModalController, Content } from 'ionic-angular';
 
 import { Observable } from 'rxjs/Rx';
 import { GameDataProvider } from '../../providers/game-data';
+import { AppDataProvider } from '../../providers/app-data';
 
 import { HomePage } from '../home/home';
 import { GameLevelPage } from './game-level';
@@ -12,11 +13,27 @@ import { GameLevelPage } from './game-level';
   templateUrl: 'game.html'
 })
 export class GamePage {
-  levels: Observable<any>;
+  @ViewChild('content')
+  private contentEl: Content;
+  @ViewChild('contentZone')
+  private contentZone;
 
-  constructor(private navCtrl: NavController,
-      private modalCtrl: ModalController,
-      private gameDataProvider: GameDataProvider) {
+  levels: Observable<any>;
+  itemHeight: number;
+  boardWidth: number;
+  boardScale: number;
+  lpbCss: Array<any>;
+  litStyles: Array<any>;
+
+  constructor(
+      private platform: Platform,
+      private navCtrl: NavController,
+      private gameDataProvider: GameDataProvider,
+      private settings: AppDataProvider,
+      private renderer: Renderer2
+    ) {
+    this.lpbCss = [];
+    this.litStyles = [];
     this.levels = gameDataProvider.levels();
   }
   
@@ -24,69 +41,66 @@ export class GamePage {
     this.navCtrl.setRoot(HomePage);
   }
 
+  ionViewDidEnter() {
+    this.onResize(null);
+  }
+
+  ngAfterViewInit() {
+  }
+
+  onResize($event) {
+    let height = this.platform.height();
+    this.itemHeight = height / 5; //Make the item to use 20% of the board
+    this.renderer.setStyle(this.contentZone.nativeElement, 'height.px', this.contentEl.contentHeight);
+  }
+
   openLevel(level) {
     if (!level.unlocked) return false;
-
-    this.navCtrl.setRoot(GameLevelPage, { 'levelId': level.id });
+    this.navCtrl.setRoot(GameLevelPage, { 'id': level.id });
   }
 
   showHelp(){
 
   }
 
-  showGame(viewClass) {
-    let modal = this.modalCtrl.create(GameSampleComponent, { viewClass: viewClass });
-    modal.present();
-  }
-  
-}
+  tileDimensions(item, i){
+    let height = this.platform.height();
+    let imgHeight = item.tile.size[1] * height / 1920;
+    let scale = imgHeight / item.tile.size[1];
+    
+    if (i == 0 && !this.boardWidth) {
+      let width = Math.min(height, this.platform.width());
+      setTimeout(() => {
+        this.boardScale = 1080 / item.tile.size[1];
+        this.boardWidth = imgHeight * this.boardScale;
+      }, 1);
+    }
+    
+    let style = {
+      'transform': 'scale('+scale+')',
+      'top.px': item.tile.progress[2] * scale
+    };
+    
+    if (item.tile.progress[0] === 'l') {
+      style['left.px'] = item.tile.progress[1] * scale;
+    }
+    else {
+      style['transform-origin'] = 'right top';
+      style['right.px'] = item.tile.progress[1] * scale;
+    }
 
-@Component({
-  selector: 'mini-game',
-  templateUrl: 'game-sample.html'
-})
-export class GameSampleComponent {
-  items: Array<any>;
+    let className = item.unlocked ?
+      'level-progress-' + (i + 1) :
+      'level-lock-' + item.tile.progress[0];
 
-  constructor(private viewCtrl: ViewController) {
-    this.items = "12,34,56,3,5,9,A,E,I,U".split(',');
-    this.shuffle();
-    this.partition([4,3,3]);
-  }
-
-  isNaN(value) {
-    console.log(value + '::' + Number.isNaN(value)); // ;
-    return Number.isNaN(value);
-  }
-
-  dismiss() {
-    this.viewCtrl.dismiss({}); //Any data can be passed back here
-  }
-
-
-  shuffle() {
-    let arr: Array<any> = this.items;
-    let i = arr.length;
-    while(--i > 0) {
-      let j = Math.floor(Math.random() * (i + 1));
-      let t = arr[j];
-      arr[j] = arr[i];
-      arr[i] = t;
+    this.lpbCss.push({
+      style: style,
+      classname: className
+    });
+    
+    return {
+      'top.px': i * this.itemHeight,
+      'height.px': imgHeight
     }
   }
-
-  partition(arr: Array<any>){
-    let result = [];
-    let i = 0;    
-    for(let size in arr){
-      result[size] = [];
-      let k = 0;
-      for(; k < arr[size] && k < this.items.length; k++) {
-        result[size].push(this.items[k+i]);
-      }
-      i+=k;
-    }
-    this.items = result;
-  }
-
 }

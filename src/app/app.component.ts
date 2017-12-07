@@ -4,17 +4,25 @@ import { StatusBar } from '@ionic-native/status-bar';
 //import { SplashScreen } from '@ionic-native/splash-screen';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen';
 
+import { AppDataProvider } from '../providers/app-data';
+import { GameDataProvider } from '../providers/game-data';
+
 //import { Splash } from './splash.component';
 import { HomePage } from '../pages/home/home';
+
+
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   rootPage:any = HomePage;
 
+  //appData and GameData providers are injected here so they get preoloaded
   constructor(platform: Platform,
     private statusBar: StatusBar,
     private androidFS: AndroidFullScreen,
+    private appData: AppDataProvider, 
+    private gameData: GameDataProvider
     //private splashScreen: SplashScreen,
     //private modalCtrl: ModalController
     ) {
@@ -24,24 +32,16 @@ export class MyApp {
       }
     });
     platform.resume.subscribe(() => {
-      console.log('App resumed!');
       this.cordovaInit();
     });
   }
   
   cordovaInit() {
     //Cordova platform is ready.
-    //Hide the status bar
     this.statusBar.hide();
-    //statusBar.styleDefault();
-    //go full screen if posible
     this.androidFS.isImmersiveModeSupported()
       .then(() => this.androidFS.immersiveMode())
       .catch((error: any) => console.log(error));
-    //splashScreen.hide();
-    //let splash = modalCtrl.create(Splash);
-    //splash.present();
-    //splash.onDidDismiss(() => { this.navCtrl.setRoot(this.rootPage)});
   }
 }
 

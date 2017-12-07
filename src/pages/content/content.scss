@@ -19,15 +19,29 @@ page-content {
     width: 100%;
   }
 
-  .item ion-thumbnail, .item [ion-thumbnail] {
-    min-width: 30px;    
-    min-height: 30px;
-    img {
-        max-width: 70px;    
-        min-width: 70px;
-    }      
-    video {
-      max-width: 70px; 
+  .item-ios, .item-md {
+    &.item-block {
+      .item-inner {
+        border: 0;
+      }
+    } 
+  }
+  .item  {
+    border-bottom: solid .55px map-get($colors, border);
+
+    &:first-child {
+      border-top: solid 4px map-get($colors, border);
     }
-  }  
+
+    ion-thumbnail, [ion-thumbnail] {      
+      .img-frame, .video-over {
+        padding: 10px;
+      }      
+      .video-over > video {
+        width: 100%; 
+        height: 100%; 
+        opacity: .6;
+      }
+    }
+  }
 }

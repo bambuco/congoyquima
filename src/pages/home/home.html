@@ -9,22 +9,33 @@
 
 <ion-content>
   <button ion-button class="app-icon settings"></button>
+  <!--
   <span class="cloud cloud-1 x1"></span>
   <span class="cloud cloud-2 x2"></span>
   <span class="cloud cloud-3 x3"></span>
   <span class="cloud cloud-3 x4"></span>
   <span class="cloud cloud-1 x5"></span>
   <span class="cloud cloud-2 x6"></span>
+  <span class="cloud cloud-3 x4"></span>
+  <span class="cloud cloud-1 x5"></span>
+  <span class="cloud cloud-2 x6"></span>
+  <span class="cloud cloud-3 x4"></span>
+  <span class="cloud cloud-1 x5"></span>
+  <span class="cloud cloud-2 x6"></span>
+  <span class="cloud cloud-3 x4"></span>
+  <span class="cloud cloud-1 x5"></span>
+  <span class="cloud cloud-2 x6"></span>
+  -->
   <div ion-grid class="center-vertical menu-container">
     <div ion-row>
       <div ion-col text-center>
-        <button class="app-icon m-play" (click)="goTo('game')"></button>
+        <button class="app-icon m-play flashing" (click)="goTo('game')"></button>
       </div>
     </div>
     <div ion-row>
       <div ion-col text-center>
         <button class="app-icon m-contents" (click)="goTo('contents')"></button>
-        <button class="app-icon m-progress" (click)="goTo('progress')"></button>
+        <button class="app-icon m-intro" (click)="goTo('intro')"></button>
         <button class="app-icon m-help" (click)="goTo('help')"></button>
       </div>
     </div>
