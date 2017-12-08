@@ -1,4 +1,118 @@
 // http://ionicframework.com/docs/theming/
+//***********************************************
+// Transformation Mixins
+//***********************************************
+@mixin rotate($degrees) {
+  @include transform( rotate($degrees) );
+}
+@mixin scale($ratio) {
+  @include transform( scale($ratio) );
+}
+@mixin translate($x, $y) {
+  @include transform( translate($x, $y) );
+}
+@mixin skew($x, $y) {
+  @include transform( skew($x, $y) );
+  -webkit-backface-visibility: hidden;
+}
+@mixin translate3d($x, $y, $z) {
+  @include transform( translate3d($x, $y, $z) );
+}
+@mixin translateZ($z) {
+  @include transform( translateZ($z) );
+}
+@mixin transform($val) {
+  -webkit-transform: $val;
+  transform: $val;
+}
+
+@mixin transform-origin($left, $top) {
+  -webkit-transform-origin: $left $top;
+          transform-origin: $left $top;
+}
+///***********************************************
+//  Animations
+//***********************************************/
+// https://dvcs.w3.org/hg/FXTF/raw-file/tip/filters/index.html 
+//
+// grayscale      ex: filter: grayscale(100%);
+// sepia          ex: filter: sepia(100%);
+// saturate       ex: filter: saturate(0%);
+// hue-rotate     ex: filter: hue-rotate(45deg);
+// invert         ex: filter: invert(100%);
+// brightness     ex: filter: brightness(15%);
+// contrast       ex: filter: contrast(200%);
+// blur           ex: filter: blur(2px);
+
+@mixin filter($filter-type,$filter-amount) { 
+  -webkit-filter: $filter-type+unquote('(#{$filter-amount})');
+  -moz-filter: $filter-type+unquote('(#{$filter-amount})');
+  -ms-filter: $filter-type+unquote('(#{$filter-amount})');
+  -o-filter: $filter-type+unquote('(#{$filter-amount})');
+  filter: $filter-type+unquote('(#{$filter-amount})');
+}
+
+@mixin animation-duration($duration) {
+ -webkit-animation-duration: $duration;
+         animation-duration: $duration;
+}
+@mixin animation-direction($direction) {
+ -webkit-animation-direction: $direction;
+         animation-direction: $direction;
+}
+@mixin animation-timing-function($animation-timing) {
+ -webkit-animation-timing-function: $animation-timing;
+         animation-timing-function: $animation-timing;
+}
+@mixin animation-fill-mode($fill-mode) {
+ -webkit-animation-fill-mode: $fill-mode;
+         animation-fill-mode: $fill-mode;
+}
+@mixin animation-name($name...) {
+ -webkit-animation-name: $name;
+         animation-name: $name;
+}
+@mixin animation-delay($delay) {
+ -webkit-animation-delay: $delay;
+         animation-delay: $delay;
+}
+@mixin animation-iteration-count($count) {
+ -webkit-animation-iteration-count: $count;
+         animation-iteration-count: $count;
+}
+@mixin animation-play-state($state) {
+ -webkit-animation-play-state: $state;
+         animation-play-state: $state;
+}
+
+@mixin animation($name, $duration, $timingFn:linear, $delay:0, $iteration:1, $direction:normal, $fill-mode:none, $state:running) {
+  @include animation-name($name);
+  @include animation-duration($duration);
+  @include animation-delay($delay);
+  @include animation-direction($direction);
+  @include animation-timing-function($timingFn);
+  @include animation-iteration-count($iteration);
+  @include animation-fill-mode($fill-mode);
+  @include animation-play-state($state);
+}
+
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes #{$animation-name} {
+    @content;
+  }
+  @-moz-keyframes #{$animation-name} {
+    @content;
+  }  
+  @-ms-keyframes #{$animation-name} {
+    @content;
+  }
+  @-o-keyframes #{$animation-name} {
+    @content;
+  }  
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
 
 
 // App Global Sass
@@ -31,7 +145,7 @@ ion-content {
 }
 
 .center-vertical {
-  &.ion-grid, &[ion-grid], .container {
+  &.ion-grid, &[ion-grid], &.container {
     height: 100%;
     justify-content: center;
   }
@@ -42,6 +156,13 @@ ion-content {
   background-position: center bottom;
   background-repeat: no-repeat;
   height: 100%;
+
+  &.loading {
+    margin-left: -200%;
+  }
+  &.loaded {
+    @include animation(slide-in, .5s, linear);
+  }
 } 
 
 /************************************************
@@ -131,122 +252,9 @@ Application Icons
 }
 /***********************************************/
 
-//***********************************************
-// Transformation Mixins
-//***********************************************
-@mixin rotate($degrees) {
-  @include transform( rotate($degrees) );
-}
-@mixin scale($ratio) {
-  @include transform( scale($ratio) );
-}
-@mixin translate($x, $y) {
-  @include transform( translate($x, $y) );
-}
-@mixin skew($x, $y) {
-  @include transform( skew($x, $y) );
-  -webkit-backface-visibility: hidden;
-}
-@mixin translate3d($x, $y, $z) {
-  @include transform( translate3d($x, $y, $z) );
-}
-@mixin translateZ($z) {
-  @include transform( translateZ($z) );
-}
-@mixin transform($val) {
-  -webkit-transform: $val;
-  transform: $val;
-}
-
-@mixin transform-origin($left, $top) {
-  -webkit-transform-origin: $left $top;
-          transform-origin: $left $top;
-}
 /***********************************************
   Animations
 ***********************************************/
-// https://dvcs.w3.org/hg/FXTF/raw-file/tip/filters/index.html 
-//
-// grayscale      ex: filter: grayscale(100%);
-// sepia          ex: filter: sepia(100%);
-// saturate       ex: filter: saturate(0%);
-// hue-rotate     ex: filter: hue-rotate(45deg);
-// invert         ex: filter: invert(100%);
-// brightness     ex: filter: brightness(15%);
-// contrast       ex: filter: contrast(200%);
-// blur           ex: filter: blur(2px);
-
-@mixin filter($filter-type,$filter-amount) { 
-  -webkit-filter: $filter-type+unquote('(#{$filter-amount})');
-  -moz-filter: $filter-type+unquote('(#{$filter-amount})');
-  -ms-filter: $filter-type+unquote('(#{$filter-amount})');
-  -o-filter: $filter-type+unquote('(#{$filter-amount})');
-  filter: $filter-type+unquote('(#{$filter-amount})');
-}
-
-@mixin animation-duration($duration) {
- -webkit-animation-duration: $duration;
-         animation-duration: $duration;
-}
-@mixin animation-direction($direction) {
- -webkit-animation-direction: $direction;
-         animation-direction: $direction;
-}
-@mixin animation-timing-function($animation-timing) {
- -webkit-animation-timing-function: $animation-timing;
-         animation-timing-function: $animation-timing;
-}
-@mixin animation-fill-mode($fill-mode) {
- -webkit-animation-fill-mode: $fill-mode;
-         animation-fill-mode: $fill-mode;
-}
-@mixin animation-name($name...) {
- -webkit-animation-name: $name;
-         animation-name: $name;
-}
-@mixin animation-delay($delay) {
- -webkit-animation-delay: $delay;
-         animation-delay: $delay;
-}
-@mixin animation-iteration-count($count) {
- -webkit-animation-iteration-count: $count;
-         animation-iteration-count: $count;
-}
-@mixin animation-play-state($state) {
- -webkit-animation-play-state: $state;
-         animation-play-state: $state;
-}
-
-@mixin animation($name, $duration, $timingFn:linear, $delay:0, $iteration:1, $direction:normal, $fill-mode:none, $state:running) {
-  @include animation-name($name);
-  @include animation-duration($duration);
-  @include animation-delay($delay);
-  @include animation-direction($direction);
-  @include animation-timing-function($timingFn);
-  @include animation-iteration-count($iteration);
-  @include animation-fill-mode($fill-mode);
-  @include animation-play-state($state);
-}
-
-@mixin keyframes($animation-name) {
-  @-webkit-keyframes #{$animation-name} {
-    @content;
-  }
-  @-moz-keyframes #{$animation-name} {
-    @content;
-  }  
-  @-ms-keyframes #{$animation-name} {
-    @content;
-  }
-  @-o-keyframes #{$animation-name} {
-    @content;
-  }  
-  @keyframes #{$animation-name} {
-    @content;
-  }
-}
-
-
 @include keyframes(falling-buttons) {
   0% {
     @include translate(0, -1080px);
@@ -268,6 +276,15 @@ Application Icons
   }
   100% {
     margin-left: 100%;
+  }
+}
+
+@include keyframes(slide-in){
+  0% {
+    margin-left: -200%;
+  }
+  100% {
+    margin-left: 0;
   }
 }
 

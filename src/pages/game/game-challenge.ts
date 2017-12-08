@@ -19,7 +19,7 @@ export class GameChallengePage {
   private content: Content;
   @ViewChild('playZone')
   private playZone;
-
+  status: string = 'loading';
   loading: boolean = true;
   challengeInfo: any;
   template: string = '<div class="container" text-center><ion-spinner name="circles"></ion-spinner></div>';
@@ -66,8 +66,9 @@ export class GameChallengePage {
   }
 
   ionViewDidEnter(){
-    this.loading = false;
     this.onResize();
+    this.loading = false;
+    this.status = 'loaded';
   }
 
   onResize($event=null) {

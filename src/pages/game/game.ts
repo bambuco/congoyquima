@@ -24,6 +24,7 @@ export class GamePage {
   boardScale: number;
   lpbCss: Array<any>;
   litStyles: Array<any>;
+  status: string = 'loading';
 
   constructor(
       private platform: Platform,
@@ -43,6 +44,7 @@ export class GamePage {
 
   ionViewDidEnter() {
     this.onResize(null);
+    this.status = 'loaded';
   }
 
   ngAfterViewInit() {
