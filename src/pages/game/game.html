@@ -1,11 +1,12 @@
 <ion-content #content>
-  <div class="content-zone" #contentZone>
+  <div class="content-zone" #contentZone [ngClass]="status">
     <div class="board" [ngStyle]="{'width.px':boardWidth}">
       <div *ngFor="let item of levels | async; let i = index"
           (click)="openLevel(item)"
           class="level-block level-block-{{i+1}}" 
           [ngClass]="{'unlocked': item.unlocked }" 
           [ngStyle]="tileDimensions(item, i)" #levelItem>
+        <img *ngIf="item.unlocked" src="assets/imgs/game/levels/{{i+1}}.gif">
         <div class="level-progress-icon" 
           [ngClass]="lpbCss[i].classname" 
           [ngStyle]="lpbCss[i].style">            

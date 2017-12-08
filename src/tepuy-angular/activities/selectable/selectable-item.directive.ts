@@ -1,4 +1,4 @@
-import { Directive, Input, ElementRef, Renderer2, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Directive, Input, ContentChild, ElementRef, Renderer2, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 
 import { TepuyActivityService } from '../../activities/activity.provider';
 import { TepuySelectableService } from './selectable.provider';
@@ -10,13 +10,11 @@ import { TepuySelectableService } from './selectable.provider';
     "[class.tepuy-selected]": "selected === true" }
 })
 export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
-  //@Input('data-tepuy-group')
-  group: string;
-  //@Input('data-tepuy-correctFn')
-  correctFn: string;
-  //@Input('data-tepuy-correct')
-  correct: boolean;
+  @Input('tepuy-group') group: string;
+  @Input('tepuy-correctFn') correctFn: string;
+  @Input('tepuy-correct') correct: boolean;
 
+  valueEl: any;
   id: string;
   selected: boolean;
   done: boolean;
@@ -30,6 +28,7 @@ export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.valueEl = this.el.nativeElement.querySelector('[tepuy-item-value]');
   }
 
   ngAfterViewInit(){
@@ -37,17 +36,6 @@ export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
   }
 
   initialize() {
-    let value = this.el.nativeElement.getAttribute('data-tepuy-group');
-    this.group = value;
-    value = this.el.nativeElement.getAttribute('data-tepuy-correctFn');
-    if (/(isNumber|isLetter|isPattern)/.test(value)) {
-      this.correct = this[value]();
-    }
-    else {
-      value = this.el.nativeElement.getAttribute('data-tepuy-correct');
-      this.correct = /true/i.test(value);
-    }
-
     this.id = this.service.childId();
     //this.service.emit('itemAdded', this);
     this.service.itemAdded(this);
@@ -63,7 +51,7 @@ export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
     this.done = false;
     this.succeed = null;
   }
-
+  /*
   isNumber() {
     let value = this.value();
     return !isNaN(value);
@@ -85,7 +73,7 @@ export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
       return false;
     }
   }
-
+  */
   toggle() {    
     //toogle only if has not been resolved
     if (this.done) return;
@@ -94,7 +82,15 @@ export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
     this.service.itemChanged(this);
   }
 
-  value() {
+  get value() {
     return this.el.nativeElement.value ? this.el.nativeElement.value : this.el.nativeElement.innerText;
+  }
+  set value(val) {
+    var el = this.valueEl ? this.valueEl : this.el.nativeElement;
+    if (el.value)
+      el.value = val;
+    else {
+      el.innerText = val;
+    }
   }
 }

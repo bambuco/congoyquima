@@ -1,48 +1,17 @@
 <div ion-grid tepuy-selectable #activityComponent>
-  <div tepuy-selectable-group="1"
-      data-tepuy-type="multiple" 
+  <div tepuy-item-group
+      data-tepuy-group-id="1"
+      data-tepuy-type="multiselect" 
       data-tepuy-options-size="10"
       data-tepuy-correct-size="6"
       data-tepuy-correct-options="rangeof:0-99"
-      data-tepuy-wrong-options="rangeof:a-Z">
-    <div ion-row *ngFor="let group of items; let i = index" class="row-{{i}}">
-      <div ion-col text-center>
-        <div *ngFor="let item of group" class="seed_bag" tepuy-selectable-item data-tepuy-groupH="HH" data-tepuy-groupF="FFF" data-tepuy-group="1" data-tepuy-correctFn="isNumber">
-          <span>{{item}}</span> 
+      data-tepuy-wrong-options="rangeof:a-Z">    
+    <div ion-row *ngFor="let group of [4, 3, 3]; let i = index" class="row-{{i}}">
+      <div text-center>
+        <div *tepuyRepeat="group" class="seed_bag" tepuy-selectable-item data-tepuy-group="1">
+          <span class="" tepuy-item-value></span> 
         </div>
       </div>
     </div>
   </div>
 </div>
-
-<!--
-
-  <div ion-grid tepuy-selectable>
-  <div ion-row class="row-1">    
-    <div ion-col text-center>
-      <div class="seed_bag" tepuy-selectable-item data-tepuy-group="1"
-          data-tepuy-correctFn="isNumber">
-        <span tepuy-random-item>{{item}}</span> 
-      </div>
-    </div>
-  </div>
-  <div ion-row class="row-2">
-    <div ion-col text-center>
-      <div class="seed_bag" tepuy-selectable-item data-tepuy-group="1"
-          data-tepuy-correctFn="isNumber">
-        <span>{{item}}</span> 
-      </div>
-    </div>
-  </div>
-  <div ion-row class="row-3">
-    <div ion-col text-center>
-      <div class="seed_bag" tepuy-selectable-item data-tepuy-group="1"
-          data-tepuy-correctFn="isNumber">
-        <span>{{items[]}}</span> 
-      </div>
-    </div>
-  </div>
-</div>
-<button ion-button class="app-icon verify" tepuy-activity-verify></button>
-
--->

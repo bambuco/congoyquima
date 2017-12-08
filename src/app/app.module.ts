@@ -27,7 +27,7 @@ import { ProgressPage } from '../pages/progress/progress';
 
 import { HelpComponent } from '../components/help/help';
 import { VideoPlayerComponent } from '../components/video-player/video-player';
-import { CompileDirective, CompileService } from '../directives/compile.directive';
+import { CompileDirective } from '../directives/compile.directive';
 
 import { ContentProvider } from '../providers/content';
 import { GameDataProvider } from '../providers/game-data';
@@ -88,7 +88,6 @@ import { MediaPlayer } from '../providers/media-player';
     //MobileAccessibility,
     //File,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    CompileService,
     ContentProvider,    
     GameDataProvider,
     AppDataProvider,

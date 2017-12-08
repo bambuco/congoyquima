@@ -1,31 +1,12 @@
 import {
   Compiler, NgModule, Component, Input, ComponentRef, Directive, 
-  ModuleWithComponentFactories, OnChanges, Type, Output,
-  ViewContainerRef, EventEmitter, Injectable, ViewEncapsulation
+  ModuleWithComponentFactories, OnChanges, Type,
+  ViewContainerRef, ViewEncapsulation
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from 'ionic-angular';
 import { TepuyModule } from '../tepuy-angular/tepuy.module';
 
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-
-
-@Injectable()
-export class CompileService {
-  private emitter:ReplaySubject<any> = new ReplaySubject<any>();
-  
-  constructor(){
-
-  }
-
-  completed(ref) {
-    this.emitter.next(ref);
-  }
-
-  onComplete() {
-    return this.emitter.asObservable();
-  }
-}
 
 @Directive({
   selector: '[compile]'

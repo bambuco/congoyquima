@@ -1,136 +1,4 @@
 // http://ionicframework.com/docs/theming/
-
-
-// App Global Sass
-// --------------------------------------------------
-// Put style rules here that you want to apply globally. These
-// styles are for the entire app and not just one component.
-// Additionally, this file can be also used as an entry point
-// to import other Sass files to be included in the output CSS.
-//
-// Shared Sass variables, which can be used to adjust Ionic's
-// default Sass variables, belong in "theme/variables.scss".
-//
-// To declare rules for a specific mode, create a child rule
-// for the .md, .ios, or .wp mode classes. The mode class is
-// automatically applied to the <body> element in the app.
-
-/************************************************
-Application General
-************************************************/
-
-ion-content {
-  background-image: url('../assets/imgs/app_bg.png');
-  background-size: cover;
-  height: 100%;
-  background-position: bottom;
-}
-
-.header-md:after, .footer-md:before {
-  background-image: none;
-}
-
-.center-vertical {
-  &.ion-grid, &[ion-grid], .container {
-    height: 100%;
-    justify-content: center;
-  }
-}
-
-.content-zone {
-  background-size: auto 100%;
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  height: 100%;
-} 
-
-/************************************************
-Application Icons
-************************************************/
-@mixin appSpriteIcons($icon-list, $xstart, $ystart, $xoffset, $yoffset,
-    $width, $height, $alternate: ':hover', $active: false){
-  @for $i from 1 through length($icon-list){
-    $name: nth($icon-list, $i);
-    &.#{$name} {
-      background-position: (-(($xstart + (($xoffset + $width) * ($i - 1))))) (-$ystart);
-      width: $width;
-      height: $height;
-      @content;
-      @if $yoffset > 0 {
-        &#{$alternate} {
-          background-position: (-($xstart + (($xoffset + $width) * ($i - 1)))) (-($ystart + $yoffset + $height));
-        }
-      }
-      @if ($active) {
-          &.active {
-            background-position: (-($xstart + (($xoffset + $width) * ($i - 1)))) (-($ystart + 2*($yoffset + $height)));
-          }
-      }
-    }
-  }
-}
-
-.app-icon {
-  background-image: url('../assets/imgs/icons.png');
-  background-color: transparent;
-  background-repeat: no-repeat;
-  display: inline-block;
-
-  //Main menu Icons
-  $icons: m-progress m-help m-contents m-intro;
-  @include appSpriteIcons($icons, 50px, 50px, 10px, 10px, 90px, 90px);
-
-  $icons: m-play;
-  @include appSpriteIcons($icons, 50px, 300px, 24px, 24px, 176px, 176px);
-
-  //General Actions
-  $icons: accept cancel game-start-alt game-start close listen repeat home back next verify help video
-    act-classify act-select act-drag act-mark act-sort no-internet progress info intro;
-  @include appSpriteIcons($icons, 50px, 750px, 30px, 30px, 70px, 70px);
-
-  //General Actions Small icons
-  $icons: close-sm listen-sm repeat-sm home-sm back-sm next-sm verify-sm help-sm info-sm;
-  @include appSpriteIcons($icons, 1300px, 550px, 52, 52, 48px, 48px);
-
-  //For settings and configuration
-  $icons: settings tools;
-  @include appSpriteIcons($icons, 1300px, 300px, 52px, 52px, 48px, 48px);
-
-  //Contents icons
-  $icons: content-audio content-video content-images content-docs content-links exit;
-  @include appSpriteIcons($icons, 50px, 950px, 35px, 35px, 65px, 65px, $active:true);
-
-  //Hover Media Icons
-  $icons: media-audio media-video media-images media-docs media-links;
-  @include appSpriteIcons($icons, 800px, 550px, 50, 0, 50px, 50px);
-
-  //Hover General Icons
-  $icons: lock;
-  @include appSpriteIcons($icons, 1500px, 300px, 20, 0, 80px, 100px);
-
-  $icons: lock-xs;
-  @include appSpriteIcons($icons, 1600px, 300px, 73, 0, 27px, 33px);
-
-  //Prize Icons
-  $icons: prize-good prize-excellent prize-empty;
-  @include appSpriteIcons($icons, 1700px, 300px, 57, 0, 43px, 43px);
-
-  $icons: prize-good-xs prize-excellent-xs prize-empty-xs;
-  @include appSpriteIcons($icons, 1700px, 350px, 71, 0, 29px, 29px);
-
-  //Avatar icons
-  $icons: avatar-1 avatar-2;
-  @include appSpriteIcons($icons, 1300px, 500px, 40px, 0px, 60px, 76px);
-
-  //Frames
-  $icons: video-over img-frame;
-  @include appSpriteIcons($icons, 250px, 300px, 57px, 0px, 93px, 91px);
-
-  $icons: game-progress;
-  @include appSpriteIcons($icons, 550px, 300px, 57px, 0px, 78px, 81px);
-}
-/***********************************************/
-
 //***********************************************
 // Transformation Mixins
 //***********************************************
@@ -162,9 +30,9 @@ Application Icons
   -webkit-transform-origin: $left $top;
           transform-origin: $left $top;
 }
-/***********************************************
-  Animations
-***********************************************/
+///***********************************************
+//  Animations
+//***********************************************/
 // https://dvcs.w3.org/hg/FXTF/raw-file/tip/filters/index.html 
 //
 // grayscale      ex: filter: grayscale(100%);
@@ -247,6 +115,146 @@ Application Icons
 }
 
 
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+/************************************************
+Application General
+************************************************/
+
+ion-content {
+  background-image: url('../assets/imgs/app_bg.png');
+  background-size: cover;
+  height: 100%;
+  background-position: bottom;
+}
+
+.header-md:after, .footer-md:before {
+  background-image: none;
+}
+
+.center-vertical {
+  &.ion-grid, &[ion-grid], &.container {
+    height: 100%;
+    justify-content: center;
+  }
+}
+
+.content-zone {
+  background-size: auto 100%;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  height: 100%;
+
+  &.loading {
+    margin-left: -200%;
+  }
+  &.loaded {
+    @include animation(slide-in, .5s, linear);
+  }
+} 
+
+/************************************************
+Application Icons
+************************************************/
+@mixin appSpriteIcons($icon-list, $xstart, $ystart, $xoffset, $yoffset,
+    $width, $height, $alternate: '[disabled]', $active: false){
+  @for $i from 1 through length($icon-list){
+    $name: nth($icon-list, $i);
+    &.#{$name} {
+      background-position: (-(($xstart + (($xoffset + $width) * ($i - 1))))) (-$ystart);
+      width: $width;
+      height: $height;
+      @content;
+      @if $yoffset > 0 {
+        &#{$alternate} {
+          background-position: (-($xstart + (($xoffset + $width) * ($i - 1)))) (-($ystart + $yoffset + $height));
+        }
+      }
+      @if ($active) {
+          &.active {
+            background-position: (-($xstart + (($xoffset + $width) * ($i - 1)))) (-($ystart + 2*($yoffset + $height)));
+          }
+      }
+    }
+  }
+}
+
+.app-icon {
+  background-image: url('../assets/imgs/icons.png');
+  background-color: transparent;
+  background-repeat: no-repeat;
+  display: inline-block;
+
+  //Main menu Icons
+  $icons: m-progress m-help m-contents m-intro;
+  @include appSpriteIcons($icons, 50px, 50px, 10px, 10px, 90px, 90px);
+
+  $icons: m-play;
+  @include appSpriteIcons($icons, 50px, 300px, 24px, 24px, 176px, 176px);
+
+  //General Actions
+  $icons: accept cancel game-start-alt game-start close listen repeat home back next verify help video
+    act-classify act-select act-drag act-mark act-sort no-internet progress info intro;
+  @include appSpriteIcons($icons, 50px, 750px, 30px, 30px, 70px, 70px);
+
+  //General Actions Small icons
+  $icons: close-sm listen-sm repeat-sm home-sm back-sm next-sm verify-sm help-sm info-sm;
+  @include appSpriteIcons($icons, 1300px, 550px, 52, 52, 48px, 48px);
+
+  //For settings and configuration
+  $icons: settings tools;
+  @include appSpriteIcons($icons, 1300px, 300px, 52px, 52px, 48px, 48px);
+
+  //Contents icons
+  $icons: content-audio content-video content-images content-docs content-links exit;
+  @include appSpriteIcons($icons, 50px, 950px, 35px, 35px, 65px, 65px, $active:true);
+
+  //Hover Media Icons
+  $icons: media-audio media-video media-images media-docs media-links;
+  @include appSpriteIcons($icons, 800px, 550px, 50, 0, 50px, 50px);
+
+  //Hover General Icons
+  $icons: lock;
+  @include appSpriteIcons($icons, 1500px, 300px, 20, 0, 80px, 100px);
+
+  $icons: lock-xs;
+  @include appSpriteIcons($icons, 1600px, 300px, 73, 0, 27px, 33px);
+
+  //Prize Icons
+  $icons: prize-good prize-excellent prize-empty;
+  @include appSpriteIcons($icons, 1700px, 300px, 57, 0, 43px, 43px);
+
+  $icons: prize-good-xs prize-excellent-xs prize-empty-xs;
+  @include appSpriteIcons($icons, 1700px, 350px, 71, 0, 29px, 29px);
+
+  //Avatar icons
+  $icons: avatar-1 avatar-2;
+  @include appSpriteIcons($icons, 1300px, 500px, 40px, 0px, 60px, 76px);
+
+  //Frames
+  $icons: video-over img-frame;
+  @include appSpriteIcons($icons, 250px, 300px, 57px, 0px, 93px, 91px);
+
+  $icons: game-progress;
+  @include appSpriteIcons($icons, 550px, 300px, 57px, 0px, 78px, 81px);
+}
+/***********************************************/
+
+/***********************************************
+  Animations
+***********************************************/
 @include keyframes(falling-buttons) {
   0% {
     @include translate(0, -1080px);
@@ -268,6 +276,15 @@ Application Icons
   }
   100% {
     margin-left: 100%;
+  }
+}
+
+@include keyframes(slide-in){
+  0% {
+    margin-left: -200%;
+  }
+  100% {
+    margin-left: 0;
   }
 }
 

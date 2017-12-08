@@ -3,7 +3,6 @@ import { NavController, NavParams, ModalController, Content } from 'ionic-angula
 import { TepuyActivityService } from '../../tepuy-angular/activities/activity.provider';
 import { TepuySelectableService } from '../../tepuy-angular/activities/selectable/selectable.provider';
 import { TepuySelectableComponent } from '../../tepuy-angular/activities/selectable/selectable.component';
-import { CompileService } from '../../directives/compile.directive';
 
 import { GameDataProvider } from '../../providers/game-data';
 import { HomePage } from '../home/home';
@@ -12,14 +11,14 @@ import { GameLevelPage } from '../game/game-level';
 @Component({
   selector: 'page-game-challenge',
   templateUrl: 'game-challenge.html',
-  providers: [ CompileService ]
+  providers: [ ]
 })
 export class GameChallengePage {
   @ViewChild('content')
   private content: Content;
   @ViewChild('playZone')
   private playZone;
-
+  status: string = 'loading';
   loading: boolean = true;
   challengeInfo: any;
   template: string = '<div class="container" text-center><ion-spinner name="circles"></ion-spinner></div>';
@@ -27,11 +26,14 @@ export class GameChallengePage {
   message: string = "";
   settings: any;
   challenge: any;
+
   private id: string;
   private levelId: string;
   private pzStyle: any;
   private items: any;
   private activityService: TepuyActivityService;
+  private canVerify: boolean = false;
+  private canPlayAgain: boolean = false;
 
   constructor(private el: ElementRef,
       private navCtrl: NavController,
@@ -44,12 +46,12 @@ export class GameChallengePage {
     gameDataProvider.getChallenge(this.id, this.levelId).subscribe(data => {
       this.challenge = data.setup;
 
-      this.items = "12,56,3,5,9,A,E,34,I,U".split(',');
-      this.shuffle();
-      this.partition([4,3,3]); //4,3,3
+      //this.items = "12,56,3,5,9,A,E,34,I,U".split(',');
+      //this.shuffle();
+      //this.partition([4,3,3]); //4,3,3
 
       this.settings = {
-        items: this.items,
+        //items: this.items,
         init: this.activityInitialized.bind(this)
       };
 
@@ -65,8 +67,10 @@ export class GameChallengePage {
   }
 
   ionViewDidEnter(){
-    this.loading = false;
     this.onResize();
+    this.loading = false;
+    this.status = 'loaded';
+    console.log('loaded');
   }
 
   activityInitialized(service) {
@@ -74,6 +78,7 @@ export class GameChallengePage {
     this.activityService.on('activityVerified').subscribe(data => {
       this.activityVerified(data);
     });
+    this.canVerify = true;
   }
 
   onResize($event=null) {
@@ -92,23 +97,25 @@ export class GameChallengePage {
   }
 
   tepuyComponentReady($event){
-
+    console.log('component ready');
   }
 
   activityVerified(result){
-    console.log(result);  
+    //Need to show feedback;
+    this.canPlayAgain = true;
   }
 
   verify() {
-    console.log('About to verify');
-    console.log(this.activityService);
     this.activityService.verify();
+    this.canVerify = false;
   }
 
   restart() {
     this.activityService.restart();
+    this.canPlayAgain = false;
+    this.canVerify = true;
   }
-
+  /*
   shuffle() {
     let arr: Array<any> = this.items;
     let i = arr.length;
@@ -132,5 +139,5 @@ export class GameChallengePage {
       i+=k;
     }
     this.items = result;
-  }
+  }*/
 }

@@ -12,6 +12,7 @@
           "label":"1",
           "type": "tepuy-selectable",
           "parameters": {
+            "items": "range-of:0-99"
           }
         },
         {

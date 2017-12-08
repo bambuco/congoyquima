@@ -31,6 +31,13 @@ page-game {
       background-image: url(../assets/imgs/game/levels/#{$i}.png);
       &.unlocked {
         background-image: url(../assets/imgs/game/levels/#{$i}_color.png);
+        img {
+          position:absolute;
+          top:0;
+          left:0;
+          width: 100%;
+          height: 100%;
+        }
       }
     }
   }

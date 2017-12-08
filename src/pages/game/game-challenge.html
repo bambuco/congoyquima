@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar text-center>
     <div class="prize-viewer">
       <span class="app-icon prize-{{challenge?.prize_1}}"></span>
       <span class="app-icon prize-{{challenge?.prize_2}}"></span>
@@ -9,15 +9,19 @@
 </ion-header>
 
 <ion-content [ngClass]="{'center-vertical': loading}" #content>
-  <div class="content-zone" [ngStyle]="pzStyle" #playZone (window:resize)="onResize($event)">
+  <div class="content-zone" [ngClass]="status" [ngStyle]="pzStyle" #playZone (window:resize)="onResize($event)">
     <ng-container *compile="template; css: templateCss; context: settings;" #dynamicComponent></ng-container>
-  </div>
+    <div class="feedback">
+    </div>
+  </div>  
 </ion-content>
 <ion-footer>
   <ion-toolbar text-center>
     <ion-buttons>
-      <button ion-button class="app-icon game-start" (click)="restart()"></button>
-      <button ion-button class="app-icon verify" (click)="verify()"></button>
+      <button ion-button class="app-icon game-start" (click)="restart()" *ngIf="canPlayAgain"></button>
+      <button ion-button class="app-icon listen" (click)="listen()" *ngIf="!canPlayAgain"></button>
+      <button ion-button class="app-icon verify" (click)="verify()" [disabled]="!canVerify"></button>
+      <button ion-button class="app-icon help" (click)="showHelp()"></button>
       <button ion-button class="app-icon exit" (click)="dismiss()"></button>
     </ion-buttons>
   </ion-toolbar>

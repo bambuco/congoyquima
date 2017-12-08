@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 //General directives
 import { TepuyRandomDirective } from './directives/random.directive';
+import { TepuyRepeatDirective } from './directives/repeat.directive';
 import { TepuyTemplateCompileDirective } from './directives/template-compiler.directive';
 import { TepuyActivityVerifyDirective } from './directives/activity-verify.directive';
 //Activity components
@@ -22,6 +23,7 @@ import { TepuyUtils } from './tepuy-utils';
   imports: [CommonModule],
   declarations: [
     TepuyRandomDirective,
+    TepuyRepeatDirective,
     TepuyTemplateCompileDirective,
     TepuyActivityVerifyDirective,
     TepuySelectableComponent,
@@ -33,11 +35,12 @@ import { TepuyUtils } from './tepuy-utils';
   ],
   exports: [
     TepuyRandomDirective,
+    TepuyRepeatDirective,
     TepuyTemplateCompileDirective,
     TepuyActivityVerifyDirective,
     TepuySelectableComponent,
     TepuySelectableGroupDirective,
-    TepuySelectableItemDirective
+    TepuySelectableItemDirective,
   ],
   providers: [
     TepuyActivityService, TepuyErrorProvider
