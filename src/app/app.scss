@@ -233,10 +233,10 @@ Application Icons
   @include appSpriteIcons($icons, 1600px, 300px, 73, 0, 27px, 33px);
 
   //Prize Icons
-  $icons: prize-good prize-excellent prize-empty;
+  $icons: prize-good prize-great prize-empty;
   @include appSpriteIcons($icons, 1700px, 300px, 57, 0, 43px, 43px);
 
-  $icons: prize-good-xs prize-excellent-xs prize-empty-xs;
+  $icons: prize-good-xs prize-great-xs prize-empty-xs;
   @include appSpriteIcons($icons, 1700px, 350px, 71, 0, 29px, 29px);
 
   //Avatar icons

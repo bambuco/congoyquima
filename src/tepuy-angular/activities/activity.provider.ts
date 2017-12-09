@@ -1,21 +1,21 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Observable } from 'rxjs/Observable';
 
-import { TepuyUtils } from '../tepuy-utils';
+import { TepuyErrorProvider, Errors } from '../providers/error.provider';
 
 @Injectable()
 export class TepuyActivityService {
   protected id: string;
   protected observers: any = {};
+  protected minScore: number = 0.7;
 
 
   ACTIVITY_VERIFIED = 'activityVerified';
   ACTIVITY_RESET = 'activityReset';
   ACTIVITY_REQUESTED = 'verifyRequested';
 
-  constructor() {
+  constructor(protected errorProvider: TepuyErrorProvider) {
     this.registerEvent(this.ACTIVITY_VERIFIED);
     this.registerEvent(this.ACTIVITY_REQUESTED);
     this.registerEvent(this.ACTIVITY_RESET);
@@ -24,6 +24,15 @@ export class TepuyActivityService {
   childId() {
     return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
   }
+  /**
+   * Mininum score required to win the activity.
+   * @value {event} {id: activityId, score: the score for the activity }
+   */  
+  set winScore(value) {
+    if (value < 0 || value > 1) this.errorProvider.raise(Errors.InvalidWinScore);
+    this.minScore = value;
+  }
+
   /**
    * Evaluates the result of the activity.
    * @emit {event} {id: activityId, score: the score for the activity }
@@ -45,7 +54,7 @@ export class TepuyActivityService {
    * returns observable for subscription
    */  
   on(eventName: string): Observable<any> {
-    if (!(eventName in this.observers)) throw Error('No event emitter registered for: ' + eventName);
+    if (!(eventName in this.observers)) this.errorProvider.raise(Errors.EventEmitterNotRegistered);
     return this.observers[eventName];
   }
 
@@ -54,7 +63,7 @@ export class TepuyActivityService {
    * @emit {event} {id: activityId, score: the score for the activity }
    */  
   emit(eventName:string, eventData?:any) {
-    if (!(eventName in this.observers)) throw Error('No event emitter registered for: ' + eventName);
+    if (!(eventName in this.observers)) this.errorProvider.raise(Errors.EventEmitterNotRegistered);
     this.observers[eventName].next(eventData);
   }
 

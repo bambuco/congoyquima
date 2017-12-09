@@ -5,7 +5,7 @@ import { TepuySelectableService } from './selectable.provider';
 
 @Directive({ 
   selector: '[tepuy-selectable-item]',
-  host: { "(click)": "toggle($event)", "[class.tepuy-fine]" : "succeed === true",
+  host: { "(click)": "toggle($event)", "[class.tepuy-good]" : "succeed === true",
     "[class.tepuy-wrong]": "succeed === false",
     "[class.tepuy-selected]": "selected === true" }
 })
@@ -28,7 +28,8 @@ export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.valueEl = this.el.nativeElement.querySelector('[tepuy-item-value]');
+    let el = this.el.nativeElement.querySelector('[tepuy-item-value]');
+    this.valueEl = el || this.el.nativeElement;
   }
 
   ngAfterViewInit(){
@@ -51,29 +52,7 @@ export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
     this.done = false;
     this.succeed = null;
   }
-  /*
-  isNumber() {
-    let value = this.value();
-    return !isNaN(value);
-  }
 
-  isLetter() {
-    let value = this.value();
-    return /a-zA-Z/.test(value);
-  }
-
-  isPattern(pattern) {
-    let value = this.value();
-    try {
-      var re = RegExp(pattern);
-      return re.test(value);
-    }
-    catch(err) {
-      this.renderer.setAttribute(this.el.nativeElement, "data-tepuy-correct-error", 'invalid regex pattern');
-      return false;
-    }
-  }
-  */
   toggle() {    
     //toogle only if has not been resolved
     if (this.done) return;
@@ -83,14 +62,15 @@ export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
   }
 
   get value() {
-    return this.el.nativeElement.value ? this.el.nativeElement.value : this.el.nativeElement.innerText;
+    //return this.el.nativeElement.value ? this.el.nativeElement.value : this.el.nativeElement.innerText;
+    return ('value' in this.valueEl) ? this.valueEl.value : this.valueEl.innerText;
   }
   set value(val) {
-    var el = this.valueEl ? this.valueEl : this.el.nativeElement;
-    if (el.value)
-      el.value = val;
+    //var el = this.valueEl ? this.valueEl : this.el.nativeElement;
+    if (this.valueEl.value)
+      this.valueEl.value = val;
     else {
-      el.innerText = val;
+      this.valueEl.innerText = val;
     }
   }
 }

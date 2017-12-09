@@ -11,18 +11,19 @@
 <ion-content [ngClass]="{'center-vertical': loading}" #content>
   <div class="content-zone" [ngClass]="status" [ngStyle]="pzStyle" #playZone (window:resize)="onResize($event)">
     <ng-container *compile="template; css: templateCss; context: settings;" #dynamicComponent></ng-container>
-    <div class="feedback">
+    <div class="feedback" text-center *ngIf="challengeResult != ''">
+      <img src="assets/imgs/game/feedback/ch_r_{{challengeResult}}.gif"/>
     </div>
   </div>  
 </ion-content>
 <ion-footer>
   <ion-toolbar text-center>
     <ion-buttons>
-      <button ion-button class="app-icon game-start" (click)="restart()" *ngIf="canPlayAgain"></button>
-      <button ion-button class="app-icon listen" (click)="listen()" *ngIf="!canPlayAgain"></button>
-      <button ion-button class="app-icon verify" (click)="verify()" [disabled]="!canVerify"></button>
-      <button ion-button class="app-icon help" (click)="showHelp()"></button>
       <button ion-button class="app-icon exit" (click)="dismiss()"></button>
+      <button ion-button class="app-icon act-select" (click)="showHelp()"></button>
+      <button ion-button class="app-icon listen" (click)="listen()"></button>
+      <button ion-button class="app-icon verify" (click)="verify()" *ngIf="canVerify"></button>
+      <button ion-button class="app-icon game-start" (click)="restart()" *ngIf="canPlayAgain"></button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>

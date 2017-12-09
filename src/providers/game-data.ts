@@ -79,13 +79,13 @@ export class GameDataProvider {
                 let challengeState = state.challenges[i];
                 challenge['prize_1'] = challenge['prize_2'] = challenge['prize_3'] = 'empty';
                 for(let k = 1; k <= challengeState.topScores.length && k <= 3; k++) {
-                  challenge['prize_'+k] = challengeState.topScores[k-1] == 1 ? 'excellent' : 'good';
+                  challenge['prize_'+k] = challengeState.topScores[k-1] == 1 ? 'great' : 'good';
                 }
               }
             }
+            level.prepared = true;
             observer.next(level);
             observer.complete();
-            level.prepared = true;
           });
         }
         else {
@@ -104,12 +104,14 @@ export class GameDataProvider {
     return Observable.create(observer => {
       Observable.forkJoin([
         this.getLevel(levelId),
-        this.http.get('assets/game/level_'+levelId+'/challenge_'+id+'.html', httpOptions),
-        this.http.get('assets/game/level_'+levelId+'/challenge_'+id+'.css', httpOptions).catch(error => {
+        this.http.get('assets/game/l_'+levelId+'/ch_'+id+'.html', httpOptions),
+        this.http.get('assets/game/l_'+levelId+'/ch_'+id+'.css', httpOptions).catch(error => {
           return Observable.of('');
         })
       ]).subscribe(data => {
         let challengeInfo = {
+          id: id,
+          levelId: levelId,
           setup: data[0].challenges[id-1],
           template: data[1],
           css: data[2]
@@ -119,6 +121,41 @@ export class GameDataProvider {
         observer.complete();
       });
     });    
+  }
+
+  registerScore(challenge, score, success) {
+    return Observable.create(observer => {
+      this.storage.get(level_state_key.replace('$id', challenge.levelId)).then((state:LevelState) => {
+        const chId = parseInt(challenge.id) - 1;
+        if (state == null) state = new LevelState();
+        if (!state.challenges[chId]) state.challenges[chId] = new ChallengeState();
+
+        let chState = state.challenges[chId];
+
+        chState.scores.push(score);
+        if (success) {
+          const i = chState.topScores.findIndex((value) => {
+            return value < score;
+          });
+          if (i >= 0) {
+            chState.topScores.splice(i, 0, score);
+            chState.topScores.splice(3);
+          }
+          else if (chState.topScores.length < 3) {
+            chState.topScores.push(score);
+          }
+        }
+
+        this.storage.set(level_state_key.replace('$id', challenge.levelId), state);
+        observer.next(state);
+        observer.complete();
+      })
+      .catch(reasong => {
+        console.log('ERROR: Unable to get storage for ' + challenge.id);
+        observer.next(null);
+        observer.complete();
+      })
+    });
   }
 }
 export { GameState, LevelState, ChallengeState }

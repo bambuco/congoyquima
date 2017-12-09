@@ -1,19 +1,17 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
 
 import { TepuyActivityService } from '../activity.provider';
 import { TepuyUtils } from '../../tepuy-utils';
+import { TepuyErrorProvider } from '../../providers/error.provider';
 //import { TepuyActivityService } from '../activity/activity.provider';
 
 @Injectable()
 export class TepuySelectableService extends TepuyActivityService {
-  private itemCount: number = 0;
   private items: Array<any> = [];
   private groups: Array<any> = [];
 
-  constructor() {
-    super();
+  constructor(protected errorProvider: TepuyErrorProvider) {
+    super(errorProvider);
     //Register required events
     this.registerEvent('itemAdded');
     this.registerEvent('itemChanged');
@@ -37,16 +35,23 @@ export class TepuySelectableService extends TepuyActivityService {
    * @emit {event} {id: activityId, score: the score for the activity }
    */  
   verify() {
-    let right = 0;
-    let expected = 0;
+    let good = 0;
+    let total = 0;
     for(let item of this.items) {
-      let val = item.el.nativeElement.innerText;
       item.succeed = (item.correct && item.selected);
       item.done = true;
-      expected += TepuyUtils.bValue(item.correct) + TepuyUtils.bValue((!item.correct && item.selected));
-      right += TepuyUtils.bValue(item.succeed);
+      total += TepuyUtils.bValue(item.correct) + TepuyUtils.bValue((!item.correct && item.selected));
+      good += TepuyUtils.bValue(item.succeed);
     }
-    this.emit('activityVerified', { id: this.id, score: ( right / expected ) })
+    const score = (good / total);
+    const rate = score == 1 ? 'great' : score >= this.minScore ? 'good' : 'wrong';
+    this.emit('activityVerified', { 
+      id: this.id, 
+      score: score,
+      rate: rate,
+      success: score >= this.minScore
+    });
+
     //(las correctas marcadas) / (las que deben ser marcadas + las marcadas incorrectas) * 100;
   }
 }

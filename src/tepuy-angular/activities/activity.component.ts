@@ -10,8 +10,8 @@ import { TepuyActivityService } from './activity.provider';
   host: { '[class.tepuy-completed]': 'isComplete', '[class.tepuy-success]': 'isComplete && isSuccess', '[class.tepuy-failure]': 'isComplete && !isSuccess' }
 })
 export class TepuyActivityComponent implements OnInit {
-  @Input('data-activity-id') activityId: string;
-  @Input('data-win-score') minScore: number;
+  @Input('tepuy-activity-id') activityId: string;
+  @Input('tepuy-win-score') minScore: number;
 
   isComplete: boolean = false;
   isSuccess: boolean = false;

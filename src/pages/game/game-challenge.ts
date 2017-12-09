@@ -5,8 +5,10 @@ import { TepuySelectableService } from '../../tepuy-angular/activities/selectabl
 import { TepuySelectableComponent } from '../../tepuy-angular/activities/selectable/selectable.component';
 
 import { GameDataProvider } from '../../providers/game-data';
-import { HomePage } from '../home/home';
+import { MediaPlayer } from '../../providers/media-player';
+
 import { GameLevelPage } from '../game/game-level';
+
 
 @Component({
   selector: 'page-game-challenge',
@@ -18,14 +20,17 @@ export class GameChallengePage {
   private content: Content;
   @ViewChild('playZone')
   private playZone;
+
   status: string = 'loading';
   loading: boolean = true;
-  challengeInfo: any;
+  challenge: any;
   template: string = '<div class="container" text-center><ion-spinner name="circles"></ion-spinner></div>';
   templateCss: string = '';
   message: string = "";
   settings: any;
-  challenge: any;
+  challengeResult: string = '';
+
+
 
   private id: string;
   private levelId: string;
@@ -38,25 +43,19 @@ export class GameChallengePage {
   constructor(private el: ElementRef,
       private navCtrl: NavController,
       private params: NavParams,
-      private gameDataProvider: GameDataProvider
+      private gameDataProvider: GameDataProvider,
+      private mediaPlayer: MediaPlayer
       ) {
     this.id = params.get('id');
     this.levelId = params.get('levelId');
 
     gameDataProvider.getChallenge(this.id, this.levelId).subscribe(data => {
-      this.challenge = data.setup;
-
-      //this.items = "12,56,3,5,9,A,E,34,I,U".split(',');
-      //this.shuffle();
-      //this.partition([4,3,3]); //4,3,3
-
       this.settings = {
-        //items: this.items,
         init: this.activityInitialized.bind(this)
       };
 
       if (data != null) {
-        this.challengeInfo = data.setup;
+        this.challenge = data.setup;
         this.template = data.template;
         this.templateCss = data.css;
       }
@@ -70,7 +69,7 @@ export class GameChallengePage {
     this.onResize();
     this.loading = false;
     this.status = 'loaded';
-    console.log('loaded');
+    this.canVerify = true;
   }
 
   activityInitialized(service) {
@@ -78,14 +77,11 @@ export class GameChallengePage {
     this.activityService.on('activityVerified').subscribe(data => {
       this.activityVerified(data);
     });
-    this.canVerify = true;
   }
 
   onResize($event=null) {
     let dim = this.content.getContentDimensions();
-    this.pzStyle = {
-      'height.px': dim.contentHeight
-    };
+    this.pzStyle = { 'height.px': dim.contentHeight };
   }
 
   dismiss() {
@@ -96,12 +92,30 @@ export class GameChallengePage {
     console.log(reason);
   }
 
-  tepuyComponentReady($event){
-    console.log('component ready');
-  }
-
   activityVerified(result){
     //Need to show feedback;
+    if (result.success) {
+      this.gameDataProvider.registerScore(this.challenge, result.score, result.success);
+    }
+    
+    this.mediaPlayer.playAudio({key: 'result-' + result.rate });
+
+    if (result.success) {
+      if (result.score == 1) {
+        this.challenge.prize_3 = this.challenge.prize_2;
+        this.challenge.prize_2 = this.challenge.prize_1;
+        this.challenge.prize_1 = result.rate;
+      }
+      else {
+        let i = 0;
+        while(i < 3 && this.challenge['prize_'+(++i)] != 'empty');
+        if (i <= 3) {
+          this.challenge['prize_'+i] = result.rate;
+        }
+      }
+    }
+
+    this.challengeResult = result.rate;
     this.canPlayAgain = true;
   }
 
@@ -112,32 +126,8 @@ export class GameChallengePage {
 
   restart() {
     this.activityService.restart();
+    this.challengeResult = '';
     this.canPlayAgain = false;
     this.canVerify = true;
   }
-  /*
-  shuffle() {
-    let arr: Array<any> = this.items;
-    let i = arr.length;
-    while(--i > 0) {
-      let j = Math.floor(Math.random() * (i + 1));
-      let t = arr[j];
-      arr[j] = arr[i];
-      arr[i] = t;
-    }
-  }
-
-  partition(arr: Array<any>){
-    let result = [];
-    let i = 0;    
-    for(let size in arr){
-      result[size] = [];
-      let k = 0;
-      for(; k < arr[size] && k < this.items.length; k++) {
-        result[size].push(this.items[k+i]);
-      }
-      i+=k;
-    }
-    this.items = result;
-  }*/
 }

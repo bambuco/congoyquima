@@ -10,6 +10,11 @@ page-game-challenge {
     overflow: auto;    
   }
 
+  ion-header {
+    border-bottom: solid 4px map-get($colors, border);
+  }
+
+
   [ion-grid] {
     position: relative;
     height: 100%;
@@ -36,7 +41,7 @@ page-game-challenge {
     }
   }
 
-  .seed_bag {
+  [tepuy-selectable-item] {
     $p: &;
     width: 62px;
     height: 86.8px;
@@ -69,8 +74,8 @@ page-game-challenge {
       span {
         background-color: map-get($colors, neutral);
       }
-      &.tepuy-fine span {
-        background-color: map-get($colors, fine);
+      &.tepuy-good span {
+        background-color: map-get($colors, good);
       }
       &.tepuy-wrong span {
         background-color: map-get($colors, wrong);
@@ -81,10 +86,34 @@ page-game-challenge {
   .feedback {
     position: absolute;
     bottom: 0;
+    left: 0;
     height: 30%;
     width: 100%;
     background-color: #ccc;
     opacity: 0.8;
+
+    img {
+      height: 100%;
+    }
+
+    div {
+      width: auto;
+      height: 100%;
+      margin: 0 auto;
+      display: inline-block;
+      background-size: cover;
+
+      &.great {
+        background-image: url('../assets/imgs/game/feedback/ch_e.gif');
+      }
+      &.good {
+        background-image: url('../assets/imgs/game/feedback/ch_f.gif');
+      }
+      &.wrong {
+        background-image: url('../assets/imgs/game/feedback/ch_w.gif');
+      }
+
+    }
   }
 }
 /*
