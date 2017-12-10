@@ -4,16 +4,16 @@ Challenge
 page-game-challenge {
   .content-zone {
     max-width: 1080px;
-    background-image: url('../assets/imgs/game/cupboard_bg.png');  
+    background-image: url('../assets/game/img/l_1/ch_1_bg.png');  
     background-size: auto 100%;
     margin: 0 auto;
+    position: relative;
     overflow: auto;    
   }
 
   ion-header {
     border-bottom: solid 4px map-get($colors, border);
   }
-
 
   [ion-grid] {
     position: relative;
@@ -26,6 +26,37 @@ page-game-challenge {
     top: 0;
     left: 0;
   }
+
+  .feedback {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 30%;
+    width: 100%;
+    background-color: #fff;
+
+    img {
+      height: 100%;
+    }
+  }
+
+  .level_completed {
+    position: absolute;
+    bottom: 30%;
+    left: 0;
+    height: 70%;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.7);
+
+    img {
+      height: 100%;
+    }
+  }
+
+  /**********************************************************************
+  Level 1 - Challenge 1
+  **********************************************************************/
   
   [ion-row] {
     position:absolute;
@@ -47,7 +78,7 @@ page-game-challenge {
     height: 86.8px;
     margin: 5px;
     display: inline-block;
-    background-image: url('../assets/imgs/game/item_seed_bag.png');
+    background-image: url('../assets/game/img/shared/seed_bag.png');
     background-size: cover;
     font-size: 26px;
     line-height: 38px;
@@ -82,45 +113,4 @@ page-game-challenge {
       }
     }
   }
-
-  .feedback {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 30%;
-    width: 100%;
-    background-color: #ccc;
-    opacity: 0.8;
-
-    img {
-      height: 100%;
-    }
-
-    div {
-      width: auto;
-      height: 100%;
-      margin: 0 auto;
-      display: inline-block;
-      background-size: cover;
-
-      &.great {
-        background-image: url('../assets/imgs/game/feedback/ch_e.gif');
-      }
-      &.good {
-        background-image: url('../assets/imgs/game/feedback/ch_f.gif');
-      }
-      &.wrong {
-        background-image: url('../assets/imgs/game/feedback/ch_w.gif');
-      }
-
-    }
-  }
 }
-/*
-62 x 86
-360 x 640
-
-252 x 350
-
-
-*/

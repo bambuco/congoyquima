@@ -233,10 +233,10 @@ Application Icons
   @include appSpriteIcons($icons, 1600px, 300px, 73, 0, 27px, 33px);
 
   //Prize Icons
-  $icons: prize-good prize-great prize-empty;
+  $icons: prize-good prize-perfect prize-empty;
   @include appSpriteIcons($icons, 1700px, 300px, 57, 0, 43px, 43px);
 
-  $icons: prize-good-xs prize-great-xs prize-empty-xs;
+  $icons: prize-good-xs prize-perfect-xs prize-empty-xs;
   @include appSpriteIcons($icons, 1700px, 350px, 71, 0, 29px, 29px);
 
   //Avatar icons
@@ -255,6 +255,15 @@ Application Icons
 /***********************************************
   Animations
 ***********************************************/
+.flashing {
+  @include animation(flash-1, 4s, linear, $iteration:infinite);
+}
+
+.flashing-r {
+  @include animation(flash-2, 4s, linear, $iteration:infinite);
+}
+
+
 @include keyframes(falling-buttons) {
   0% {
     @include translate(0, -1080px);
@@ -332,28 +341,22 @@ Application Icons
 
 @include keyframes(flash-2){
   0% { 
-    @include rotate(0deg);
-    @include scale(1);
+    @include transform(rotate(0deg) scale(1));
   }
   12.5% { 
-    @include rotate(2deg);
-    @include scale(0.95);
+    @include transform(rotate(2deg) scale(0.95));
   }
   25% { 
-    @include rotate(-2deg);
-    @include scale(1);
+    @include transform(rotate(-2deg) scale(1));
   }
   37.5% { 
-    @include rotate(2deg);
-    @include scale(0.95);
+    @include transform(rotate(2deg) scale(0.95));
   }
   50% { 
-    @include rotate(0deg);
-    @include scale(1);
+    @include transform(rotate(0deg) scale(1));
   }
   100% { 
-    @include rotate(0deg);
-    @include scale(1);
+    @include transform(rotate(0deg) scale(1));
   }
 }
 

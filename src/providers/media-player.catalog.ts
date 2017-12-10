@@ -3,7 +3,7 @@ export class MediaCatalog {
 
   constructor() {
     this.assets = [];
-
+    //Numbers
     const path = "assets/game/aud/";
     for(let i = 0; i < 100; i++) {
       this.assets.push({
@@ -13,12 +13,21 @@ export class MediaCatalog {
         simple: true
       });
     }
+    //Letters
+    for(let i of 'abcdefghijkLmnñopqrstuvwxyz'.split('')) {
+      this.assets.push({
+        type: 'audio',
+        key: i.toLowerCase(),
+        path: path + 'letters/'+i+'.mp3',
+        simple: true
+      });
+    }
     //Add feedbacks
-    for(let type of ['wrong', 'good', 'great']) {
+    for(let type of ['wrong', 'good', 'perfect']) {
       this.assets.push({
         type: 'audio',
         key: 'result-'+type,
-        path: path + 'ch_'+type+'.mp3',
+        path: path + 'shared/ch_r_'+type+'.mp3',
         simple: true
       });
     }
@@ -35,7 +44,7 @@ export class MediaCatalog {
   }
 
   get audios():Array<any> {
-    return this.assets.filter(m => { console.log(m); return m.type == 'audio'; });
+    return this.assets.filter(m => { return m.type == 'audio'; });
   }
 
 }

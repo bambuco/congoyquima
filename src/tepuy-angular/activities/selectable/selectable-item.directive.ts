@@ -5,9 +5,14 @@ import { TepuySelectableService } from './selectable.provider';
 
 @Directive({ 
   selector: '[tepuy-selectable-item]',
-  host: { "(click)": "toggle($event)", "[class.tepuy-good]" : "succeed === true",
+  host: { 
+    "(click)": "toggle($event)",
+    "[class.tepuy-good]" : "succeed === true",
     "[class.tepuy-wrong]": "succeed === false",
-    "[class.tepuy-selected]": "selected === true" }
+    "[class.tepuy-selected]": "selected === true",
+    "(touchstart)": "onTouchStart()",
+    "(mousedown)": "onMouseDown()"
+  }
 })
 export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
   @Input('tepuy-group') group: string;
@@ -19,6 +24,8 @@ export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
   selected: boolean;
   done: boolean;
   succeed: boolean;
+
+  private itemTouchedTime: number;
 
   private service: TepuySelectableService;
 
@@ -40,7 +47,7 @@ export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
     this.id = this.service.childId();
     //this.service.emit('itemAdded', this);
     this.service.itemAdded(this);
-    this.service.on('activityReset').subscribe(() => {
+    this.service.on(this.service.ACTIVITY_RESET).subscribe(() => {
       this.refresh();
     });
 
@@ -61,6 +68,21 @@ export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
     this.service.itemChanged(this);
   }
 
+  onTouchStart() {
+    this.itemTouchedTime = new Date().getTime();
+    this.service.emit(this.service.ITEM_TOUCHED, this);
+  }
+
+  onMouseDown() {
+    const time = new Date().getTime();
+    if ((time)-this.itemTouchedTime > 2) { //To prevent touch and click firing twice
+      this.itemTouchedTime = time;
+      this.service.emit(this.service.ITEM_TOUCHED, this);
+    }
+  }
+
+  //Getters/Setters
+
   get value() {
     //return this.el.nativeElement.value ? this.el.nativeElement.value : this.el.nativeElement.innerText;
     return ('value' in this.valueEl) ? this.valueEl.value : this.valueEl.innerText;
@@ -73,4 +95,6 @@ export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
       this.valueEl.innerText = val;
     }
   }
+
+
 }

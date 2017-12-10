@@ -1,5 +1,5 @@
-import { Component, ViewChild, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
-import { Platform, NavController, ViewController, ModalController, Content } from 'ionic-angular';
+import { Component, ViewChild, Renderer2 } from '@angular/core';
+import { Platform, NavController, Content } from 'ionic-angular';
 
 import { Observable } from 'rxjs/Rx';
 import { GameDataProvider } from '../../providers/game-data';
@@ -29,9 +29,9 @@ export class GamePage {
   constructor(
       private platform: Platform,
       private navCtrl: NavController,
-      private gameDataProvider: GameDataProvider,
-      private settings: AppDataProvider,
-      private renderer: Renderer2
+      //private settings: AppDataProvider,
+      private renderer: Renderer2,
+      gameDataProvider: GameDataProvider
     ) {
     this.lpbCss = [];
     this.litStyles = [];
@@ -45,9 +45,6 @@ export class GamePage {
   ionViewDidEnter() {
     this.onResize(null);
     this.status = 'loaded';
-  }
-
-  ngAfterViewInit() {
   }
 
   onResize($event) {
@@ -71,7 +68,7 @@ export class GamePage {
     let scale = imgHeight / item.tile.size[1];
     
     if (i == 0 && !this.boardWidth) {
-      let width = Math.min(height, this.platform.width());
+      //let width = Math.min(height, this.platform.width());
       setTimeout(() => {
         this.boardScale = 1080 / item.tile.size[1];
         this.boardWidth = imgHeight * this.boardScale;

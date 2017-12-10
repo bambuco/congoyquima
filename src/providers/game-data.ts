@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 
+//import {serialize, deserialize} from "serializer.ts/Serializer";
+export const serialize: Function = (value) => { return value; };
+export const deserialize: Function = (type, value) => { return value; };
+
 import { Observable } from 'rxjs/Rx';
 import { ReplaySubject } from 'rxjs/Rx';
 //import 'rxjs/add/operator/map';
@@ -16,12 +20,15 @@ export class GameDataProvider {
   private settings: any;
 
   constructor(private http: HttpClient, private storage: Storage) {
-    let setup = this.http.get('assets/game/setup.json');
+    let setup = this.http.get('assets/game/html/setup.json');
     let gameState = this.storage.get(game_state_key);
+
+    //ToDo: Remove this line so the level state is not cleared
+    this.storage.remove('level_1_state'); //clear level 1 each time the application starts
     
     Observable.forkJoin([setup, Observable.fromPromise(gameState)]).subscribe((data) => {
       let gameSetup:any = data[0];
-      let gameState:GameState = data[1];
+      let gameState:GameState = deserialize(GameState, data[1]);
       if (!gameSetup.levels) return;
 
       if (gameState == null) gameState = new GameState();
@@ -67,10 +74,11 @@ export class GameDataProvider {
 
           this.storage.get(level_state_key.replace('$id', id)).then((state:LevelState) => {
             if (state == null) state = new LevelState();
-
+            
             for(var i = 0; i < level.challenges.length; i++){
               let challenge = level.challenges[i];
-              challenge.unlocked = i <= state.maxChallengeCompleted;
+              challenge.levelId = parseInt(id);
+              challenge.unlocked = i <= state.maxChallengeCompleted && !challenge.unavailable; //Added to control when the next label is not imlemented yet
               challenge.completed =  i < state.maxChallengeCompleted;
               challenge.playing = !challenge.completed && challenge.unlocked;
               if (!state.challenges[i]) state.challenges[i] = new ChallengeState();
@@ -79,8 +87,9 @@ export class GameDataProvider {
                 let challengeState = state.challenges[i];
                 challenge['prize_1'] = challenge['prize_2'] = challenge['prize_3'] = 'empty';
                 for(let k = 1; k <= challengeState.topScores.length && k <= 3; k++) {
-                  challenge['prize_'+k] = challengeState.topScores[k-1] == 1 ? 'great' : 'good';
+                  challenge['prize_'+k] = challengeState.topScores[k-1] == 1 ? 'perfect' : 'good';
                 }
+                challenge.completed = challenge['prize_3'] != 'empty';
               }
             }
             level.prepared = true;
@@ -101,18 +110,29 @@ export class GameDataProvider {
       headers: { 'content-type': 'text/html' },
       responseType: 'text'
     };
+    id = parseInt(id) + 1;
+    levelId = parseInt(levelId);
     return Observable.create(observer => {
       Observable.forkJoin([
         this.getLevel(levelId),
-        this.http.get('assets/game/l_'+levelId+'/ch_'+id+'.html', httpOptions),
+        this.http.get('assets/game/html/l_'+levelId+'/ch_'+id+'.html', httpOptions).catch(error => {
+          return Observable.of('NotFound');
+        }),
         this.http.get('assets/game/l_'+levelId+'/ch_'+id+'.css', httpOptions).catch(error => {
           return Observable.of('');
         })
       ]).subscribe(data => {
+        let nextChallenge = null;
+        if (id < data[0].challenges.length) {
+          nextChallenge = data[0].challenges[id];
+        }
+        else if (levelId < this.settings.levels.length) {
+          nextChallenge = this.settings.levels[levelId].challenges[0];
+        }
+
         let challengeInfo = {
-          id: id,
-          levelId: levelId,
           setup: data[0].challenges[id-1],
+          nextAvailable: nextChallenge != null && nextChallenge != undefined && !nextChallenge.unavailable,
           template: data[1],
           css: data[2]
         };
@@ -123,39 +143,70 @@ export class GameDataProvider {
     });    
   }
 
-  registerScore(challenge, score, success) {
-    return Observable.create(observer => {
-      this.storage.get(level_state_key.replace('$id', challenge.levelId)).then((state:LevelState) => {
-        const chId = parseInt(challenge.id) - 1;
-        if (state == null) state = new LevelState();
-        if (!state.challenges[chId]) state.challenges[chId] = new ChallengeState();
+  registerScore(challenge, score, success):Observable<any> {
+    const dataKey = level_state_key.replace('$id', challenge.levelId);
+    let promise = this.storage.get(dataKey).then((state:LevelState) => {
+      //let state:LevelState = stateStr == null ? new LevelState() : deserialize(LevelState, stateStr);
+      if (state == null) state = new LevelState();
 
-        let chState = state.challenges[chId];
+      const chId = challenge.id;
+      if (!state.challenges[chId]) state.challenges[chId] = new ChallengeState();
 
-        chState.scores.push(score);
-        if (success) {
-          const i = chState.topScores.findIndex((value) => {
-            return value < score;
-          });
-          if (i >= 0) {
-            chState.topScores.splice(i, 0, score);
-            chState.topScores.splice(3);
-          }
-          else if (chState.topScores.length < 3) {
-            chState.topScores.push(score);
-          }
+      let chState = state.challenges[chId];
+      chState.scores.push(score);
+      if (success) {
+        const i = chState.topScores.findIndex((value) => {
+          return value < score;
+        });
+        if (i >= 0) {
+          chState.topScores.splice(i, 0, score);
+          chState.topScores.splice(3);
+        }
+        else if (chState.topScores.length < 3) {
+          chState.topScores.push(score);
+        }
+      }
+
+      this.storage.set(dataKey, serialize(state))
+      .catch(reason => {
+        console.log('ERROR: Unable to save state:' + state);
+      });
+    })
+    .catch(reasong => {
+      console.log('ERROR: Unable to get storage for ' + challenge.id);
+      console.log(reasong);
+    });
+
+    return Observable.fromPromise(promise);
+  }
+
+  unlockNextChallenge(challenge:any): Observable<any> {
+    const dataKey = level_state_key.replace('$id', challenge.levelId);
+    let promise = this.storage.get(dataKey).then((state: LevelState) => {
+
+      state.maxChallengeCompleted++;
+      let level = this.settings.levels[challenge.levelId - 1];
+      let gameState:GameState = this.settings.state;
+      let nextChallenge:any;
+      //Level is completed
+      if (state.maxChallengeCompleted == level.challenges.lenght) {
+        gameState.maxLevelCompleted = challenge.levelId;
+        this.storage.set(game_state_key, state);
+        if (challenge.levelId < this.settings.levels.lenght) {
+          let nextLevel = this.settings.levels[challenge.levelId];
+          nextChallenge = nextLevel.challenges[0];
         }
 
-        this.storage.set(level_state_key.replace('$id', challenge.levelId), state);
-        observer.next(state);
-        observer.complete();
-      })
-      .catch(reasong => {
-        console.log('ERROR: Unable to get storage for ' + challenge.id);
-        observer.next(null);
-        observer.complete();
-      })
+      }
+      else {
+        nextChallenge = level.challenges[state.maxChallengeCompleted];
+      }
+
+      nextChallenge.unlocked = nextChallenge.playing = !nextChallenge.unavailable;
+      this.storage.set(dataKey, state);
+      return nextChallenge.unlocked;
     });
+    return Observable.fromPromise(promise);
   }
 }
 export { GameState, LevelState, ChallengeState }

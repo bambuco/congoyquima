@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { ViewController, NavParams } from 'ionic-angular';
 
 @Component({
@@ -29,9 +29,6 @@ export class VideoPlayerComponent {
 
   dismiss() {
     this.viewCtrl.dismiss({}); //Any data can be passed back here
-  }
-
-  ngOnInit() {
   }
 
   ionViewDidEnter() {

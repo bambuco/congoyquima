@@ -36,11 +36,10 @@ export class AppDataProvider {
 
   private update() {
     this.storage.set(data_key, this.settings).then(value => {
-      console.log('stored');
       console.log(value);
     })
     .catch(reason => {
-      console.log('failed');
+      console.log('failed to store ' + data_key);
       console.log(reason);
     });
   }

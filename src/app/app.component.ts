@@ -21,8 +21,8 @@ export class MyApp {
   constructor(platform: Platform,
     private statusBar: StatusBar,
     private androidFS: AndroidFullScreen,
-    private appData: AppDataProvider, 
-    private gameData: GameDataProvider
+    appData: AppDataProvider, 
+    gameData: GameDataProvider
     //private splashScreen: SplashScreen,
     //private modalCtrl: ModalController
     ) {

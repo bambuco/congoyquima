@@ -1,16 +1,19 @@
+//import { Type } from 'serializer.ts/Decorators';
+
 export class GameState {
   public firstTime: boolean = false;
   public maxLevelCompleted: number = 0;
-  public levelsCompleted: Array<LevelState>;
+  //public levelsCompleted: Array<LevelState>;
 
   constructor() {
-    this.levelsCompleted = new Array<LevelState>();
+    //this.levelsCompleted = new Array<LevelState>();
   }
 }
 
 export class LevelState {
   public maxChallengeCompleted: number = 0;
-  public challenges: Array<ChallengeState>;
+  //@Type(() => ChallengeState)
+  public challenges: ChallengeState[];
 
   constructor() {
     this.challenges = new Array<ChallengeState>();

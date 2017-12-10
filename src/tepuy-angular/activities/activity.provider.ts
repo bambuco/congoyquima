@@ -14,11 +14,13 @@ export class TepuyActivityService {
   ACTIVITY_VERIFIED = 'activityVerified';
   ACTIVITY_RESET = 'activityReset';
   ACTIVITY_REQUESTED = 'verifyRequested';
+  ITEM_TOUCHED = 'itemTouched';
 
   constructor(protected errorProvider: TepuyErrorProvider) {
     this.registerEvent(this.ACTIVITY_VERIFIED);
     this.registerEvent(this.ACTIVITY_REQUESTED);
     this.registerEvent(this.ACTIVITY_RESET);
+    this.registerEvent(this.ITEM_TOUCHED);
   }
 
   childId() {

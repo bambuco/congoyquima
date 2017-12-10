@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Platform, ModalController } from 'ionic-angular';
+
 import { Observable } from 'rxjs/Observable';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { NativeAudio } from '@ionic-native/native-audio';
 import { VideoPlayerComponent } from '../components/video-player/video-player';
@@ -19,14 +21,17 @@ const videoCatalog = {
 export class MediaPlayer {
   audioType: string = 'html5';
   sounds: any = [];
+  playingAudioHash: any = {};
+  soundEventEmitter: ReplaySubject<any> = new ReplaySubject(1);
+
 
   private mediaCatalog;
 
-  constructor(private platform: Platform,
+  constructor(platform: Platform,
       private modalCtrl: ModalController,
       private nativeAudio: NativeAudio
   ) {
-    if (platform.is('cordova')) {
+    if (platform.is('cordova2')) {
       this.audioType = 'native';
     }
 
@@ -34,10 +39,17 @@ export class MediaPlayer {
     this.preloadCatalog();
   }
 
-  playAudio(audio) {
-    this.playAudioByKey(audio.key);
+  playAudio(audio, options={}): Observable<any> {
+    return this.playAudioByKey(audio.key, options);
   }
 
+  stopAudio(audio) {
+    return this.stopAudioByKey(audio.key);
+  }
+
+  stopAll(){
+    this.soundEventEmitter.next('stop');
+  }
 
   playVideoFromCatalog(key:string) {
     return this.playVideo({ path: videoCatalog[key] });
@@ -70,17 +82,17 @@ export class MediaPlayer {
   private preloadCatalog() {
     //preload audios
     for(let audio of this.mediaCatalog.audios) {
-      console.log(audio);
       this.preloadAudio(audio);
     }
   }
 
 
   private preloadAudio(asset) {
-    this.sounds.push({
+    let sound:any = {
       key: asset.key,
       path: asset.path
-    });
+    };
+    this.sounds.push(sound);
     
     if(this.audioType === 'native'){
       if (asset.simple) {
@@ -90,21 +102,58 @@ export class MediaPlayer {
         this.nativeAudio.preloadComplex(asset.key, asset.path, .8, 1, 0);
       }
     }      
+    else {
+      sound.audio = new CustomHTMLAudio(asset.path, this.soundEventEmitter);
+    }
   }
-  
-  private playAudioByKey(key){
+
+  private playAudioByKey(key, options): Observable<any> {
  
-    let audio = this.sounds.find((sound) => { return sound.key === key; });
+    let sound = this.sounds.find((sound) => { return sound.key === key; });
+    if (sound == null) return Observable.of('NotFound');
 
     if(this.audioType === 'html5'){
-      let audioAsset = new Audio(audio.path);
-      audioAsset.play();
+      if (options.stopAll) {
+        this.soundEventEmitter.next('stop');
+      }
+      return Observable.fromPromise(sound.audio.play());
     } else {
-      this.nativeAudio.play(audio.key).then((res) => {
-          console.log(res);
-      }, (err) => {
-          console.log(err);
-      });
+      return Observable.fromPromise(this.nativeAudio.play(sound.key));
     }
+  }
+
+  private stopAudioByKey(key): Observable<any> {
+ 
+    let sound = this.sounds.find((sound) => { return sound.key === key; });
+    if (sound == null) return Observable.of('NotFound');
+
+    if(this.audioType === 'html5'){      
+      return Observable.fromPromise(sound.audio.stop());
+    } else {
+      return Observable.fromPromise(this.nativeAudio.stop(key));
+    }
+  }
+}
+
+export class CustomHTMLAudio {
+  private audioEl:HTMLAudioElement;
+  constructor(path:string, eventEmitter: ReplaySubject<any>) {
+    this.audioEl = new Audio(path);
+    eventEmitter.subscribe(event => {
+      if (event == 'stop') {
+        this.stop();
+      }
+    })
+  }
+
+  play(){
+    return this.audioEl.play();
+  }
+
+  stop(){
+    if (this.audioEl.paused) return;
+    this.audioEl.pause();
+    this.audioEl.currentTime = 0;
+    return Observable.of(true);
   }
 }

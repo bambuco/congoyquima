@@ -44,7 +44,7 @@ export class TepuySelectableService extends TepuyActivityService {
       good += TepuyUtils.bValue(item.succeed);
     }
     const score = (good / total);
-    const rate = score == 1 ? 'great' : score >= this.minScore ? 'good' : 'wrong';
+    const rate = score == 1 ? 'perfect' : score >= this.minScore ? 'good' : 'wrong';
     this.emit('activityVerified', { 
       id: this.id, 
       score: score,
