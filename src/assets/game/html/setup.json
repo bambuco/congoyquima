@@ -19,8 +19,7 @@
         {
           "id": 1,
           "label":"2",
-          "type": "tepuy-selectable",
-          "unavailable": true,
+          "type": "drag",
           "parameters": {
           }
         },
@@ -28,6 +27,7 @@
           "id": 2,
           "label":"3",
           "type": "tepuy-selectable",
+          "unavailable": true,
           "parameters": {
           }
         },

@@ -31,6 +31,13 @@ export class MediaCatalog {
         simple: true
       });
     }
+    //Level completed
+    this.assets.push({
+      type: 'audio',
+      key: 'ch_completed',
+      path: path + 'shared/ch_completed.mp3',
+      preload: true
+    });
 
     //Level audios
     for (let level of []) {

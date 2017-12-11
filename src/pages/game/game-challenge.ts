@@ -1,7 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, HostListener } from '@angular/core';
 import { NavController, NavParams, Content } from 'ionic-angular';
 import { TepuyActivityService } from '../../tepuy-angular/activities/activity.provider';
 import { TepuySelectableComponent } from '../../tepuy-angular/activities/selectable/selectable.component';
+
+import { Observable } from 'rxjs/Observable';
 
 import { GameDataProvider } from '../../providers/game-data';
 import { MediaPlayer } from '../../providers/media-player';
@@ -63,7 +65,8 @@ export class GameChallengePage {
     return new Promise((resolve, reject) => {
       this.gameDataProvider.getChallenge(this.id, this.levelId).subscribe(data => {
         this.settings = {
-          init: this.activityInitialized.bind(this)
+          init: this.activityInitialized.bind(this),
+          playZone: {}
         };
         if (data != null && data.template != 'NotFound') {
           this.challenge = data.setup;
@@ -94,9 +97,12 @@ export class GameChallengePage {
     this.busy = false;
   }
 
+  @HostListener('window:resize', ['$event'])
   onResize($event=null) {
+    console.log('Window resizing....');
     let dim = this.content.getContentDimensions();
     this.pzStyle = { 'height.px': dim.contentHeight };
+    this.settings.playZone.height = this.content.contentHeight;
   }
 
   //User Actions
@@ -161,12 +167,14 @@ export class GameChallengePage {
 
   activityVerified(result){
     //Need to show feedback;
+    let storage = Observable.of(this.challenge);
+    const isCompleted = this.challenge.completed;
     if (result.success) {
-      this.gameDataProvider.registerScore(this.challenge, result.score, result.success);
+      storage = this.gameDataProvider.registerScore(this.challenge, result.score, result.success);
     }
 
     let feedback = this.mediaPlayer.playAudio({key: 'result-' + result.rate });
-    let highlight = 'play';
+    let highlight = 'play';    
     if (result.success) {
       //Show the item prize
       if (result.score == maxScore) {
@@ -188,13 +196,10 @@ export class GameChallengePage {
           this.challenge['prize_'+i] = result.rate;
         }
       }
-
+/*
       //Challenge completed! Need to do special things.
       if (!this.challenge.completed && this.challenge['prize_'+maxPrizes] != 'empty') {
         //1. Unlock next challenge.
-        feedback.subscribe(() => {
-          feedback = this.mediaPlayer.playAudio({key: 'level_completed'});
-        })
         this.gameDataProvider.unlockNextChallenge(this.challenge).subscribe(result => {
           this.nextAvailable = result;
         });
@@ -204,14 +209,28 @@ export class GameChallengePage {
         //3. Play audio
       }
       if (this.challenge.completed) highlight = 'next';
+*/      
     }
 
-    this.challengeResult = result.rate;
-    this.canVerify = false;
-    this.canPlayAgain = true;
-    this.canGoNext = this.challenge.completed;
-    this.btnHigthlight = highlight;
-    this.busy = false;
+    storage.subscribe(challenge => {
+      if (!isCompleted && challenge.completed) {
+        //1. Play audio
+        feedback.subscribe(() => {
+          console.log('Audio playing complete');
+          feedback = this.mediaPlayer.playAudio({key: 'ch_completed'});
+        });
+        //2. Show congrats
+        this.levelJustCompleted = true;
+        highlight = 'next';
+      }
+
+      this.challengeResult = result.rate;
+      this.canVerify = false;
+      this.canPlayAgain = true;
+      this.canGoNext = this.challenge.completed;
+      this.btnHigthlight = highlight;
+      this.busy = false;
+    });
   }
 
   clearFlags() {

@@ -4,7 +4,9 @@ import { CommonModule } from '@angular/common';
 //General directives
 import { TepuyRandomDirective } from './directives/random.directive';
 import { TepuyRepeatDirective } from './directives/repeat.directive';
-import { TepuyTemplateCompileDirective } from './directives/template-compiler.directive';
+//import { TepuyTemplateCompileDirective } from './directives/template-compiler.directive';
+import { TepuyScaleWidthDirective } from './directives/scale-width.directive';
+
 import { TepuyActivityVerifyDirective } from './directives/activity-verify.directive';
 //Activity components
 import { TepuyActivityComponent } from './activities/activity.component';
@@ -24,7 +26,8 @@ import { TepuyUtils } from './tepuy-utils';
   declarations: [
     TepuyRandomDirective,
     TepuyRepeatDirective,
-    TepuyTemplateCompileDirective,
+    TepuyScaleWidthDirective,
+    //TepuyTemplateCompileDirective,
     TepuyActivityVerifyDirective,
     TepuySelectableComponent,
     TepuySelectableGroupDirective,
@@ -36,7 +39,8 @@ import { TepuyUtils } from './tepuy-utils';
   exports: [
     TepuyRandomDirective,
     TepuyRepeatDirective,
-    TepuyTemplateCompileDirective,
+    TepuyScaleWidthDirective,
+    //TepuyTemplateCompileDirective,
     TepuyActivityVerifyDirective,
     TepuySelectableComponent,
     TepuySelectableGroupDirective,

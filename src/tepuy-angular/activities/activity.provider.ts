@@ -135,6 +135,7 @@ export class TepuyActivityService {
    * @param {Array} a An array containing the items.
    */
   shuffle(a) {
+    if (!a) return;
     for (let i = a.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         const t = a[i];

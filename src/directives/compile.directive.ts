@@ -24,6 +24,7 @@ export class CompileDirective implements OnChanges {
   }
 
   ngOnChanges(changes) {
+    console.log('changes detected on dynamic component');
     if(!this.compile) {
       if(this.compRef) {
         this.updateProperties();

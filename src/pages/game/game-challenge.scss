@@ -4,11 +4,18 @@ Challenge
 page-game-challenge {
   .content-zone {
     max-width: 1080px;
-    background-image: url('../assets/game/img/l_1/ch_1_bg.png');  
     background-size: auto 100%;
     margin: 0 auto;
     position: relative;
-    overflow: auto;    
+    overflow: auto;
+
+    @for $l from 1 through 1 {
+      @for $ch from 1 through 2 {
+        &.l_#{$l}_ch_#{$ch} {
+          background-image: url('../assets/game/img/l_#{$l}/ch_#{$ch}/bg.png');
+        }
+      }
+    }
   }
 
   ion-header {
@@ -54,25 +61,7 @@ page-game-challenge {
     }
   }
 
-  /**********************************************************************
-  Level 1 - Challenge 1
-  **********************************************************************/
-  
-  [ion-row] {
-    position:absolute;
-    width: 100%;
-    &.row-0 {
-      bottom: 71%;
-    }
-    &.row-1 {
-      bottom: 52%;
-    }
-    &.row-2 {
-      bottom: 29%;
-    }
-  }
-
-  [tepuy-selectable-item] {
+  .seed_bag {
     $p: &;
     width: 62px;
     height: 86.8px;
@@ -100,7 +89,6 @@ page-game-challenge {
       background-color: #333333;
       text-align: center;
     }    
-    
     &.tepuy-selected {
       span {
         background-color: map-get($colors, neutral);
@@ -110,6 +98,110 @@ page-game-challenge {
       }
       &.tepuy-wrong span {
         background-color: map-get($colors, wrong);
+      }
+    }
+  }
+  [ion-row] {
+    position:absolute;
+    width: 100%;
+  }
+  /**********************************************************************
+  Level 1 - Challenge 1
+  **********************************************************************/
+  .l_1_ch_1 {
+    [ion-row] {
+      &.row-0 {
+        bottom: 71%;
+      }
+      &.row-1 {
+        bottom: 52%;
+      }
+      &.row-2 {
+        bottom: 29%;
+      }
+    }
+  }
+
+  /**********************************************************************
+  Level 1 - Challenge 2
+  **********************************************************************/
+  .l_1_ch_2 {
+    [ion-row] {
+      &.row-0 {
+        bottom: 77%;
+        height: 33%;
+        & > div {
+          height: 100%;
+          position: relative;
+          margin: 0 auto;
+        }
+      }
+      &.row-1 {
+        bottom: 40%;
+        height: 35%;
+        & > div {
+          height: 100%;
+          position: relative;
+          margin: 0 auto;
+        }
+      }
+    }
+
+    .seed_bag {
+      width: 252px;
+      height: 350px;
+      position: absolute;
+      bottom: 0;
+      font-size: 96px;
+      line-height: 156px;
+      @include scale(.25);
+      transform-origin: left bottom;
+
+      @for $i from 1 through 6 {
+        &.bag_#{$i - 1} {
+          left: 0% + (16*($i - 1));
+        }
+      }
+      span {
+        position:absolute;
+        left: 50%;
+        top: 50%;
+        margin-top: -40px;
+        margin-left: -80px;
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        border: solid 3px #fff;
+        background-color: #333333;
+        text-align: center;
+      }    
+    }
+
+    .seed_bag_target {
+      $p: &;
+      width: 252px;
+      height: 350px;
+      position: absolute;
+      font-family: Arial;
+      font-weight: bold;
+      font-size: 96px;
+      line-height: 156px;
+      color: #fff;
+      background-image: url('../assets/game/img/shared/seed_bag_empty.png');
+      background-size: cover;
+      @include scale(.25);
+      transform-origin: left bottom;
+
+      @for $i from 1 through 3 {
+        &.bag_target_#{$i - 1} {
+          bottom: 4% + ($i*4);
+          left: 5% + (15*($i - 1));
+        }
+
+        &.bag_target_#{6-$i} {
+          bottom: 4% + ($i*4);
+          left: 5% + (15*(6-$i));
+        }
       }
     }
   }

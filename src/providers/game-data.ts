@@ -13,6 +13,7 @@ import { GameState, LevelState, ChallengeState } from './models/game-state';
 
 const game_state_key: string = 'game_state';
 const level_state_key: string = 'level_$id_state';
+const maxPrizes = 3;
 
 @Injectable()
 export class GameDataProvider {
@@ -24,7 +25,7 @@ export class GameDataProvider {
     let gameState = this.storage.get(game_state_key);
 
     //ToDo: Remove this line so the level state is not cleared
-    this.storage.remove('level_1_state'); //clear level 1 each time the application starts
+    //this.storage.remove('level_1_state'); //clear level 1 each time the application starts
     
     Observable.forkJoin([setup, Observable.fromPromise(gameState)]).subscribe((data) => {
       let gameSetup:any = data[0];
@@ -86,7 +87,7 @@ export class GameDataProvider {
               if (challenge.unlocked) {
                 let challengeState = state.challenges[i];
                 challenge['prize_1'] = challenge['prize_2'] = challenge['prize_3'] = 'empty';
-                for(let k = 1; k <= challengeState.topScores.length && k <= 3; k++) {
+                for(let k = 1; k <= challengeState.topScores.length && k <= maxPrizes; k++) {
                   challenge['prize_'+k] = challengeState.topScores[k-1] == 1 ? 'perfect' : 'good';
                 }
                 challenge.completed = challenge['prize_3'] != 'empty';
@@ -166,15 +167,39 @@ export class GameDataProvider {
           chState.topScores.push(score);
         }
       }
+      //Should unlock next      
+      if (!challenge.completed && chState.topScores.length == maxPrizes) {
+        state.maxChallengeCompleted++;
+        let level = this.settings.levels[challenge.levelId - 1];
+        let gameState:GameState = this.settings.state;
+        let nextChallenge:any = null;
+        //Level is completed
+        if (state.maxChallengeCompleted == level.challenges.length) {
+          gameState.maxLevelCompleted = challenge.levelId;
+          this.storage.set(game_state_key, state);
+          if (challenge.levelId < this.settings.levels.length) {
+            let nextLevel = this.settings.levels[challenge.levelId];
+            nextChallenge = nextLevel.challenges[0];
+          }
+        }
+        else {
+          nextChallenge = level.challenges[state.maxChallengeCompleted];
+        }
 
-      this.storage.set(dataKey, serialize(state))
-      .catch(reason => {
-        console.log('ERROR: Unable to save state:' + state);
-      });
+        level.prepared = false;
+        if (nextChallenge != null){
+          nextChallenge.unlocked = nextChallenge.playing = !nextChallenge.unavailable;
+          challenge.nextAvailable = nextChallenge.unlocked;
+        }
+        challenge.completed = true;
+      }
+      
+      this.storage.set(dataKey, state);
+      return challenge;
     })
-    .catch(reasong => {
+    .catch(reason => {
       console.log('ERROR: Unable to get storage for ' + challenge.id);
-      console.log(reasong);
+      console.log(reason);
     });
 
     return Observable.fromPromise(promise);
@@ -189,10 +214,10 @@ export class GameDataProvider {
       let gameState:GameState = this.settings.state;
       let nextChallenge:any;
       //Level is completed
-      if (state.maxChallengeCompleted == level.challenges.lenght) {
+      if (state.maxChallengeCompleted == level.challenges.length) {
         gameState.maxLevelCompleted = challenge.levelId;
         this.storage.set(game_state_key, state);
-        if (challenge.levelId < this.settings.levels.lenght) {
+        if (challenge.levelId < this.settings.levels.length) {
           let nextLevel = this.settings.levels[challenge.levelId];
           nextChallenge = nextLevel.challenges[0];
         }
@@ -204,6 +229,7 @@ export class GameDataProvider {
 
       nextChallenge.unlocked = nextChallenge.playing = !nextChallenge.unavailable;
       this.storage.set(dataKey, state);
+      level.prepared = false;
       return nextChallenge.unlocked;
     });
     return Observable.fromPromise(promise);

@@ -25,7 +25,7 @@ export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
   done: boolean;
   succeed: boolean;
 
-  private itemTouchedTime: number;
+  private itemTouchedTime: number = 0;
 
   private service: TepuySelectableService;
 

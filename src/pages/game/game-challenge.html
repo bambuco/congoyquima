@@ -9,8 +9,10 @@
 </ion-header>
 
 <ion-content [ngClass]="{'center-vertical': loading}" #content>
-  <div class="content-zone" [ngClass]="status" [ngStyle]="pzStyle" #playZone (window:resize)="onResize($event)">
-    <ng-container *compile="template; css: templateCss; context: settings;" #dynamicComponent></ng-container>
+  <div class="content-zone l_{{challenge.levelId}}_ch_{{challenge?.id+1}}"
+      [ngClass]="status" 
+      [ngStyle]="pzStyle">
+    <ng-container *compile="template; css: templateCss; context: settings;"></ng-container>
     <div class="level_completed" text-center *ngIf="levelJustCompleted">
       <img src="assets/game/img/shared/level_completed.gif"/>
     </div>
