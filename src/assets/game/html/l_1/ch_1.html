@@ -4,8 +4,8 @@
       data-tepuy-type="multiselect" 
       data-tepuy-options-size="10"
       data-tepuy-correct-size="6"
-      data-tepuy-correct-options="rangeof:0-99"
-      data-tepuy-wrong-options="rangeof:a-Z">    
+      data-tepuy-correct-options="randomof:numbers:min=0;max=99"
+      data-tepuy-wrong-options="randomof:letters:min=a;max=Z">    
     <div ion-row *ngFor="let size of [4, 3, 3]; let i = index" class="row-{{i}}">
       <div text-center>
         <div *tepuyRepeat="size" tepuy-selectable-item data-tepuy-group="1" class="seed_bag">

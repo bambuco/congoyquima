@@ -4,18 +4,21 @@
       data-tepuy-type="multiselect" 
       data-tepuy-options-size="6"
       data-tepuy-correct-size="6"
-      data-tepuy-correct-options="rangeof:0-99"
-      data-tepuy-wrong-options="rangeof:a-Z">    
+      data-tepuy-correct-options="sequenceof:numbers:min=0;max=93"
+      data-tepuy-wrong-options="">    
     <div ion-row *ngFor="let size of [6]; let i = index" class="row-{{i}}">
-      <div tepuy-scale-width="1460" scale-original-height="1920" [scale-current-height]="playZone?.height">
-        <div *tepuyRepeat="size; let k = index" tepuy-selectable-item data-tepuy-group="1" class="seed_bag bag_{{k}}">
+      <div tepuy-scale-width="1460" scale-original-height="1920" 
+          [scale-current-height]="playZone?.height" text-center>
+        <div *tepuyRepeat="size; let k = index" tepuy-selectable-item data-tepuy-group="1" data-tepuy-draggable="true"
+        class="seed_bag bag_{{k}}">
           <span tepuy-item-value></span> 
         </div>
       </div>
     </div>
     <div ion-row class="row-1">
-      <div tepuy-scale-width="1460" scale-original-height="1920" [scale-current-height]="playZone?.height">
-        <div *tepuyRepeat="6; let k = index" class="seed_bag_target bag_target_{{k}}">
+      <div tepuy-scale-width="1460" scale-original-height="1920" 
+          [scale-current-height]="playZone?.height" text-center>
+        <div *tepuyRepeat="6; let k = index" class="seed_bag_target bag_target_{{k}}" tepuy-drop-target>
         </div>
       </div>
     </div>

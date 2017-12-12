@@ -143,7 +143,7 @@ export class CustomHTMLAudio {
       if (event == 'stop') {
         this.stop();
       }
-    })
+    });
   }
 
   play(){

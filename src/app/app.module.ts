@@ -6,7 +6,6 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { IonicStorageModule } from '@ionic/storage';
 import { TepuyModule } from '../tepuy-angular/tepuy.module';
 
-
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen';

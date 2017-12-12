@@ -99,7 +99,6 @@ export class GameChallengePage {
 
   @HostListener('window:resize', ['$event'])
   onResize($event=null) {
-    console.log('Window resizing....');
     let dim = this.content.getContentDimensions();
     this.pzStyle = { 'height.px': dim.contentHeight };
     this.settings.playZone.height = this.content.contentHeight;
@@ -215,8 +214,9 @@ export class GameChallengePage {
     storage.subscribe(challenge => {
       if (!isCompleted && challenge.completed) {
         //1. Play audio
-        feedback.subscribe(() => {
+        feedback.subscribe((result) => {
           console.log('Audio playing complete');
+          console.log(result);
           feedback = this.mediaPlayer.playAudio({key: 'ch_completed'});
         });
         //2. Show congrats

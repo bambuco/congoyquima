@@ -6,6 +6,7 @@ import { TepuyRandomDirective } from './directives/random.directive';
 import { TepuyRepeatDirective } from './directives/repeat.directive';
 //import { TepuyTemplateCompileDirective } from './directives/template-compiler.directive';
 import { TepuyScaleWidthDirective } from './directives/scale-width.directive';
+import { TepuyDropTargetDirective } from './directives/drop-target.directive';
 
 import { TepuyActivityVerifyDirective } from './directives/activity-verify.directive';
 //Activity components
@@ -14,7 +15,6 @@ import { TepuySelectableComponent } from './activities/selectable/selectable.com
 //Activity directives
 import { TepuySelectableGroupDirective } from './activities/selectable/selectable-group.directive';
 import { TepuySelectableItemDirective } from './activities/selectable/selectable-item.directive';
-
 //Activity providers
 //import { TepuySelectableService } from './activities/selectable/selectable.provider';
 import { TepuyActivityService } from './activities/activity.provider';
@@ -27,6 +27,7 @@ import { TepuyUtils } from './tepuy-utils';
     TepuyRandomDirective,
     TepuyRepeatDirective,
     TepuyScaleWidthDirective,
+    TepuyDropTargetDirective,
     //TepuyTemplateCompileDirective,
     TepuyActivityVerifyDirective,
     TepuySelectableComponent,
@@ -40,6 +41,7 @@ import { TepuyUtils } from './tepuy-utils';
     TepuyRandomDirective,
     TepuyRepeatDirective,
     TepuyScaleWidthDirective,
+    TepuyDropTargetDirective,
     //TepuyTemplateCompileDirective,
     TepuyActivityVerifyDirective,
     TepuySelectableComponent,

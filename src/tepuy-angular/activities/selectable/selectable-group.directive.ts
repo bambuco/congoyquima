@@ -2,12 +2,13 @@ import { Directive, ViewChildren, ContentChildren, QueryList, Input, ElementRef,
   Renderer2, OnInit, AfterViewInit, OnDestroy, AfterContentInit
 } from '@angular/core';
 
-import { TepuyActivityService } from '../../activities/activity.provider';
+import { TepuyActivityService, DataProviderFactory, IDataProvider } from '../../activities/activity.provider';
 import { TepuySelectableService } from './selectable.provider';
 import { TepuyGroupService } from './selectable-group.provider';
 import { TepuyErrorProvider, Errors } from '../../providers/error.provider';
 
 import { TepuySelectableItemDirective } from './selectable-item.directive';
+import { TepuyDropTargetDirective } from '../../directives/drop-target.directive';
 
 @Directive({ 
   selector: '[tepuy-item-group]',
@@ -27,8 +28,11 @@ export class TepuySelectableGroupDirective implements OnInit, AfterViewInit {
   private wrongOptions: Array<string>;
   valueSource: Array<any>;
   isCorrect: boolean;
+  correctDataProvider: IDataProvider;
+  wrongDataProvider: IDataProvider;
 
   @ContentChildren(TepuySelectableItemDirective, { descendants: true}) items: QueryList<TepuySelectableItemDirective>;
+  @ContentChildren(TepuyDropTargetDirective, { descendants: true}) targets: QueryList<TepuyDropTargetDirective>;
  
   private actProvider: TepuySelectableService;
 
@@ -63,8 +67,13 @@ export class TepuySelectableGroupDirective implements OnInit, AfterViewInit {
     }
 
     this.options = options;
-    this.correctOptions = this.actProvider.explodeExpression(options.correctSource);
-    this.wrongOptions = this.actProvider.explodeExpression(options.wrongSource);
+    this.correctDataProvider = this.actProvider.getDataProvider(options.correctSource);
+
+    if (options.wrongSource != '') {
+      this.wrongDataProvider = this.actProvider.getDataProvider(options.wrongSource);
+    }
+    //this.correctOptions = this.actProvider.explodeExpression(options.correctSource);
+    //this.wrongOptions = this.actProvider.explodeExpression(options.wrongSource);
 
     this.actProvider.on(this.actProvider.ACTIVITY_RESET).subscribe(() => {
       this.resetItemValues();
@@ -84,15 +93,20 @@ export class TepuySelectableGroupDirective implements OnInit, AfterViewInit {
   }
 
   private resetItemValues() {
-    this.actProvider.shuffle(this.correctOptions);
-    this.actProvider.shuffle(this.wrongOptions);
+    //this.actProvider.shuffle(this.correctOptions);
+    //this.actProvider.shuffle(this.wrongOptions);
+    this.correctDataProvider.reset();
+    if (this.wrongDataProvider){
+      this.wrongDataProvider.reset();
+    }
+
     let values = new Array<any>();
     for(let i = 0; i < this.options.correctSize; i++){
-      values.push({value: this.correctOptions[i], correct: true });
+      values.push({value: this.correctDataProvider.next(), correct: true });
     }
 
     for(let i = this.options.correctSize; i < this.options.size; i++){
-      values.push({value: this.wrongOptions[i-this.options.correctSize], correct: false });
+      values.push({value: this.wrongDataProvider.next(), correct: false });
     }
 
     this.actProvider.shuffle(values);
@@ -101,5 +115,16 @@ export class TepuySelectableGroupDirective implements OnInit, AfterViewInit {
       item.correct = values[i].correct;
       item.value = values[i].value;
     });
+
+    //ToDo: Targes can accept multiple values, this will only satisfy one to one droppables
+    if (this.targets.length > 0) {
+      const sorted = this.actProvider.sort(values);
+      this.targets.forEach((item, i) => {
+        setTimeout(() => {
+          item.correctValue = sorted[i].value;
+        });
+      })
+    }
+
   }
 }

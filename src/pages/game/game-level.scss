@@ -5,7 +5,9 @@ Game Level
 page-game-level {
   .content-zone {
     background-image: url('../assets/game/img/shared/levels_bg.png');
-    background-size: cover;
+    background-size: auto 100%;
+    background-position: center bottom;
+    background-repeat:no-repeat;
     overflow: auto;
   }
 

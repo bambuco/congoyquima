@@ -27,6 +27,12 @@ page-game-challenge {
     height: 100%;
   }
 
+  [data-tepuy-draggable] {
+    &.tepuy-dragging {
+      z-index: 10;
+    }
+  }
+
   .modal-wrapper {
     width: 100%;
     height: 100%;
@@ -147,15 +153,17 @@ page-game-challenge {
       }
     }
 
+    $scale: .25;
     .seed_bag {
-      width: 252px;
-      height: 350px;
+      width: 252px * $scale;
+      height: 350px * $scale;
       position: absolute;
       bottom: 0;
-      font-size: 96px;
-      line-height: 156px;
-      @include scale(.25);
-      transform-origin: left bottom;
+      margin: 0;
+      font-size: 96px * $scale;
+      line-height: 156px * $scale;
+      //@include scale(.25);
+      //transform-origin: left bottom;
 
       @for $i from 1 through 6 {
         &.bag_#{$i - 1} {
@@ -166,31 +174,38 @@ page-game-challenge {
         position:absolute;
         left: 50%;
         top: 50%;
-        margin-top: -40px;
-        margin-left: -80px;
-        width: 160px;
-        height: 160px;
+        margin-top: -40px * $scale;
+        margin-left: -80px * $scale;
+        width: 160px * $scale;
+        height: 160px * $scale;
         border-radius: 50%;
         border: solid 3px #fff;
         background-color: #333333;
         text-align: center;
       }    
+      &.tepuy-dropped {
+        span {
+          background-color: map-get($colors, neutral);
+        }
+        &.tepuy-good span {
+          background-color: map-get($colors, good);
+        }
+        &.tepuy-wrong span {
+          background-color: map-get($colors, wrong);
+        }
+      }
     }
 
-    .seed_bag_target {
+    .tepuy-droppable {
       $p: &;
-      width: 252px;
-      height: 350px;
+      width: 252px * $scale;
+      height: 350px * $scale;
       position: absolute;
-      font-family: Arial;
-      font-weight: bold;
-      font-size: 96px;
-      line-height: 156px;
-      color: #fff;
+      margin: 0;
       background-image: url('../assets/game/img/shared/seed_bag_empty.png');
       background-size: cover;
-      @include scale(.25);
-      transform-origin: left bottom;
+      //@include scale(.25);
+      //transform-origin: left bottom;
 
       @for $i from 1 through 3 {
         &.bag_target_#{$i - 1} {

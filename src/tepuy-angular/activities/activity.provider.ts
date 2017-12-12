@@ -3,13 +3,16 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
 
 import { TepuyErrorProvider, Errors } from '../providers/error.provider';
+import { DataProviderFactory, IDataProvider }
+
+const letters = 'abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ';
 
 @Injectable()
 export class TepuyActivityService {
   protected id: string;
   protected observers: any = {};
   protected minScore: number = 0.7;
-
+  protected dataProviderFactory: DataProviderFactory = new DataProviderFactory();
 
   ACTIVITY_VERIFIED = 'activityVerified';
   ACTIVITY_RESET = 'activityReset';
@@ -78,6 +81,14 @@ export class TepuyActivityService {
     this.observers[eventName] = new ReplaySubject(1);
   }
 
+
+  /**
+   * Parse an expression to be converted on an array
+   * @param {string} exp Expression that will be converted to an array. rangeof|.
+   */
+  getDataProvider(exp:string):IDataProvider {
+    return this.dataProviderFactory.create(exp);
+  }
   /**
    * Parse an expression to be converted on an array
    * @param {string} exp Expression that will be converted to an array. rangeof|.
@@ -143,5 +154,14 @@ export class TepuyActivityService {
         a[j] = t;
     }
     return a;
+  }
+
+  /**
+   * Shuffles an array.
+   * @param {Array} a An array containing the items.
+   */
+  sort(a) {
+    if (!a) return;
+    return a.sort((a, b) => { return a.value > b.value; });
   }
 }
