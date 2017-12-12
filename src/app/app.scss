@@ -205,8 +205,8 @@ Application Icons
   @include appSpriteIcons($icons, 50px, 300px, 24px, 24px, 176px, 176px);
 
   //General Actions
-  $icons: accept cancel game-start-alt game-start close listen repeat home back next verify help video
-    act-classify act-select act-drag act-mark act-sort no-internet progress info intro;
+  $icons: accept cancel game-start-alt game-start close listen repeat home rewind forward verify help video
+    act-classify act-select act-drag act-mark act-sort no-internet progress info intro next back;
   @include appSpriteIcons($icons, 50px, 750px, 30px, 30px, 70px, 70px);
 
   //General Actions Small icons

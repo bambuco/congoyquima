@@ -40,10 +40,17 @@ export class GameDataProvider {
         levels: []
       };
 
-
       for(var i = 0; i < gameSetup.levels.length; i++){
         let level = gameSetup.levels[i];
         level.unlocked = i <= gameState.maxLevelCompleted;
+        level.currentChallenge = 0;
+        if (level.unlocked) {
+          if (i == gameState.maxLevelCompleted) {
+            this.getLevel(i+1).subscribe((aLevel:LevelState) => {
+              level.currentChallenge = aLevel.currentChallenge;
+            });
+          }
+        }
         settings.levels.push(level);
       }
       
@@ -75,12 +82,13 @@ export class GameDataProvider {
 
           this.storage.get(level_state_key.replace('$id', id)).then((state:LevelState) => {
             if (state == null) state = new LevelState();
+            level.currentChallenge = state.currentChallenge;
             
             for(var i = 0; i < level.challenges.length; i++){
               let challenge = level.challenges[i];
               challenge.levelId = parseInt(id);
-              challenge.unlocked = i <= state.maxChallengeCompleted && !challenge.unavailable; //Added to control when the next label is not imlemented yet
-              challenge.completed =  i < state.maxChallengeCompleted;
+              challenge.unlocked = i <= state.currentChallenge && !challenge.unavailable; //Added to control when the next label is not imlemented yet
+              challenge.completed =  i < state.currentChallenge;
               challenge.playing = !challenge.completed && challenge.unlocked;
               if (!state.challenges[i]) state.challenges[i] = new ChallengeState();
 
@@ -169,12 +177,13 @@ export class GameDataProvider {
       }
       //Should unlock next      
       if (!challenge.completed && chState.topScores.length == maxPrizes) {
-        state.maxChallengeCompleted++;
+        state.currentChallenge++;
         let level = this.settings.levels[challenge.levelId - 1];
+        level.currentChallenge  = state.currentChallenge;
         let gameState:GameState = this.settings.state;
         let nextChallenge:any = null;
         //Level is completed
-        if (state.maxChallengeCompleted == level.challenges.length) {
+        if (state.currentChallenge == level.challenges.length) {
           gameState.maxLevelCompleted = challenge.levelId;
           this.storage.set(game_state_key, state);
           if (challenge.levelId < this.settings.levels.length) {
@@ -183,7 +192,7 @@ export class GameDataProvider {
           }
         }
         else {
-          nextChallenge = level.challenges[state.maxChallengeCompleted];
+          nextChallenge = level.challenges[state.currentChallenge];
         }
 
         level.prepared = false;
@@ -209,12 +218,12 @@ export class GameDataProvider {
     const dataKey = level_state_key.replace('$id', challenge.levelId);
     let promise = this.storage.get(dataKey).then((state: LevelState) => {
 
-      state.maxChallengeCompleted++;
+      state.currentChallenge++;
       let level = this.settings.levels[challenge.levelId - 1];
       let gameState:GameState = this.settings.state;
       let nextChallenge:any;
       //Level is completed
-      if (state.maxChallengeCompleted == level.challenges.length) {
+      if (state.currentChallenge == level.challenges.length) {
         gameState.maxLevelCompleted = challenge.levelId;
         this.storage.set(game_state_key, state);
         if (challenge.levelId < this.settings.levels.length) {
@@ -224,7 +233,7 @@ export class GameDataProvider {
 
       }
       else {
-        nextChallenge = level.challenges[state.maxChallengeCompleted];
+        nextChallenge = level.challenges[state.currentChallenge];
       }
 
       nextChallenge.unlocked = nextChallenge.playing = !nextChallenge.unavailable;

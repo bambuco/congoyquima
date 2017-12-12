@@ -28,5 +28,6 @@ export class TepuyActivityComponent implements OnInit {
     if (parent.init && t.toString.call(parent.init) === '[object Function]') {
       parent.init(this.service);
     }
+    this.service.winScore = this.minScore;
   }
 }

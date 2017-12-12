@@ -7,6 +7,13 @@ import { ReplaySubject } from 'rxjs/Rx';
 import { AppState } from './models/app-state';
 
 const data_key: string = 'app_state';
+const flagBase = 0x1;
+export const Flags = {
+  APP_INTRO: flagBase,
+  HOME_INTRO: flagBase*2,
+  GAME_INTRO: flagBase*4
+};
+
 @Injectable()
 export class AppDataProvider {
   private observer: ReplaySubject<any> = new ReplaySubject<any>(1);
@@ -25,12 +32,17 @@ export class AppDataProvider {
     return this.observer;
   }
 
-  hasSeenIntro() {
-    return this.settings.introVideoPlayed === true;
+  hasFlag(flag) {
+    return this.settings.flags & flag;
   }
 
-  setIntroPlayed() {
-    this.settings.introVideoPlayed = true;
+  setFlag(flag) {
+    this.settings.flags = this.settings.flags | flag; //[key] = true;
+    this.update();
+  }
+
+  setHomeIntroPlayed() {
+    this.settings.homeIntroVideoPlayed = true;
     this.update();
   }
 

@@ -107,15 +107,18 @@ export class GameChallengePage {
   //User Actions
   dismiss() {
     if (this.busy) return;
+    this.mediaPlayer.stopAll();
     this.navCtrl.setRoot(GameLevelPage, { id: this.levelId });
   }
 
   showHelp() {
     if (this.busy) return;
+    this.mediaPlayer.stopAll();
   }
 
   listen() {
     if (this.busy) return;    
+    this.mediaPlayer.stopAll();
     this.levelJustCompleted = false;
   }
 
@@ -154,7 +157,8 @@ export class GameChallengePage {
     });
 
     this.activityService.on(this.activityService.ITEM_TOUCHED).subscribe(item => {
-      this.mediaPlayer.playAudio({key: item.value.toLowerCase()})
+      this.mediaPlayer.playAudio({key: item.value.toLowerCase(), stopAll: true}).subscribe(result => {
+      })
     });
 
     this.activityService.on(this.activityService.ACTIVITY_RESET).subscribe(() => {
@@ -173,6 +177,10 @@ export class GameChallengePage {
     }
 
     let feedback = this.mediaPlayer.playAudio({key: 'result-' + result.rate });
+    feedback.subscribe(result => {
+      console.log('feeback played');
+      console.log(result);
+    });
     let highlight = 'play';    
     if (result.success) {
       //Show the item prize
@@ -190,7 +198,7 @@ export class GameChallengePage {
       }
       else {
         let i = 0;
-        while(i < maxPrizes && this.challenge['prize_'+(++i)] != 'empty');
+        while(++i <= maxPrizes && this.challenge['prize_'+(i)] != 'empty');
         if (i <= maxPrizes ){
           this.challenge['prize_'+i] = result.rate;
         }
@@ -215,9 +223,9 @@ export class GameChallengePage {
       if (!isCompleted && challenge.completed) {
         //1. Play audio
         feedback.subscribe((result) => {
-          console.log('Audio playing complete');
           console.log(result);
-          feedback = this.mediaPlayer.playAudio({key: 'ch_completed'});
+          this.mediaPlayer.playAudio({key: 'ch_completed', stopAll:true, debug:true}).subscribe(result => {
+          });
         });
         //2. Show congrats
         this.levelJustCompleted = true;

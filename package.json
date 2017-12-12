@@ -1,8 +1,8 @@
 {
     "name": "congoyquima",
-    "version": "0.0.1",
-    "author": "Jesus Otero",
-    "homepage": "https://www.linkedin.com/in/jesusoterovega/",
+    "version": "1.0.0",
+    "author": "Bambuco",
+    "homepage": "https://bambuco.co",
     "private": true,
     "scripts": {
         "clean": "ionic-app-scripts clean",
@@ -74,8 +74,5 @@
             "android",
             "ios"
         ]
-    },
-    "config": {
-        "ionic_webpack": "./webpack.config.js"
     }
 }

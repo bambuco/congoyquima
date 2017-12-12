@@ -55,7 +55,7 @@ page-game {
     display: inline-block;
     position: absolute;
     transform-origin: left top;
-    
+
     $icons: level-1 level-2;
     @include appSpriteIcons($icons, 20px, 20px, 28, 0, 402px, 136px);
 
@@ -70,5 +70,18 @@ page-game {
 
     $icons: level-progress-1 level-progress-2;
     @include appSpriteIcons($icons, 20px, 20px, 28, 0, 402px, 136px);
+
+    .level-progress-bar {
+      padding-left: 132px;
+      padding-top: 38px;
+      div {
+        background-color: #73AB40;
+        border: solid 2px #FFFFFF;
+        width: 26px;
+        height: 57px;
+        float: left;
+      }
+    }
+
   }
 }

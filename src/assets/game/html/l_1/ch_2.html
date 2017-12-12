@@ -1,11 +1,13 @@
-<div ion-grid tepuy-selectable #activityComponent no-margin no-padding>
+<div ion-grid tepuy-selectable #activityComponent data-tepuy-win-score="0.6" no-margin no-padding>
   <div tepuy-item-group
       data-tepuy-group-id="1"
       data-tepuy-type="multiselect" 
       data-tepuy-options-size="6"
       data-tepuy-correct-size="6"
       data-tepuy-correct-options="sequenceof:numbers:min=0;max=93"
-      data-tepuy-wrong-options="">    
+      data-tepuy-wrong-options=""
+      data-tepuy-win-score="0.6"
+      >    
     <div ion-row *ngFor="let size of [6]; let i = index" class="row-{{i}}">
       <div tepuy-scale-width="1460" scale-original-height="1920" 
           [scale-current-height]="playZone?.height" text-center>

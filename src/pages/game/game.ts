@@ -3,7 +3,8 @@ import { Platform, NavController, Content } from 'ionic-angular';
 
 import { Observable } from 'rxjs/Rx';
 import { GameDataProvider } from '../../providers/game-data';
-import { AppDataProvider } from '../../providers/app-data';
+import { AppDataProvider, Flags } from '../../providers/app-data';
+import { MediaPlayer } from '../../providers/media-player';
 
 import { HomePage } from '../home/home';
 import { GameLevelPage } from './game-level';
@@ -31,6 +32,8 @@ export class GamePage {
       private navCtrl: NavController,
       //private settings: AppDataProvider,
       private renderer: Renderer2,
+      private mediaPlayer: MediaPlayer,
+      private appData: AppDataProvider, 
       gameDataProvider: GameDataProvider
     ) {
     this.lpbCss = [];
@@ -44,9 +47,21 @@ export class GamePage {
 
   ionViewDidEnter() {
     this.onResize(null);
-    this.status = 'loaded';
+    this.appData.ready().subscribe((settings) => {
+      this.initialize();
+    });
   }
 
+  initialize() {
+    //Play intro if required
+    if (!this.appData.hasFlag(Flags.GAME_INTRO)) {
+      this.playIntro();
+    }
+    else {
+      this.status = 'loaded';
+    }
+  }
+  
   onResize($event) {
     let height = this.platform.height();
     this.itemHeight = height / 5; //Make the item to use 20% of the board
@@ -59,7 +74,10 @@ export class GamePage {
   }
 
   showHelp(){
-
+    this.mediaPlayer.playVideoFromCatalog('game_intro').subscribe((done) => {
+      //Should update status here
+      this.appData.setFlag(Flags.GAME_INTRO);
+    });
   }
 
   tileDimensions(item, i){
@@ -101,5 +119,13 @@ export class GamePage {
       'top.px': i * this.itemHeight,
       'height.px': imgHeight
     }
+  }
+
+  private playIntro() {
+    this.mediaPlayer.playVideoFromCatalog('game_intro').subscribe((done) => {
+      //Should update status here
+      this.appData.setFlag(Flags.GAME_INTRO);
+      this.status = 'loaded';
+    });
   }
 }

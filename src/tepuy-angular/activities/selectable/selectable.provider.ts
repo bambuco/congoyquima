@@ -39,7 +39,6 @@ export class TepuySelectableService extends TepuyActivityService {
     let total = 0;
     for(let item of this.items) {
       item.succeed = item.isCorrect; //(item.correct && item.selected);
-      console.log(item.succeed);
       item.done = true;
       total += TepuyUtils.bValue(item.correct) + TepuyUtils.bValue((!item.correct && item.selected));
       good += TepuyUtils.bValue(item.succeed);

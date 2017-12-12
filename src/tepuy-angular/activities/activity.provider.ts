@@ -3,9 +3,9 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
 
 import { TepuyErrorProvider, Errors } from '../providers/error.provider';
-import { DataProviderFactory, IDataProvider }
+import { DataProviderFactory, IDataProvider } from '../providers/data.provider';
 
-const letters = 'abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ';
+export { DataProviderFactory, IDataProvider };
 
 @Injectable()
 export class TepuyActivityService {

@@ -11,12 +11,14 @@ export class GameState {
 }
 
 export class LevelState {
-  public maxChallengeCompleted: number = 0;
+  //public maxChallengeCompleted: number = 0;
+  public currentChallenge: number;
   //@Type(() => ChallengeState)
   public challenges: ChallengeState[];
 
   constructor() {
     this.challenges = new Array<ChallengeState>();
+    this.currentChallenge = 0;
   }
 
 }

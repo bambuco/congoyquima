@@ -13,7 +13,10 @@ import { MediaCatalog } from './media-player.catalog';
 //import * as Phaser from "phaser-ce";
 
 const videoCatalog = {
-  'intro': 'content/video/intro.mp4'
+  'intro': 'content/video/intro.mp4',
+  'home_intro': 'game/vid/shared/home_intro.mp4',
+  'game_intro': 'game/vid/shared/game_intro.mp4',
+  'drag_howto': 'game/vid/shared/drag_howto.mp4'
 };
 
 
@@ -110,13 +113,18 @@ export class MediaPlayer {
   private playAudioByKey(key, options): Observable<any> {
  
     let sound = this.sounds.find((sound) => { return sound.key === key; });
-    if (sound == null) return Observable.of('NotFound');
+    if (sound == null) {
+      return Observable.of('NotFound:' + key);
+    }
 
     if(this.audioType === 'html5'){
       if (options.stopAll) {
         this.soundEventEmitter.next('stop');
       }
-      return Observable.fromPromise(sound.audio.play());
+      if (options.debug) {
+        console.log(sound.audio);
+      }
+      return sound.audio.play(true);
     } else {
       return Observable.fromPromise(this.nativeAudio.play(sound.key));
     }
@@ -137,17 +145,73 @@ export class MediaPlayer {
 
 export class CustomHTMLAudio {
   private audioEl:HTMLAudioElement;
+  private path: string;
   constructor(path:string, eventEmitter: ReplaySubject<any>) {
     this.audioEl = new Audio(path);
+    this.path = path;
     eventEmitter.subscribe(event => {
       if (event == 'stop') {
         this.stop();
       }
     });
+    /*
+    this.audioEl.addEventListener('error', function (ev) {
+      console.log('error:'+path);
+      console.log(ev);
+    });
+    this.audioEl.addEventListener('abort', function (ev) {
+      console.log('abort:'+path);
+      console.log(ev);
+    });
+    this.audioEl.addEventListener('loadstart', function (ev) {
+      console.log('loadstart:'+path);
+      console.log(ev);
+    });
+    this.audioEl.addEventListener('playing', function (ev) {
+      console.log('playing:'+path);
+      console.log(ev);
+    });
+    this.audioEl.addEventListener('ended', function (ev) {
+      console.log('pause:'+path);
+      console.log(ev);
+    });*/
   }
 
-  play(){
-    return this.audioEl.play();
+  play(debug = false):Observable<any>{
+    return Observable.create(observer => {
+      let el = this.audioEl;
+      el.src = this.path;
+      this.audioEl.play()
+      .then(() => {
+        let onError = (e) => { 
+          observer.next({succeed: false, reason: 'Error: ' + el.error })
+          observer.complete();
+          el.removeEventListener('error', onError);
+        };
+        let onAbort = (e) => { 
+          observer.next({succeed: false, reason: 'Aborted:' + el.error });
+          observer.complete();
+          el.removeEventListener('abort', onError);
+        };
+        let onEnd = (e) => { 
+          observer.next({succeed: true });
+          observer.complete();
+          el.removeEventListener('ended', onError);
+        };
+        let onPause = (e) => { 
+          observer.next({succeed: false, reason: 'Paused: ' });
+          observer.complete();
+          el.removeEventListener('ended', onError);
+        };
+        el.addEventListener('error', onError);
+        el.addEventListener('abort', onAbort);
+        el.addEventListener('ended', onEnd);
+        el.addEventListener('pause', onPause);
+      })
+      .catch(reason => {
+        observer.next({succeed: false, reason: reason });
+      });
+    });
   }
 
   stop(){

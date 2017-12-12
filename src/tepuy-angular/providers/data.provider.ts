@@ -4,6 +4,8 @@ randomof:letters:min=a;max=Z
 sequenceof:numbers:min=0;max=99;
 ********************/
 
+const letters = 'abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ';
+
 /**
 * Interface IDatProvider.
 * 

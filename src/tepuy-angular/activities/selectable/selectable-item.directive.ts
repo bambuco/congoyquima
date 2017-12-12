@@ -90,25 +90,27 @@ export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
 
   toggle() {    
     //toogle only if has not been resolved
-    if (this.draggable) return;
-    if (this.done) return;
+    if (this.draggable || this.done) return;
     this.selected = !this.selected;
-    //this.service.emit('itemChanged', this);
     this.service.itemChanged(this);
     this.isCorrect = (this.correct && this.selected);
   }
 
   onTouchStart() {
+    if (this.done) return true;
     this.itemTouchedTime = new Date().getTime();
     this.service.emit(this.service.ITEM_TOUCHED, this);
+    return true;
   }
 
   onMouseDown() {
+    if (this.done) return true;
     const time = new Date().getTime();
     if ((time)-this.itemTouchedTime > 2) { //To prevent touch and click firing twice
       this.itemTouchedTime = time;
       this.service.emit(this.service.ITEM_TOUCHED, this);
     }
+    return true;
   }
 
   //Getters/Setters
@@ -137,14 +139,14 @@ export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
   }
 
   onPanStart(ev) {
-    console.log('Pan started');
+    if (!this.draggable || this.done) return true;
     this.isDragging = true;
     this.renderer.addClass(this.el.nativeElement, "tepuy-dragging");
   }
 
   onPanEnd(ev) {
+    if (!this.draggable || this.done) return true;
     //Drag completed
-    console.log('pan end');
     this.isDragging = false;
     if (true || ev.isFinal) {
       const targetEl = this.getElementFromPoint(this.el.nativeElement, ev.center.x, ev.center.y);
@@ -167,14 +169,14 @@ export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
   }
 
   onPan(ev) {
-    if (!this.isDragging) return;
-    console.log('Pan');
+    if (!this.draggable || this.done) return true;
+    if (!this.isDragging) return true;
     /*//Drag started
     if (ev.type == 'press') { 
       this.isDragging = true;
       this.renderer.addClass(this.el.nativeElement, "tepuy-dragging");
     }
-    */
+s    */
     const translate = ['translate(', ev.deltaX+'px,', ev.deltaY+'px', ')'].join('');    
     //Pan moving
     this.domCtrl.write(() => {
@@ -191,8 +193,6 @@ export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
       this.renderer.addClass(this.el.nativeElement, 'tepuy-dropped');
     });
     const targetVal = target.getAttribute('tepuy-correct-value');
-    console.log(targetVal);
-    console.log(this.value);
     this.isCorrect = (targetVal == this.value);
   }
 
@@ -234,7 +234,6 @@ export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
       this.renderer.removeStyle(this.el.nativeElement, '-moz-transform');
       this.renderer.removeStyle(this.el.nativeElement, '-o-transform');
     }
-    console.log('translate set to:' + translate);
   }
 
   private resetPosition() {

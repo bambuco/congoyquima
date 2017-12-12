@@ -6,10 +6,13 @@
           class="level-block level-block-{{i+1}}" 
           [ngClass]="{'unlocked': item.unlocked }" 
           [ngStyle]="tileDimensions(item, i)" #levelItem>
-        <img *ngIf="item.unlocked" src="assets/imgs/game/levels/{{i+1}}.gif">
+        <img *ngIf="item.unlocked" src="assets/game/img/tiles/{{i+1}}.gif">
         <div class="level-progress-icon" 
           [ngClass]="lpbCss[i].classname" 
-          [ngStyle]="lpbCss[i].style">            
+          [ngStyle]="lpbCss[i].style">   
+          <div class="level-progress-bar" style="font-size: 48px">
+            <div *tepuyRepeat="item.currentChallenge"></div>
+          </div>
         </div>
       </div>
     </div>

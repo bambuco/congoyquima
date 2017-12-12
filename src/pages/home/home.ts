@@ -6,7 +6,7 @@ import { GamePage } from '../game/game';
 import { ContentPage } from '../content/content';
 //import { ProgressPage } from '../progress/progress';
 import { MediaPlayer } from '../../providers/media-player';
-import { AppDataProvider } from '../../providers/app-data';
+import { AppDataProvider, Flags } from '../../providers/app-data';
 
 import { HelpComponent } from '../../components/help/help';
 
@@ -36,32 +36,44 @@ export class HomePage {
 
   initialize() {
     //Play intro if required
-    if (!this.appData.hasSeenIntro()) {
+    if (!this.appData.hasFlag(Flags.APP_INTRO)) {
       this.playIntro();
+    }
+    else if (!this.appData.hasFlag(Flags.HOME_INTRO)) {
+      this.showHelp();
     }
   }
   
   goTo(page){
     if (page == 'help') {
-      this.showHelp();
+      this.showHelp(true);
     }
-    if (page == 'intro') {
-      this.playIntro();
+    else if (page == 'intro') {
+      this.playIntro(true);
     }
     else {
       this.navCtrl.setRoot(this.pages[page]);  
     }    
   }
 
-  showHelp(){
-    this.help = this.modalCtrl.create(HelpComponent);
-    this.help.present();
+  showHelp(ondemand:boolean=false){
+    this.mediaPlayer.playVideoFromCatalog('home_intro').subscribe((done) => {
+      //Should update status here
+      if (!ondemand) {
+        this.appData.setHomeIntroPlayed();
+      }
+    });
   }
 
-  private playIntro() {
+  private playIntro(ondemand:boolean=false) {
     this.mediaPlayer.playVideoFromCatalog('intro').subscribe((done) => {
       //Should update status here
-      this.appData.setIntroPlayed();
+      if (!ondemand) {
+        this.appData.setFlag(Flags.APP_INTRO);
+        this.mediaPlayer.playVideoFromCatalog('home_intro').subscribe((done) => {
+          this.appData.setFlag(Flags.HOME_INTRO);
+        });
+      }
     });
   }
 
