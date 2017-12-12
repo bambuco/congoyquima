@@ -8,11 +8,51 @@
     }
   },
   {
-    "title": "Personajes 2",
-    "description": "Conociendo a Congo y Quima (2)",
-    "path": "personajes.mp3",
+    "title": "Consejo 1",
+    "description": "",
+    "path": "tip_1.mp3",
     "meta": {
-      "duration": "1:43"
+      "duration": ""
+    }
+  },
+  {
+    "title": "Consejo 2",
+    "description": "",
+    "path": "tip_2.mp3",
+    "meta": {
+      "duration": ""
+    }
+  },
+  {
+    "title": "Consejo 3",
+    "description": "",
+    "path": "tip_3.mp3",
+    "meta": {
+      "duration": ""
+    }
+  },
+  {
+    "title": "Consejo 4",
+    "description": "",
+    "path": "tip_4.mp3",
+    "meta": {
+      "duration": ""
+    }
+  },
+  {
+    "title": "Consejo 5",
+    "description": "",
+    "path": "tip_5.mp3",
+    "meta": {
+      "duration": ""
+    }
+  },
+  {
+    "title": "Consejo 6",
+    "description": "",
+    "path": "tip_6.mp3",
+    "meta": {
+      "duration": ""
     }
   }
 ]

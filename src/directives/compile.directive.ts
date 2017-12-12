@@ -1,37 +1,19 @@
 import {
   Compiler, NgModule, Component, Input, ComponentRef, Directive, 
-  ModuleWithComponentFactories, OnChanges, Type, Output,
-  ViewContainerRef, EventEmitter, Injectable
+  ModuleWithComponentFactories, OnChanges, Type,
+  ViewContainerRef, ViewEncapsulation
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from 'ionic-angular';
 import { TepuyModule } from '../tepuy-angular/tepuy.module';
 
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-
-
-@Injectable()
-export class CompileService {
-  private emitter:ReplaySubject<any> = new ReplaySubject<any>();
-  
-  constructor(){
-
-  }
-
-  completed(ref) {
-    this.emitter.next(ref);
-  }
-
-  onComplete() {
-    return this.emitter.asObservable();
-  }
-}
 
 @Directive({
   selector: '[compile]'
 })
 export class CompileDirective implements OnChanges {
   @Input() compile: string;
+  @Input() compileCss: string;
   @Input() compileContext: any;
 
   compRef: ComponentRef<any>;
@@ -53,7 +35,7 @@ export class CompileDirective implements OnChanges {
     this.vcRef.clear();
     this.compRef = null;
 
-    const component = this.createDynamicComponent(this.compile);
+    const component = this.createDynamicComponent(this.compile, this.compileCss );
     const module = this.createDynamicModule(component);
     this.compiler.compileModuleAndAllComponentsAsync(module)
       .then((moduleWithFactories: ModuleWithComponentFactories<any>) => {
@@ -73,10 +55,12 @@ export class CompileDirective implements OnChanges {
     }
   }
 
-  private createDynamicComponent (template:string) {
+  private createDynamicComponent (template:string, css:string) {
     @Component({
       selector: 'mini-game',
       template: template,
+      styles: [ css || '' ],
+      encapsulation: ViewEncapsulation.None
     })
     class CustomDynamicComponent {}
     return CustomDynamicComponent;

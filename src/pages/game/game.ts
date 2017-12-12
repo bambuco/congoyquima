@@ -1,9 +1,10 @@
-import { Component, ViewChild, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
-import { Platform, NavController, ViewController, ModalController, Content } from 'ionic-angular';
+import { Component, ViewChild, Renderer2 } from '@angular/core';
+import { Platform, NavController, Content } from 'ionic-angular';
 
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { GameDataProvider } from '../../providers/game-data';
-import { AppDataProvider } from '../../providers/app-data';
+import { AppDataProvider, Flags } from '../../providers/app-data';
+import { MediaPlayer } from '../../providers/media-player';
 
 import { HomePage } from '../home/home';
 import { GameLevelPage } from './game-level';
@@ -29,9 +30,11 @@ export class GamePage {
   constructor(
       private platform: Platform,
       private navCtrl: NavController,
-      private gameDataProvider: GameDataProvider,
-      private settings: AppDataProvider,
-      private renderer: Renderer2
+      //private settings: AppDataProvider,
+      private renderer: Renderer2,
+      private mediaPlayer: MediaPlayer,
+      private appData: AppDataProvider, 
+      gameDataProvider: GameDataProvider
     ) {
     this.lpbCss = [];
     this.litStyles = [];
@@ -44,12 +47,21 @@ export class GamePage {
 
   ionViewDidEnter() {
     this.onResize(null);
-    this.status = 'loaded';
+    this.appData.ready().subscribe((settings) => {
+      this.initialize();
+    });
   }
 
-  ngAfterViewInit() {
+  initialize() {
+    //Play intro if required
+    if (!this.appData.hasFlag(Flags.GAME_INTRO)) {
+      this.playIntro();
+    }
+    else {
+      this.status = 'loaded';
+    }
   }
-
+  
   onResize($event) {
     let height = this.platform.height();
     this.itemHeight = height / 5; //Make the item to use 20% of the board
@@ -62,7 +74,10 @@ export class GamePage {
   }
 
   showHelp(){
-
+    this.mediaPlayer.playVideoFromCatalog('game_intro').subscribe((done) => {
+      //Should update status here
+      this.appData.setFlag(Flags.GAME_INTRO);
+    });
   }
 
   tileDimensions(item, i){
@@ -71,7 +86,7 @@ export class GamePage {
     let scale = imgHeight / item.tile.size[1];
     
     if (i == 0 && !this.boardWidth) {
-      let width = Math.min(height, this.platform.width());
+      //let width = Math.min(height, this.platform.width());
       setTimeout(() => {
         this.boardScale = 1080 / item.tile.size[1];
         this.boardWidth = imgHeight * this.boardScale;
@@ -104,5 +119,13 @@ export class GamePage {
       'top.px': i * this.itemHeight,
       'height.px': imgHeight
     }
+  }
+
+  private playIntro() {
+    this.mediaPlayer.playVideoFromCatalog('game_intro').subscribe((done) => {
+      //Should update status here
+      this.appData.setFlag(Flags.GAME_INTRO);
+      this.status = 'loaded';
+    });
   }
 }

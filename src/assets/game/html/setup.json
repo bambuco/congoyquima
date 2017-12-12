@@ -1,0 +1,110 @@
+{
+  "levels": [
+    {
+      "id": 1,
+      "label": "1",
+      "tile": {
+        "size": [1080, 649],
+        "progress": ["l", 400, 280]
+      },
+      "challenges": [
+        {
+          "id": 0,
+          "label":"1",
+          "type": "select",
+          "parameters": {
+            "items": "range-of:0-99"
+          }
+        },
+        {
+          "id": 1,
+          "label":"2",
+          "type": "drag",
+          "parameters": {
+          }
+        },
+        {
+          "id": 2,
+          "label":"3",
+          "type": "tepuy-selectable",
+          "unavailable": true,
+          "parameters": {
+          }
+        },
+        {
+          "id": 3,
+          "label":"4",
+          "type": "tepuy-selectable",
+          "parameters": {
+          }
+        },
+        {
+          "label":"5",
+          "type": "tepuy-selectable",
+          "parameters": {
+          }
+        },
+        {
+          "label":"6",
+          "type": "tepuy-selectable",
+          "parameters": {
+          }
+        },
+        {
+          "label":"7",
+          "type": "tepuy-selectable",
+          "parameters": {
+          }
+        },
+        {
+          "label":"8",
+          "type": "tepuy-selectable",
+          "parameters": {
+          }
+        },
+        {
+          "label":"9",
+          "type": "tepuy-selectable",
+          "parameters": {
+          }
+        },
+        {
+          "label":"10",
+          "type": "tepuy-selectable",
+          "parameters": {
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "2",
+       "tile": {
+        "size": [1080, 703],
+        "progress": ["r", 402, 280]
+      },
+      "challenges": [
+      ]
+    },
+    {
+      "id": 3,
+      "label": "3",
+      "tile": {
+        "size": [1080, 766],
+        "progress": ["l", 450, 280]
+      },
+      "challenges": [
+      ]
+    },
+    {
+      "id": 4,
+      "label": "4",
+      "tile": {
+        "size": [1080, 699],
+        "progress": ["l", 600, 300]
+      },
+      "challenges": [
+      ]
+    }
+  ]
+}

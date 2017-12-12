@@ -68,8 +68,4 @@ page-home {
     -web-kit-box-shadow: none;
     box-shadow:none;
   }
-
-  .flashing {
-    @include animation(flash-1, 4s, linear, $iteration:infinite);
-  }
 }

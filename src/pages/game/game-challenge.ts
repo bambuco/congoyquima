@@ -1,125 +1,273 @@
-import { Injector, Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, NavParams, ModalController, Content } from 'ionic-angular';
+import { Component, ViewChild, HostListener } from '@angular/core';
+import { NavController, NavParams, Content } from 'ionic-angular';
 import { TepuyActivityService } from '../../tepuy-angular/activities/activity.provider';
-import { TepuySelectableService } from '../../tepuy-angular/activities/selectable/selectable.provider';
-import { TepuySelectableComponent } from '../../tepuy-angular/activities/selectable/selectable.component';
-import { CompileService } from '../../directives/compile.directive';
 
+import { Observable } from 'rxjs/Observable';
+import { AppDataProvider, Flags } from '../../providers/app-data';
 import { GameDataProvider } from '../../providers/game-data';
-import { HomePage } from '../home/home';
+import { MediaPlayer } from '../../providers/media-player';
+
 import { GameLevelPage } from '../game/game-level';
+
+
+import 'rxjs/add/observable/of';
+
+//const maxChallenges = 10;
+const maxPrizes = 3;
+const maxScore = 1;
 
 @Component({
   selector: 'page-game-challenge',
   templateUrl: 'game-challenge.html',
-  providers: [ CompileService, TepuyActivityService ]
+  providers: [ ]
 })
 export class GameChallengePage {
   @ViewChild('content')
   private content: Content;
-  @ViewChild('playZone')
-  private playZone;
+  //@ViewChild('playZone')
+  //private playZone;
+
   status: string = 'loading';
   loading: boolean = true;
-  challengeInfo: any;
+  challenge: any;
   template: string = '<div class="container" text-center><ion-spinner name="circles"></ion-spinner></div>';
+  templateCss: string = '';
   message: string = "";
   settings: any;
-  challenge: any;
+  challengeResult: string = '';
+  activityType: string = '';
+  canGoNext: boolean = false;
+  pzStyle: any;
+  levelJustCompleted: boolean = false;
+  canVerify: boolean = false;
+  canPlayAgain: boolean = false;
+  btnHigthlight: string = '';  
+
   private id: string;
   private levelId: string;
-  private pzStyle: any;
-  private items: any;
+  private activityService: TepuyActivityService;
+  private busy: boolean = true;
+  private feedbackDismissed: boolean = false;
+  //private nextAvailable: boolean = false;
+  private sourcePage: string = null;
+  private introKey: string;
 
-  constructor(private el: ElementRef,
+  constructor(
       private navCtrl: NavController,
-      private params: NavParams,
+      private appData: AppDataProvider, 
       private gameDataProvider: GameDataProvider,
-      private activityService: TepuyActivityService
+      private mediaPlayer: MediaPlayer,
+      params: NavParams
       ) {
     this.id = params.get('id');
     this.levelId = params.get('levelId');
+    this.sourcePage = params.get('source');
+  }
 
-    gameDataProvider.getChallenge(this.id, this.levelId).subscribe(data => {
-      this.challenge = data.setup;
+  //Lifecycle Events
 
-      this.items = "12,56,3,5,9,A,E,34,I,U".split(',');
-      this.shuffle();
-      this.partition([4,3,3]); //4,3,3
-
-      this.settings = {
-        items: this.items
-      };
-
-      if (data != null) {
-        this.challengeInfo = data.setup;
-        this.template = data.template;
-      }
-      else {
-        this.exit('levelNotFound');
-      }
+  ionViewCanEnter(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.gameDataProvider.getChallenge(this.id, this.levelId).subscribe(data => {
+        this.settings = {
+          init: this.activityInitialized.bind(this),
+          playZone: {}
+        };
+        if (data != null && data.template != 'NotFound') {
+          this.challenge = data.setup;
+          this.template = data.template;
+          this.templateCss = data.css;
+          this.activityType = this.challenge.type;
+          this.introKey = this.activityType+'_howto';
+          resolve(true);
+        }
+        else {
+          if (!this.sourcePage) {
+            let navCtrl = this.navCtrl;
+            setTimeout(() => {
+              navCtrl.setRoot(GameLevelPage, { id: this.levelId, reason: 'challengeNotFound' });
+            }, 1);
+          }
+          resolve(false);
+        }
+      });
     });
 
-    this.activityService.on('activityVerified').subscribe(data => {
-      this.activityVerified(data);
-    });
   }
 
   ionViewDidEnter(){
     this.onResize();
-    this.loading = false;
-    this.status = 'loaded';
+    this.appData.ready().subscribe((settings) => {
+      this.initialize();
+    });
   }
 
+  initialize() {
+    //Play intro if required
+    if (!this.appData.hasFlag(Flags[this.introKey.toUpperCase()])) {
+      this.playIntro();
+    }
+    else {
+      this.setReady();
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
   onResize($event=null) {
     let dim = this.content.getContentDimensions();
-    this.pzStyle = {
-      'height.px': dim.contentHeight
-    };
+    this.pzStyle = { 'height.px': dim.contentHeight };
+    this.settings.playZone.height = this.content.contentHeight;
   }
 
+  //User Actions
   dismiss() {
+    if (this.busy) return;
     this.navCtrl.setRoot(GameLevelPage, { id: this.levelId });
   }
 
-  exit(reason) {
-    console.log(reason);
+  showHelp(actType) {
+    if (this.busy) return;
+    this.stopSounds();
+    this.mediaPlayer.playVideoFromCatalog(actType+'_howto')
   }
 
-  tepuyComponentReady($event){
-
+  listen() {
+    if (this.busy) return;
+    if (!this.canVerify) return; //Play only if playing
+    this.stopSounds();    
+    this.playAudioIntro();
   }
 
-  activityVerified(result){
-    console.log(result);  
+  verify() {
+    if (this.busy) return;
+    this.busy = true;
+    this.stopSounds();
+    this.activityService.verify();
   }
 
   restart() {
+    if (this.busy) return;
+    this.busy = true;
+    this.stopSounds();
     this.activityService.restart();
+    this.challengeResult = '';
+    this.canPlayAgain = false;
+    this.canVerify = true;
+    this.clearFlags();
   }
 
-  shuffle() {
-    let arr: Array<any> = this.items;
-    let i = arr.length;
-    while(--i > 0) {
-      let j = Math.floor(Math.random() * (i + 1));
-      let t = arr[j];
-      arr[j] = arr[i];
-      arr[i] = t;
+  goNext() {
+    if (this.busy) return;
+    this.sourcePage = null;
+    this.stopSounds();
+    const nextId = (parseInt(this.id) + 1) % 10;
+    this.navCtrl.setRoot(GameChallengePage, { id: nextId, levelId: nextId == 0 ? (parseInt(this.levelId) + 1) : this.levelId });
+  }
+
+  //Activity Events
+
+  activityInitialized(service) {
+    this.activityService = service;
+    this.activityService.on(this.activityService.ACTIVITY_VERIFIED).subscribe(data => {
+      this.activityVerified(data);
+    });
+
+    this.activityService.on(this.activityService.ITEM_TOUCHED).subscribe(item => {
+      this.mediaPlayer.playAudio({key: item.value.toLowerCase()}, {stopAll: true}).subscribe(result => {});
+    });
+
+    this.activityService.on(this.activityService.ACTIVITY_RESET).subscribe(() => {
+      this.busy = false;
+    });
+    this.busy = false;
+    this.canGoNext = this.challenge.completed;
+  }
+
+  activityVerified(result){
+    //Need to show feedback;
+    let storage = Observable.of(this.challenge);
+    const isCompleted = this.challenge.completed;
+    if (result.success) {
+      storage = this.gameDataProvider.registerScore(this.challenge, result.score, result.success);
     }
-  }
 
-  partition(arr: Array<any>){
-    let result = [];
-    let i = 0;    
-    for(let size in arr){
-      result[size] = [];
-      let k = 0;
-      for(; k < arr[size] && k < this.items.length; k++) {
-        result[size].push(this.items[k+i]);
+    this.feedbackDismissed = false;
+    let feedback = this.mediaPlayer.playAudio({key: 'result-' + result.rate });
+    feedback.subscribe(()=>{});
+    let highlight = 'play';    
+    if (result.success) {
+      //Show the item prize
+      if (result.score == maxScore) {
+        let k = 1;
+        while(this.challenge['prize_'+k] == result.rate && k <= maxPrizes) k++;
+        if (k <= maxPrizes){
+          let i = maxPrizes;
+          while(i > k) {
+            this.challenge['prize_'+i] = this.challenge['prize_'+(i-1)];
+            i--;
+          }
+          this.challenge['prize_'+k] = result.rate;
+        }
       }
-      i+=k;
+      else {
+        let i = 0;
+        while(++i <= maxPrizes && this.challenge['prize_'+(i)] != 'empty');
+        if (i <= maxPrizes ){
+          this.challenge['prize_'+i] = result.rate;
+        }
+      }
     }
-    this.items = result;
+
+    storage.subscribe(challenge => {
+      if (!isCompleted && challenge.completed) {
+        //1. Play audio
+        feedback.subscribe((result) => {
+          if (!this.feedbackDismissed) {
+            this.mediaPlayer.playAudio({key: 'ch_completed'}, {stopAll:true}).subscribe(result => {
+            });
+          }
+        });
+        //2. Show congrats
+        this.levelJustCompleted = true;
+        highlight = 'next';
+      }
+
+      this.challengeResult = result.rate;
+      this.canVerify = false;
+      this.canPlayAgain = true;
+      this.canGoNext = this.challenge.completed;
+      this.btnHigthlight = highlight;
+      this.busy = false;
+    });
+  }
+
+  //Helpers
+  private playIntro(ondemand:boolean=false) {    
+    this.mediaPlayer.playVideoFromCatalog(this.introKey, { centered: true }).subscribe((done) => {
+      //Should update status here
+      if (!ondemand){
+        this.appData.setFlag(Flags[this.introKey.toUpperCase()]);
+        this.setReady();
+        this.playAudioIntro();
+      }
+    });
+  }
+  private playAudioIntro(){
+    const key = ['l_', this.levelId, '_ch_', parseInt(this.id)+1, '_intro'].join('');
+    this.mediaPlayer.playAudio({key: key}, {stopAll: true}).subscribe(result => {});
+  }
+  private stopSounds() {
+    this.feedbackDismissed = true;
+    this.mediaPlayer.stopAll();
+  }
+  private setReady() {
+    this.loading = false;
+    this.status = 'loaded';
+    this.canVerify = true;
+    this.busy = false;
+  }
+  private clearFlags() {
+    this.levelJustCompleted = false;
+    this.btnHigthlight = '';
   }
 }

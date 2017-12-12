@@ -1,9 +1,0 @@
-<div ion-grid tepuy-selectable #activityComponent>
-  <div ion-row *ngFor="let group of items; let i = index" class="row-{{i}}">
-    <div ion-col text-center>
-      <div *ngFor="let item of group" class="seed_bag" tepuy-selectable-item data-tepuy-groupH="HH" data-tepuy-groupF="FFF" data-tepuy-group="1" data-tepuy-correctFn="isNumber">
-        <span>{{item}}</span> 
-      </div>
-    </div>
-  </div>
-</div>

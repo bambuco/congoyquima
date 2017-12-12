@@ -1,15 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule, Compiler } from '@angular/core';
+//import { JitCompiler } from '@angular/compiler';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { IonicStorageModule } from '@ionic/storage';
 import { TepuyModule } from '../tepuy-angular/tepuy.module';
 
-
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen';
+//import { NativeAudio } from '@ionic-native/native-audio';
 //import { StreamingMedia } from '@ionic-native/streaming-media';
 //import { File } from '@ionic-native/file';
 //import { VideoPlayer } from '@ionic-native/video-player';
@@ -27,7 +28,7 @@ import { ProgressPage } from '../pages/progress/progress';
 
 import { HelpComponent } from '../components/help/help';
 import { VideoPlayerComponent } from '../components/video-player/video-player';
-import { CompileDirective, CompileService } from '../directives/compile.directive';
+import { CompileDirective } from '../directives/compile.directive';
 
 import { ContentProvider } from '../providers/content';
 import { GameDataProvider } from '../providers/game-data';
@@ -82,13 +83,14 @@ import { MediaPlayer } from '../providers/media-player';
     StatusBar,
     AndroidFullScreen,
     SplashScreen,
+    //NativeAudio,
     //StreamingMedia,
     //VideoPlayer,
     //TextToSpeech,
     //MobileAccessibility,
     //File,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    CompileService,
+    //{provide: Compiler, useClass: JitCompiler},
     ContentProvider,    
     GameDataProvider,
     AppDataProvider,

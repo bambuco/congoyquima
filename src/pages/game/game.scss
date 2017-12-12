@@ -4,7 +4,7 @@ Game
 
 page-game {
   .content-zone {
-    background-image: url('../assets/imgs/game_bg.png');
+    background-image: url('../assets/game/img/shared/world_bg.png');
     background-size: cover;
     overflow: auto;
   }
@@ -28,9 +28,9 @@ page-game {
 
   @for $i from 1 through 4 {
     .level-block-#{$i} {
-      background-image: url(../assets/imgs/game/levels/#{$i}.png);
+      background-image: url(../assets/game/img/tiles/#{$i}.png);
       &.unlocked {
-        background-image: url(../assets/imgs/game/levels/#{$i}_color.png);
+        background-image: url(../assets/game/img/tiles/#{$i}_color.png);
         img {
           position:absolute;
           top:0;
@@ -49,13 +49,13 @@ page-game {
   }
 
   .level-progress-icon {
-    background-image: url('../assets/imgs/sprite_level_progress.png');
+    background-image: url('../assets/game/img/shared/sprite_level_progress.png');
     background-color: transparent;
     background-repeat: no-repeat;
     display: inline-block;
     position: absolute;
     transform-origin: left top;
-    
+
     $icons: level-1 level-2;
     @include appSpriteIcons($icons, 20px, 20px, 28, 0, 402px, 136px);
 
@@ -70,49 +70,18 @@ page-game {
 
     $icons: level-progress-1 level-progress-2;
     @include appSpriteIcons($icons, 20px, 20px, 28, 0, 402px, 136px);
-  }
 
-/*
-  .level-progress-icon {
-  }
-
-  .app-level-icon {
-    background-image: url('../assets/imgs/sprite_levels.png');
-    background-color: transparent;
-    background-repeat: no-repeat;
-    display: inline-block;
-    position: absolute;
-    left: 50%;
-    transform: scale(.33);
-
-    //Level Icons
-    $icons: level-1;
-    @include appSpriteIcons($icons, 20px, 20px, 0, 170, 790px, 610px, $alternate:'.level-locked');
-
-    $icons: level-2;
-    @include appSpriteIcons($icons, 1000px, 20px, 0, 102, 768px, 678px, $alternate:'.level-locked');
-
-    $icons: level-3;
-    @include appSpriteIcons($icons, 2000px, 20px, 0, 26, 768px, 754px, $alternate:'.level-locked');
-
-    $icons: level-4;
-    @include appSpriteIcons($icons, 3000px, 20px, 0, 260, 722px, 520px, $alternate:'.level-locked');
-  }
-
-  //Each level settings in the format heigth, top, margin-left
-  $level-settings: (
-    (150px -200px -440px)
-    (130px -255px -340px)
-    (130px -280px -440px)
-    (130px -175px -330px)
-  );
-
-  [ion-item] {
-    border-bottom: solid .55px map-get($colors, border);
-
-    &:last-child {
-      border: none;
+    .level-progress-bar {
+      padding-left: 132px;
+      padding-top: 38px;
+      div {
+        background-color: #73AB40;
+        border: solid 2px #FFFFFF;
+        width: 26px;
+        height: 57px;
+        float: left;
+      }
     }
+
   }
-*/
 }

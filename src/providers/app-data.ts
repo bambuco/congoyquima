@@ -1,12 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
-import { Observable } from 'rxjs/Rx';
-import { ReplaySubject } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { AppState } from './models/app-state';
 
 const data_key: string = 'app_state';
+let one = 0x1;
+export const Flags = {
+  APP_INTRO: (one),
+  HOME_INTRO: (one=one<<1),
+  GAME_INTRO: (one=one<<1),
+  LEVEL1_INTRO: (one=one<<1),
+  SELECT_HOWTO: (one=one<<1),
+  DRAG_HOWTO: (one=one<<1)
+};
+
 @Injectable()
 export class AppDataProvider {
   private observer: ReplaySubject<any> = new ReplaySubject<any>(1);
@@ -25,22 +35,26 @@ export class AppDataProvider {
     return this.observer;
   }
 
-  hasSeenIntro() {
-    return this.settings.introVideoPlayed === true;
+  hasFlag(flag) {
+    return (this.settings.flags & flag) == flag;
   }
 
-  setIntroPlayed() {
-    this.settings.introVideoPlayed = true;
+  setFlag(flag) {
+    this.settings.flags = this.settings.flags | flag; //[key] = true;
+    this.update();
+  }
+
+  setHomeIntroPlayed() {
+    this.settings.homeIntroVideoPlayed = true;
     this.update();
   }
 
   private update() {
     this.storage.set(data_key, this.settings).then(value => {
-      console.log('stored');
       console.log(value);
     })
     .catch(reason => {
-      console.log('failed');
+      console.log('failed to store ' + data_key);
       console.log(reason);
     });
   }

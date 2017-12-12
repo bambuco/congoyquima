@@ -9,16 +9,29 @@
 </ion-header>
 
 <ion-content [ngClass]="{'center-vertical': loading}" #content>
-  <div class="content-zone" [ngClass]="status" [ngStyle]="pzStyle" #playZone (window:resize)="onResize($event)">
-    <ng-container *compile="template; context: settings;" #dynamicComponent></ng-container>
-  </div>
+  <div class="content-zone l_{{challenge.levelId}}_ch_{{challenge?.id+1}}"
+      [ngClass]="status" 
+      [ngStyle]="pzStyle">
+    <ng-container *compile="template; css: templateCss; context: settings;"></ng-container>
+    <div class="level_completed" text-center *ngIf="levelJustCompleted">
+      <img src="assets/game/img/shared/level_completed.gif"/>
+    </div>
+    <div class="feedback" text-center *ngIf="challengeResult != ''">
+      <img src="assets/game/img/shared/ch_r_{{challengeResult}}.gif"/>
+    </div>
+  </div>  
 </ion-content>
 <ion-footer>
-  <ion-toolbar text-center>
-    <ion-buttons>
-      <button ion-button class="app-icon game-start" (click)="restart()"></button>
-      <button ion-button class="app-icon verify" tepuy-activity-verify></button>
-      <button ion-button class="app-icon exit" (click)="dismiss()"></button>
+  <ion-navbar no-padding no-margin>
+    <ion-buttons no-padding no-margin text-center>
+      <button class="app-icon exit" (click)="dismiss()"></button>
+      <button class="app-icon act-{{activityType}}" (click)="showHelp(activityType)"></button>
+      <button class="app-icon listen" (click)="listen()"></button>
+      <button class="app-icon verify" *ngIf="canVerify" (click)="verify()"></button>
+      <button class="app-icon game-start" *ngIf="canPlayAgain" (click)="restart()"
+        [ngClass]="{'flashing-r': btnHigthlight=='play'}"></button>
+      <button class="app-icon next" [disabled]="!canGoNext" (click)="goNext()" 
+        [ngClass]="{'flashing-r': btnHigthlight=='next'}"></button>
     </ion-buttons>
-  </ion-toolbar>
+  </ion-navbar>
 </ion-footer>
