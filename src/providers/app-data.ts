@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
-import { Observable } from 'rxjs/Rx';
-import { ReplaySubject } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { AppState } from './models/app-state';
 
 const data_key: string = 'app_state';
-const flagBase = 0x1;
+let one = 0x1;
 export const Flags = {
-  APP_INTRO: flagBase,
-  HOME_INTRO: flagBase*2,
-  GAME_INTRO: flagBase*4
+  APP_INTRO: (one),
+  HOME_INTRO: (one=one<<1),
+  GAME_INTRO: (one=one<<1),
+  LEVEL1_INTRO: (one=one<<1),
+  SELECT_HOWTO: (one=one<<1),
+  DRAG_HOWTO: (one=one<<1)
 };
 
 @Injectable()
@@ -33,7 +36,7 @@ export class AppDataProvider {
   }
 
   hasFlag(flag) {
-    return this.settings.flags & flag;
+    return (this.settings.flags & flag) == flag;
   }
 
   setFlag(flag) {

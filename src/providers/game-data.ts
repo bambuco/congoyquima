@@ -3,13 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 
 //import {serialize, deserialize} from "serializer.ts/Serializer";
-export const serialize: Function = (value) => { return value; };
-export const deserialize: Function = (type, value) => { return value; };
-
-import { Observable } from 'rxjs/Rx';
-import { ReplaySubject } from 'rxjs/Rx';
-//import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { GameState, LevelState, ChallengeState } from './models/game-state';
+
+import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/forkJoin';
+import 'rxjs/add/observable/fromPromise';
+import 'rxjs/add/operator/catch';
+
+
 
 const game_state_key: string = 'game_state';
 const level_state_key: string = 'level_$id_state';
@@ -29,7 +32,7 @@ export class GameDataProvider {
     
     Observable.forkJoin([setup, Observable.fromPromise(gameState)]).subscribe((data) => {
       let gameSetup:any = data[0];
-      let gameState:GameState = deserialize(GameState, data[1]);
+      let gameState:GameState = data[1];
       if (!gameSetup.levels) return;
 
       if (gameState == null) gameState = new GameState();
@@ -126,10 +129,10 @@ export class GameDataProvider {
         this.getLevel(levelId),
         this.http.get('assets/game/html/l_'+levelId+'/ch_'+id+'.html', httpOptions).catch(error => {
           return Observable.of('NotFound');
-        }),
+        })/*, //ToDo: Enable loading css when required
         this.http.get('assets/game/l_'+levelId+'/ch_'+id+'.css', httpOptions).catch(error => {
           return Observable.of('');
-        })
+        })*/
       ]).subscribe(data => {
         let nextChallenge = null;
         if (id < data[0].challenges.length) {
@@ -143,7 +146,7 @@ export class GameDataProvider {
           setup: data[0].challenges[id-1],
           nextAvailable: nextChallenge != null && nextChallenge != undefined && !nextChallenge.unavailable,
           template: data[1],
-          css: data[2]
+          css: '' //ToDo: Enable css loading when required data[2]
         };
 
         observer.next(challengeInfo);

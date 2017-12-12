@@ -1,6 +1,11 @@
 <ion-content>
   <button class="app-icon next" *ngIf="true" (click)="dismiss()"></button>
-  <video #theVideo [attr.controls]="controls" [attr.loop]="loop" (click)="play()">
+  <ion-spinner *ngIf="!videoReady"></ion-spinner>
+  <video #theVideo [attr.controls]="controls"
+    [attr.loop]="loop" 
+    (click)="play()"
+    [ngClass]="{'not-visible':!videoReady, 'centered':centered}"
+    >
     <source src="{{url}}" />
   </video>
 </ion-content>

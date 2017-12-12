@@ -1,5 +1,5 @@
 import { Directive, Input, ElementRef,
-  Renderer2, OnInit, AfterViewInit
+  Renderer2, OnInit, AfterViewInit, OnDestroy
 } from '@angular/core';
 import { DomController } from 'ionic-angular';
 
@@ -13,14 +13,14 @@ import { TepuySelectableService } from './selectable.provider';
     "[class.tepuy-good]" : "succeed === true",
     "[class.tepuy-wrong]": "succeed === false",
     "[class.tepuy-selected]": "selected === true",
-    "(touchstart)": "onTouchStart()",
+    //"(touchstart)": "onTouchStart()",
     "(mousedown)": "onMouseDown()",
     "(drag)": "onDrag($event)",
     "(panstart)": "onPanStart($event)",
     "(panend)": "onPanEnd($event)"
   }
 })
-export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
+export class TepuySelectableItemDirective implements OnInit, AfterViewInit, OnDestroy {
   @Input('tepuy-group') group: string;
   @Input('tepuy-correctFn') correctFn: string;
   @Input('tepuy-correct') correct: boolean;
@@ -36,10 +36,9 @@ export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
   private isDragging: boolean = false;
   private originalParent: HTMLElement=null;
   private originalStyle: any;
-
   private itemTouchedTime: number = 0;
-
   private service: TepuySelectableService;
+  private touchStartHandler:any;
 
   constructor(private el: ElementRef,
     private renderer: Renderer2,
@@ -59,12 +58,20 @@ export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
     };
   }
 
+  ngOnDestroy() {
+    if (this.touchStartHandler) {
+      this.el.nativeElement.removeEventListener('touchstart', this.touchStartHandler);
+    }
+  }
+
   ngAfterViewInit(){
     this.initialize();
 
     if (this.draggable) {
       this.enableDraggable();
     }
+    this.touchStartHandler = this.onTouchStart.bind(this);
+    this.el.nativeElement.addEventListener('touchstart', this.touchStartHandler, { passive: true });
   }
 
   initialize() {
@@ -206,7 +213,7 @@ s    */
     return target;
   }
 
-  private position() {
+  /*private position() {
     let el = this.el.nativeElement;
     let top = 0;
     let left = 0;
@@ -216,7 +223,7 @@ s    */
         el = el.offsetParent;
     } while(el);
     return { left: left, top: top };
-  }
+  }*/
 
   private setTranslate(translate) {
     if(translate!=null){

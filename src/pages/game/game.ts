@@ -1,7 +1,7 @@
 import { Component, ViewChild, Renderer2 } from '@angular/core';
 import { Platform, NavController, Content } from 'ionic-angular';
 
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { GameDataProvider } from '../../providers/game-data';
 import { AppDataProvider, Flags } from '../../providers/app-data';
 import { MediaPlayer } from '../../providers/media-player';

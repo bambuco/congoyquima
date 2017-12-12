@@ -31,7 +31,7 @@ export class MediaCatalog {
         simple: true
       });
     }
-    //Level completed
+    //Challenge completed
     this.assets.push({
       type: 'audio',
       key: 'ch_completed',
@@ -39,14 +39,16 @@ export class MediaCatalog {
       preload: true
     });
 
-    //Level audios
-    for (let level of []) {
-      this.assets.push({
-        type: 'audio',
-        key: 'result-'+level,
-        path: path + 'ch_'+level+'.mp3',
-        simple: true
-      });
+    //Challenge intro
+    for(let l of [1]){
+      for (let ch of [1, 2, 3]) {
+        this.assets.push({
+          type: 'audio',
+          key: ['l_', l, '_ch_', ch, '_intro'].join(''),
+          path: path + ['l_', l, '/ch_', ch, '_intro.mp3'].join(''),
+          preload: true 
+        });
+      }
     }
   }
 
