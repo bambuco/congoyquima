@@ -1,5 +1,5 @@
 import { Directive, Input, ContentChildren, ElementRef, HostBinding, QueryList,
-  Renderer2, OnInit, AfterViewInit, AfterContentInit, OnDestroy
+  OnInit, AfterContentInit, OnDestroy
 } from '@angular/core';
 
 import { TepuySelectableItemDirective } from '../activities/selectable/selectable-item.directive';
@@ -7,7 +7,6 @@ import { TepuySelectableItemDirective } from '../activities/selectable/selectabl
 @Directive({ 
   selector: '[tepuy-drop-target]',
   host: { 
-    "(dragenter)": "onDragEnter($event)"    
   }
 })
 export class TepuyDropTargetDirective implements AfterContentInit {
@@ -18,15 +17,10 @@ export class TepuyDropTargetDirective implements AfterContentInit {
   @ContentChildren(TepuySelectableItemDirective) items: QueryList<TepuySelectableItemDirective>;
 
 
-  constructor(private el: ElementRef) {    
-  }
-
-  onDragEnter($event) {
+  constructor() {    
   }
 
   ngAfterContentInit() {
-    this.items.changes.subscribe(data => {
-    });
   }
 
 }

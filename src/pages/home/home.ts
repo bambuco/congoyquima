@@ -20,7 +20,7 @@ export class HomePage {
   help: any;
 
   constructor(private navCtrl: NavController,
-    private modalCtrl: ModalController,
+    //private modalCtrl: ModalController,
     private splashScreen: SplashScreen,
     private mediaPlayer: MediaPlayer,
     private appData: AppDataProvider

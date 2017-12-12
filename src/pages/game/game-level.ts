@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, NavController, NavParams, ModalController, Content } from 'ionic-angular';
+import { NavController, NavParams, Content } from 'ionic-angular';
 
 
 //import { MobileAccessibility } from '@ionic-native/mobile-accessibility';
@@ -18,14 +18,12 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 export class GameLevelPage {
   @ViewChild('content')
   private contentEl: Content;
-  //@ViewChild('contentZone')
-  //private contentZone;
-
-  private levelInfo: any;
-  private challenges: ReplaySubject<any> = new ReplaySubject(1);
   private pages: any = { home: HomePage, game: GamePage };
-  private itemHeight: number;
+  private levelInfo: any;
   private redirectReason: string;
+  
+  itemHeight: number;
+  challenges: ReplaySubject<any> = new ReplaySubject(1);
 
   constructor(private navCtrl: NavController,
       gameDataProvider: GameDataProvider,

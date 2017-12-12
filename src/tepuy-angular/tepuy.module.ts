@@ -32,7 +32,8 @@ import { TepuyUtils } from './tepuy-utils';
     TepuyActivityVerifyDirective,
     TepuySelectableComponent,
     TepuySelectableGroupDirective,
-    TepuySelectableItemDirective
+    TepuySelectableItemDirective,
+    TepuyActivityComponent
   ],
   entryComponents: [
     TepuySelectableComponent

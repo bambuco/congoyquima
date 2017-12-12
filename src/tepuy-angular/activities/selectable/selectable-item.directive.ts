@@ -1,5 +1,5 @@
-import { Directive, Input, ContentChild, ElementRef,
-  Renderer2, OnInit, AfterViewInit, OnDestroy
+import { Directive, Input, ElementRef,
+  Renderer2, OnInit, AfterViewInit
 } from '@angular/core';
 import { DomController } from 'ionic-angular';
 
@@ -130,7 +130,6 @@ export class TepuySelectableItemDirective implements OnInit, AfterViewInit {
 
   private enableDraggable() {
     //Get Current position
-    let position = this.position();
     let hammer = new window['Hammer'](this.el.nativeElement);
     hammer.get('pan').set({ direction: window['Hammer'].DIRECTION_ALL });
     hammer.on('pan', (ev) => {

@@ -1,7 +1,6 @@
 import { Component, ViewChild, HostListener } from '@angular/core';
 import { NavController, NavParams, Content } from 'ionic-angular';
 import { TepuyActivityService } from '../../tepuy-angular/activities/activity.provider';
-import { TepuySelectableComponent } from '../../tepuy-angular/activities/selectable/selectable.component';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -10,7 +9,7 @@ import { MediaPlayer } from '../../providers/media-player';
 
 import { GameLevelPage } from '../game/game-level';
 
-const maxChallenges = 10;
+//const maxChallenges = 10;
 const maxPrizes = 3;
 const maxScore = 1;
 
@@ -35,24 +34,24 @@ export class GameChallengePage {
   challengeResult: string = '';
   activityType: string = '';
   canGoNext: boolean = false;
+  pzStyle: any;
+  levelJustCompleted: boolean = false;
+  canVerify: boolean = false;
+  canPlayAgain: boolean = false;
+  btnHigthlight: string = '';
 
   private id: string;
   private levelId: string;
-  private pzStyle: any;
   private activityService: TepuyActivityService;
-  private canVerify: boolean = false;
-  private canPlayAgain: boolean = false;
-  private btnHigthlight: string = '';
-  private levelJustCompleted: boolean = false;
   private busy: boolean = true;
-  private nextAvailable: boolean = false;
+  //private nextAvailable: boolean = false;
   private sourcePage: string = null;
 
   constructor(
       private navCtrl: NavController,
       private gameDataProvider: GameDataProvider,
       private mediaPlayer: MediaPlayer,
-      private params: NavParams
+      params: NavParams
       ) {
     this.id = params.get('id');
     this.levelId = params.get('levelId');

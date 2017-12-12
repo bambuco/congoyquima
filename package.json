@@ -44,7 +44,6 @@
         "ionic-img-viewer": "^2.9.0",
         "ionic-plugin-keyboard": "^2.2.1",
         "ionicons": "3.0.0",
-        "phaser-ce": "^2.9.2",
         "rxjs": "5.5.2",
         "serializer.ts": "0.0.12",
         "sw-toolbox": "3.6.0",
@@ -52,9 +51,7 @@
     },
     "devDependencies": {
         "@ionic/app-scripts": "3.1.2",
-        "expose-loader": "^0.7.4",
-        "typescript": "2.4.2",
-        "webpack-merge": "^4.1.1"
+        "typescript": "2.4.2"
     },
     "description": "",
     "cordova": {
