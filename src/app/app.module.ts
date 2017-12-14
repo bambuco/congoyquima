@@ -34,6 +34,7 @@ import { ContentProvider } from '../providers/content';
 import { GameDataProvider } from '../providers/game-data';
 import { AppDataProvider } from '../providers/app-data';
 import { MediaPlayer } from '../providers/media-player';
+import { MediaCatalog } from '../providers/media-player.catalog';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { MediaPlayer } from '../providers/media-player';
     ContentProvider,    
     GameDataProvider,
     AppDataProvider,
-    MediaPlayer
+    MediaPlayer,
+    MediaCatalog
   ]
 })
 export class AppModule {}

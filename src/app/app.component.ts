@@ -6,6 +6,8 @@ import { AndroidFullScreen } from '@ionic-native/android-full-screen';
 
 import { AppDataProvider } from '../providers/app-data';
 import { GameDataProvider } from '../providers/game-data';
+import { MediaCatalog } from '../providers/media-player.catalog';
+import { TepuyAudioPlayerProvider } from '../tepuy-angular/providers' 
 
 //import { Splash } from './splash.component';
 import { HomePage } from '../pages/home/home';
@@ -21,8 +23,10 @@ export class MyApp {
   constructor(platform: Platform,
     private statusBar: StatusBar,
     private androidFS: AndroidFullScreen,
+    private mediaCatalog: MediaCatalog,
+    private audioPlayer: TepuyAudioPlayerProvider,
     appData: AppDataProvider, 
-    gameData: GameDataProvider
+    gameData: GameDataProvider,
     //private splashScreen: SplashScreen,
     //private modalCtrl: ModalController
     ) {
@@ -34,6 +38,9 @@ export class MyApp {
     platform.resume.subscribe(() => {
       this.cordovaInit();
     });
+
+    //Register all assets and preload the common used
+    this.assetPreload();
   }
   
   cordovaInit() {
@@ -42,6 +49,14 @@ export class MyApp {
     this.androidFS.isImmersiveModeSupported()
       .then(() => this.androidFS.immersiveMode())
       .catch((error: any) => console.log(error));
+  }
+
+
+  private assetPreload() {
+    //Register audio sounds so they can be easily preloaded later
+    for (let sound of this.mediaCatalog.audios){
+      this.audioPlayer.register(sound.key, sound.path, sound.preload);
+    }
   }
 }
 

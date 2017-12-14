@@ -1,4 +1,4 @@
-<div ion-grid tepuy-selectable #activityComponent>
+<div ion-grid tepuy-activity #activityComponent>
   <div tepuy-item-group
       data-tepuy-group-id="1"
       data-tepuy-type="multiselect" 
@@ -8,7 +8,7 @@
       data-tepuy-wrong-options="randomof:letters:min=a;max=Z">    
     <div ion-row *ngFor="let size of [4, 3, 3]; let i = index" class="row-{{i}}">
       <div text-center>
-        <div *tepuyRepeat="size" tepuy-selectable-item data-tepuy-group="1" class="seed_bag">
+        <div *tepuyRepeat="size" tepuy-item tepuy-selectable tepuy-greetable class="seed_bag">
           <span class="" tepuy-item-value></span> 
         </div>
       </div>

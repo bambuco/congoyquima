@@ -71,7 +71,6 @@ export class MediaPlayer {
       url: 'assets/' + path,
       options: options
     });
-
     return Observable.create(observer => {
       modal.present().catch((reason) => {
         observer.next({ succeed: false, result: reason });

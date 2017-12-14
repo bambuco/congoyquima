@@ -27,7 +27,7 @@ page-game-challenge {
     height: 100%;
   }
 
-  [data-tepuy-draggable] {
+  [tepuy-draggable] {
     &.tepuy-dragging {
       z-index: 10;
     }

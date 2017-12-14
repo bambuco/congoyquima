@@ -22,7 +22,10 @@
   "exclude": [
     "node_modules",
     "src/**/*.spec.ts",
-    "src/**/__tests__/*.ts"
+    "src/**/__tests__/*.ts",
+    "src/tepuy-angular/activities",
+    "src/tepuy-angular/directives/activity-verify.directive.ts",
+    "src/tepuy-angular/directives/drop-target.directive.ts"
   ],
   "compileOnSave": false,
   "atom": {
