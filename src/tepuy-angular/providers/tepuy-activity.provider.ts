@@ -17,6 +17,7 @@ export class TepuyActivityService {
   
   private items: Array<any> = [];
   private groups: Array<any> = [];
+  private setup: any;
 
   private correctDataProvider:IDataProvider;
   private wrongDataProvider:IDataProvider;
@@ -26,13 +27,15 @@ export class TepuyActivityService {
   ACTIVITY_REQUESTED = 'verifyRequested';
   ITEM_READY = 'itemReady';
   ITEM_TOUCHED = 'itemTouched';
-
+  ITEM_GROUP_COMPLETED = "groupCompleted";
+  
   constructor(protected errorProvider: TepuyErrorProvider) {
     this.registerEvent(this.ACTIVITY_VERIFIED);
     this.registerEvent(this.ACTIVITY_REQUESTED);
     this.registerEvent(this.ACTIVITY_RESET);
     this.registerEvent(this.ITEM_READY);
     this.registerEvent(this.ITEM_TOUCHED);
+    this.registerEvent(this.ITEM_GROUP_COMPLETED);
   }
 
   newId() {
@@ -56,6 +59,9 @@ export class TepuyActivityService {
     this.emit('itemReady', item);
   }
 
+  setSetup(setup) {
+    this.setup = setup;
+  }
   /**
    * Evaluates the result of the activity.
    * @emit {event} {id: activityId, score: the score for the activity }
@@ -122,7 +128,7 @@ export class TepuyActivityService {
    * @param {string} exp Expression that will be converted to an array. rangeof|.
    */
   getDataProvider(exp:string):IDataProvider {
-    return this.dataProviderFactory.create(exp);
+    return this.dataProviderFactory.create(exp, this.setup);
   }
   /**
    * Parse an expression to be converted on an array

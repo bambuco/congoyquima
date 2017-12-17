@@ -36,6 +36,7 @@ export class TepuyGroupDirective implements OnInit, AfterViewInit {
   @ContentChildren(TepuyDropZoneDirective, { descendants: true}) targets: QueryList<TepuyDropZoneDirective>;
  
   //private actProvider: TepuySelectableService;
+  groupValue:any;
 
   constructor(
     private el: ElementRef,
@@ -71,9 +72,11 @@ export class TepuyGroupDirective implements OnInit, AfterViewInit {
     }
 
     this.options = options;
-    this.correctDataProvider = this.actProvider.getDataProvider(options.correctSource);
+    if (options.correctSource) {
+      this.correctDataProvider = this.actProvider.getDataProvider(options.correctSource);
+    }
 
-    if (options.wrongSource != '') {
+    if (options.wrongSource) {
       this.wrongDataProvider = this.actProvider.getDataProvider(options.wrongSource);
     }
     //this.correctOptions = this.actProvider.explodeExpression(options.correctSource);
@@ -81,24 +84,21 @@ export class TepuyGroupDirective implements OnInit, AfterViewInit {
 
     this.actProvider.on(this.actProvider.ACTIVITY_RESET).subscribe(() => {
       this.resetItemValues();
-    })
+    });
   }
 
   ngAfterContentInit() {
     //select a set of values
     this.resetItemValues();    
-    ////Just in case new items are added
-    //this.items.changes.subscribe(item => {
-      //console.log(item);
-    //});
   }
 
   ngAfterViewInit(){
   }
 
   private resetItemValues() {
-    //this.actProvider.shuffle(this.correctOptions);
-    //this.actProvider.shuffle(this.wrongOptions);
+    
+    if (!this.correctDataProvider) return;
+
     this.correctDataProvider.reset();
     if (this.wrongDataProvider){
       this.wrongDataProvider.reset();

@@ -166,24 +166,18 @@ export class GameChallengePage {
   }
 
   //Activity Events
-
-  activityInitialized(service) {
-    this.activityService = service;
+  activityInitialized(service:TepuyActivityService) {
+    service.setSetup(this.challenge);
+    this.activityService = service;    
     this.activityService.on(this.activityService.ACTIVITY_VERIFIED).subscribe(data => {
       this.activityVerified(data);
     });
-
-    /*
-    this.activityService.on(this.activityService.ITEM_TOUCHED).subscribe(item => {
-      this.mediaPlayer.playAudio({key: item.value.toLowerCase()}, {stopAll: true}).subscribe(result => {});
-    });*/
 
     this.activityService.on(this.activityService.ACTIVITY_RESET).subscribe(() => {
       this.busy = false;
     });
     this.busy = false;
     this.canGoNext = this.challenge.completed;
-
 
     this.activityService.on(this.activityService.ITEM_READY).subscribe((item) => {
       if (item.actAsGreetable) {

@@ -9,7 +9,7 @@ import { TepuyActivityService } from '../providers';
 @Directive({ 
   selector: '[tepuy-item]',
   host: { 
-    "[class.tepuy-good]" : "succeed === true",
+    "[class.tepuy-correct]" : "succeed === true",
     "[class.tepuy-wrong]": "succeed === false",
     "[attr.is-succeed]": "succeed"
   }

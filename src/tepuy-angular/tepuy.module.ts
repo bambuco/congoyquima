@@ -8,8 +8,9 @@ import { TepuyScaleWidthDirective } from './directives/scale-width.directive';
 
 //Activity directives
 import { 
-  TepuyActivityDirective, TepuyGroupDirective, TepuyItemDirective,
-  TepuySelectableDirective, TepuyGreetableDirective, TepuyDraggableDirective, TepuyDropZoneDirective
+  TepuyActivityDirective, TepuyGroupContainerDirective, TepuyGroupDirective, TepuyItemDirective,
+  TepuySelectableDirective, TepuyGreetableDirective, TepuyDraggableDirective, TepuyDropZoneDirective,
+  TepuyMarkableComponent
 } from './behaviors';
 
 //Activity Services
@@ -29,15 +30,18 @@ import { TepuyUtils } from './tepuy-utils';
     TepuyRepeatDirective,
     TepuyScaleWidthDirective,
     TepuyActivityDirective,
+    TepuyGroupContainerDirective,
     TepuyGroupDirective,
     TepuyItemDirective,
     TepuySelectableDirective,
     TepuyGreetableDirective,
     TepuyDraggableDirective,
     TepuyDropZoneDirective,
+    TepuyMarkableComponent
   ],
   entryComponents: [
     //TepuySelectableComponent
+    TepuyMarkableComponent
   ],
   exports: [
     TepuyRandomDirective,
@@ -45,12 +49,14 @@ import { TepuyUtils } from './tepuy-utils';
     TepuyScaleWidthDirective,
     //
     TepuyActivityDirective,
+    TepuyGroupContainerDirective,
     TepuyGroupDirective,
     TepuyItemDirective,
     TepuySelectableDirective,
     TepuyGreetableDirective,
     TepuyDraggableDirective,
     TepuyDropZoneDirective,
+    TepuyMarkableComponent
   ],
   providers: [
     TepuyActivityService, TepuyErrorProvider, TepuyAudioPlayerProvider

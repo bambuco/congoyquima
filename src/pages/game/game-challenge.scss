@@ -10,7 +10,7 @@ page-game-challenge {
     overflow: auto;
 
     @for $l from 1 through 1 {
-      @for $ch from 1 through 2 {
+      @for $ch from 1 through 3 {
         &.l_#{$l}_ch_#{$ch} {
           background-image: url('../assets/game/img/l_#{$l}/ch_#{$ch}/bg.png');
         }
@@ -47,6 +47,7 @@ page-game-challenge {
     height: 30%;
     width: 100%;
     background-color: #fff;
+    z-index: 10;
 
     img {
       height: 100%;
@@ -99,7 +100,7 @@ page-game-challenge {
       span {
         background-color: map-get($colors, neutral);
       }
-      &.tepuy-good span {
+      &.tepuy-correct span {
         background-color: map-get($colors, good);
       }
       &.tepuy-wrong span {
@@ -187,7 +188,7 @@ page-game-challenge {
         span {
           background-color: map-get($colors, neutral);
         }
-        &.tepuy-good span {
+        &.tepuy-correct span {
           background-color: map-get($colors, good);
         }
         &.tepuy-wrong span {
@@ -220,4 +221,39 @@ page-game-challenge {
       }
     }
   }
+
+  /**********************************************************************
+  Level 1 - Challenge 3
+  **********************************************************************/
+  .l_1_ch_3 {
+    .tepuy-markzone container {
+      position: relative;
+    }
+
+    ion-slide.swiper-slide {
+        align-items: flex-start;
+    }
+
+    .tepuy-mark-container {
+      width: 100%;
+      position: relative;
+      div {
+        height: 100%;
+      }
+      img {
+        /*max-width: 1920px;*/
+        height: 100%;
+
+      }
+      .tepuy-correct {
+        border: solid 20px #b2e07f;
+      }
+
+      .tepuy-wrong {
+        border:solid 20px #f2674c;
+      }
+    }
+  }
 }
+
+

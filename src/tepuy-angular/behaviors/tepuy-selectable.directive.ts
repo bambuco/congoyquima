@@ -14,7 +14,7 @@ import { DomController } from 'ionic-angular';
 export class TepuySelectableDirective implements AfterViewInit {
   @HostBinding("class.tepuy-selected") isSelected: boolean = false;
 
-  private item:any;
+  item:any;
   private canSelect:boolean;
 
   constructor(
