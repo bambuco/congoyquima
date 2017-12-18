@@ -1,18 +1,22 @@
 <div ion-grid tepuy-activity #activityComponent no-margin no-padding
   data-tepuy-group-values="randomof:setup:key=parameters.maps"
   >
-  <ion-slides class="tepuy-activity-content">
-    <ion-slide *tepuyRepeat="4; let k = index" [ngStyle]="{'width.px':playZone?.width}">
-      <div *tepuyGroupContainer="null; let g=groupValue">
+  <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.maps'; count: 4; let groups=values">
+    <ion-slides class="tepuy-activity-content" pager="true" paginationType="progress">
+      <ion-slide *ngFor="let g of groups" [ngStyle]="{'width.px':playZone?.width}">
         <div tepuy-item-group
-            data-tepuy-group-id="1"
-            data-tepuy-type="select" 
-            >    
+            [tepuy-group-id]="g.id"
+            data-tepuy-type="select"
+            >
           <div class="tepuy-mark-container" [ngStyle]="{'height.px':playZone?.width}">
-            <div tepuy-markable src="assets/game/img/l_1/ch_3/bg_card{{g.id}}.png" [areas]="g.areas"></div>
+            <div tepuy-markable src="assets/game/img/l_1/ch_3/bg_card{{g.data.id}}.png" [tepuy-group-id]="g.id" 
+              [tepuy-areas]="g.data.areas"></div>
           </div>
         </div>
-      </div>
-    </ion-slide>
-  </ion-slides>
+      </ion-slide>
+    </ion-slides>
+    <div class="tepuy-feedback-summary">
+      <img *ngFor="let g of groups" src="assets/game/img/l_1/ch_3/bg_card{{g.data.id}}.png" class="tepuy-{{g.state}}" />
+    </div>
+  </ng-container>
 </div>

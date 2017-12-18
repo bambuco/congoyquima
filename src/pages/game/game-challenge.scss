@@ -253,7 +253,47 @@ page-game-challenge {
         border:solid 20px #f2674c;
       }
     }
+
+    .swiper-pagination {
+      z-index: 11; //go over the header toolbar border;
+    }
   }
+
+  .tepuy-activity {
+    .tepuy-feedback-summary {
+      display: none;
+      padding: 5px;
+      height: 70%;
+      text-align: center;
+      img {
+        max-width: 45%;
+        max-height: 45%;
+        box-sizing: border-box;
+        display: inline-block;
+        margin: 6px;
+        margin-bottom: 0;
+        &.tepuy-correct {
+          border: solid 15px #b2e07f;
+        }
+
+        &.tepuy-wrong {
+          border:solid 15px #f2674c;
+        }
+      }
+    }
+
+    &.tepuy-completed {
+      
+      ion-slides {
+        display: none;
+      }
+      
+      .tepuy-feedback-summary {
+        display: block;
+      }
+    }
+  }
+
 }
 
 

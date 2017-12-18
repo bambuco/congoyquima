@@ -18,6 +18,7 @@ const videoCatalog = {
   'game_intro': 'game/vid/shared/game_intro.mp4',
   'select_howto': 'game/vid/shared/select_howto.mp4',
   'drag_howto': 'game/vid/shared/drag_howto.mp4',
+  'mark_howto': 'game/vid/shared/mark_howto.mp4',
   'level1_intro': 'game/vid/l_1/intro.mp4'
 };
 

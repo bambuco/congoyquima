@@ -27,7 +27,7 @@
       <button class="app-icon exit" (click)="dismiss()"></button>
       <button class="app-icon act-{{activityType}}" (click)="showHelp(activityType)"></button>
       <button class="app-icon listen" (click)="listen()"></button>
-      <button class="app-icon verify" *ngIf="canVerify" (click)="verify()"></button>
+      <button class="app-icon verify" *ngIf="canVerify" (click)="verify()" [disabled]="verifyDisabled"></button>
       <button class="app-icon game-start" *ngIf="canPlayAgain" (click)="restart()"
         [ngClass]="{'flashing-r': btnHigthlight=='play'}"></button>
       <button class="app-icon next" [disabled]="!canGoNext" (click)="goNext()" 

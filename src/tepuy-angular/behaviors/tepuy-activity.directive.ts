@@ -1,31 +1,32 @@
-import { Directive, ViewChildren, ContentChild, ContentChildren, QueryList, Input, ElementRef, ViewContainerRef,
-  Renderer2, OnInit, AfterContentInit, OnDestroy, AfterViewInit
+import { Directive, ViewChild, ViewChildren, ContentChild, ContentChildren, QueryList, Input, ElementRef, ViewContainerRef,
+  Renderer2, OnInit, AfterContentInit, OnDestroy, AfterViewInit, HostBinding
 } from '@angular/core';
 import { Slides } from 'ionic-angular';
 
 import { TepuyActivityService, TepuyErrorProvider, Errors, DataProviderFactory, IDataProvider } from '../providers';
-import { TepuyGroupContainerDirective } from './tepuy-group-container.directive';
+import { TepuyValueGeneratorDirective } from './tepuy-group-container.directive';
 
 @Directive({ 
   selector: '[tepuy-activity]',
-  host: { },
+  host: { "class" : "tepuy-activity" },
   providers: [ TepuyActivityService ]
 })
 export class TepuyActivityDirective implements OnInit, AfterContentInit, AfterViewInit {
+  @HostBinding("class.tepuy-completed") isComplete: boolean = false;
+
   @Input('tepuy-activity') options: any;
   @Input('tepuy-activity-id') id: string;
   @Input('tepuy-win-score') winScore: number;
   @Input('tepuy-slide-delay') slideDelay: number = 1;
-  @Input('tepuy-group-values') groupValues: any;
 
-  @ContentChildren(TepuyGroupContainerDirective, { descendants: true}) groups: QueryList<TepuyGroupContainerDirective>;
+  @ContentChild(TepuyValueGeneratorDirective) valueGenerator: TepuyValueGeneratorDirective;
   @ContentChildren(Slides, { descendants: true}) slides: QueryList<Slides>;
 
-  private dataGroupProvider:IDataProvider;
+  //private dataGroupProvider:IDataProvider;
   private slideCtrl:Slides;
   
   constructor(
-    private el: ElementRef,
+    private elRef: ElementRef,
     protected vcRef: ViewContainerRef,
     private errorProvider: TepuyErrorProvider,
     private activityService: TepuyActivityService) 
@@ -46,7 +47,6 @@ export class TepuyActivityDirective implements OnInit, AfterContentInit, AfterVi
     //Override options with attribute options
     if (this.id) options.id = this.id;
     if (this.winScore) options.winScore = this.winScore;
-    if (this.groupValues) options.groupValues = this.groupValues;
 
     //Set default values if required
     if (!options.id) options.id = this.activityService.newId();  
@@ -54,77 +54,59 @@ export class TepuyActivityDirective implements OnInit, AfterContentInit, AfterVi
       this.activityService.winScore = parseFloat(options.winScore);
     }
 
-    if (options.groupValues) {
-      this.dataGroupProvider = this.activityService.getDataProvider(options.groupValues);
-    }
-
-    this.activityService.on(this.activityService.ITEM_GROUP_COMPLETED).subscribe(() => {
-      this.groupCompleted();
+    this.activityService.on(this.activityService.ITEM_GROUP_COMPLETED).subscribe((result) => {
+      this.groupCompleted(result);
     });
 
     this.activityService.on(this.activityService.ACTIVITY_RESET).subscribe(() => {
-      console.log('handling reset on activity');
+      this.isComplete = false;
       this.resetGroupValues();
     });
   }
 
   ngAfterContentInit(){
-    this.resetGroupValues();
-  }
-
-  ngAfterViewInit() {
-    if (this.slideCtrl) {
-      console.log('setting additional slide settings');
-      //this.slideCtrl.slidesPerView = 4;
-      //this.slideCtrl.slidesPerColumn = 2;
-    }
-  }
-
-  private resetGroupValues() {
-    if (!this.dataGroupProvider) return;
-
-    this.dataGroupProvider.reset();
-    this.groups.forEach((group, i) => {
-      const value = this.dataGroupProvider.next();
-      setTimeout(() => {
-        group.groupValue = value;
-      }, 0);      
-    });
-
     if (this.slides.length) {
       this.slideCtrl = this.slides.first;
-      if (this.slideCtrl.isEnd()) {
-        this.slideCtrl.lockSwipes(false);
-        this.slideCtrl.slideTo(0, 0, false);
-      }
-    }
-
-    if (this.slideCtrl) {
       this.slideCtrl.enableKeyboardControl(false);
       this.slideCtrl.lockSwipes(true);
     }
+
+    this.slides.changes.subscribe((changes) => {
+      this.slideCtrl = this.slides.first;
+    });
   }
 
-  private groupCompleted(){
-    //this.slideCtrl.pager = true;
-    this.slideCtrl.lockSwipes(false);
+  ngAfterViewInit() {
+  }
+
+  private resetGroupValues() {
+    if (!this.valueGenerator) return;
+
+    this.activityService.clearItems();
+    this.valueGenerator.refresh();
+  }
+
+  private groupCompleted(result){
     this.slideCtrl.lockSwipeToPrev(true);
-    this.slideCtrl.paginationType = 'progress';
     this.slideCtrl.update();
     setTimeout(() => {
-      if (this.slideCtrl) {
-        if(this.slideCtrl.isEnd()) {
-          this.activityService.verify();
-          //this.slideCtrl.slidesPerColumn = 2;
-          //this.slideCtrl.slidesPerView = 4;
-        }
-        else {
-          this.slideCtrl.lockSwipes(false);
-          console.log('sliding next.. from: ' + this.slideCtrl.getActiveIndex())
-          this.slideCtrl.slideNext();
-          this.slideCtrl.lockSwipes(true);
-        }
-      }
+      this.autoVerifyActivity(result);
     }, this.slideDelay * 1000);
+  }
+
+  private autoVerifyActivity(result:any){
+    this.valueGenerator.values[result.group].state = result.state;
+    //is it last group?
+    if (result.group == (this.valueGenerator.tepuyValueGeneratorCount - 1)) {
+      this.activityService.verify();
+      this.isComplete = true;
+    }
+    else {
+      if (this.slideCtrl) {
+        this.slideCtrl.lockSwipes(false);
+        this.slideCtrl.slideNext();
+        this.slideCtrl.lockSwipes(true);
+      }
+    }
   }
 }

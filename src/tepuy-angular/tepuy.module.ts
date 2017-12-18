@@ -8,9 +8,9 @@ import { TepuyScaleWidthDirective } from './directives/scale-width.directive';
 
 //Activity directives
 import { 
-  TepuyActivityDirective, TepuyGroupContainerDirective, TepuyGroupDirective, TepuyItemDirective,
+  TepuyActivityDirective, TepuyGroupDirective, TepuyItemDirective,
   TepuySelectableDirective, TepuyGreetableDirective, TepuyDraggableDirective, TepuyDropZoneDirective,
-  TepuyMarkableComponent
+  TepuyMarkableComponent, TepuyValueGeneratorDirective
 } from './behaviors';
 
 //Activity Services
@@ -30,7 +30,7 @@ import { TepuyUtils } from './tepuy-utils';
     TepuyRepeatDirective,
     TepuyScaleWidthDirective,
     TepuyActivityDirective,
-    TepuyGroupContainerDirective,
+    TepuyValueGeneratorDirective,
     TepuyGroupDirective,
     TepuyItemDirective,
     TepuySelectableDirective,
@@ -49,7 +49,7 @@ import { TepuyUtils } from './tepuy-utils';
     TepuyScaleWidthDirective,
     //
     TepuyActivityDirective,
-    TepuyGroupContainerDirective,
+    TepuyValueGeneratorDirective,
     TepuyGroupDirective,
     TepuyItemDirective,
     TepuySelectableDirective,

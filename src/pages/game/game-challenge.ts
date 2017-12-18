@@ -47,6 +47,7 @@ export class GameChallengePage {
   private activityService: TepuyActivityService;
   private busy: boolean = true;
   private feedbackDismissed: boolean = false;
+  private verifyDisabled: boolean = false;
   //private nextAvailable: boolean = false;
   private sourcePage: string = null;
   private introKey: string;
@@ -79,6 +80,7 @@ export class GameChallengePage {
           this.templateCss = data.css;
           this.activityType = this.challenge.type;
           this.introKey = this.activityType+'_howto';
+          this.verifyDisabled = this.challenge.autofeedback === true;
           resolve(true);
         }
         else {
@@ -100,6 +102,7 @@ export class GameChallengePage {
     this.appData.ready().subscribe((settings) => {
       this.initialize();
     });
+
   }
 
   initialize() {

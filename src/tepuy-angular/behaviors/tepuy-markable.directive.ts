@@ -60,6 +60,7 @@ export class TepuyMarkableComponent implements AfterViewInit {
   @Input() src: string;
   @Input('tepuy-auto-feedback') autoFeedback: boolean = true;
   @Input('tepuy-multiple') multiple: boolean = false;
+  @Input('tepuy-group-id') group: number;
   @Output('change') changeEvent = new EventEmitter<Shape>();
   //@Output('mark') markEvent = new EventEmitter<Shape>();
 
@@ -68,7 +69,6 @@ export class TepuyMarkableComponent implements AfterViewInit {
 
   @ViewChild('canvas') private canvas: ElementRef;
   @ViewChild('container') private container: ElementRef;
-
   @ViewChild('image') private image: ElementRef;
 
   private shapes: Shape[] = [];
@@ -82,7 +82,7 @@ export class TepuyMarkableComponent implements AfterViewInit {
   top: number = 0;
   left: number = 0;
 
-  @Input('areas')
+  @Input('tepuy-areas')
   set setAreas(areas: any[]) {
     this.shapeActive = null;
     this.shapeHover = null;
@@ -178,8 +178,6 @@ export class TepuyMarkableComponent implements AfterViewInit {
 
     this.left = (image.offsetWidth - image.clientWidth) / 2;
     this.top = (image.offsetHeight - image.clientHeight) / 2;
-    //console.log(image.offsetWidth - image.clientWidth);
-    //console.log(image.offsetHeight - image.clientHeight);
     this.renderer.setElementAttribute(canvas, 'height', `${height}`);
     //this.renderer.setElementStyle(container, 'height', `${height}px`);
     this.renderer.setElementAttribute(canvas, 'width', `${width}`);
@@ -217,10 +215,6 @@ export class TepuyMarkableComponent implements AfterViewInit {
         shape.state = 'normal';
       }
     });
-    /*if (!active && this.shapeActive !== null) {
-      this.shapeActive = null;
-      change = true;
-    }*/
     if (change) this.change();
   }
 
@@ -240,20 +234,12 @@ export class TepuyMarkableComponent implements AfterViewInit {
           draw = true;
           shape.state = 'hover';
         }
-        /*if (this.shapeHover === null || this.shapeHover !== index) {
-          this.shapeHover = index;
-          draw = true;
-        }*/
       }
       else if (/hover/.test(shape.state)) {
         shape.state = 'normal';
         draw = true;
       }
     });
-    /*if (!hover && this.shapeHover !== null) {
-      this.shapeHover = null;
-      draw = true;
-    }*/
     if (draw) this.draw();
   }
 
@@ -273,7 +259,20 @@ export class TepuyMarkableComponent implements AfterViewInit {
       this.canMark = false;
       shape.state = sel.item.isCorrect ? 'correct' : 'wrong';
       this.isCorrect = sel.item.isCorrect;
-      this.activityService.emit(this.activityService.ITEM_GROUP_COMPLETED);
+
+      //Need to make sure it will count only as one if the markable does not accept multiple selection.
+      if (!this.multiple && !this.isCorrect) {
+        //find the correct one.
+        const rightone = this.selectables.find((itm) => { return itm.item.correct });
+        if (rightone != null) {
+          rightone.item.correct = false;
+        }
+      }
+      this.activityService.emit(this.activityService.ITEM_GROUP_COMPLETED, { 
+        group: this.group,
+        succeed: sel.item.isCorrect,
+        state: shape.state
+      });
       setTimeout(() => {
         this.draw();
       }, 1);

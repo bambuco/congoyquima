@@ -1,9 +1,10 @@
-import { Directive, Input, Output, ElementRef, HostBinding, OnInit,
+import { Inject, Directive, Input, Output, ElementRef, HostBinding, OnInit,
   AfterViewInit, EventEmitter, Renderer2
 } from '@angular/core';
 import { DomController } from 'ionic-angular';
 
 import { TepuyActivityService } from '../providers';
+import { TepuyGroupDirective } from './tepuy-group.directive';
 
 
 @Directive({ 

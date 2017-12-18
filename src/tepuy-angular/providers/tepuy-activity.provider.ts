@@ -62,6 +62,10 @@ export class TepuyActivityService {
   setSetup(setup) {
     this.setup = setup;
   }
+  
+  clearItems() {
+    this.items = [];
+  }
   /**
    * Evaluates the result of the activity.
    * @emit {event} {id: activityId, score: the score for the activity }
