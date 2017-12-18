@@ -2,7 +2,7 @@
   data-tepuy-group-values="randomof:setup:key=parameters.maps"
   >
   <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.maps'; count: 4; let groups=values">
-    <ion-slides class="tepuy-activity-content" pager="true" paginationType="progress">
+    <ion-slides class="tepuy-activity-content" pager="true" paginationType="progress" effect="flip">
       <ion-slide *ngFor="let g of groups" [ngStyle]="{'width.px':playZone?.width}">
         <div tepuy-item-group
             [tepuy-group-id]="g.id"
