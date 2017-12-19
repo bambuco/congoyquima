@@ -27,6 +27,7 @@ export class TepuyActivityService {
   ACTIVITY_REQUESTED = 'verifyRequested';
   ITEM_READY = 'itemReady';
   ITEM_TOUCHED = 'itemTouched';
+  ITEM_GROUP_COMPLETING = "groupCompleting";
   ITEM_GROUP_COMPLETED = "groupCompleted";
   
   constructor(protected errorProvider: TepuyErrorProvider) {
@@ -56,7 +57,7 @@ export class TepuyActivityService {
 
   itemReady(item: any) {
     this.items.push(item);
-    this.emit('itemReady', item);
+    this.emit(this.ITEM_READY, item);
   }
 
   setSetup(setup) {
@@ -103,29 +104,42 @@ export class TepuyActivityService {
    * @eventName {string} Event name to subscribe
    * returns observable for subscription
    */  
-  on(eventName: string): Observable<any> {
-    if (!(eventName in this.observers)) this.errorProvider.raise(Errors.EventEmitterNotRegistered);
-    return this.observers[eventName];
+  on(eventName: string, key?:any): Observable<any> {
+    const observerName = eventName + ( key ? '_' + key : '');
+    if (!(observerName in this.observers)) this.errorProvider.raise(Errors.EventEmitterNotRegistered);
+    return this.observers[observerName];
   }
 
   /**
    * Evaluates the result of the activity.
    * @emit {event} {id: activityId, score: the score for the activity }
    */  
-  emit(eventName:string, eventData?:any) {
-    if (!(eventName in this.observers)) this.errorProvider.raise(Errors.EventEmitterNotRegistered);
-    this.observers[eventName].next(eventData);
+  emit(eventName:string, eventData?:any, key?:any) {
+    const observerName = eventName + ( key ? '_' + key : '');
+    if (!(observerName in this.observers)) this.errorProvider.raise(Errors.EventEmitterNotRegistered);
+    this.observers[observerName].next(eventData);
   }
 
   /**
    * Register an event so users of this service will be able to listen to.
    * @eventName {string} The name of the event to register
    */  
-  registerEvent(eventName: string){
-    if (eventName in this.observers) return; 
-    this.observers[eventName] = new ReplaySubject(1);
+  registerEvent(eventName: string, key?:any){
+    const observerName = eventName + ( key ? '_' + key : '');
+    if (observerName in this.observers) return; 
+    this.observers[observerName] = new ReplaySubject(1);
   }
 
+  /**
+   * Unregister an event so this service will no longer emit events for it.
+   * @eventName {string} The name of the event to register
+   */  
+  unregisterEvent(eventName: string, key?:any){
+    const observerName = eventName + ( key ? '_' + key : '');
+    if (observerName in this.observers) {
+      delete this.observers[observerName];
+    }
+  }
 
   /**
    * Parse an expression to be converted on an array

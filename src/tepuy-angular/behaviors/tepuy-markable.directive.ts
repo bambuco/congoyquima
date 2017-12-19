@@ -1,11 +1,10 @@
 import {
   Component, ElementRef, EventEmitter, Input, Output, AfterViewInit,
-  Renderer, ViewChild, ViewChildren, ContentChildren, AfterContentInit,
+  Renderer, ViewChild, ViewChildren,
   QueryList
 } from '@angular/core';
 
-import { Shape, ShapeType } from '../classes/shape.class';
-import { TepuySelectableDirective } from './tepuy-selectable.directive';
+import { Shape } from '../classes/shape.class';
 import { TepuyItemDirective } from './tepuy-item.directive';
 import { TepuyActivityService } from '../providers/tepuy-activity.provider';
 
@@ -52,7 +51,7 @@ const defaulStyles = {
         (mousemove)="onMousemove($event)"
         (mouseout)="onMouseout($event)">
       </canvas>
-      <div *ngFor="let shape of shapes;let i=index" tepuy-item tepuy-selectable></div>
+      <div *ngFor="let shape of shapes;let i=index" tepuy-item></div>
     </div>
   `
 })
@@ -65,20 +64,19 @@ export class TepuyMarkableComponent implements AfterViewInit {
   //@Output('mark') markEvent = new EventEmitter<Shape>();
 
   //@ContentChildren(TepuyItemDirective, { descendants: true }) items: QueryList<TepuyItemDirective>;  
-  @ViewChildren(TepuySelectableDirective) selectables: QueryList<TepuySelectableDirective>;  
+  @ViewChildren(TepuyItemDirective) items: QueryList<TepuyItemDirective>;  
 
   @ViewChild('canvas') private canvas: ElementRef;
-  @ViewChild('container') private container: ElementRef;
+  //@ViewChild('container') private container: ElementRef;
   @ViewChild('image') private image: ElementRef;
 
   private shapes: Shape[] = [];
   private shapeHover: number = null;
-  private pixels: number[][] = [];
   private canMark: boolean = false;
 
 
   shapeActive: number;
-  isCorrect: null
+  isCorrect: boolean;
   top: number = 0;
   left: number = 0;
 
@@ -113,10 +111,10 @@ export class TepuyMarkableComponent implements AfterViewInit {
 
   //Lifecycle events
   ngAfterViewInit() {
-    this.selectables.forEach((sel, i) => {
-      this.shapes[i].data = sel;
-      sel.item.correct = this.shapes[i].correct;
-      this.activityService.itemReady(sel.item);
+    this.items.forEach((item, i) => {
+      this.shapes[i].data = item;
+      item.correct = this.shapes[i].correct;
+      this.activityService.itemReady(item);
     });
 
     this.canMark = true;
@@ -169,7 +167,7 @@ export class TepuyMarkableComponent implements AfterViewInit {
 
   draw(): void {
     const canvas: HTMLCanvasElement = this.canvas.nativeElement;
-    const container: HTMLDivElement = this.container.nativeElement;
+    //const container: HTMLDivElement = this.container.nativeElement;
     const image: HTMLImageElement = this.image.nativeElement;
     const height = image.clientHeight;
     const width = image.clientWidth;
@@ -203,10 +201,9 @@ export class TepuyMarkableComponent implements AfterViewInit {
           shape.state = 'marked';
           this.shapeActive = index;
           change = true;
-          const sel: TepuySelectableDirective = shape.data;
-          if (sel) {
-            sel.toggle(null);
-            this.checkAutofeedback(shape, sel);
+          const item: TepuyItemDirective = shape.data;
+          if (item) {
+            this.checkAutofeedback(shape, item);
           }
         }
       }
@@ -254,25 +251,29 @@ export class TepuyMarkableComponent implements AfterViewInit {
     this.draw();
   }
 
-  private checkAutofeedback(shape:Shape, sel:TepuySelectableDirective) {
+  private checkAutofeedback(shape:Shape, item:TepuyItemDirective) {
+    const selected = shape.state == 'marked'; 
+    item.isCorrect = (item.correct && selected);
+    item.answered = selected;
+
     if (this.autoFeedback) {
       this.canMark = false;
-      shape.state = sel.item.isCorrect ? 'correct' : 'wrong';
-      this.isCorrect = sel.item.isCorrect;
+      shape.state = item.isCorrect ? 'correct' : 'wrong';
+      this.isCorrect = item.isCorrect;
 
       //Need to make sure it will count only as one if the markable does not accept multiple selection.
+      //ToDo: It would be ideally to let the group to take care of this but currently it is not grabbing the items collection
       if (!this.multiple && !this.isCorrect) {
         //find the correct one.
-        const rightone = this.selectables.find((itm) => { return itm.item.correct });
-        if (rightone != null) {
-          rightone.item.correct = false;
+        const right = this.items.find((itm) => { return itm.correct });
+        if (right != null) {
+          right.correct = false;
         }
       }
-      this.activityService.emit(this.activityService.ITEM_GROUP_COMPLETED, { 
-        group: this.group,
-        succeed: sel.item.isCorrect,
-        state: shape.state
-      });
+      this.activityService.emit(this.activityService.ITEM_GROUP_COMPLETING, {
+        succeed: item.isCorrect
+      }, this.group);
+
       setTimeout(() => {
         this.draw();
       }, 1);

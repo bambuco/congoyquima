@@ -1,12 +1,11 @@
-import { Injectable, Renderer2 } from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import { Subject } from 'rxjs/Subject';
+//import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class TepuyAudioPlayerProvider {
 
   private sounds: any = {};
-  private observer = new Subject();
   private playlist: Array<string> = [];
   private currentPlayer:any; // = new Audio();
 
@@ -37,7 +36,7 @@ export class TepuyAudioPlayerProvider {
     }, false);
     player.addEventListener('ended', this.onPlayEnd.bind(this), false);
     player.src = sound.path;
-    sound.player = player;
+    sound.player = player;    
   }
 
   /**
@@ -85,7 +84,12 @@ export class TepuyAudioPlayerProvider {
   private startPlaylist() {
     if (this.currentPlayer && !this.currentPlayer.paused) return;
     const sound = this.playlist.splice(0, 1)[0];
-    this.currentPlayer = this.sounds[sound].player;
+    if (!this.currentPlayer) {
+      this.currentPlayer = new Audio();
+      this.currentPlayer.addEventListener('ended', this.onPlayEnd.bind(this), false);
+    }
+    //this.currentPlayer = this.sounds[sound].player;
+    this.currentPlayer.src = this.sounds[sound].path;
     this.currentPlayer.play();
   }
 

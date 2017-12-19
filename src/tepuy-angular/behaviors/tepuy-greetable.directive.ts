@@ -1,7 +1,6 @@
-import { Directive, Input, Output, ElementRef, HostBinding,
-  AfterViewInit, EventEmitter, Renderer2, OnDestroy
+import { Directive, ElementRef,
+  AfterViewInit, OnDestroy
 } from '@angular/core';
-import { DomController } from 'ionic-angular';
 
 import { TepuyAudioPlayerProvider } from '../providers';
 

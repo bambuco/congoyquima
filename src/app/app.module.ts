@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule, Compiler } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 //import { JitCompiler } from '@angular/compiler';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpClientModule } from '@angular/common/http';
@@ -26,7 +26,6 @@ import { GameChallengePage } from '../pages/game/game-challenge';
 import { ContentPage } from '../pages/content/content';
 import { ProgressPage } from '../pages/progress/progress';
 
-import { HelpComponent } from '../components/help/help';
 import { VideoPlayerComponent } from '../components/video-player/video-player';
 import { CompileDirective } from '../directives/compile.directive';
 
@@ -46,7 +45,6 @@ import { MediaCatalog } from '../providers/media-player.catalog';
     GameChallengePage,
     ContentPage,
     ProgressPage,
-    HelpComponent,
     VideoPlayerComponent
   ],
   imports: [
@@ -77,7 +75,6 @@ import { MediaCatalog } from '../providers/media-player.catalog';
     GameChallengePage,
     ContentPage,
     ProgressPage,
-    HelpComponent,
     VideoPlayerComponent
   ],
   providers: [

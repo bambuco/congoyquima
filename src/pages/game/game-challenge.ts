@@ -10,6 +10,7 @@ import { TepuyAudioPlayerProvider } from '../../tepuy-angular/providers';
 import { GameLevelPage } from '../game/game-level';
 
 import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/catch';
 
 //const maxChallenges = 10;
 const maxPrizes = 3;
@@ -121,6 +122,7 @@ export class GameChallengePage {
     this.pzStyle = { 'height.px': dim.contentHeight };
     this.settings.playZone.height = this.content.contentHeight;
     this.settings.playZone.width = this.content.contentWidth;
+    return true;
   }
 
   //User Actions
@@ -230,12 +232,6 @@ export class GameChallengePage {
         if (!this.feedbackDismissed) {
           this.audioPlayer.play('ch_completed', true);
         }
-        /*feedback.subscribe((result) => {
-          if (!this.feedbackDismissed) {
-            this.mediaPlayer.playAudio({key: 'ch_completed'}, {stopAll:true}).subscribe(result => {
-            });
-          }
-        });*/
         //2. Show congrats
         this.levelJustCompleted = true;
         highlight = 'next';

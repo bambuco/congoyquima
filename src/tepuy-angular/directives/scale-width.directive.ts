@@ -1,11 +1,12 @@
-import { Directive, Input, HostBinding, HostListener, OnChanges, Renderer2, ElementRef } from '@angular/core';
-
+import { Directive, Input, HostBinding, HostListener, OnChanges,
+  ElementRef, AfterViewInit
+} from '@angular/core';
+/*
 function _window() : any {
-   // return the global native browser window object
    return window;
 }
+*/
 function _document() : any {
-   // return the global native browser window object
    return document;
 }
 
@@ -23,7 +24,7 @@ export class TepuyScaleWidthDirective implements OnChanges {
   onResize($event=null) {
   }
 
-  constructor(private elRef:ElementRef, private renderer:Renderer2) { 
+  constructor() { 
   }
 
   ngOnChanges() {
@@ -52,4 +53,54 @@ function _document() : any {
     this.width = Math.min(newWidth, content.offsetWidth); //this.currentWidth);
   */
 
+}
+
+
+@Directive({ 
+  selector: '[tepuy-scale]',
+  host: {
+    "(window:resize)": "onResize($event)"
+  }
+ })
+export class TepuyScaleDirective implements OnChanges, AfterViewInit {
+  @Input('tepuy-scale') tepuyScale: number;
+  @Input('tepuy-scale-using') public scaleUsing: string = 'height';
+  @Input('tepuy-scale-extra') public extra: string;
+
+  //@HostListener('window:resize', ['$event'])
+  onResize($event=null) {
+    console.log('on resize 2');
+    setTimeout(() => {
+      this.calculateScale();
+    }, 200);
+  }
+
+  private originalDisplay: string;
+
+  constructor(private elRef:ElementRef) {
+    this.originalDisplay = elRef.nativeElement.style.display;
+    this.elRef.nativeElement.style.display = 'none';
+  }
+
+  ngOnChanges() {
+    if (this.tepuyScale != undefined) {
+      //this.calculateScale();
+    }
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.calculateScale();
+    }, 200);
+  }
+
+  calculateScale(onResize:boolean=false) {
+    const el = this.elRef.nativeElement;
+    const content = _document().querySelector('.content-zone');
+    let height = content.offsetHeight;
+    const scale = Math.round(height / this.tepuyScale * 1000) / 1000;
+    const transform = 'scale(' + scale + ') ' + (!this.extra? '' : this.extra);
+    el.style.transform = transform;      
+    el.style.display = this.originalDisplay;
+  }
 }

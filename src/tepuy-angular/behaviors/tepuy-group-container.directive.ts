@@ -12,6 +12,7 @@ export class TepuyValueGeneratorDirective implements OnChanges {
 
   @Input() tepuyValueGenerator: string;
   @Input() tepuyValueGeneratorCount: number = 1;
+  @Input() tepuyValueGeneratorArray: boolean = false;
   
   private dataProvider:IDataProvider = null;
 
@@ -37,8 +38,9 @@ export class TepuyValueGeneratorDirective implements OnChanges {
     
     this.dataProvider.reset();
     this.values = [];
+    const isArray = this.tepuyValueGeneratorArray;
     for(let i = 0; i < this.tepuyValueGeneratorCount; i++) {
-      this.values.push({id: i, data: this.dataProvider.next() });
+      this.values.push({id: i, data: (isArray ? this.dataProvider.nextGroup() : this.dataProvider.next()) });      
     }
 
     this.viewContainer.createEmbeddedView(this.templateRef, {

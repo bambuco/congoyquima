@@ -50,13 +50,14 @@
         {
           "id": 3,
           "label":"4",
-          "unavailable": true,
-          "type": "tepuy-selectable",
+          "type": "select",
+          "autofeedback": true,
           "parameters": {
           }
         },
         {
           "label":"5",
+          "unavailable": true,
           "type": "tepuy-selectable",
           "parameters": {
           }

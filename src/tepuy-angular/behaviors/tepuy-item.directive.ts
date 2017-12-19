@@ -1,10 +1,8 @@
-import { Inject, Directive, Input, Output, ElementRef, HostBinding, OnInit,
-  AfterViewInit, EventEmitter, Renderer2
+import { Directive, Input, Output, ElementRef, OnInit,
+  AfterViewInit, EventEmitter
 } from '@angular/core';
-import { DomController } from 'ionic-angular';
 
 import { TepuyActivityService } from '../providers';
-import { TepuyGroupDirective } from './tepuy-group.directive';
 
 
 @Directive({ 
@@ -16,7 +14,7 @@ import { TepuyGroupDirective } from './tepuy-group.directive';
   }
 })
 export class TepuyItemDirective implements OnInit, AfterViewInit {
-  //@Input('tepuy-group') group: string;
+  @Input('tepuy-group-id') group: string;
   @Input('tepuy-correct') correct: boolean;
   @Output('tepuyitemresolved') resolved = new EventEmitter(); 
   @Output('tepuyitemready') ready = new EventEmitter(); 
@@ -25,6 +23,7 @@ export class TepuyItemDirective implements OnInit, AfterViewInit {
   isCorrect: boolean = null;
   answered: boolean;
   private valueEl:any;
+  private readyReported: boolean;
 
   //Property setters/getters
   get value() {
@@ -37,7 +36,10 @@ export class TepuyItemDirective implements OnInit, AfterViewInit {
     else {
       this.valueEl.innerText = val;
     }
-    this.activityService.itemReady(this);
+    if (!this.readyReported) {
+      this.readyReported = true;
+      this.activityService.itemReady(this);
+    }
   }
 
   //Constructor
@@ -58,6 +60,10 @@ export class TepuyItemDirective implements OnInit, AfterViewInit {
       this.refresh();
     });
     this.refresh();
+    
+    if (!this.readyReported && (this.correct === true || this.correct === false)){
+      this.activityService.itemReady(this);
+    }
   }
 
   //Helpers

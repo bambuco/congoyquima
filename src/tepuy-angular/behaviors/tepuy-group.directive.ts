@@ -1,10 +1,10 @@
-import { Directive, ViewChildren, ContentChildren, QueryList, Input, ElementRef,
-  Renderer2, OnInit, AfterViewInit, OnDestroy, AfterContentInit
+import { Directive, ContentChildren, QueryList, Input,
+  OnInit, AfterContentInit, OnDestroy
 } from '@angular/core';
 
 import { 
   TepuyActivityService, TepuyDraggableService,
-  DataProviderFactory, IDataProvider,
+  IDataProvider,
   TepuyErrorProvider, Errors 
 } from '../providers';
 
@@ -16,17 +16,15 @@ import { TepuyDropZoneDirective } from './tepuy-drop-zone.directive';
   host: { },
   providers: [ TepuyDraggableService ]
 })
-export class TepuyGroupDirective implements OnInit, AfterViewInit {
+export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy {
   @Input('tepuy-item-group') options: any;
   @Input('tepuy-group-id') id: string;
-  @Input('tepuy-group-type') type: string;
+  @Input('tepuy-allow-multiple') multiple: boolean = false;
   @Input('tepuy-options-size') size: number;
   @Input('tepuy-correct-size') correctSize: number;
   @Input('tepuy-correct-options') correctSource: any;
   @Input('tepuy-wrong-options') wrongSource: any;
 
-  private correctOptions: Array<string>;
-  private wrongOptions: Array<string>;
   valueSource: Array<any>;
   isCorrect: boolean;
   correctDataProvider: IDataProvider;
@@ -39,24 +37,28 @@ export class TepuyGroupDirective implements OnInit, AfterViewInit {
   groupValue:any;
 
   constructor(
-    private el: ElementRef,
     private errorProvider: TepuyErrorProvider,
     //private groupProvider: TepuyGroupService,
     private actProvider: TepuyActivityService) 
   { 
   }
 
+  ngOnDestroy() {
+    this.actProvider.unregisterEvent(this.actProvider.ITEM_GROUP_COMPLETING, this.id);
+  }
+
   ngOnInit() {
+    this.actProvider.registerEvent(this.actProvider.ITEM_GROUP_COMPLETING, this.id);
     //Get options, it must be an object
     let options = (this.options && typeof(this.options) == 'object') ? this.options : {};
     //Override options with attribute options
     if (this.id) options.id = this.id;
-    if (this.type) options.type = this.type;
     if (this.size) options.size = this.size;
     if (this.correctSize) options.correctSize = this.correctSize;
     if (this.correctSource) options.correctSource = this.correctSource;
     if (this.wrongSource) options.wrongSource = this.wrongSource;
 
+    if (this.multiple === true) options.multiple = true;
     //Set default values if required
     if (!options.id) options.id = this.actProvider.groupId();
     //if (!/^(multiselect|single)$/i.test(options.type)) options.type = 'single';
@@ -79,20 +81,23 @@ export class TepuyGroupDirective implements OnInit, AfterViewInit {
     if (options.wrongSource) {
       this.wrongDataProvider = this.actProvider.getDataProvider(options.wrongSource);
     }
-    //this.correctOptions = this.actProvider.explodeExpression(options.correctSource);
-    //this.wrongOptions = this.actProvider.explodeExpression(options.wrongSource);
 
     this.actProvider.on(this.actProvider.ACTIVITY_RESET).subscribe(() => {
       this.resetItemValues();
     });
+
+    this.actProvider.on(this.actProvider.ITEM_GROUP_COMPLETING, this.id).subscribe((result) => {
+      this.onGroupCompleting(result);      
+    });
   }
 
   ngAfterContentInit() {
+    //Set group ids for the items
+    this.items.forEach((item) => {
+      item.group = this.id;
+    });        
     //select a set of values
     this.resetItemValues();    
-  }
-
-  ngAfterViewInit(){
   }
 
   private resetItemValues() {
@@ -131,5 +136,19 @@ export class TepuyGroupDirective implements OnInit, AfterViewInit {
       })
     }
 
+  }
+
+  private onGroupCompleting(result) {
+    //Need to make sure it will count only as one if the markable does not accept multiple selection.
+    if (!this.multiple && !result.succeed) {
+      //find the correct one.
+      const right = this.items.find((itm) => { return itm.correct });
+      if (right != null) {
+        right.correct = false;
+      }
+    }
+    result.group = this.id;
+    result.state = result.succeed ? 'correct' : 'wrong';
+    this.actProvider.emit(this.actProvider.ITEM_GROUP_COMPLETED, result);
   }
 }

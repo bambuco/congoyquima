@@ -43,9 +43,10 @@ $colors: (
   lightgreencustom: #87CCC0,
   border:       #9FDA7E,
   border-dark:  #999999,
-  good:       #3DB77A,
+  correct:       #3DB77A,
+  correct-light: #B2E07F,  
   wrong:      #F2674C,
-  neutral:    #FBB03B
+  neutral:    #FBB03B  
 );
 
 $text-color: map-get($colors, darkgreencustom);
