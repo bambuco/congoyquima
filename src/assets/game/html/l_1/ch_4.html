@@ -5,7 +5,7 @@
         <div class="container" tepuy-item-group [tepuy-group-id]="pair.id">
           <div class="quantity-bag q-left">
             <div class="seed-container">
-              <div class="seed-wrapper" *tepuyValueGenerator="'randomof:numbers:min=1;max=2;repeat=true';count: pair.data[0]; let seeds=values" tepuy-scale="1920" data-tepuy-scale-extra="rotate(180deg) translate(105%, -85%)"
+              <div class="seed-wrapper" *tepuyValueGenerator="'randomof:numbers:min=1;max=5;repeat=true';count: pair.data[0]; let seeds=values" tepuy-scale="1920" data-tepuy-scale-extra="rotate(180deg) translate(105%, -85%)"
                 tepuy-item tepuy-selectable data-tepuy-auto-feedback="true" [tepuy-correct]="pair.data[0]>pair.data[1]">
                 <span *ngFor="let k of seeds" class="seed-icon seed-icon-{{k.data}}"></span>
               </div>
@@ -13,7 +13,7 @@
           </div>
           <div class="quantity-bag q-right">
             <div class="seed-container">
-              <div class="seed-wrapper" *tepuyValueGenerator="'randomof:numbers:min=1;max=2;repeat=true';count: pair.data[1]; let seeds=values" tepuy-scale="1920" data-tepuy-scale-extra="rotate(180deg) translate(-100%, -120%)"
+              <div class="seed-wrapper" *tepuyValueGenerator="'randomof:numbers:min=1;max=5;repeat=true';count: pair.data[1]; let seeds=values" tepuy-scale="1920" data-tepuy-scale-extra="rotate(180deg) translate(-100%, -120%)"
                 tepuy-item tepuy-selectable data-tepuy-auto-feedback="true" [tepuy-correct]="pair.data[1]>pair.data[0]">
                 <span *ngFor="let k of seeds" class="seed-icon seed-icon-{{k.data}}"></span>            
               </div>

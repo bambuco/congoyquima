@@ -47,7 +47,6 @@ export class TepuySelectableDirective implements AfterViewInit {
   }
 
   private checkAutofeedback() {
-    console.log(this.autoFeedback);
     if (this.autoFeedback) {
       this.canSelect = false;
       const service = this.item.activityService;

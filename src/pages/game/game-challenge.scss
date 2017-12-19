@@ -313,10 +313,14 @@ page-game-challenge {
       
       $icons: seed-icon-1;
       @include appSpriteIcons($icons, 20px, 20px, 10px, 0px, 74px, 91px);
-
       $icons: seed-icon-2;
       @include appSpriteIcons($icons, 150px, 20px, 10px, 0px, 81px, 78px);
-
+      $icons: seed-icon-3;
+      @include appSpriteIcons($icons, 300px, 20px, 10px, 0px, 85px, 79px);
+      $icons: seed-icon-4;
+      @include appSpriteIcons($icons, 450px, 20px, 10px, 0px, 78px, 78px);
+      $icons: seed-icon-5;
+      @include appSpriteIcons($icons, 600px, 20px, 10px, 0px, 84px, 83px);
     }
 
     .container {
