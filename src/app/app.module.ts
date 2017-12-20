@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule, Compiler } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 //import { JitCompiler } from '@angular/compiler';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicApp, IonicModule } from 'ionic-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { IonicStorageModule } from '@ionic/storage';
@@ -10,6 +10,7 @@ import { TepuyModule } from '../tepuy-angular/tepuy.module';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen';
+import { MobileAccessibility } from '@ionic-native/mobile-accessibility';
 //import { NativeAudio } from '@ionic-native/native-audio';
 //import { StreamingMedia } from '@ionic-native/streaming-media';
 //import { File } from '@ionic-native/file';
@@ -25,8 +26,9 @@ import { GameLevelPage } from '../pages/game/game-level';
 import { GameChallengePage } from '../pages/game/game-challenge';
 import { ContentPage } from '../pages/content/content';
 import { ProgressPage } from '../pages/progress/progress';
+import { ErrorsPage } from '../pages/errors/errors';
+import { ErrorDetailComponent } from '../pages/errors/error-detail';
 
-import { HelpComponent } from '../components/help/help';
 import { VideoPlayerComponent } from '../components/video-player/video-player';
 import { CompileDirective } from '../directives/compile.directive';
 
@@ -35,6 +37,7 @@ import { GameDataProvider } from '../providers/game-data';
 import { AppDataProvider } from '../providers/app-data';
 import { MediaPlayer } from '../providers/media-player';
 import { MediaCatalog } from '../providers/media-player.catalog';
+import { CustomErrorHandler } from '../providers/custom-error.handler';
 
 @NgModule({
   declarations: [
@@ -46,8 +49,9 @@ import { MediaCatalog } from '../providers/media-player.catalog';
     GameChallengePage,
     ContentPage,
     ProgressPage,
-    HelpComponent,
-    VideoPlayerComponent
+    VideoPlayerComponent,
+    ErrorsPage,
+    ErrorDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -77,20 +81,22 @@ import { MediaCatalog } from '../providers/media-player.catalog';
     GameChallengePage,
     ContentPage,
     ProgressPage,
-    HelpComponent,
-    VideoPlayerComponent
+    VideoPlayerComponent,
+    ErrorsPage,
+    ErrorDetailComponent
   ],
   providers: [
     StatusBar,
     AndroidFullScreen,
     SplashScreen,
+    MobileAccessibility,
     //NativeAudio,
     //StreamingMedia,
     //VideoPlayer,
     //TextToSpeech,
     //MobileAccessibility,
     //File,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    {provide: ErrorHandler, useClass: CustomErrorHandler },
     //{provide: Compiler, useClass: JitCompiler},
     ContentProvider,    
     GameDataProvider,

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Ayuda</ion-title>
+    <ion-title>Detalle del error</ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
         <span ion-text color="primary" showWhen="ios">Atrás</span>
@@ -11,6 +11,11 @@
 </ion-header>
 <ion-content>
   <div>
-    <h1 text-center>Lo sentimos, estámos trabajando con toda para poder ayudarte pronto!!!</h1>
+    <h1>Fecha del error: {{error?.when | date }}</h1>
+    <h2>Mensaje: {{error?.message }}</h2>
+    <h2>Información:</h2>
+    <p>
+      {{error?.info}}
+    </p>
   </div>
 </ion-content>

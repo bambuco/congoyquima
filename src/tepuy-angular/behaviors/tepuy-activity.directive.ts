@@ -1,9 +1,9 @@
-import { Directive, ViewChild, ViewChildren, ContentChild, ContentChildren, QueryList, Input, ElementRef, ViewContainerRef,
-  Renderer2, OnInit, AfterContentInit, OnDestroy, AfterViewInit, HostBinding
+import { Directive, ContentChild, ContentChildren, QueryList, Input, ViewContainerRef,
+  OnInit, AfterContentInit, HostBinding
 } from '@angular/core';
 import { Slides } from 'ionic-angular';
 
-import { TepuyActivityService, TepuyErrorProvider, Errors, DataProviderFactory, IDataProvider } from '../providers';
+import { TepuyActivityService } from '../providers';
 import { TepuyValueGeneratorDirective } from './tepuy-group-container.directive';
 
 @Directive({ 
@@ -11,7 +11,7 @@ import { TepuyValueGeneratorDirective } from './tepuy-group-container.directive'
   host: { "class" : "tepuy-activity" },
   providers: [ TepuyActivityService ]
 })
-export class TepuyActivityDirective implements OnInit, AfterContentInit, AfterViewInit {
+export class TepuyActivityDirective implements OnInit, AfterContentInit {
   @HostBinding("class.tepuy-completed") isComplete: boolean = false;
 
   @Input('tepuy-activity') options: any;
@@ -26,10 +26,8 @@ export class TepuyActivityDirective implements OnInit, AfterContentInit, AfterVi
   private slideCtrl:Slides;
   
   constructor(
-    private elRef: ElementRef,
     protected vcRef: ViewContainerRef,
-    private errorProvider: TepuyErrorProvider,
-    private activityService: TepuyActivityService) 
+    private activityService: TepuyActivityService)   
   { 
   }
 
@@ -53,11 +51,9 @@ export class TepuyActivityDirective implements OnInit, AfterContentInit, AfterVi
     if (!isNaN(options.winScore)){
       this.activityService.winScore = parseFloat(options.winScore);
     }
-
     this.activityService.on(this.activityService.ITEM_GROUP_COMPLETED).subscribe((result) => {
       this.groupCompleted(result);
     });
-
     this.activityService.on(this.activityService.ACTIVITY_RESET).subscribe(() => {
       this.isComplete = false;
       this.resetGroupValues();
@@ -67,16 +63,15 @@ export class TepuyActivityDirective implements OnInit, AfterContentInit, AfterVi
   ngAfterContentInit(){
     if (this.slides.length) {
       this.slideCtrl = this.slides.first;
+      this.slideCtrl.fade = { crossFade: true };
       this.slideCtrl.enableKeyboardControl(false);
       this.slideCtrl.lockSwipes(true);
     }
 
     this.slides.changes.subscribe((changes) => {
       this.slideCtrl = this.slides.first;
+      this.slideCtrl.fade = { crossFade: true };
     });
-  }
-
-  ngAfterViewInit() {
   }
 
   private resetGroupValues() {

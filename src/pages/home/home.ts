@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { GamePage } from '../game/game';
 import { ContentPage } from '../content/content';
+import { ErrorsPage } from '../errors/errors';
 //import { ProgressPage } from '../progress/progress';
 import { MediaPlayer } from '../../providers/media-player';
 import { AppDataProvider, Flags } from '../../providers/app-data';
-
-import { HelpComponent } from '../../components/help/help';
 
 @Component({
   selector: 'page-home',
@@ -17,10 +16,12 @@ import { HelpComponent } from '../../components/help/help';
 export class HomePage {
 
   pages: any = { game: GamePage, contents: ContentPage };
-  help: any;
+  showIndicator: boolean = false;
+
+  private eggCounter: number = 0;
+  private lastEggClicked: number = 0;
 
   constructor(private navCtrl: NavController,
-    //private modalCtrl: ModalController,
     private splashScreen: SplashScreen,
     private mediaPlayer: MediaPlayer,
     private appData: AppDataProvider
@@ -29,8 +30,10 @@ export class HomePage {
 
   ionViewDidEnter() {
     this.appData.ready().subscribe((settings) => {
-      this.splashScreen.hide();
-      this.initialize();
+      setTimeout(() => {
+        this.splashScreen.hide();
+        this.initialize();  
+      }, 1);      
     });
   }
 
@@ -39,8 +42,11 @@ export class HomePage {
     if (!this.appData.hasFlag(Flags.APP_INTRO)) {
       this.playIntro();
     }
-    else if (!this.appData.hasFlag(Flags.HOME_INTRO)) {
-      this.showHelp();
+    //else if (!this.appData.hasFlag(Flags.HOME_INTRO)) {
+    //  this.showHelp();
+    //}
+    else if (!this.appData.hasFlag(Flags.GAME_HOME_ENTERED)) {
+      this.showIndicator = true;
     }
   }
   
@@ -65,14 +71,31 @@ export class HomePage {
     });
   }
 
+  errorEgg() {
+    const now = new Date().getTime();
+    const window = now - this.lastEggClicked;
+    if (window < 2000) {// two senconds
+      this.eggCounter++;
+    }
+    else {
+      this.eggCounter = 1;
+    }
+    this.lastEggClicked = now;
+
+    if (this.eggCounter == 7) {
+      this.navCtrl.setRoot(ErrorsPage);
+    }
+  }
+
   private playIntro(ondemand:boolean=false) {
     this.mediaPlayer.playVideoFromCatalog('intro').subscribe((done) => {
       //Should update status here
       if (!ondemand) {
         this.appData.setFlag(Flags.APP_INTRO);
-        this.mediaPlayer.playVideoFromCatalog('home_intro').subscribe((done) => {
-          this.appData.setFlag(Flags.HOME_INTRO);
-        });
+        //this.mediaPlayer.playVideoFromCatalog('home_intro').subscribe((done) => {
+        //  this.appData.setFlag(Flags.HOME_INTRO);
+        //});
+        this.showIndicator = true;
       }
     });
   }

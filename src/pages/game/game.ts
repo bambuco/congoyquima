@@ -26,6 +26,7 @@ export class GamePage {
   lpbCss: Array<any>;
   litStyles: Array<any>;
   status: string = 'loading';
+  showIndicator: boolean = false;
 
   constructor(
       private platform: Platform,
@@ -54,12 +55,17 @@ export class GamePage {
 
   initialize() {
     //Play intro if required
-    if (!this.appData.hasFlag(Flags.GAME_INTRO)) {
-      this.playIntro();
+    this.appData.setFlag(Flags.GAME_HOME_ENTERED);
+    //if (!this.appData.hasFlag(Flags.GAME_INTRO)) {
+    //  this.playIntro();
+    //}
+    //else {
+    //  this.status = 'loaded';
+    //}
+    if (!this.appData.hasFlag(Flags.GAME_LEVELS_ENTERED)) {
+      this.showIndicator = true;
     }
-    else {
-      this.status = 'loaded';
-    }
+    this.status = 'loaded';
   }
   
   onResize($event) {
@@ -74,10 +80,7 @@ export class GamePage {
   }
 
   showHelp(){
-    this.mediaPlayer.playVideoFromCatalog('game_intro').subscribe((done) => {
-      //Should update status here
-      this.appData.setFlag(Flags.GAME_INTRO);
-    });
+    this.playIntro();
   }
 
   tileDimensions(item, i){
@@ -124,8 +127,8 @@ export class GamePage {
   private playIntro() {
     this.mediaPlayer.playVideoFromCatalog('game_intro').subscribe((done) => {
       //Should update status here
-      this.appData.setFlag(Flags.GAME_INTRO);
-      this.status = 'loaded';
+      //this.appData.setFlag(Flags.GAME_INTRO);
+      //this.status = 'loaded';
     });
   }
 }

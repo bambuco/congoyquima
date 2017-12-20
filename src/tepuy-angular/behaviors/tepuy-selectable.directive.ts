@@ -1,7 +1,6 @@
-import { Directive, Input, Output, ElementRef, HostBinding,
-  AfterViewInit, EventEmitter, Renderer2
+import { Directive, HostBinding,
+  AfterViewInit, Input
 } from '@angular/core';
-import { DomController } from 'ionic-angular';
 
 @Directive({ 
   selector: '[tepuy-selectable]',
@@ -13,6 +12,8 @@ import { DomController } from 'ionic-angular';
 })
 export class TepuySelectableDirective implements AfterViewInit {
   @HostBinding("class.tepuy-selected") isSelected: boolean = false;
+  @Input('tepuy-auto-feedback') autoFeedback: boolean = false;
+  @Input('tepuy-multiple') multiple: boolean = true;
 
   item:any;
   private canSelect:boolean;
@@ -42,6 +43,16 @@ export class TepuySelectableDirective implements AfterViewInit {
     this.isSelected = !this.isSelected;
     this.item.isCorrect = (this.item.correct && this.isSelected);
     this.item.answered = this.isSelected;
+    this.checkAutofeedback();
   }
 
+  private checkAutofeedback() {
+    if (this.autoFeedback) {
+      this.canSelect = false;
+      const service = this.item.activityService;
+      service.emit(service.ITEM_GROUP_COMPLETING, { 
+        succeed: this.item.isCorrect
+      }, this.item.group);
+    }  
+  }
 }

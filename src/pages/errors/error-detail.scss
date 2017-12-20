@@ -1,7 +1,7 @@
 /***************************************
 Help Component
 ***************************************/
-help-content {
+error-detail {
   background-color: map-get($colors, lightgreencustom);
   color: #000;
 
@@ -10,8 +10,8 @@ help-content {
   }
 
   .content-ios, .content-md {
-    background-color: map-get($colors, lightgreencustom);
-    color: #fff;
+    background-color: #fff; //map-get($colors, lightgreencustom);
+    color: #000;
   }
 
   ion-content {

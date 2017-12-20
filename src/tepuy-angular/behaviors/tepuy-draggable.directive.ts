@@ -1,4 +1,4 @@
-import { Directive, Input, Output, ElementRef, HostBinding,
+import { Directive, Output, ElementRef, HostBinding,
   AfterViewInit, EventEmitter, Renderer2
 } from '@angular/core';
 import { DomController } from 'ionic-angular';

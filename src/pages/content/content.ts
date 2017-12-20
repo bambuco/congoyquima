@@ -17,14 +17,16 @@ export class ContentPage {
   contents: Observable<any>;
   viewType: string;
 
- @ViewChild('audios_thumb')
-  private audioThumbTpl: TemplateRef<any>;
- @ViewChild('videos_thumb')
+  /* eslint-disable no-unused-vars */
+  @ViewChild('audios_thumb')
+  private audioThumbTpl: TemplateRef<any>; 
+  @ViewChild('videos_thumb')
   private videoThumbTpl: TemplateRef<any>;
- @ViewChild('images_thumb')
+  @ViewChild('images_thumb')
   private imagesThumbTpl: TemplateRef<any>;
- @ViewChild('docs_thumb')
+  @ViewChild('docs_thumb')
   private docsThumbTpl: TemplateRef<any>;
+  /* eslint-enable no-unused-vars */
 
 
   constructor(private navCtrl: NavController,

@@ -10,7 +10,7 @@ page-game-challenge {
     overflow: auto;
 
     @for $l from 1 through 1 {
-      @for $ch from 1 through 3 {
+      @for $ch from 1 through 10 {
         &.l_#{$l}_ch_#{$ch} {
           background-image: url('../assets/game/img/l_#{$l}/ch_#{$ch}/bg.png');
         }
@@ -25,7 +25,7 @@ page-game-challenge {
   [ion-grid] {
     position: relative;
     height: 100%;
-  }
+  }  
 
   [tepuy-draggable] {
     &.tepuy-dragging {
@@ -76,8 +76,8 @@ page-game-challenge {
     display: inline-block;
     background-image: url('../assets/game/img/shared/seed_bag.png');
     background-size: cover;
-    font-size: 26px;
-    line-height: 38px;
+    font-size: 1.8em;
+    line-height: 1.5em;
     font-family: Arial;
     font-weight: bold;
     position: relative;
@@ -91,6 +91,7 @@ page-game-challenge {
       margin-left: -20px;
       width: 40px;
       height: 40px;
+      white-space: nowrap;
       border-radius: 50%;
       border: solid 3px #fff;
       background-color: #333333;
@@ -101,7 +102,7 @@ page-game-challenge {
         background-color: map-get($colors, neutral);
       }
       &.tepuy-correct span {
-        background-color: map-get($colors, good);
+        background-color: map-get($colors, correct);
       }
       &.tepuy-wrong span {
         background-color: map-get($colors, wrong);
@@ -111,6 +112,24 @@ page-game-challenge {
   [ion-row] {
     position:absolute;
     width: 100%;
+  }
+  .help-indicator {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    @include animation(activity-pointer, 3s, linear, $iteration:infinite);
+  }
+
+  @include keyframes(activity-pointer){
+    0%, 20%, 50%, 80%, 100% {
+      @include transform(scale(0.4) translate(-280%, -400%) rotate(90deg));
+    }
+    40% {
+      @include transform(scale(0.4) translate(-280%, -320%) rotate(90deg));
+    }
+    60% {
+      @include transform(scale(0.4) translate(-280%, -360%) rotate(90deg));
+    }
   }
   /**********************************************************************
   Level 1 - Challenge 1
@@ -189,7 +208,7 @@ page-game-challenge {
           background-color: map-get($colors, neutral);
         }
         &.tepuy-correct span {
-          background-color: map-get($colors, good);
+          background-color: map-get($colors, correct);
         }
         &.tepuy-wrong span {
           background-color: map-get($colors, wrong);
@@ -241,59 +260,232 @@ page-game-challenge {
         height: 100%;
       }
       img {
-        /*max-width: 1920px;*/
         height: 100%;
 
       }
       .tepuy-correct {
-        border: solid 20px #b2e07f;
+        border: solid 20px map-get($colors, correct-light);
       }
 
       .tepuy-wrong {
-        border:solid 20px #f2674c;
+        border:solid 20px map-get($colors, wrong);
       }
     }
 
     .swiper-pagination {
       z-index: 11; //go over the header toolbar border;
     }
-  }
+    
+    .tepuy-activity {
+      .tepuy-feedback-summary {
+        display: none;
+        padding: 5px;
+        height: 70%;
+        text-align: center;
+        img {
+          max-width: 45%;
+          max-height: 45%;
+          box-sizing: border-box;
+          display: inline-block;
+          margin: 6px;
+          margin-bottom: 0;
+          &.tepuy-correct {
+            border: solid 15px map-get($colors, correct-light);
+          }
 
-  .tepuy-activity {
+          &.tepuy-wrong {
+            border:solid 15px map-get($colors, wrong);
+          }
+        }
+      }
+
+      &.tepuy-completed {
+        
+        ion-slides {
+          display: none;
+        }
+        
+        .tepuy-feedback-summary {
+          display: block;
+        }
+      }
+    }
+  }
+  /**********************************************************************
+  Level 1 - Challenge 3
+  **********************************************************************/
+  .l_1_ch_4 {
+
+    ion-slides {
+       height: 60%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom {
+        height: 100%;
+      }
+    }
+
+    .seed-icon {
+      background-image: url('../assets/game/img/l_1/ch_4/sprite_seeds.png');
+      background-color: transparent;
+      background-repeat: no-repeat;
+      display: inline-block;
+      margin: 15px;
+      
+      $icons: seed-icon-1;
+      @include appSpriteIcons($icons, 20px, 20px, 10px, 0px, 74px, 91px);
+      $icons: seed-icon-2;
+      @include appSpriteIcons($icons, 150px, 20px, 10px, 0px, 81px, 78px);
+      $icons: seed-icon-3;
+      @include appSpriteIcons($icons, 300px, 20px, 10px, 0px, 85px, 79px);
+      $icons: seed-icon-4;
+      @include appSpriteIcons($icons, 450px, 20px, 10px, 0px, 78px, 78px);
+      $icons: seed-icon-5;
+      @include appSpriteIcons($icons, 600px, 20px, 10px, 0px, 84px, 83px);
+    }
+
+    .container {
+      position:relative;
+      height: 100%;
+    }
+
+    .quantity-bag {
+      position:absolute;
+      height: 100%;
+      .seed-container {
+        position:relative;
+        height: 100%;
+        .seed-wrapper {
+          //top: 0;
+          position: absolute;
+          cursor: pointer;
+          width: 516px;
+          height: 420px;
+
+          .seed-grid {
+            position:relative;
+            width: 100%;
+            height: 100%;
+
+            span {
+              position:absolute;
+              &.seed-1 { left: 38px; bottom:20px; }
+              &.seed-2 { left: 162px; bottom:20px; }
+              &.seed-3 { left: 295px; bottom:22px; }
+              &.seed-4 { left: 415px; bottom:22px; }
+              &.seed-5 { left: 28px; bottom:164px; }
+              &.seed-6 { left: 162px; bottom:165px; }
+              &.seed-7 { left: 294px; bottom:164px; }
+              &.seed-8 { left: 413px; bottom:165px; }
+              &.seed-9 { left: 68px; bottom:290px; }
+              &.seed-10 { left: 205px; bottom:290px; }
+              &.seed-11 { left: 338px; bottom:286px; }
+              &.seed-12 { left: 203px; bottom:413px; }
+            }
+          }
+        }
+      }
+      &.q-left {
+        bottom: 0;
+        right: 50%;
+        width: 50%;
+        .seed-wrapper {
+          right: 3%;
+          bottom: 15%;
+          transform-origin: right bottom;
+        }
+      }
+      &.q-right {
+        bottom: 0;
+        left: 54%;
+        width: 46.25%;
+        .seed-wrapper {
+          left: 0;
+          bottom: 4%;
+          transform-origin: left bottom;
+        }
+      }
+    }
+
+    .left-quantity {
+      position:absolute;
+      bottom: 0;
+      right: 50%;
+      width: 50%;
+      height: 100%;
+
+      .seed-container {
+        position: relative;
+        .seed-wrapper {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 528px;
+          height: 540px;
+          //transform: rotate(180deg) translate(100%, -75%);
+          transform-origin: right top;
+
+        }
+      }
+    }
+
+    .right-quantity {
+      position:absolute;
+      bottom: -5%;
+      left: 53.75%;
+      width: 46.25%;
+      height: 100%;
+
+      .seed-container {
+        position: relative;
+        .seed-wrapper {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 516px;
+          height: 420px;
+          //transform: rotate(180deg) translate(-100%, -100%);
+          transform-origin: left top;
+        }
+      }
+    }
+  
     .tepuy-feedback-summary {
-      display: none;
-      padding: 5px;
-      height: 70%;
+      height: 10%;
       text-align: center;
-      img {
-        max-width: 45%;
-        max-height: 45%;
-        box-sizing: border-box;
-        display: inline-block;
-        margin: 6px;
-        margin-bottom: 0;
+      span {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: solid 3.5px #fff;
+        background-color: transparent;
+        text-align: center;
+        display:inline-block;
+        
         &.tepuy-correct {
-          border: solid 15px #b2e07f;
+          background-color: map-get($colors, correct-light);
         }
 
         &.tepuy-wrong {
-          border:solid 15px #f2674c;
+          background-color: map-get($colors, wrong);
         }
       }
     }
+    .tepuy-activity {
+      &.tepuy-completed {        
+        ion-slides {
+          display: none;
+        }        
 
-    &.tepuy-completed {
-      
-      ion-slides {
-        display: none;
-      }
-      
-      .tepuy-feedback-summary {
-        display: block;
+        .tepuy-semaphore {
+          position:absolute;
+          bottom: 30%;
+          left: 0;
+          right: 0;
+        }
+
       }
     }
   }
-
 }
-
-

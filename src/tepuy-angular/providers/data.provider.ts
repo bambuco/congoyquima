@@ -12,6 +12,7 @@ const letters = 'abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ';
 */  
 export interface IDataProvider {
   next():any;
+  nextGroup():any[];
   reset():void;
 }
 
@@ -40,27 +41,14 @@ export class DataProviderFactory {
     const settings = this.parseExp(match[2]);
 
     if (type == 'numbers') {
-      return new NumbersProvider({
-        min: parseInt(settings.min),
-        max: parseInt(settings.max),
-        step: parseInt(settings.step),
-        fn: fn
-      });
+      return new NumbersProvider(fn, settings);
     }
     if (type == 'letters') {
-      return new LettersProvider({
-        min: settings.min,
-        max: settings.max,
-        step: settings.step,
-        fn: fn
-      });
+      return new LettersProvider(fn, settings);
     }
 
     if (type == 'setup') {
-      return new SetupProvider({
-        key: settings.key,
-        fn: fn
-      }, setup);
+      return new SetupProvider(fn, settings, setup);
     }
 
     return null;
@@ -88,11 +76,15 @@ abstract class DataProvider implements IDataProvider {
   constructor(){
   }
 
-  next(){
+  next():any {
     throw new Error('Not implemented');    
   }
 
-  reset() {
+  nextGroup():any[] {
+    throw new Error('Not implemented');    
+  }
+
+  reset():void {
     throw new Error('Not implemented');    
   }
 
@@ -111,11 +103,13 @@ abstract class DataProvider implements IDataProvider {
 
     var num = (max - min) * Math.random() + min;
     num = round ? Math.round(num) : num;
-    while(this.cacheHash[num]) {
+    while(!repeat && this.cacheHash[num]) {
       num = (max - min) * Math.random() + min;
       num = round ? Math.round(num) : num;
     }
-    this.cacheHash[num] = true;
+    if (!repeat) {
+      this.cacheHash[num] = true;
+    }
     return num;
   }  
 }
@@ -128,11 +122,15 @@ export class NumbersProvider extends DataProvider {
   min:number;
   max:number;
   step:number = 1;
+  count:number = 1;
+  maxDist: number = Infinity;
   seed: number;
+  repeat: boolean;
   fn: string = 'random';
 
-  constructor(opts:any) {
+  constructor(fn:string, opts:any) {
     super();
+
     this.min = parseInt(opts.min);
     this.max = parseInt(opts.max);
 
@@ -144,21 +142,85 @@ export class NumbersProvider extends DataProvider {
       throw new Error('Invalid settings provided. please review a value range and step has been provided');
     }
 
-    this.seed = this.random(this.min, this.max);
-    this.fn = opts.fn;
-    if (opts.fn == 'random') {
+    this.count = (isNaN(opts.count)) ? 1 : parseInt(opts.count);
+
+    if (!isNaN(opts['max-dist'])) {
+      this.maxDist = parseInt(opts['max-dist'])
+    }
+    this.repeat = /^true$/i.test(opts.repeat+'');
+
+    this.fn = fn;
+    if (fn == 'sequence') {
       this.seed = this.random(this.min, this.max);
     }
   }
 
   next():number {
     if (this.fn == 'random') {
-      return (this.seed = this.random(this.min, this.max));
+      return this.random(this.min, this.max, undefined, this.repeat);
     }
     else {
-      return (++this.seed);
+      return (this.seed++);
     }
-  }  
+  }
+
+  nextGroup():number[] {
+    let attempts = 0;
+    let maxAttempts = 0;
+    if (this.fn == 'random') {
+      const value = this.random(this.min, this.max, undefined, this.repeat);
+      if (this.count == 1) {
+        return [value];
+      }
+      else {
+        let i = 1;
+        let result = [ value ];
+
+        while(i < this.count) {
+          let value2 = 0;
+
+          if (this.maxDist == Infinity) {
+            attempts = 0;
+            maxAttempts = (this.max - this.min) * 5; //5 times the size of the group
+            do {
+              value2 = this.random(this.min, this.max, undefined, true);
+            } while((Math.abs(value2 - value) > this.maxDist || result.indexOf(value2) >= 0) && (++attempts) < maxAttempts);
+            if (attempts == maxAttempts) {
+              throw new Error('NumberProvider:Maximum number of attempts to get a number has been reached');              
+            }
+          }
+          else {
+            let min = Math.max(this.min, value - this.maxDist);
+            let max = Math.min(this.max, value + this.maxDist);
+            attempts = 0;
+            maxAttempts = (max - min) * 5; //5 times the size of the group
+            do {
+              value2 = this.random(min, max, undefined, true);
+            } while((Math.abs(value2 - value) > this.maxDist || result.indexOf(value2) >= 0) && (++attempts) < maxAttempts);
+            if (attempts == maxAttempts) {
+              throw new Error('NumberProvider:Maximum number of attempts to get a number has been reached');              
+            }
+          }
+          result.push(value2);
+          i++;
+        }
+        return result;
+      }
+    }
+    else {
+      const value = (this.seed++);
+      if (this.count == 1) {
+        return [ value ];
+      }
+      else {
+        let i = 1;
+        let values = [ value ];
+        while (i < this.count) {
+          values.push(value )
+        }
+      }
+    }
+  }
 
   reset() {
     this.cacheHash = {};
@@ -177,13 +239,14 @@ export class LettersProvider extends DataProvider {
   fn: string = 'random';
   _next:number;
 
-  constructor(opts:any) {
+  constructor(fn:string, opts:any) {
     super();
+
     this.min = letters.indexOf(opts.min);
     this.max = letters.indexOf(opts.max);
     
     this.seed = this.random(this.min, this.max);
-    this.fn = opts.fn;
+    this.fn = fn;
   }
 
   next():string {
@@ -214,7 +277,7 @@ export class SetupProvider extends DataProvider {
   _next:number;
   values: Array<any>;
 
-  constructor(opts:any, setup:any) {
+  constructor(fn:string, opts:any, setup:any) {
     super();
     let values = setup;
 
@@ -245,7 +308,7 @@ export class SetupProvider extends DataProvider {
     this.max = values.length - 1;
     
     this.seed = this.random(this.min, this.max);
-    this.fn = opts.fn;
+    this.fn = fn;
   }
 
   next():string {

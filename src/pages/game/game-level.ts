@@ -28,6 +28,7 @@ export class GameLevelPage {
   
   itemHeight: number;
   challenges: ReplaySubject<any> = new ReplaySubject(1);
+  showIndicator: boolean = false;
 
   constructor(private navCtrl: NavController,
       private mediaPlayer: MediaPlayer,
@@ -65,8 +66,13 @@ export class GameLevelPage {
 
   initialize() {
     //Play intro if required
-    if (!this.appData.hasFlag(Flags[this.introKey.toUpperCase()])) {
-      this.playIntro();
+    //if (!this.appData.hasFlag(Flags[this.introKey.toUpperCase()])) {
+    //  this.playIntro();
+    //}
+    this.appData.setFlag(Flags.GAME_LEVELS_ENTERED);
+    if (!this.appData.hasFlag(Flags.GAME_CHALLENGE_ENTERED)) {
+      //this.playIntro();
+      this.showIndicator = true;
     }
   }
   
@@ -103,7 +109,7 @@ export class GameLevelPage {
   }
 
   showHelp(){
-    
+    //throw new Error('La ayuda no está disponible aún en este módulo');    
   }
 
   exit(reason) {

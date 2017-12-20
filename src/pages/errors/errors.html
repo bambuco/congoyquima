@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>Visor de errores</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>  
+  <div ion-list>
+
+    <div ion-item *ngIf="noContent" text-wrap text-center>
+      No se han registrado errores.
+    </div>
+    
+    <div ion-item text-wrap *ngFor="let item of errors | async" (click)="viewDetails(item)">
+      <h2>Date: {{item.when | date }}</h2>
+      <p>{{item.message}}</p>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-navbar no-padding no-margin>
+    <ion-buttons no-padding no-margin text-center>
+      <button ion-button no-margin class="app-icon home" (click)="goHome()"></button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-footer>

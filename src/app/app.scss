@@ -18,6 +18,9 @@
 @mixin translate3d($x, $y, $z) {
   @include transform( translate3d($x, $y, $z) );
 }
+@mixin translateY($y) {
+  @include transform( translateY($y) );
+}
 @mixin translateZ($z) {
   @include transform( translateZ($z) );
 }
@@ -144,6 +147,13 @@ ion-content {
   background-image: none;
 }
 
+ion-footer {
+  ion-scroll {
+    height: 71px;
+    white-space: nowrap;
+  }
+}
+
 .center-vertical {
   &.ion-grid, &[ion-grid], &.container {
     height: 100%;
@@ -249,6 +259,9 @@ Application Icons
 
   $icons: game-progress;
   @include appSpriteIcons($icons, 550px, 300px, 57px, 0px, 78px, 81px);
+
+  $icons: arrow-black arrow-white;
+  @include appSpriteIcons($icons, 647px, 948px, 75px, 0px, 125px, 75px);
 }
 /***********************************************/
 
@@ -313,70 +326,33 @@ Application Icons
 }
 
 @include keyframes(flash-1){
-  0% { 
+  0%, 25%, 50%, 100% { 
     opacity: 1.0; 
     @include scale(1);
   }
-  12.5% { 
+  12.5%, 37.5% { 
     opacity: 0.9; 
     @include scale(0.95);
-  }
-  25% { 
-    opacity: 1.0; 
-    @include scale(1);
-  }
-  37.5% { 
-    opacity: 0.9; 
-    @include scale(0.95);
-  }
-  50% { 
-    opacity: 1.0; 
-    @include scale(1);
-  }
-  100% { 
-    opacity: 1.0; 
-    @include scale(1);
   }
 }
 
 @include keyframes(flash-2){
-  0% { 
+  0%, 50%, 100% { 
     @include transform(rotate(0deg) scale(1));
   }
-  12.5% { 
+  12.5%, 37.5% { 
     @include transform(rotate(2deg) scale(0.95));
   }
   25% { 
     @include transform(rotate(-2deg) scale(1));
   }
-  37.5% { 
-    @include transform(rotate(2deg) scale(0.95));
-  }
-  50% { 
-    @include transform(rotate(0deg) scale(1));
-  }
-  100% { 
-    @include transform(rotate(0deg) scale(1));
-  }
 }
 
 @include keyframes(flash-3){
-  0% { 
+  0%, 25%, 50%, 100% { 
     @include filter(brightness, 100%);
   }
-  12.5% { 
+  12.5%, 37.5% { 
     @include filter(brightness, 50%);
-  }
-  25% { 
-    @include filter(brightness, 100%);
-  }
-  37.5% { 
-    @include filter(brightness, 50%);
-  }
-  50% { 
-    @include filter(brightness, 100%);
-  }
-  100% { 
-    @include filter(brightness, 100%);
   }
 }
