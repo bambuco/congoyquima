@@ -27,7 +27,7 @@ export class TepuyActivityDirective implements OnInit, AfterContentInit {
   
   constructor(
     protected vcRef: ViewContainerRef,
-    private activityService: TepuyActivityService) 
+    private activityService: TepuyActivityService)   
   { 
   }
 
@@ -63,6 +63,7 @@ export class TepuyActivityDirective implements OnInit, AfterContentInit {
   ngAfterContentInit(){
     if (this.slides.length) {
       this.slideCtrl = this.slides.first;
+      this.slideCtrl.fade = { crossFade: true };
       this.slideCtrl.enableKeyboardControl(false);
       this.slideCtrl.lockSwipes(true);
     }

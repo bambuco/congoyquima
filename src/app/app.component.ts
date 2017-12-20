@@ -3,6 +3,7 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 //import { SplashScreen } from '@ionic-native/splash-screen';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen';
+import { MobileAccessibility } from '@ionic-native/mobile-accessibility';
 
 import { AppDataProvider } from '../providers/app-data';
 import { GameDataProvider } from '../providers/game-data';
@@ -23,6 +24,7 @@ export class MyApp {
   constructor(platform: Platform,
     private statusBar: StatusBar,
     private androidFS: AndroidFullScreen,
+    private mobileAccessibility: MobileAccessibility,
     private mediaCatalog: MediaCatalog,
     private audioPlayer: TepuyAudioPlayerProvider,
     appData: AppDataProvider, 
@@ -49,6 +51,7 @@ export class MyApp {
     this.androidFS.isImmersiveModeSupported()
       .then(() => this.androidFS.immersiveMode())
       .catch((error: any) => console.log(error));
+    this.mobileAccessibility.usePreferredTextZoom(false);
   }
 
 

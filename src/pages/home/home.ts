@@ -15,6 +15,7 @@ import { AppDataProvider, Flags } from '../../providers/app-data';
 export class HomePage {
 
   pages: any = { game: GamePage, contents: ContentPage };
+  showIndicator: boolean = false;
 
   constructor(private navCtrl: NavController,
     private splashScreen: SplashScreen,
@@ -25,8 +26,10 @@ export class HomePage {
 
   ionViewDidEnter() {
     this.appData.ready().subscribe((settings) => {
-      this.splashScreen.hide();
-      this.initialize();
+      setTimeout(() => {
+        this.splashScreen.hide();
+        this.initialize();  
+      }, 1);      
     });
   }
 
@@ -35,8 +38,11 @@ export class HomePage {
     if (!this.appData.hasFlag(Flags.APP_INTRO)) {
       this.playIntro();
     }
-    else if (!this.appData.hasFlag(Flags.HOME_INTRO)) {
-      this.showHelp();
+    //else if (!this.appData.hasFlag(Flags.HOME_INTRO)) {
+    //  this.showHelp();
+    //}
+    else if (!this.appData.hasFlag(Flags.GAME_HOME_ENTERED)) {
+      this.showIndicator = true;
     }
   }
   
@@ -66,9 +72,10 @@ export class HomePage {
       //Should update status here
       if (!ondemand) {
         this.appData.setFlag(Flags.APP_INTRO);
-        this.mediaPlayer.playVideoFromCatalog('home_intro').subscribe((done) => {
-          this.appData.setFlag(Flags.HOME_INTRO);
-        });
+        //this.mediaPlayer.playVideoFromCatalog('home_intro').subscribe((done) => {
+        //  this.appData.setFlag(Flags.HOME_INTRO);
+        //});
+        this.showIndicator = true;
       }
     });
   }

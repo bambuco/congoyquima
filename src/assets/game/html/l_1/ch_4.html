@@ -1,6 +1,6 @@
-<div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-slide-delay="1">
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-slide-delay=".5">
   <ng-container *tepuyValueGenerator="'randomof:numbers:min=1;max=12;count=2;max-dist=4'; array: true; count: 5; let pairs=values">
-    <ion-slides class="tepuy-activity-content" zoom="false" pager="true" paginationType="progress" effect="flip">
+    <ion-slides class="tepuy-activity-content" zoom="false" pager="true" paginationType="progress" effect="fade">
       <ion-slide *ngFor="let pair of pairs" [style.width]="auto">
         <div class="container" tepuy-item-group [tepuy-group-id]="pair.id">
           <div class="quantity-bag q-left">

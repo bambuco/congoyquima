@@ -9,6 +9,7 @@ page-game-level {
     background-position: center bottom;
     background-repeat:no-repeat;
     overflow: auto;
+    position:relative;
   }
 
 
@@ -73,6 +74,25 @@ page-game-level {
       left: 65px;
       margin-top: -20px;
       display: inline-table;
+    }
+  }
+  .help-indicator {
+    position: absolute;
+    right: 80px;
+    top: 5%;
+    z-index:1;
+    @include animation(challenge-pointer, 3s, linear, $iteration:infinite);
+  }
+
+  @include keyframes(challenge-pointer){
+    0%, 20%, 50%, 80%, 100% {
+      @include transform(scale(0.4) translate(50%, -120%));
+    }
+    40% {
+      @include transform(scale(0.4) translate(100%, -120%));
+    }
+    60% {
+      @include transform(scale(0.4) translate(80%, -120%));
     }
   }
 }

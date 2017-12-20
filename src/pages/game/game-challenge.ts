@@ -26,6 +26,9 @@ export class GameChallengePage {
   private content: Content;
   //@ViewChild('playZone')
   //private playZone;
+  @HostListener('click', ['$event']) onClick(ev) {
+    this.showIndicator = false;
+  }
 
   status: string = 'loading';
   loading: boolean = true;
@@ -42,6 +45,7 @@ export class GameChallengePage {
   canVerify: boolean = false;
   canPlayAgain: boolean = false;
   btnHigthlight: string = '';  
+  showIndicator: boolean = false;
 
   private id: string;
   private levelId: string;
@@ -107,27 +111,37 @@ export class GameChallengePage {
   }
 
   initialize() {
+    this.appData.setFlag(Flags.GAME_CHALLENGE_ENTERED);
     //Play intro if required
     if (!this.appData.hasFlag(Flags[this.introKey.toUpperCase()])) {
-      this.playIntro();
+      this.setReady();
+      //this.playAudioIntro();
     }
     else {
       this.setReady();
+    }
+    const id = parseInt(this.id);
+    if (id < 4 && !this.appData.hasFlag(Flags['CHALLENGE'+(id+1)+'_PLAYED'])){
+      this.appData.setFlag(Flags['CHALLENGE'+(id+1)+'_PLAYED']);
+      this.showIndicator = true;
     }
   }
 
   @HostListener('window:resize', ['$event'])
   onResize($event=null) {
     let dim = this.content.getContentDimensions();
-    this.pzStyle = { 'height.px': dim.contentHeight };
-    this.settings.playZone.height = this.content.contentHeight;
-    this.settings.playZone.width = this.content.contentWidth;
+    setTimeout(() => {
+      this.pzStyle = { 'height.px': dim.contentHeight };
+      this.settings.playZone.height = this.content.contentHeight;
+      this.settings.playZone.width = this.content.contentWidth;
+    }, 1);
     return true;
   }
 
   //User Actions
   dismiss() {
     if (this.busy) return;
+    this.stopSounds();
     this.navCtrl.setRoot(GameLevelPage, { id: this.levelId });
   }
 
@@ -164,8 +178,8 @@ export class GameChallengePage {
 
   goNext() {
     if (this.busy) return;
-    this.sourcePage = null;
     this.stopSounds();
+    this.sourcePage = null;
     const nextId = (parseInt(this.id) + 1) % 10;
     this.navCtrl.setRoot(GameChallengePage, { id: nextId, levelId: nextId == 0 ? (parseInt(this.levelId) + 1) : this.levelId });
   }
@@ -250,11 +264,11 @@ export class GameChallengePage {
   private playIntro(ondemand:boolean=false) {    
     this.mediaPlayer.playVideoFromCatalog(this.introKey, { centered: true }).subscribe((done) => {
       //Should update status here
-      if (!ondemand){
-        this.appData.setFlag(Flags[this.introKey.toUpperCase()]);
-        this.setReady();
-        this.playAudioIntro();
-      }
+      //if (!ondemand){
+      //  this.appData.setFlag(Flags[this.introKey.toUpperCase()]);
+      //  this.setReady();
+      //  this.playAudioIntro();
+      //}
     });
   }
   private playAudioIntro(){

@@ -10,6 +10,7 @@ import { TepuyModule } from '../tepuy-angular/tepuy.module';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen';
+import { MobileAccessibility } from '@ionic-native/mobile-accessibility';
 //import { NativeAudio } from '@ionic-native/native-audio';
 //import { StreamingMedia } from '@ionic-native/streaming-media';
 //import { File } from '@ionic-native/file';
@@ -81,6 +82,7 @@ import { MediaCatalog } from '../providers/media-player.catalog';
     StatusBar,
     AndroidFullScreen,
     SplashScreen,
+    MobileAccessibility,
     //NativeAudio,
     //StreamingMedia,
     //VideoPlayer,

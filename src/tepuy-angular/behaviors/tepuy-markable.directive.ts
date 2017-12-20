@@ -248,7 +248,9 @@ export class TepuyMarkableComponent implements AfterViewInit {
   }
 
   onResize(event: UIEvent): void {
-    this.draw();
+    setTimeout(()=>{
+      this.draw();
+    },100)
   }
 
   private checkAutofeedback(shape:Shape, item:TepuyItemDirective) {
