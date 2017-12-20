@@ -69,7 +69,6 @@ export class TepuyScaleDirective implements OnChanges, AfterViewInit {
 
   //@HostListener('window:resize', ['$event'])
   onResize($event=null) {
-    console.log('on resize 2');
     setTimeout(() => {
       this.calculateScale();
     }, 200);

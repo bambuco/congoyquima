@@ -109,7 +109,7 @@ export class GameLevelPage {
   }
 
   showHelp(){
-    
+    //throw new Error('La ayuda no está disponible aún en este módulo');    
   }
 
   exit(reason) {

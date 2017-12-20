@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 //import { JitCompiler } from '@angular/compiler';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicApp, IonicModule } from 'ionic-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { IonicStorageModule } from '@ionic/storage';
@@ -26,6 +26,8 @@ import { GameLevelPage } from '../pages/game/game-level';
 import { GameChallengePage } from '../pages/game/game-challenge';
 import { ContentPage } from '../pages/content/content';
 import { ProgressPage } from '../pages/progress/progress';
+import { ErrorsPage } from '../pages/errors/errors';
+import { ErrorDetailComponent } from '../pages/errors/error-detail';
 
 import { VideoPlayerComponent } from '../components/video-player/video-player';
 import { CompileDirective } from '../directives/compile.directive';
@@ -35,6 +37,7 @@ import { GameDataProvider } from '../providers/game-data';
 import { AppDataProvider } from '../providers/app-data';
 import { MediaPlayer } from '../providers/media-player';
 import { MediaCatalog } from '../providers/media-player.catalog';
+import { CustomErrorHandler } from '../providers/custom-error.handler';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,9 @@ import { MediaCatalog } from '../providers/media-player.catalog';
     GameChallengePage,
     ContentPage,
     ProgressPage,
-    VideoPlayerComponent
+    VideoPlayerComponent,
+    ErrorsPage,
+    ErrorDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +81,9 @@ import { MediaCatalog } from '../providers/media-player.catalog';
     GameChallengePage,
     ContentPage,
     ProgressPage,
-    VideoPlayerComponent
+    VideoPlayerComponent,
+    ErrorsPage,
+    ErrorDetailComponent
   ],
   providers: [
     StatusBar,
@@ -89,7 +96,7 @@ import { MediaCatalog } from '../providers/media-player.catalog';
     //TextToSpeech,
     //MobileAccessibility,
     //File,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    {provide: ErrorHandler, useClass: CustomErrorHandler },
     //{provide: Compiler, useClass: JitCompiler},
     ContentProvider,    
     GameDataProvider,

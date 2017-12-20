@@ -115,7 +115,8 @@ export class GameChallengePage {
     //Play intro if required
     if (!this.appData.hasFlag(Flags[this.introKey.toUpperCase()])) {
       this.setReady();
-      //this.playAudioIntro();
+      this.appData.setFlag(Flags[this.introKey.toUpperCase()]);
+      this.playAudioIntro();
     }
     else {
       this.setReady();
@@ -261,7 +262,7 @@ export class GameChallengePage {
   }
 
   //Helpers
-  private playIntro(ondemand:boolean=false) {    
+  /*private playIntro(ondemand:boolean=false) {    
     this.mediaPlayer.playVideoFromCatalog(this.introKey, { centered: true }).subscribe((done) => {
       //Should update status here
       //if (!ondemand){
@@ -270,7 +271,7 @@ export class GameChallengePage {
       //  this.playAudioIntro();
       //}
     });
-  }
+  }*/
   private playAudioIntro(){
     const key = ['l_', this.levelId, '_ch_', parseInt(this.id)+1, '_intro'].join('');
     this.audioPlayer.play(key);

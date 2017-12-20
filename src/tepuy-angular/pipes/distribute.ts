@@ -16,7 +16,6 @@ export class DistributePipe implements PipeTransform {
     let len = copy.length;
     let used = new Array(len);
     let val;
-    console.log(max);
     while(len--) {
       do {
         val = Math.floor(Math.random() * max);

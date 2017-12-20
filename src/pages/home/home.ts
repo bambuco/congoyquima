@@ -4,6 +4,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { GamePage } from '../game/game';
 import { ContentPage } from '../content/content';
+import { ErrorsPage } from '../errors/errors';
 //import { ProgressPage } from '../progress/progress';
 import { MediaPlayer } from '../../providers/media-player';
 import { AppDataProvider, Flags } from '../../providers/app-data';
@@ -16,6 +17,9 @@ export class HomePage {
 
   pages: any = { game: GamePage, contents: ContentPage };
   showIndicator: boolean = false;
+
+  private eggCounter: number = 0;
+  private lastEggClicked: number = 0;
 
   constructor(private navCtrl: NavController,
     private splashScreen: SplashScreen,
@@ -65,6 +69,22 @@ export class HomePage {
         this.appData.setHomeIntroPlayed();
       }
     });
+  }
+
+  errorEgg() {
+    const now = new Date().getTime();
+    const window = now - this.lastEggClicked;
+    if (window < 2000) {// two senconds
+      this.eggCounter++;
+    }
+    else {
+      this.eggCounter = 1;
+    }
+    this.lastEggClicked = now;
+
+    if (this.eggCounter == 7) {
+      this.navCtrl.setRoot(ErrorsPage);
+    }
   }
 
   private playIntro(ondemand:boolean=false) {

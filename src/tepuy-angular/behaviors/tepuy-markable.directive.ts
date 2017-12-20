@@ -7,6 +7,7 @@ import {
 import { Shape } from '../classes/shape.class';
 import { TepuyItemDirective } from './tepuy-item.directive';
 import { TepuyActivityService } from '../providers/tepuy-activity.provider';
+import { TepuyAudioPlayerProvider } from '../providers';
 
 
 const defaulStyles = {
@@ -96,7 +97,10 @@ export class TepuyMarkableComponent implements AfterViewInit {
     this.draw();
   }
 
-  constructor(private renderer: Renderer, private activityService:TepuyActivityService) {
+  constructor(
+      private renderer: Renderer,
+      private activityService:TepuyActivityService,
+      private audioPlayer: TepuyAudioPlayerProvider) {
 
   }
 
@@ -188,8 +192,8 @@ export class TepuyMarkableComponent implements AfterViewInit {
   }
 
   onClick(event: MouseEvent): void {
-
     if (!this.canMark) return;
+    this.audioPlayer.stopAll();
     const cursor = this.cursor(event);
     var active = false;
     //if (this.changeEvent.observers.length) {
