@@ -1,0 +1,1 @@
+export { DistributePipe } from './distribute'

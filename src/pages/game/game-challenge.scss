@@ -320,7 +320,10 @@ page-game-challenge {
        height: 60%;
     }
     ion-slide {
-       width: 100% !important;
+      width: 100% !important;
+      .slide-zoom {
+        height: 100%;
+      }
     }
 
     .seed-icon {
@@ -344,6 +347,7 @@ page-game-challenge {
 
     .container {
       position:relative;
+      height: 100%;
     }
 
     .quantity-bag {
@@ -351,12 +355,35 @@ page-game-challenge {
       height: 100%;
       .seed-container {
         position:relative;
+        height: 100%;
         .seed-wrapper {
-          top: 0;
+          //top: 0;
           position: absolute;
           cursor: pointer;
           width: 516px;
           height: 420px;
+
+          .seed-grid {
+            position:relative;
+            width: 100%;
+            height: 100%;
+
+            span {
+              position:absolute;
+              &.seed-1 { left: 38px; bottom:20px; }
+              &.seed-2 { left: 162px; bottom:20px; }
+              &.seed-3 { left: 295px; bottom:22px; }
+              &.seed-4 { left: 415px; bottom:22px; }
+              &.seed-5 { left: 28px; bottom:164px; }
+              &.seed-6 { left: 162px; bottom:165px; }
+              &.seed-7 { left: 294px; bottom:164px; }
+              &.seed-8 { left: 413px; bottom:165px; }
+              &.seed-9 { left: 68px; bottom:290px; }
+              &.seed-10 { left: 205px; bottom:290px; }
+              &.seed-11 { left: 338px; bottom:286px; }
+              &.seed-12 { left: 203px; bottom:413px; }
+            }
+          }
         }
       }
       &.q-left {
@@ -364,17 +391,19 @@ page-game-challenge {
         right: 50%;
         width: 50%;
         .seed-wrapper {
-          right: 0;
-          transform-origin: right top;
+          right: 3%;
+          bottom: 15%;
+          transform-origin: right bottom;
         }
       }
       &.q-right {
-        bottom: -5%;
-        left: 53.75%;
+        bottom: 0;
+        left: 54%;
         width: 46.25%;
         .seed-wrapper {
           left: 0;
-          transform-origin: left top;
+          bottom: 4%;
+          transform-origin: left bottom;
         }
       }
     }
@@ -392,13 +421,15 @@ page-game-challenge {
           position: absolute;
           top: 0;
           right: 0;
-          width: 516px;
-          height: 420px;
+          width: 528px;
+          height: 540px;
           //transform: rotate(180deg) translate(100%, -75%);
           transform-origin: right top;
+
         }
       }
     }
+
     .right-quantity {
       position:absolute;
       bottom: -5%;

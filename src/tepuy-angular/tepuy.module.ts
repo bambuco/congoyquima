@@ -21,6 +21,10 @@ import {
   TepuyErrorProvider
 } from './providers';
 
+import {
+  DistributePipe
+} from './pipes';
+
 //import { TepuyUtils } from './tepuy-utils';
 
 @NgModule({
@@ -38,7 +42,8 @@ import {
     TepuyGreetableDirective,
     TepuyDraggableDirective,
     TepuyDropZoneDirective,
-    TepuyMarkableComponent
+    TepuyMarkableComponent,
+    DistributePipe
   ],
   entryComponents: [
     //TepuySelectableComponent
@@ -58,7 +63,8 @@ import {
     TepuyGreetableDirective,
     TepuyDraggableDirective,
     TepuyDropZoneDirective,
-    TepuyMarkableComponent
+    TepuyMarkableComponent,
+    DistributePipe
   ],
   providers: [
     TepuyActivityService, TepuyErrorProvider, TepuyAudioPlayerProvider

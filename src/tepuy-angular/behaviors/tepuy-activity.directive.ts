@@ -70,6 +70,7 @@ export class TepuyActivityDirective implements OnInit, AfterContentInit {
 
     this.slides.changes.subscribe((changes) => {
       this.slideCtrl = this.slides.first;
+      this.slideCtrl.fade = { crossFade: true };
     });
   }
 
