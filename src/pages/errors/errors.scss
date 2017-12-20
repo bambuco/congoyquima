@@ -1,0 +1,36 @@
+/***************************************
+Errors
+***************************************/
+
+page-errors {
+  
+  .item-ios, .item-md {
+    &.item-block {
+      .item-inner {
+        border: 0;
+      }
+    } 
+  }
+
+  ion-content {
+    background-image: none;
+    background-color: map-get($colors, lightgreencustom);
+  }
+
+  .header-ios, .header-md,  .footer-ios, .footer-md {
+    background-color: map-get($colors, darkgreencustom);
+  }
+
+  .content-ios, .content-md {
+    background-color: #fff; //map-get($colors, lightgreencustom);
+    color: #000;
+  }
+
+  .item  {
+    border-bottom: solid .55px map-get($colors, border);
+
+    &:first-child {
+      border-top: solid 4px map-get($colors, border);
+    }
+  }
+}
