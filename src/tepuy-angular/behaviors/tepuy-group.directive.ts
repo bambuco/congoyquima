@@ -2,20 +2,21 @@ import { Directive, ViewChildren, ContentChildren, QueryList, Input, ElementRef,
   Renderer2, OnInit, AfterViewInit, OnDestroy, AfterContentInit
 } from '@angular/core';
 
-import { TepuyActivityService, DataProviderFactory, IDataProvider } from '../../activities/activity.provider';
-import { TepuySelectableService } from './selectable.provider';
-import { TepuyGroupService } from './selectable-group.provider';
-import { TepuyErrorProvider, Errors } from '../../providers/error.provider';
+import { 
+  TepuyActivityService, TepuyDraggableService,
+  DataProviderFactory, IDataProvider,
+  TepuyErrorProvider, Errors 
+} from '../providers';
 
-import { TepuySelectableItemDirective } from './selectable-item.directive';
-import { TepuyDropTargetDirective } from '../../directives/drop-target.directive';
+import { TepuyItemDirective } from './tepuy-item.directive';
+import { TepuyDropZoneDirective } from './tepuy-drop-zone.directive';
 
 @Directive({ 
   selector: '[tepuy-item-group]',
   host: { },
-  providers: [ TepuyGroupService ]
+  providers: [ TepuyDraggableService ]
 })
-export class TepuySelectableGroupDirective implements OnInit, AfterViewInit {
+export class TepuyGroupDirective implements OnInit, AfterViewInit {
   @Input('tepuy-item-group') options: any;
   @Input('tepuy-group-id') id: string;
   @Input('tepuy-group-type') type: string;
@@ -31,14 +32,18 @@ export class TepuySelectableGroupDirective implements OnInit, AfterViewInit {
   correctDataProvider: IDataProvider;
   wrongDataProvider: IDataProvider;
 
-  @ContentChildren(TepuySelectableItemDirective, { descendants: true}) items: QueryList<TepuySelectableItemDirective>;
-  @ContentChildren(TepuyDropTargetDirective, { descendants: true}) targets: QueryList<TepuyDropTargetDirective>;
+  @ContentChildren(TepuyItemDirective, { descendants: true}) items: QueryList<TepuyItemDirective>;
+  @ContentChildren(TepuyDropZoneDirective, { descendants: true}) targets: QueryList<TepuyDropZoneDirective>;
  
-  private actProvider: TepuySelectableService;
+  //private actProvider: TepuySelectableService;
+  groupValue:any;
 
-  constructor(private el: ElementRef, private errorProvider: TepuyErrorProvider, private groupProvider: TepuyGroupService, serviceWrapper: TepuyActivityService) 
+  constructor(
+    private el: ElementRef,
+    private errorProvider: TepuyErrorProvider,
+    //private groupProvider: TepuyGroupService,
+    private actProvider: TepuyActivityService) 
   { 
-    this.actProvider = serviceWrapper as TepuySelectableService;    
   }
 
   ngOnInit() {
@@ -53,8 +58,8 @@ export class TepuySelectableGroupDirective implements OnInit, AfterViewInit {
     if (this.wrongSource) options.wrongSource = this.wrongSource;
 
     //Set default values if required
-    if (!options.id) options.id = this.actProvider.newGroupId();
-    if (!/^(multiselect|single)$/i.test(options.type)) options.type = 'single';
+    if (!options.id) options.id = this.actProvider.groupId();
+    //if (!/^(multiselect|single)$/i.test(options.type)) options.type = 'single';
     if (isNaN(options.size)) options.size = 2; //One correct, One wrong
     if (isNaN(options.correctSize)) options.correctSize = 1;
     
@@ -67,9 +72,11 @@ export class TepuySelectableGroupDirective implements OnInit, AfterViewInit {
     }
 
     this.options = options;
-    this.correctDataProvider = this.actProvider.getDataProvider(options.correctSource);
+    if (options.correctSource) {
+      this.correctDataProvider = this.actProvider.getDataProvider(options.correctSource);
+    }
 
-    if (options.wrongSource != '') {
+    if (options.wrongSource) {
       this.wrongDataProvider = this.actProvider.getDataProvider(options.wrongSource);
     }
     //this.correctOptions = this.actProvider.explodeExpression(options.correctSource);
@@ -77,24 +84,21 @@ export class TepuySelectableGroupDirective implements OnInit, AfterViewInit {
 
     this.actProvider.on(this.actProvider.ACTIVITY_RESET).subscribe(() => {
       this.resetItemValues();
-    })
+    });
   }
 
   ngAfterContentInit() {
     //select a set of values
     this.resetItemValues();    
-    ////Just in case new items are added
-    //this.items.changes.subscribe(item => {
-      //console.log(item);
-    //});
   }
 
   ngAfterViewInit(){
   }
 
   private resetItemValues() {
-    //this.actProvider.shuffle(this.correctOptions);
-    //this.actProvider.shuffle(this.wrongOptions);
+    
+    if (!this.correctDataProvider) return;
+
     this.correctDataProvider.reset();
     if (this.wrongDataProvider){
       this.wrongDataProvider.reset();
@@ -109,19 +113,20 @@ export class TepuySelectableGroupDirective implements OnInit, AfterViewInit {
       values.push({value: this.wrongDataProvider.next(), correct: false });
     }
 
-    this.actProvider.shuffle(values);
+    const shuffled = values.slice();
+    this.actProvider.shuffle(shuffled);
+    
     //Process all items in the query
     this.items.forEach((item, i) => {
-      item.correct = values[i].correct;
-      item.value = values[i].value;
+      item.correct = shuffled[i].correct;
+      item.value = shuffled[i].value;
     });
 
-    //ToDo: Targes can accept multiple values, this will only satisfy one to one droppables
+    ////ToDo: Targes can accept multiple values, this will only satisfy one to one droppables
     if (this.targets.length > 0) {
-      const sorted = this.actProvider.sort(values);
       this.targets.forEach((item, i) => {
         setTimeout(() => {
-          item.correctValue = sorted[i].value;
+          item.setAllowedValues(values[i].value);
         });
       })
     }

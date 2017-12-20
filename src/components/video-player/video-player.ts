@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { ViewController, NavParams, LoadingController } from 'ionic-angular';
+import { ViewController, NavParams } from 'ionic-angular';
 
 @Component({
   selector: 'video-player',
@@ -18,7 +18,7 @@ export class VideoPlayerComponent {
   videoReady: boolean = false;
 
 
-  constructor(private viewCtrl: ViewController, private loadingCtrl: LoadingController, params: NavParams) {
+  constructor(private viewCtrl: ViewController, params: NavParams) {
     let value = params.get('loop');
     this.loop = value === true ? '' : null;
     value = params.get('controls');

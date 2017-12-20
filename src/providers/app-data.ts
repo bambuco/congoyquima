@@ -14,7 +14,8 @@ export const Flags = {
   GAME_INTRO: (one=one<<1),
   LEVEL1_INTRO: (one=one<<1),
   SELECT_HOWTO: (one=one<<1),
-  DRAG_HOWTO: (one=one<<1)
+  DRAG_HOWTO: (one=one<<1),
+  MARK_HOWTO: (one=one<<1)
 };
 
 @Injectable()
@@ -50,9 +51,7 @@ export class AppDataProvider {
   }
 
   private update() {
-    this.storage.set(data_key, this.settings).then(value => {
-      console.log(value);
-    })
+    this.storage.set(data_key, this.settings)
     .catch(reason => {
       console.log('failed to store ' + data_key);
       console.log(reason);

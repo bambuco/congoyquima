@@ -28,7 +28,7 @@ export class MediaCatalog {
         type: 'audio',
         key: 'result-'+type,
         path: path + 'shared/ch_r_'+type+'.mp3',
-        simple: true
+        preload: true
       });
     }
     //Challenge completed

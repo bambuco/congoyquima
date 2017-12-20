@@ -1,0 +1,22 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding
+  data-tepuy-group-values="randomof:setup:key=parameters.maps"
+  >
+  <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.maps'; count: 4; let groups=values">
+    <ion-slides class="tepuy-activity-content" pager="true" paginationType="progress" effect="flip">
+      <ion-slide *ngFor="let g of groups" [ngStyle]="{'width.px':playZone?.width}">
+        <div tepuy-item-group
+            [tepuy-group-id]="g.id"
+            data-tepuy-type="select"
+            >
+          <div class="tepuy-mark-container" [ngStyle]="{'height.px':playZone?.width}">
+            <div tepuy-markable src="assets/game/img/l_1/ch_3/bg_card{{g.data.id}}.png" [tepuy-group-id]="g.id" 
+              [tepuy-areas]="g.data.areas"></div>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+    <div class="tepuy-feedback-summary">
+      <img *ngFor="let g of groups" src="assets/game/img/l_1/ch_3/bg_card{{g.data.id}}.png" class="tepuy-{{g.state}}" />
+    </div>
+  </ng-container>
+</div>

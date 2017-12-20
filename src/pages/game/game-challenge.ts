@@ -1,14 +1,13 @@
 import { Component, ViewChild, HostListener } from '@angular/core';
 import { NavController, NavParams, Content } from 'ionic-angular';
-import { TepuyActivityService } from '../../tepuy-angular/activities/activity.provider';
+import { TepuyActivityService } from '../../tepuy-angular/providers';
 
 import { Observable } from 'rxjs/Observable';
 import { AppDataProvider, Flags } from '../../providers/app-data';
 import { GameDataProvider } from '../../providers/game-data';
 import { MediaPlayer } from '../../providers/media-player';
-
+import { TepuyAudioPlayerProvider } from '../../tepuy-angular/providers';
 import { GameLevelPage } from '../game/game-level';
-
 
 import 'rxjs/add/observable/of';
 
@@ -48,6 +47,7 @@ export class GameChallengePage {
   private activityService: TepuyActivityService;
   private busy: boolean = true;
   private feedbackDismissed: boolean = false;
+  private verifyDisabled: boolean = false;
   //private nextAvailable: boolean = false;
   private sourcePage: string = null;
   private introKey: string;
@@ -57,6 +57,7 @@ export class GameChallengePage {
       private appData: AppDataProvider, 
       private gameDataProvider: GameDataProvider,
       private mediaPlayer: MediaPlayer,
+      private audioPlayer: TepuyAudioPlayerProvider,
       params: NavParams
       ) {
     this.id = params.get('id');
@@ -79,6 +80,7 @@ export class GameChallengePage {
           this.templateCss = data.css;
           this.activityType = this.challenge.type;
           this.introKey = this.activityType+'_howto';
+          this.verifyDisabled = this.challenge.autofeedback === true;
           resolve(true);
         }
         else {
@@ -100,6 +102,7 @@ export class GameChallengePage {
     this.appData.ready().subscribe((settings) => {
       this.initialize();
     });
+
   }
 
   initialize() {
@@ -117,6 +120,7 @@ export class GameChallengePage {
     let dim = this.content.getContentDimensions();
     this.pzStyle = { 'height.px': dim.contentHeight };
     this.settings.playZone.height = this.content.contentHeight;
+    this.settings.playZone.width = this.content.contentWidth;
   }
 
   //User Actions
@@ -128,7 +132,7 @@ export class GameChallengePage {
   showHelp(actType) {
     if (this.busy) return;
     this.stopSounds();
-    this.mediaPlayer.playVideoFromCatalog(actType+'_howto')
+    this.mediaPlayer.playVideoFromCatalog(actType+'_howto').subscribe(()=>{});
   }
 
   listen() {
@@ -165,15 +169,11 @@ export class GameChallengePage {
   }
 
   //Activity Events
-
-  activityInitialized(service) {
-    this.activityService = service;
+  activityInitialized(service:TepuyActivityService) {
+    service.setSetup(this.challenge);
+    this.activityService = service;    
     this.activityService.on(this.activityService.ACTIVITY_VERIFIED).subscribe(data => {
       this.activityVerified(data);
-    });
-
-    this.activityService.on(this.activityService.ITEM_TOUCHED).subscribe(item => {
-      this.mediaPlayer.playAudio({key: item.value.toLowerCase()}, {stopAll: true}).subscribe(result => {});
     });
 
     this.activityService.on(this.activityService.ACTIVITY_RESET).subscribe(() => {
@@ -181,6 +181,12 @@ export class GameChallengePage {
     });
     this.busy = false;
     this.canGoNext = this.challenge.completed;
+
+    this.activityService.on(this.activityService.ITEM_READY).subscribe((item) => {
+      if (item.actAsGreetable) {
+        this.audioPlayer.preload(item.value.toLowerCase());
+      }
+    });
   }
 
   activityVerified(result){
@@ -192,8 +198,8 @@ export class GameChallengePage {
     }
 
     this.feedbackDismissed = false;
-    let feedback = this.mediaPlayer.playAudio({key: 'result-' + result.rate });
-    feedback.subscribe(()=>{});
+    this.audioPlayer.play('result-' + result.rate) //this.mediaPlayer.playAudio({key: 'result-' + result.rate });
+    //feedback.subscribe(()=>{});
     let highlight = 'play';    
     if (result.success) {
       //Show the item prize
@@ -221,12 +227,15 @@ export class GameChallengePage {
     storage.subscribe(challenge => {
       if (!isCompleted && challenge.completed) {
         //1. Play audio
-        feedback.subscribe((result) => {
+        if (!this.feedbackDismissed) {
+          this.audioPlayer.play('ch_completed', true);
+        }
+        /*feedback.subscribe((result) => {
           if (!this.feedbackDismissed) {
             this.mediaPlayer.playAudio({key: 'ch_completed'}, {stopAll:true}).subscribe(result => {
             });
           }
-        });
+        });*/
         //2. Show congrats
         this.levelJustCompleted = true;
         highlight = 'next';
@@ -254,11 +263,11 @@ export class GameChallengePage {
   }
   private playAudioIntro(){
     const key = ['l_', this.levelId, '_ch_', parseInt(this.id)+1, '_intro'].join('');
-    this.mediaPlayer.playAudio({key: key}, {stopAll: true}).subscribe(result => {});
+    this.audioPlayer.play(key);
   }
   private stopSounds() {
     this.feedbackDismissed = true;
-    this.mediaPlayer.stopAll();
+    this.audioPlayer.stopAll();
   }
   private setReady() {
     this.loading = false;
