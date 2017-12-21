@@ -249,19 +249,18 @@ page-game-challenge {
       position: relative;
     }
 
-    ion-slide.swiper-slide {
-        align-items: flex-start;
+    ion-slide {
+      &.swiper-slide { align-items: flex-start; }
+      .slide-zoom, [tepuy-item-group], .tepuy-mark-container {
+        height: 100%;
+      }      
     }
 
     .tepuy-mark-container {
-      width: 100%;
+      margin: 0 auto;
       position: relative;
       div {
         height: 100%;
-      }
-      img {
-        height: 100%;
-
       }
       .tepuy-correct {
         border: solid 20px map-get($colors, correct-light);
@@ -312,7 +311,7 @@ page-game-challenge {
     }
   }
   /**********************************************************************
-  Level 1 - Challenge 3
+  Level 1 - Challenge 4
   **********************************************************************/
   .l_1_ch_4 {
 

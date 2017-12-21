@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 //import { SplashScreen } from '@ionic-native/splash-screen';
@@ -13,11 +13,10 @@ import { TepuyAudioPlayerProvider } from '../tepuy-angular/providers'
 //import { Splash } from './splash.component';
 import { HomePage } from '../pages/home/home';
 
-
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class MyApp implements AfterViewInit {
   rootPage:any = HomePage;
 
   //appData and GameData providers are injected here so they get preoloaded
@@ -52,6 +51,9 @@ export class MyApp {
       .then(() => this.androidFS.immersiveMode())
       .catch((error: any) => console.log(error));
     this.mobileAccessibility.usePreferredTextZoom(false);
+  }
+
+  ngAfterViewInit() {
   }
 
 

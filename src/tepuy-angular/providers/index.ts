@@ -3,3 +3,4 @@ export { TepuyDraggableService } from './tepuy-draggable.provider';
 export { TepuyAudioPlayerProvider } from './audio-player.provider';
 export { TepuyErrorProvider, Errors } from './error.provider';
 export { DataProviderFactory, IDataProvider } from './data.provider';
+export { ResizeSensor } from './resize-sensor.provider';

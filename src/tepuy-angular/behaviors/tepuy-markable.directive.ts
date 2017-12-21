@@ -1,13 +1,12 @@
 import {
   Component, ElementRef, EventEmitter, Input, Output, AfterViewInit,
   Renderer, ViewChild, ViewChildren,
-  QueryList
+  QueryList, OnDestroy
 } from '@angular/core';
 
 import { Shape } from '../classes/shape.class';
 import { TepuyItemDirective } from './tepuy-item.directive';
-import { TepuyActivityService } from '../providers/tepuy-activity.provider';
-import { TepuyAudioPlayerProvider } from '../providers';
+import { TepuyActivityService, TepuyAudioPlayerProvider, ResizeSensor } from '../providers';
 
 
 const defaulStyles = {
@@ -24,30 +23,27 @@ const defaulStyles = {
 @Component({
   selector: 'tepuy-markable,[tepuy-markable]',
   styles: [
-    '.tepuy-markable { position: relative; }',
-    '.tepuy-markable canvas, .img-map img { position: absolute; }',
-    '.tepuy-markable img { display: block; height: 100%; max-width: 1920px; }',
+    '.tepuy-markable { position: relative; display: inline-block; }',
+    '.tepuy-markable canvas { position: absolute; top: 0; left: 0; }',
+    '.tepuy-markable img { display: block; max-height: 100%; max-width: 100%; }',
     '.tepuy-markable [tepuy-item] { display: none; width: 0; height: 0; }'
   ],
   template: `
     <div
       class="tepuy-markable"
       #container
-      (window:resize)="onResize($event)"
     >
       <img
         #image
         [src]="src"
         [class.tepuy-correct]="isCorrect === true"
         [class.tepuy-wrong]="isCorrect === false"
-        [style.top.px]="top"
-        [style.left.px]="left"
         (load)="onLoad($event)"
       >
       <canvas
         #canvas
-        [style.top.px]="top"
-        [style.left.px]="left"
+        [class.tepuy-correct]="isCorrect === true"
+        [class.tepuy-wrong]="isCorrect === false"
         (click)="onClick($event)"
         (mousemove)="onMousemove($event)"
         (mouseout)="onMouseout($event)">
@@ -56,7 +52,7 @@ const defaulStyles = {
     </div>
   `
 })
-export class TepuyMarkableComponent implements AfterViewInit {
+export class TepuyMarkableComponent implements AfterViewInit, OnDestroy {
   @Input() src: string;
   @Input('tepuy-auto-feedback') autoFeedback: boolean = true;
   @Input('tepuy-multiple') multiple: boolean = false;
@@ -68,18 +64,15 @@ export class TepuyMarkableComponent implements AfterViewInit {
   @ViewChildren(TepuyItemDirective) items: QueryList<TepuyItemDirective>;  
 
   @ViewChild('canvas') private canvas: ElementRef;
-  //@ViewChild('container') private container: ElementRef;
+  @ViewChild('container') private container: ElementRef;
   @ViewChild('image') private image: ElementRef;
 
   private shapes: Shape[] = [];
   private shapeHover: number = null;
   private canMark: boolean = false;
 
-
   shapeActive: number;
   isCorrect: boolean;
-  top: number = 0;
-  left: number = 0;
 
   @Input('tepuy-areas')
   set setAreas(areas: any[]) {
@@ -97,10 +90,11 @@ export class TepuyMarkableComponent implements AfterViewInit {
     this.draw();
   }
 
-  constructor(
+  constructor(    
       private renderer: Renderer,
       private activityService:TepuyActivityService,
-      private audioPlayer: TepuyAudioPlayerProvider) {
+      private audioPlayer: TepuyAudioPlayerProvider,
+      private erd: ResizeSensor) {
 
   }
 
@@ -122,6 +116,13 @@ export class TepuyMarkableComponent implements AfterViewInit {
     });
 
     this.canMark = true;
+    this.erd.listenTo(this.container.nativeElement, (el) => {
+      this.draw();
+    });
+  }
+
+  ngOnDestroy() {
+    this.erd.uninstall(this.container.nativeElement);
   }
 
   /**
@@ -144,7 +145,6 @@ export class TepuyMarkableComponent implements AfterViewInit {
     
     let coords = shape.toPixels(this.image.nativeElement);
     context.fillStyle = defaulStyles[shape.state].fill;
-
     switch (shape.type) {
       case "circle":
         if (coords.length != 3) throw new Error("TepuyMarkable: Circle coords must me in the form [x, y, radius]");
@@ -175,17 +175,14 @@ export class TepuyMarkableComponent implements AfterViewInit {
     const image: HTMLImageElement = this.image.nativeElement;
     const height = image.clientHeight;
     const width = image.clientWidth;
-
     if (height == 0 || width == 0) return; //Do not draw anything is has no height or width
 
-    this.left = (image.offsetWidth - image.clientWidth) / 2;
-    this.top = (image.offsetHeight - image.clientHeight) / 2;
     this.renderer.setElementAttribute(canvas, 'height', `${height}`);
     //this.renderer.setElementStyle(container, 'height', `${height}px`);
     this.renderer.setElementAttribute(canvas, 'width', `${width}`);
 
     const context = canvas.getContext('2d');
-    context.clearRect(0, 0, width, height);
+    context.clearRect(0, 0, canvas.width, canvas.height);
     this.shapes.forEach((shape, index) => {
       this.drawShape(shape);
     });
@@ -249,12 +246,6 @@ export class TepuyMarkableComponent implements AfterViewInit {
       this.shapeHover = null;
       this.draw();
     }
-  }
-
-  onResize(event: UIEvent): void {
-    setTimeout(()=>{
-      this.draw();
-    },100)
   }
 
   private checkAutofeedback(shape:Shape, item:TepuyItemDirective) {
