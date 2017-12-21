@@ -8,6 +8,7 @@ export class TepuyRepeatDirective {
 
   @Input('tepuyRepeat') set count(c:number) {
     this.viewContainer.clear();
+
     for(var i=0;i<c;i++) {
       this.viewContainer.createEmbeddedView(this.templateRef, {
         index: i

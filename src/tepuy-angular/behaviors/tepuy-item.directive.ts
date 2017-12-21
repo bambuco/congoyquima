@@ -29,8 +29,9 @@ export class TepuyItemDirective implements OnInit, AfterViewInit {
   get value() {
     return ('value' in this.valueEl) ? this.valueEl.value : this.valueEl.innerText;
   }
-  
+  @Input('tepuy-value')
   set value(val) {
+    this.setValueEl();
     if (this.valueEl.value)
       this.valueEl.value = val;
     else {
@@ -51,8 +52,7 @@ export class TepuyItemDirective implements OnInit, AfterViewInit {
 
   //Lifecycle events
   ngOnInit() {
-    let el = this.elRef.nativeElement.querySelector('[tepuy-item-value]');
-    this.valueEl = el || this.elRef.nativeElement;
+    this.setValueEl();
   }
 
   ngAfterViewInit() {
@@ -67,6 +67,11 @@ export class TepuyItemDirective implements OnInit, AfterViewInit {
   }
 
   //Helpers
+  private setValueEl() {
+    if (this.valueEl) return;
+    let el = this.elRef.nativeElement.querySelector('[tepuy-item-value]');
+    this.valueEl = el || this.elRef.nativeElement;
+  }
   private refresh() {
     this.answered = false;
     this.succeed = null;

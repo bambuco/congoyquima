@@ -13,6 +13,7 @@ export class TepuyDropZoneDirective implements AfterViewInit {
   @HostBinding('class.tepuy-droppable') isDroppable: boolean = true;
   @HostBinding('class.tepuy-drop-over') isDropOver: boolean = false;
   @Input("tepuy-correct-values") correctValueList;
+  @Input('tepuy-auto-feedback') autoFeedback: boolean = false;
 
   private correctValues: Array<any> = [];
 
@@ -60,9 +61,10 @@ export class TepuyDropZoneDirective implements AfterViewInit {
         this.renderer.addClass(data.el, 'tepuy-dropped');
       });
       data.item.isCorrect = !(this.correctValues.indexOf(data.item.value) < 0);
+      this.checkAutofeedback(data);
     }
     this.dragService.drop({
-      dropped: dropped      
+      dropped: dropped
     });
   }
 
@@ -72,5 +74,15 @@ export class TepuyDropZoneDirective implements AfterViewInit {
     //this.correctValues = [];
     const splitRE = /,(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)/;
     this.correctValues = !values ? [] : (values+'').split(splitRE, -1);
+  }
+
+  private checkAutofeedback(data:any) {
+    if (this.autoFeedback) {
+      const service = data.item.activityService;
+      data.item.resolve(data.item.isCorrect);
+      service.emit(service.ITEM_GROUP_COMPLETING, { 
+        succeed: data.item.isCorrect
+      }, data.item.group);
+    }
   }
 }
