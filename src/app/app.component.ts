@@ -41,15 +41,17 @@ export class MyApp implements AfterViewInit {
     });
 
     //Register all assets and preload the common used
-    this.assetPreload();
+    setTimeout(() => {
+      this.assetPreload();
+    }, 1);
   }
   
   cordovaInit() {
     //Cordova platform is ready.
-    this.statusBar.hide();
     this.androidFS.isImmersiveModeSupported()
       .then(() => this.androidFS.immersiveMode())
       .catch((error: any) => console.log(error));
+    this.statusBar.hide();
     this.mobileAccessibility.usePreferredTextZoom(false);
   }
 

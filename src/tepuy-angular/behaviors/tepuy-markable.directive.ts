@@ -26,6 +26,7 @@ const defaulStyles = {
     '.tepuy-markable { position: relative; display: inline-block; }',
     '.tepuy-markable canvas { position: absolute; top: 0; left: 0; }',
     '.tepuy-markable img { display: block; max-height: 100%; max-width: 100%; }',
+    '.tepuy-markable div { position: absolute; top: 0; left: 0; width: 100%; height: 100% }',
     '.tepuy-markable [tepuy-item] { display: none; width: 0; height: 0; }'
   ],
   template: `
@@ -36,18 +37,19 @@ const defaulStyles = {
       <img
         #image
         [src]="src"
-        [class.tepuy-correct]="isCorrect === true"
-        [class.tepuy-wrong]="isCorrect === false"
         (load)="onLoad($event)"
       >
       <canvas
         #canvas
-        [class.tepuy-correct]="isCorrect === true"
-        [class.tepuy-wrong]="isCorrect === false"
         (click)="onClick($event)"
         (mousemove)="onMousemove($event)"
         (mouseout)="onMouseout($event)">
       </canvas>
+      <div #hightlighter [hidden]="!completed"
+        [class.tepuy-correct]="isCorrect === true"
+        [class.tepuy-wrong]="isCorrect === false"
+      >
+      </div>
       <div *ngFor="let shape of shapes;let i=index" tepuy-item></div>
     </div>
   `
@@ -57,6 +59,7 @@ export class TepuyMarkableComponent implements AfterViewInit, OnDestroy {
   @Input('tepuy-auto-feedback') autoFeedback: boolean = true;
   @Input('tepuy-multiple') multiple: boolean = false;
   @Input('tepuy-group-id') group: number;
+  @Input('tepuy-show-areas') showAreas: boolean = false;
   @Output('change') changeEvent = new EventEmitter<Shape>();
   //@Output('mark') markEvent = new EventEmitter<Shape>();
 
@@ -65,6 +68,7 @@ export class TepuyMarkableComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('canvas') private canvas: ElementRef;
   @ViewChild('container') private container: ElementRef;
+  @ViewChild('hightlighter') private hightlighter: ElementRef;
   @ViewChild('image') private image: ElementRef;
 
   private shapes: Shape[] = [];
@@ -73,6 +77,7 @@ export class TepuyMarkableComponent implements AfterViewInit, OnDestroy {
 
   shapeActive: number;
   isCorrect: boolean;
+  completed: boolean = false;
 
   @Input('tepuy-areas')
   set setAreas(areas: any[]) {
@@ -140,10 +145,13 @@ export class TepuyMarkableComponent implements AfterViewInit, OnDestroy {
    * Draw a marker.
    */
   private drawShape(shape: Shape, type?: string): void {
-    const context = this.canvas.nativeElement.getContext('2d');
-    context.beginPath();
-    
+    //Make this the first call to ensure the pixels array is created in the shape
     let coords = shape.toPixels(this.image.nativeElement);
+    //Do not draw if we don't want to show the selectable areas
+    if (shape.state == 'normal' && !this.showAreas) return;
+
+    const context = this.canvas.nativeElement.getContext('2d');    
+    context.beginPath();    
     context.fillStyle = defaulStyles[shape.state].fill;
     switch (shape.type) {
       case "circle":
@@ -173,6 +181,7 @@ export class TepuyMarkableComponent implements AfterViewInit, OnDestroy {
     const canvas: HTMLCanvasElement = this.canvas.nativeElement;
     //const container: HTMLDivElement = this.container.nativeElement;
     const image: HTMLImageElement = this.image.nativeElement;
+    const hightlighter: HTMLElement = this.hightlighter.nativeElement;
     const height = image.clientHeight;
     const width = image.clientWidth;
     if (height == 0 || width == 0) return; //Do not draw anything is has no height or width
@@ -180,6 +189,8 @@ export class TepuyMarkableComponent implements AfterViewInit, OnDestroy {
     this.renderer.setElementAttribute(canvas, 'height', `${height}`);
     //this.renderer.setElementStyle(container, 'height', `${height}px`);
     this.renderer.setElementAttribute(canvas, 'width', `${width}`);
+    this.renderer.setElementStyle(hightlighter, 'width', `${width}px`);
+    this.renderer.setElementStyle(hightlighter, 'height', `${height}px`);
 
     const context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -255,6 +266,7 @@ export class TepuyMarkableComponent implements AfterViewInit, OnDestroy {
 
     if (this.autoFeedback) {
       this.canMark = false;
+      this.completed = true;
       shape.state = item.isCorrect ? 'correct' : 'wrong';
       this.isCorrect = item.isCorrect;
 
