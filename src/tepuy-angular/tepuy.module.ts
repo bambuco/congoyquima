@@ -18,7 +18,8 @@ import {
   TepuyActivityService,
   //TepuyDraggableService,
   TepuyAudioPlayerProvider,
-  TepuyErrorProvider
+  TepuyErrorProvider,
+  ResizeSensor
 } from './providers';
 
 import {
@@ -67,7 +68,7 @@ import {
     DistributePipe
   ],
   providers: [
-    TepuyActivityService, TepuyErrorProvider, TepuyAudioPlayerProvider
+    TepuyActivityService, TepuyErrorProvider, TepuyAudioPlayerProvider, ResizeSensor
   ]
 })
 export class TepuyModule {}

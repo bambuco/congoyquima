@@ -249,20 +249,26 @@ page-game-challenge {
       position: relative;
     }
 
-    ion-slide.swiper-slide {
-        align-items: flex-start;
+    ion-slide {
+      &.swiper-slide { align-items: flex-start; }
+      .slide-zoom, [tepuy-item-group], .tepuy-mark-container {
+        height: 100%;
+      }
+
+      &:not(.swiper-slide-active) {
+        img {
+          display: none;
+        }
+      }      
     }
 
     .tepuy-mark-container {
-      width: 100%;
+      margin: 0 auto;
       position: relative;
       div {
         height: 100%;
       }
-      img {
-        height: 100%;
-
-      }
+      
       .tepuy-correct {
         border: solid 20px map-get($colors, correct-light);
       }
@@ -312,7 +318,7 @@ page-game-challenge {
     }
   }
   /**********************************************************************
-  Level 1 - Challenge 3
+  Level 1 - Challenge 4
   **********************************************************************/
   .l_1_ch_4 {
 
@@ -398,55 +404,12 @@ page-game-challenge {
       }
       &.q-right {
         bottom: 0;
-        left: 54%;
+        left: 52.5%;
         width: 46.25%;
         .seed-wrapper {
           left: 0;
           bottom: 4%;
           transform-origin: left bottom;
-        }
-      }
-    }
-
-    .left-quantity {
-      position:absolute;
-      bottom: 0;
-      right: 50%;
-      width: 50%;
-      height: 100%;
-
-      .seed-container {
-        position: relative;
-        .seed-wrapper {
-          position: absolute;
-          top: 0;
-          right: 0;
-          width: 528px;
-          height: 540px;
-          //transform: rotate(180deg) translate(100%, -75%);
-          transform-origin: right top;
-
-        }
-      }
-    }
-
-    .right-quantity {
-      position:absolute;
-      bottom: -5%;
-      left: 53.75%;
-      width: 46.25%;
-      height: 100%;
-
-      .seed-container {
-        position: relative;
-        .seed-wrapper {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 516px;
-          height: 420px;
-          //transform: rotate(180deg) translate(-100%, -100%);
-          transform-origin: left top;
         }
       }
     }
