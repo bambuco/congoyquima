@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { IonicStorageModule } from '@ionic/storage';
 import { TepuyModule } from '../tepuy-angular/tepuy.module';
+import { NgPipesModule } from 'ngx-pipes';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -57,6 +58,7 @@ import { CustomErrorHandler } from '../providers/custom-error.handler';
     BrowserModule,
     HttpClientModule,
     TepuyModule,
+    NgPipesModule,
     IonicImageViewerModule,
     IonicStorageModule.forRoot({
         name: '__congoyquima'

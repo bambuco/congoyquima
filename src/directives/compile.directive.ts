@@ -6,6 +6,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { IonicModule } from 'ionic-angular';
 import { TepuyModule } from '../tepuy-angular/tepuy.module';
+import { NgPipesModule } from 'ngx-pipes';
 
 
 @Directive({
@@ -71,7 +72,7 @@ export class CompileDirective implements OnChanges {
       // You might need other modules, providers, etc...
       // Note that whatever components you want to be able
       // to render dynamically must be known to this module
-      imports: [CommonModule, IonicModule, TepuyModule],
+      imports: [CommonModule, IonicModule, TepuyModule, NgPipesModule],
       declarations: [component]
     })
     class DynamicModule {}

@@ -62,16 +62,19 @@ export class TepuyActivityDirective implements OnInit, AfterContentInit {
 
   ngAfterContentInit(){
     if (this.slides.length) {
-      this.slideCtrl = this.slides.first;
-      this.slideCtrl.fade = { crossFade: true };
-      this.slideCtrl.enableKeyboardControl(false);
-      this.slideCtrl.lockSwipes(true);
+      this.setupSlider();
     }
 
     this.slides.changes.subscribe((changes) => {
-      this.slideCtrl = this.slides.first;
-      this.slideCtrl.fade = { crossFade: true };
+      this.setupSlider();
     });
+  }
+
+  private setupSlider() {
+    this.slideCtrl = this.slides.first;
+    this.slideCtrl.fade = { crossFade: true };
+    this.slideCtrl.enableKeyboardControl(false);
+    this.slideCtrl.lockSwipes(true);
   }
 
   private resetGroupValues() {

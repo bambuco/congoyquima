@@ -31,8 +31,7 @@ export class CustomErrorHandler extends IonicErrorHandler {
       let obj = {};
 
       Object.getOwnPropertyNames(err).forEach(function (key) {
-        console.log(key);
-            obj[key] = err[key];
+          obj[key] = err[key];
         }, this);
 
       let obj1 = {
