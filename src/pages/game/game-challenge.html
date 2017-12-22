@@ -9,7 +9,7 @@
 </ion-header>
 
 <ion-content [ngClass]="{'center-vertical': loading}" #content>
-  <div class="content-zone l_{{challenge.levelId}}_ch_{{challenge?.id+1}}"
+  <div class="content-zone level_{{challenge.levelId}} challenge_{{challenge?.id+1}}"
       [ngClass]="status" 
       [ngStyle]="pzStyle">
     <ng-container *compile="template; css: templateCss; context: settings;"></ng-container>

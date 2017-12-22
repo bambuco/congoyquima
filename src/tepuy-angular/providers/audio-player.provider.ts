@@ -30,6 +30,9 @@ export class TepuyAudioPlayerProvider {
       console.log('Audio not found: ' + key);
       return;
     }
+
+    if (sound.ready) return; //If already preloaded, just return
+
     let player = new Audio();
     player.addEventListener('canplaythrough', (ev) => {
       this.sounds[key].ready = true;

@@ -1,5 +1,5 @@
 <ion-content #content>
-  <div class="content-zone" #contentZone>
+  <div class="content-zone level_{{id}}" #contentZone>
     <div class="app-icon arrow-white help-indicator" *ngIf="showIndicator"></div>
     <div *ngFor="let item of challenges | async" class="item-challenge" [ngClass]="getClass(item)" [ngStyle]="{'height.px': itemHeight}">
       <span class="level-label">{{item.label}}</span>

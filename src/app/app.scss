@@ -179,7 +179,7 @@ ion-footer {
 Application Icons
 ************************************************/
 @mixin appSpriteIcons($icon-list, $xstart, $ystart, $xoffset, $yoffset,
-    $width, $height, $alternate: '[disabled]', $active: false){
+    $width, $height, $alternate: '[disabled]', $active: false, $touched:true){
   @for $i from 1 through length($icon-list){
     $name: nth($icon-list, $i);
     &.#{$name} {
@@ -196,6 +196,12 @@ Application Icons
           &.active {
             background-position: (-($xstart + (($xoffset + $width) * ($i - 1)))) (-($ystart + 2*($yoffset + $height)));
           }
+      }
+      @if($touched) {
+        &:active {
+          @include scale(0.95);
+          @include filter(brightness, 90%);
+        }
       }
     }
   }

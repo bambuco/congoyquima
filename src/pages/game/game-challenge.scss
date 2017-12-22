@@ -11,7 +11,7 @@ page-game-challenge {
 
     @for $l from 1 through 1 {
       @for $ch from 1 through 10 {
-        &.l_#{$l}_ch_#{$ch} {
+        &.level_#{$l}.challenge_#{$ch} {
           background-image: url('../assets/game/img/l_#{$l}/ch_#{$ch}/bg.png');
         }
       }
@@ -134,7 +134,7 @@ page-game-challenge {
   /**********************************************************************
   Level 1 - Challenge 1
   **********************************************************************/
-  .l_1_ch_1 {
+  .level_1.challenge_1 {
     [ion-row] {
       &.row-0 {
         bottom: 71%;
@@ -151,7 +151,7 @@ page-game-challenge {
   /**********************************************************************
   Level 1 - Challenge 2
   **********************************************************************/
-  .l_1_ch_2 {
+  .level_1.challenge_2 {
     [ion-row] {
       &.row-0 {
         bottom: 77%;
@@ -244,7 +244,7 @@ page-game-challenge {
   /**********************************************************************
   Level 1 - Challenge 3
   **********************************************************************/
-  .l_1_ch_3 {
+  .level_1.challenge_3 {
     .tepuy-markzone container {
       position: relative;
     }
@@ -320,7 +320,7 @@ page-game-challenge {
   /**********************************************************************
   Level 1 - Challenge 4
   **********************************************************************/
-  .l_1_ch_4 {
+  .level_1.challenge_4 {
 
     ion-slides {
        height: 60%;
@@ -455,7 +455,7 @@ page-game-challenge {
   /**********************************************************************
   Level 1 - Challenge 5
   **********************************************************************/
-  .l_1_ch_5 {
+  .level_1.challenge_5 {
     [ion-row] {
       &.row-0 {
         bottom: 75%;
@@ -560,7 +560,7 @@ page-game-challenge {
   /**********************************************************************
   Level 1 - Challenge 6
   **********************************************************************/
-  .l_1_ch_6 {
+  .level_1.challenge_6 {
 
     ion-slides {
        height: 60%;
@@ -581,11 +581,11 @@ page-game-challenge {
       margin: 15px;
       position: absolute;
       bottom: 10%;
-      right: 15%;
-      @include transform-origin(bottom, right);
+      right: 10%;
+      @include transform-origin(right, bottom);
       
-      $icons: interruptor-on interruptor-off;
-      @include appSpriteIcons($icons, 20px, 20px, 38px, 0px, 292px, 290px);
+      $icons: interruptor;
+      @include appSpriteIcons($icons, 20px, 20px, 0px, 40px, 292px, 290px, $alternate:':active');
     }
 
     .book-page {
