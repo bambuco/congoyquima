@@ -269,8 +269,34 @@ Application Icons
   $icons: arrow-black arrow-white;
   @include appSpriteIcons($icons, 647px, 948px, 75px, 0px, 125px, 75px);
 }
-/***********************************************/
+/************************************************
+Object Icons
+************************************************/
+.object-icon {
+  background-image: url('../assets/game/img/shared/sprite_objects.png');
+  background-color: transparent;
+  background-repeat: no-repeat;
+  display: inline-block;
+  
+  $icons: obj-arbol obj-casa obj-canasta obj-radio obj-cama obj-plato obj-vaso obj-vaca obj-perro obj-gato obj-sombrero;  
+  @include appSpriteIcons($icons, 20px, 20px, 0px, 0px, 420px, 470px);
+  
+  $icons: obj-baston obj-cuchara obj-carro obj-zapato obj-camisa obj-pantalon obj-reloj obj-mesa obj-silla obj-moneda obj-caballo;
+  @include appSpriteIcons($icons, 20px, 490px, 0px, 0px, 420px, 470px);
 
+  $icons: obj-llave obj-lapiz obj-manzana obj-banano obj-pera obj-zanahoria obj-tomate obj-vestido obj-vela obj-computador obj-billete;
+  @include appSpriteIcons($icons, 20px, 960px, 0px, 0px, 420px, 470px);
+
+  $icons: obj-puerta obj-ventana obj-televisor obj-estufa obj-escoba obj-frasco obj-botella obj-gafas obj-balon obj-caja obj-bus;
+  @include appSpriteIcons($icons, 20px, 1430px, 0px, 0px, 420px, 470px);
+
+  $icons: obj-tenedor obj-bombillo obj-cuaderno obj-libro obj-ventilador obj-tijeras obj-telefono obj-flor obj-sol obj-luna obj-bicicleta;
+  @include appSpriteIcons($icons, 20px, 1900px, 0px, 0px, 420px, 470px);
+
+  $icons: obj-pastillas obj-cuchillo obj-olla obj-motocicleta obj-sombrilla obj-cepillo;
+  @include appSpriteIcons($icons, 20px, 2370px, 0px, 0px, 420px, 470px);
+
+}
 /***********************************************
   Animations
 ***********************************************/

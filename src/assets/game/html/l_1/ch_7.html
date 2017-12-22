@@ -1,0 +1,32 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-slide-delay=".5">
+  <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.words'; count: 5; let groups=values">
+    <ion-slides class="tepuy-activity-content" zoom="false" pager="true" paginationType="progress" effect="fade">
+      <ion-slide *ngFor="let word of groups" [ngStyle]="{'width.px':playZone?.width}">
+        <div class="container" tepuy-item-group [tepuy-group-id]="word.id">
+          <div class="book-page page-left">
+            <div class="object-icon obj-{{word.data|objectkey}}" tepuy-scale="1920"></div>
+          </div>
+          <div class="book-page page-right">
+            <div class="word-container-wrapper">
+            <div class="word-container" tepuy-scale="1920"
+              *tepuyValueGenerator="'randomof:setup:key=parameters.words';type:'scalar';exclude:[word.data];count:2; let extra=values">
+              <div *ngFor="let w of extra|union:[[word.data]]|shuffle;let i=index" class="word-holder word-holder-{{i}}"
+                tepuy-item tepuy-selectable data-tepuy-auto-feedback="true" [tepuy-correct]="w == word.data">
+                {{w}}
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+    <div class="tepuy-feedback-summary tepuy-semaphore">
+      <span *ngFor="let g of groups" class="tepuy-{{g.state}}"></span>
+    </div>
+  </ng-container>
+</div>
+
+<!--
+
+
+  -->

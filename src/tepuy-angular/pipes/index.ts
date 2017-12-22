@@ -1,1 +1,3 @@
-export { DistributePipe } from './distribute'
+export { DistributePipe } from './distribute';
+export { ObjectKeyPipe } from './object-key';
+
