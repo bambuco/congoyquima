@@ -52,7 +52,7 @@ export class TepuyGreetableDirective implements AfterViewInit, OnDestroy {
   onTouchStart() {
     if (!this.canGreet) return true;
     this.itemTouchedTime = new Date().getTime();
-    this.audioPlayer.play(this.item.value.toLowerCase());
+    this.play();
     return true;
   }
 
@@ -60,10 +60,25 @@ export class TepuyGreetableDirective implements AfterViewInit, OnDestroy {
     if (!this.canGreet) return true;
     const time = new Date().getTime();
     if ((time)-this.itemTouchedTime > 2) { //To prevent touch and click firing twice
-      this.itemTouchedTime = time;
-      this.audioPlayer.play(this.item.value.toLowerCase());
+      this.itemTouchedTime = time;      
+      this.play();
     }
     return true;
+  }
+
+  private play() {
+    let key = null;
+    if (this.item) {
+      key = this.item.value.toLowerCase();
+    }
+    else {
+      const el = this.elRef.nativeElement;
+      key = el.value ? el.value : el.innerText;
+    }
+
+    if (key) {
+      this.audioPlayer.play(key);
+    }
   }
 
 }

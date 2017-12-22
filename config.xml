@@ -69,7 +69,6 @@
         <icon height="87" src="resources/ios/icon/icon-small@3x.png" width="87" />
         <icon height="1024" src="resources/ios/icon/icon-1024.png" width="1024" />
     </platform>
-    <engine name="android" spec="^6.4.0" />
     <engine name="ios" spec="^4.4.0" />
     <plugin name="cordova-plugin-device" spec="^1.1.4" />
     <plugin name="cordova-plugin-file" spec="^5.0.0" />
@@ -81,4 +80,5 @@
     <plugin name="cordova-sqlite-storage" spec="^2.1.2" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="phonegap-plugin-mobile-accessibility" spec="^1.0.5" />
+    <engine name="android" spec="~6.4.0" />
 </widget>
