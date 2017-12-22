@@ -279,22 +279,22 @@ Object Icons
   display: inline-block;
   
   $icons: obj-arbol obj-casa obj-canasta obj-radio obj-cama obj-plato obj-vaso obj-vaca obj-perro obj-gato obj-sombrero;  
-  @include appSpriteIcons($icons, 20px, 20px, 0px, 0px, 420px, 470px);
+  @include appSpriteIcons($icons, 0px, 0px, 0px, 0px, 420px, 470px);
   
   $icons: obj-baston obj-cuchara obj-carro obj-zapato obj-camisa obj-pantalon obj-reloj obj-mesa obj-silla obj-moneda obj-caballo;
-  @include appSpriteIcons($icons, 20px, 490px, 0px, 0px, 420px, 470px);
+  @include appSpriteIcons($icons, 0px, 470px, 0px, 0px, 420px, 470px);
 
   $icons: obj-llave obj-lapiz obj-manzana obj-banano obj-pera obj-zanahoria obj-tomate obj-vestido obj-vela obj-computador obj-billete;
-  @include appSpriteIcons($icons, 20px, 960px, 0px, 0px, 420px, 470px);
+  @include appSpriteIcons($icons, 0px, 940px, 0px, 0px, 420px, 470px);
 
   $icons: obj-puerta obj-ventana obj-televisor obj-estufa obj-escoba obj-frasco obj-botella obj-gafas obj-balon obj-caja obj-bus;
-  @include appSpriteIcons($icons, 20px, 1430px, 0px, 0px, 420px, 470px);
+  @include appSpriteIcons($icons, 0px, 1410px, 0px, 0px, 420px, 470px);
 
   $icons: obj-tenedor obj-bombillo obj-cuaderno obj-libro obj-ventilador obj-tijeras obj-telefono obj-flor obj-sol obj-luna obj-bicicleta;
-  @include appSpriteIcons($icons, 20px, 1900px, 0px, 0px, 420px, 470px);
+  @include appSpriteIcons($icons, 0px, 1880px, 0px, 0px, 420px, 470px);
 
   $icons: obj-pastillas obj-cuchillo obj-olla obj-motocicleta obj-sombrilla obj-cepillo;
-  @include appSpriteIcons($icons, 20px, 2370px, 0px, 0px, 420px, 470px);
+  @include appSpriteIcons($icons, 0px, 2350px, 0px, 0px, 420px, 470px);
 
 }
 /***********************************************
