@@ -7,11 +7,13 @@ import { TepuyDraggableService } from '../providers';
 @Directive({ 
   selector: '[tepuy-drop-zone]',
   host: {
+    '[class.tepuy-droppable]': 'enabled'
   }
 })
 export class TepuyDropZoneDirective implements AfterViewInit {
-  @HostBinding('class.tepuy-droppable') isDroppable: boolean = true;
+  //@HostBinding('class.tepuy-droppable') isDroppable: boolean = true;
   @HostBinding('class.tepuy-drop-over') isDropOver: boolean = false;
+  @Input("tepuy-drop-zone") enabled: boolean;
   @Input("tepuy-correct-values") correctValueList;
   @Input('tepuy-auto-feedback') autoFeedback: boolean = false;
 
@@ -30,6 +32,7 @@ export class TepuyDropZoneDirective implements AfterViewInit {
 
   //Lifecycle events
   ngAfterViewInit() {
+    if (this.enabled === false) return;
     if (!this.correctValueList) {
       //Try get values from a dl container
       const el = this.elRef.nativeElement;
@@ -50,7 +53,7 @@ export class TepuyDropZoneDirective implements AfterViewInit {
   //Item events
   onDragEnd(data:any) {
     const el = this.elRef.nativeElement;
-    const dropped = (el == data.target);
+    const dropped = (this.enabled !== false) && (el == data.target);
     if (dropped) {
       //ToDo: Need to account for drop zone allowing multiple elements
       el.appendChild(data.el);
@@ -61,7 +64,8 @@ export class TepuyDropZoneDirective implements AfterViewInit {
         this.renderer.addClass(data.el, 'tepuy-dropped');
       });
       data.item.isCorrect = !(this.correctValues.indexOf(data.item.value) < 0);
-      this.checkAutofeedback(data);
+      data.item.answered = true;
+      this.checkAutofeedback(data);      
     }
     this.dragService.drop({
       dropped: dropped
@@ -79,7 +83,6 @@ export class TepuyDropZoneDirective implements AfterViewInit {
   private checkAutofeedback(data:any) {
     if (this.autoFeedback) {
       const service = data.item.activityService;
-      data.item.resolve(data.item.isCorrect);
       service.emit(service.ITEM_GROUP_COMPLETING, { 
         succeed: data.item.isCorrect
       }, data.item.group);

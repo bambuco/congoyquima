@@ -193,9 +193,9 @@ Application Icons
         }
       }
       @if ($active) {
-          &.active {
-            background-position: (-($xstart + (($xoffset + $width) * ($i - 1)))) (-($ystart + 2*($yoffset + $height)));
-          }
+        &.active {
+          background-position: (-($xstart + (($xoffset + $width) * ($i - 1)))) (-($ystart + 2*($yoffset + $height)));
+        }
       }
       @if($touched) {
         &:active {
@@ -296,6 +296,37 @@ Object Icons
   $icons: obj-pastillas obj-cuchillo obj-olla obj-motocicleta obj-sombrilla obj-cepillo;
   @include appSpriteIcons($icons, 0px, 2350px, 0px, 0px, 420px, 470px);
 
+}
+/************************************************
+Key Icons
+************************************************/
+.keyholder-icon {
+  background-image: url('../assets/game/img/shared/sprite_keys.png');
+  background-color: transparent;
+  background-repeat: no-repeat;
+  display: inline-block;
+    
+  $icons: keyholder;  
+  @include appSpriteIcons($icons, 20px, 20px, 0px, 0px, 106px, 128px);  
+
+  $icons: keyholder-wrong;  
+  @include appSpriteIcons($icons, 20px, 400px, 0px, 0px, 106px, 128px);  
+}
+
+.tepuy-group-completed {
+  .tepuy-correct {
+    .keyholder-icon {
+      $icons: keyholder;  
+      @include appSpriteIcons($icons, 20px, 200px, 0px, 0px, 106px, 128px);  
+    }
+  }
+
+  .tepuy-wrong {
+    .keyholder-icon {
+      $icons: keyholder;  
+      @include appSpriteIcons($icons, 20px, 400px, 0px, 0px, 106px, 128px);  
+    }
+  }
 }
 /***********************************************
   Animations

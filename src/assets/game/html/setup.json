@@ -113,14 +113,25 @@
           }
         },
         {
+          "id": 8,
           "label":"9",
-          "unavailable": true,
-          "type": "tepuy-selectable",
+          "type": "select",
+          "autofeedback": true,
           "parameters": {
+            "words": [
+              "Árbol", "Casa", "Canasta", "Radio", "Cama","Bastón", "Televisor", "Carro", "Cuchara", "Plato",
+              "Vaso", "Vaca", "Perro", "Gato","Caballo", "Sombrero", "Zapato", "Camisa", "Pantalón", "Reloj",
+              "Mesa", "Silla", "Moneda","Billete", "Llave", "Lápiz", "Libro", "Manzana", "Banano", "Pera",
+              "Zanahoria", "Tomate","Teléfono", "Vela", "Cuchillo", "Tenedor", "Olla", "Motocicleta","Bicicleta",
+              "Computador", "Escoba", "Cepillo", "Gafas", "Balón", "Bombillo",
+              "Puerta", "Ventana", "Ventilador", "Pastillas", "Cuaderno","Tijeras", "Caja", "Frasco", "Botella",
+              "Vestido", "Flor", "Luna", "Estufa", "Sombrilla"
+            ]
           }
         },
         {
           "label":"10",
+          "unavailable": true,
           "type": "tepuy-selectable",
           "parameters": {
           }

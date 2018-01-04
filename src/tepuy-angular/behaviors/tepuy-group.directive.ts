@@ -1,4 +1,4 @@
-import { Directive, ContentChildren, QueryList, Input,
+import { Directive, ContentChildren, QueryList, Input, HostBinding,
   OnInit, AfterContentInit, OnDestroy
 } from '@angular/core';
 
@@ -17,6 +17,7 @@ import { TepuyDropZoneDirective } from './tepuy-drop-zone.directive';
   providers: [ TepuyDraggableService ]
 })
 export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy {
+  @HostBinding("class.tepuy-group-completed") isComplete: boolean = false;
   @Input('tepuy-item-group') options: any;
   @Input('tepuy-group-id') id: string;
   @Input('tepuy-allow-multiple') multiple: boolean = false;
@@ -24,6 +25,7 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
   @Input('tepuy-correct-size') correctSize: number;
   @Input('tepuy-correct-options') correctSource: any;
   @Input('tepuy-wrong-options') wrongSource: any;
+  @Input('tepuy-autocomplete-after') autocompleteAfter: number = 1;
 
   valueSource: Array<any>;
   isCorrect: boolean;
@@ -140,6 +142,9 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
 
   private onGroupCompleting(result) {
     //Need to make sure it will count only as one if the markable does not accept multiple selection.
+    const answered = this.items.filter((it) => { return it.answered === true });
+    if (answered.length < this.autocompleteAfter) return;
+
     if (!this.multiple && !result.succeed) {
       //find the correct one.
       const right = this.items.find((itm) => { return itm.correct });
@@ -149,6 +154,8 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
     }
     result.group = this.id;
     result.state = result.succeed ? 'correct' : 'wrong';
+    answered.forEach((it) => { it.resolve(it.isCorrect); });
     this.actProvider.emit(this.actProvider.ITEM_GROUP_COMPLETED, result);
+    this.isComplete = true;
   }
 }

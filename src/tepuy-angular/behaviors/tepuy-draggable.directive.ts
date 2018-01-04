@@ -68,7 +68,10 @@ export class TepuyDraggableDirective implements AfterViewInit {
     //Drag completed
     this.isDragging = false;
 
-    const targetEl = this.getElementFromPoint(this.elRef.nativeElement, ev.center.x, ev.center.y);
+    let targetEl = this.getElementFromPoint(this.elRef.nativeElement, ev.center.x, ev.center.y);
+    while(targetEl.hasAttribute('drop-ignore')) {
+      targetEl = targetEl.parentElement;
+    }
     if (targetEl && targetEl == this.originalParent) { //Allows to return to the parent container
       this.resetPosition();
     }
@@ -79,14 +82,11 @@ export class TepuyDraggableDirective implements AfterViewInit {
           this.domCtrl.write(() => {
             this.dragService.setTranslate(this.elRef.nativeElement, null);
           });
-          this.item.answered = false;
-          //this.lastDragTranslate = null;
-        }
-        else {
-          this.item.answered = true;
         }
         subscription.unsubscribe(); //Do not listen unless we are interested
       });
+
+      this.item.answered = false;
 
       this.dragService.dragEnd({
         item: this.item,
@@ -151,6 +151,7 @@ export class TepuyDraggableDirective implements AfterViewInit {
       this.renderer.removeClass(el, 'tepuy-dropped');
       this.dragService.setTranslate(el, null);
     });
+    this.item.answered = false;
     this.item.isCorrect = false;
   }
 

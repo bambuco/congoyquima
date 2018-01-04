@@ -26,6 +26,7 @@
     <preference name="background" value="0x000000" />
     <platform name="android">
         <preference name="loadUrlTimeoutValue" value="700000" />
+        <preference name="FullScreen" value="true" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
@@ -45,6 +46,7 @@
         <splash density="port-xhdpi" src="resources/android/splash/drawable-port-xhdpi-screen.png" />
         <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
+        <hook src="hook_scripts/after_build.js" type="after_build" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />

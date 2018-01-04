@@ -3,7 +3,7 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
 
 import { TepuyErrorProvider, Errors } from './error.provider';
-import { DataProviderFactory, IDataProvider } from './data.provider';
+import { DataProviderFactory, IDataProvider } from './data/data.provider.factory';
 import { TepuyUtils } from '../tepuy-utils';
 
 export { DataProviderFactory, IDataProvider };
@@ -145,8 +145,8 @@ export class TepuyActivityService {
    * Parse an expression to be converted on an array
    * @param {string} exp Expression that will be converted to an array. rangeof|.
    */
-  getDataProvider(exp:string):IDataProvider {
-    return this.dataProviderFactory.create(exp, this.setup);
+  getDataProvider(exp:string, data?:any):IDataProvider {
+    return this.dataProviderFactory.create(exp, data || this.setup);
   }
   /**
    * Parse an expression to be converted on an array

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-
+import { ObjectKeyPipe } from '../pipes'
 //import { Subject } from 'rxjs/Subject';
 
 @Injectable()
@@ -9,10 +9,11 @@ export class TepuyAudioPlayerProvider {
   private playlist: Array<string> = [];
   private currentPlayer:any; // = new Audio();
 
-  constructor() {
+  constructor(private objKeyPipe:ObjectKeyPipe) {
   }
 
   register(key:string, path:string, preload=false) {
+    key = this.objKeyPipe.transform(key);
     this.sounds[key] = { path: path }
     if (preload){
       this.preload(key);
@@ -25,6 +26,7 @@ export class TepuyAudioPlayerProvider {
    * @path {string} Path to the audio file
    */  
   preload(key:string) {
+    key = this.objKeyPipe.transform(key);
     const sound = this.sounds[key];
     if (!sound) {
       console.log('Audio not found: ' + key);
@@ -48,7 +50,8 @@ export class TepuyAudioPlayerProvider {
    */  
   preloadAll(sounds:Array<{key:string, path:string}>) {
     for(let sound of sounds) {
-      this.preload(sound.key);
+      const key = this.objKeyPipe.transform(sound.key);
+      this.preload(key);
     }
   }
 
@@ -64,6 +67,7 @@ export class TepuyAudioPlayerProvider {
    * @key {string} Key of the audio to play
    */  
   play(key:string, append:boolean = false) {
+    key = this.objKeyPipe.transform(key);
     const sound = this.sounds[key];
     if (!sound) {
       console.log('Audio not found: ' + key);
