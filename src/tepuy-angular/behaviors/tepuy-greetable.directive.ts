@@ -32,6 +32,7 @@ export class TepuyGreetableDirective implements AfterViewInit, OnDestroy {
 
 
     if (!this.item) {
+      this.canGreet = true;
       let valueEl = this.elRef.nativeElement;
       if (this.valueSelector) {
         valueEl = valueEl.querySelector(this.valueSelector);

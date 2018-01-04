@@ -2,6 +2,8 @@ import { Directive, HostBinding,
   AfterViewInit, Input
 } from '@angular/core';
 
+import { TepuyAudioPlayerProvider } from '../providers';
+
 @Directive({ 
   selector: '[tepuy-selectable]',
   host: { 
@@ -18,7 +20,7 @@ export class TepuySelectableDirective implements AfterViewInit {
   item:any;
   private canSelect:boolean;
 
-  constructor(
+  constructor(private audioPlayer:TepuyAudioPlayerProvider
     ) {
   }
 
@@ -38,6 +40,11 @@ export class TepuySelectableDirective implements AfterViewInit {
 
   //Select Events
   toggle(ev) {    
+
+    if (this.item && !this.item.actAsGreetable) {
+      this.audioPlayer.stopAll();
+    }
+
     //toogle only if has not been resolved
     if (!this.canSelect) return;
     this.isSelected = !this.isSelected;

@@ -7,13 +7,14 @@ import { TepuyDraggableService } from '../providers';
 @Directive({ 
   selector: '[tepuy-drop-zone]',
   host: {
-    '[class.tepuy-droppable]': 'enabled'
+    '[class.tepuy-droppable]': 'enabled !== false'
   }
 })
 export class TepuyDropZoneDirective implements AfterViewInit {
   //@HostBinding('class.tepuy-droppable') isDroppable: boolean = true;
   @HostBinding('class.tepuy-drop-over') isDropOver: boolean = false;
-  @Input("tepuy-drop-zone") enabled: boolean;
+  //@HostBinding('class.tepuy-droppable')
+  @Input("tepuy-drop-zone") enabled: boolean = true;
   @Input("tepuy-correct-values") correctValueList;
   @Input('tepuy-auto-feedback') autoFeedback: boolean = false;
 

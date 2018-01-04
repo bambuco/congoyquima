@@ -4,17 +4,16 @@
       <ion-slide *ngFor="let word of groups" [ngStyle]="{'width.px':playZone?.width}">
         <div class="container" tepuy-item-group [tepuy-group-id]="word.id">
           <div class="book-page page-left">
-            <div tepuy-greetable="input" class="interruptor-icon interruptor" tepuy-scale="1920">
-              <input type="hidden" value="{{word.data}}" />
-            </div>
+              <div class="word-holder" tepuy-scale="1920">
+                {{word.data}}
+              </div>
           </div>
           <div class="book-page page-right">
-            <div class="word-container-wrapper">
-            <div class="word-container" tepuy-scale="1920"
+            <div class="object-container-wrapper">
+            <div class="object-container" tepuy-scale="1920"
               *tepuyValueGenerator="'randomof:setup:key=parameters.words';type:'scalar';exclude:[word.data];count:2; let extra=values">
-              <div *ngFor="let w of extra|union:[[word.data]]|shuffle;let i=index" class="word-holder word-holder-{{i}}"
+              <div *ngFor="let w of extra|union:[[word.data]]|shuffle;let i=index" class="object-icon obj-{{w|objectkey}} object-pos-{{i}}"
                 tepuy-item tepuy-selectable data-tepuy-auto-feedback="true" [tepuy-correct]="w == word.data">
-                {{w}}
               </div>
             </div>
             </div>
