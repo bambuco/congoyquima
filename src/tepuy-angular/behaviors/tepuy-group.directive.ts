@@ -143,7 +143,7 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
   private onGroupCompleting(result) {
     //Need to make sure it will count only as one if the markable does not accept multiple selection.
     const answered = this.items.filter((it) => { return it.answered === true });
-    if (answered.length < this.autocompleteAfter) return;
+    if (this.items.length && answered.length < this.autocompleteAfter) return;
 
     if (!this.multiple && !result.succeed) {
       //find the correct one.

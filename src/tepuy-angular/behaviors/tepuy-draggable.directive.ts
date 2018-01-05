@@ -72,6 +72,7 @@ export class TepuyDraggableDirective implements AfterViewInit {
     while(targetEl.hasAttribute('drop-ignore')) {
       targetEl = targetEl.parentElement;
     }
+
     if (targetEl && targetEl == this.originalParent) { //Allows to return to the parent container
       this.resetPosition();
     }

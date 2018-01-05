@@ -51,6 +51,8 @@ export class GameDataProvider {
           if (i == gameState.maxLevelCompleted) {
             this.getLevel(i+1).subscribe((aLevel:LevelState) => {
               level.currentChallenge = aLevel.currentChallenge;
+              //aLevel.currentChallenge = 10;
+              //this.storage.set('level_1_state', aLevel);
             });
           }
         }
@@ -188,7 +190,7 @@ export class GameDataProvider {
         //Level is completed
         if (state.currentChallenge == level.challenges.length) {
           gameState.maxLevelCompleted = challenge.levelId;
-          this.storage.set(game_state_key, state);
+          this.storage.set(game_state_key, gameState);
           if (challenge.levelId < this.settings.levels.length) {
             let nextLevel = this.settings.levels[challenge.levelId];
             nextChallenge = nextLevel.challenges[0];
@@ -231,6 +233,7 @@ export class GameDataProvider {
         this.storage.set(game_state_key, state);
         if (challenge.levelId < this.settings.levels.length) {
           let nextLevel = this.settings.levels[challenge.levelId];
+          nextLevel.unlocked = true;
           nextChallenge = nextLevel.challenges[0];
         }
 

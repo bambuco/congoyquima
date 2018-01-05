@@ -23,7 +23,13 @@ export const Flags = {
   CHALLENGE1_PLAYED: (one=one<<1),
   CHALLENGE2_PLAYED: (one=one<<1),
   CHALLENGE3_PLAYED: (one=one<<1),
-  CHALLENGE4_PLAYED: (one=one<<1)
+  CHALLENGE4_PLAYED: (one=one<<1),
+  CHALLENGE5_PLAYED: (one=one<<1),
+  CHALLENGE6_PLAYED: (one=one<<1),
+  CHALLENGE7_PLAYED: (one=one<<1),
+  CHALLENGE8_PLAYED: (one=one<<1),
+  CHALLENGE9_PLAYED: (one=one<<1),
+  CHALLENGE10_PLAYED: (one=one<<1)
 };
 
 @Injectable()

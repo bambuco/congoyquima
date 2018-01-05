@@ -269,6 +269,7 @@ export class TepuyMarkableComponent implements AfterViewInit, OnDestroy {
       this.completed = true;
       shape.state = item.isCorrect ? 'correct' : 'wrong';
       this.isCorrect = item.isCorrect;
+      item.answered = true;
 
       //Need to make sure it will count only as one if the markable does not accept multiple selection.
       //ToDo: It would be ideally to let the group to take care of this but currently it is not grabbing the items collection

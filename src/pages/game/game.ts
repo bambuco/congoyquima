@@ -97,14 +97,20 @@ export class GamePage {
     }
     
     let style = {
-      'transform': 'scale('+scale+')',
+      //'transform': 'scale('+scale+')',
       'top.px': item.tile.progress[2] * scale
     };
+
+    const tprops = 'transform,-webkit-transform,-ms-transform,-moz-transform,-o-transform'.split(',');
+    for(let prop of tprops){
+      style[prop] = 'scale('+scale+')';
+    }
     
     if (item.tile.progress[0] === 'l') {
       style['left.px'] = item.tile.progress[1] * scale;
     }
     else {
+      style['-web-kit-transform-origin'] = 'right top';
       style['transform-origin'] = 'right top';
       style['right.px'] = item.tile.progress[1] * scale;
     }

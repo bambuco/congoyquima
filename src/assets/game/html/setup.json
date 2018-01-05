@@ -49,7 +49,7 @@
         {
           "id": 3,
           "label":"4",
-          "type": "select",
+          "type": "classify",
           "autofeedback": true,
           "parameters": {
           }
@@ -57,7 +57,7 @@
         {
           "id": 4,
           "label":"5",
-          "type": "select",
+          "type": "drag",
           "autofeedback": true,
           "parameters": {
           }
@@ -65,7 +65,7 @@
         {
           "id": 5,
           "label":"6",
-          "type": "select",
+          "type": "classify",
           "parameters": {
             "words": [
               "Árbol", "Casa", "Canasta", "Radio", "Cama","Bastón", "Televisor", "Carro", "Cuchara", "Plato",
@@ -81,7 +81,7 @@
         {
           "id": 6,
           "label":"7",
-          "type": "select",
+          "type": "classify",
           "autofeedback": true,
           "parameters": {
             "words": [
@@ -98,7 +98,7 @@
         {
           "id": 7,
           "label":"8",
-          "type": "select",
+          "type": "classify",
           "autofeedback": true,
           "parameters": {
             "words": [
@@ -115,7 +115,7 @@
         {
           "id": 8,
           "label":"9",
-          "type": "select",
+          "type": "drag",
           "autofeedback": true,
           "parameters": {
             "words": [
@@ -130,10 +130,20 @@
           }
         },
         {
+          "id": 9,
           "label":"10",
-          "unavailable": true,
-          "type": "tepuy-selectable",
+          "type": "drag",
+          "autofeedback": true,
           "parameters": {
+            "words": [
+              "Árbol", "Casa", "Canasta", "Radio", "Cama","Bastón", "Televisor", "Carro", "Cuchara", "Plato",
+              "Vaso", "Vaca", "Perro", "Gato","Caballo", "Sombrero", "Zapato", "Camisa", "Pantalón", "Reloj",
+              "Mesa", "Silla", "Moneda","Billete", "Llave", "Lápiz", "Libro", "Manzana", "Banano", "Pera",
+              "Zanahoria", "Tomate","Teléfono", "Vela", "Cuchillo", "Tenedor", "Olla", "Motocicleta","Bicicleta",
+              "Bus", "Computador", "Escoba", "Cepillo", "Gafas", "Balón", "Bombillo",
+              "Puerta", "Ventana", "Ventilador", "Pastillas", "Cuaderno","Tijeras", "Caja", "Frasco", "Botella",
+              "Vestido", "Flor", "Sol", "Luna", "Estufa", "Sombrilla"
+            ]
           }
         }
       ]
@@ -146,6 +156,77 @@
         "progress": ["r", 402, 280]
       },
       "challenges": [
+        {
+          "id": 0,
+          "label":"1",
+          "unavailable": true,
+          "type": "select",
+          "parameters": {
+          }
+        },
+        {
+          "id": 1,
+          "label":"2",
+          "type": "select",
+          "parameters": {
+          }
+        },
+        {
+          "id": 2,
+          "label":"3",
+          "type": "select",
+          "parameters": {
+          }
+        },
+        {
+          "id": 3,
+          "label":"4",
+          "type": "select",
+          "parameters": {
+          }
+        },
+        {
+          "id": 4,
+          "label":"5",
+          "type": "select",
+          "parameters": {
+          }
+        },
+        {
+          "id": 5,
+          "label":"6",
+          "type": "select",
+          "parameters": {
+          }
+        },
+        {
+          "id": 6,
+          "label":"7",
+          "type": "select",
+          "parameters": {
+          }
+        },
+        {
+          "id": 7,
+          "label":"8",
+          "type": "select",
+          "parameters": {
+          }
+        },
+        {
+          "id": 8,
+          "label":"9",
+          "type": "select",
+          "parameters": {
+          }
+        },
+        {
+          "id": 9,
+          "label":"10",
+          "type": "select",
+          "parameters": {
+          }
+        }
       ]
     },
     {
