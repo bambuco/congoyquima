@@ -29,6 +29,7 @@ export class GameLevelPage {
   itemHeight: number;
   challenges: ReplaySubject<any> = new ReplaySubject(1);
   showIndicator: boolean = false;
+  id: any;
 
   constructor(private navCtrl: NavController,
       private mediaPlayer: MediaPlayer,
@@ -37,10 +38,10 @@ export class GameLevelPage {
       private alertCtrl: AlertController,
       params: NavParams
       ) {
-    const id = params.get('id');
-    this.introKey = 'level'+id+'_intro';
+    this.id = params.get('id');
+    this.introKey = 'level'+this.id+'_intro';
     this.redirectReason = params.get('reason');
-    gameDataProvider.getLevel(id).subscribe(data => {
+    gameDataProvider.getLevel(this.id).subscribe(data => {
       if (data != null) {
         this.levelInfo = data;
         this.challenges.next(this.levelInfo.challenges);

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="co.bambuco.congoyquima" version="1.0.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="co.bambuco.congoyquima" version="1.0.10" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Congo y Quima</name>
     <description />
     <author email="jesus.otero@bambuco.co" href="http://bambuco.co/">Bambuco</author>
@@ -26,6 +26,7 @@
     <preference name="background" value="0x000000" />
     <platform name="android">
         <preference name="loadUrlTimeoutValue" value="700000" />
+        <preference name="FullScreen" value="true" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
@@ -45,6 +46,7 @@
         <splash density="port-xhdpi" src="resources/android/splash/drawable-port-xhdpi-screen.png" />
         <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
+        <hook src="hook_scripts/after_build.js" type="after_build" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
@@ -69,8 +71,6 @@
         <icon height="87" src="resources/ios/icon/icon-small@3x.png" width="87" />
         <icon height="1024" src="resources/ios/icon/icon-1024.png" width="1024" />
     </platform>
-    <engine name="android" spec="^6.4.0" />
-    <engine name="ios" spec="^4.4.0" />
     <plugin name="cordova-plugin-device" spec="^1.1.4" />
     <plugin name="cordova-plugin-file" spec="^5.0.0" />
     <plugin name="cordova-plugin-fullscreen" spec="^1.2.0" />
@@ -81,4 +81,6 @@
     <plugin name="cordova-sqlite-storage" spec="^2.1.2" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="phonegap-plugin-mobile-accessibility" spec="^1.0.5" />
+    <engine name="android" spec="^6.4.0" />
+    <engine name="ios" spec="^4.4.0" />
 </widget>

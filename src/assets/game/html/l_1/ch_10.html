@@ -1,0 +1,38 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-slide-delay="1">
+  <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.words'; count: 5; let groups=values">
+    <ion-slides class="tepuy-activity-content" zoom="false" pager="true" paginationType="progress" effect="fade">
+      <ion-slide *ngFor="let word of groups" [ngStyle]="{'width.px':playZone?.width}">
+        <div class="container" tepuy-item-group [tepuy-group-id]="word.id" [tepuy-autocomplete-after]="word.data.length">
+          <div class="object-container">
+            <div class="object-wrapper">
+              <div class="object-icon obj-{{word.data|objectkey}}" tepuy-scale="1920"></div>
+            </div>
+            <div class="options-wrapper" ion-row>
+              <div  *ngFor="let ch of word.data|lowercase|spell|shuffle; let i=index"
+                tepuy-item tepuy-draggable tepuy-greetable [tepuy-value]="ch|lowercase">
+                <div class="keyholder-icon keyholder" tepuy-scale="1920" tepuy-item-value>
+                  {{ch}}
+                </div>                
+              </div>         
+            </div>
+          </div>
+          <div class="puzzle-container">
+            <div class="word-container">
+              <div *ngFor="let ch of word.data|lowercase|spell; let i=index">
+                <div tepuy-drop-zone 
+                  [tepuy-correct-values]="ch|lowercase"
+                  data-tepuy-allow-multiple="true"
+                  data-tepuy-auto-feedback="true">
+                  <div class="keyholder-icon keyholder" tepuy-scale="1920" drop-ignore>
+                    &nbsp;
+                  </div> 
+                </div>               
+              </div>         
+            </div>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </ng-container>
+</div>
+

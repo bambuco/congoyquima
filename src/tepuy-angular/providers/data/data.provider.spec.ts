@@ -1,5 +1,7 @@
 import {} from 'jasmine';
-import { DataProviderFactory, IDataProvider, NumbersProvider } from './data.provider';
+import { IDataProvider } from './abstract.data.provider';
+import { NumbersProvider } from './numbers.provider';
+import { DataProviderFactory } from './data.provider.factory';
 
 describe('Data Provider Service', () => {
   let factory: DataProviderFactory;
@@ -50,7 +52,7 @@ describe('Data Provider Service', () => {
       expect(n6).toEqual(n5+1);
     });
   });
-  describe('group of numbers with distance', () => {
+  describe('group of numbers with max distance', () => {
     let g1, g2, g3, g4;
 
     beforeEach(() => {

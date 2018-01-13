@@ -122,8 +122,9 @@ export class GameChallengePage {
       this.setReady();
     }
     const id = parseInt(this.id);
-    if (id < 4 && !this.appData.hasFlag(Flags['CHALLENGE'+(id+1)+'_PLAYED'])){
-      this.appData.setFlag(Flags['CHALLENGE'+(id+1)+'_PLAYED']);
+    const flagKey='CHALLENGE'+(id+1)+'_PLAYED';
+    if (!this.appData.hasFlag(Flags[flagKey])){
+      this.appData.setFlag(Flags[flagKey]);
       this.showIndicator = true;
     }
   }

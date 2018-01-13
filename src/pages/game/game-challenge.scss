@@ -11,7 +11,7 @@ page-game-challenge {
 
     @for $l from 1 through 1 {
       @for $ch from 1 through 10 {
-        &.l_#{$l}_ch_#{$ch} {
+        &.level_#{$l}.challenge_#{$ch} {
           background-image: url('../assets/game/img/l_#{$l}/ch_#{$ch}/bg.png');
         }
       }
@@ -134,7 +134,7 @@ page-game-challenge {
   /**********************************************************************
   Level 1 - Challenge 1
   **********************************************************************/
-  .l_1_ch_1 {
+  .level_1.challenge_1 {
     [ion-row] {
       &.row-0 {
         bottom: 71%;
@@ -151,7 +151,7 @@ page-game-challenge {
   /**********************************************************************
   Level 1 - Challenge 2
   **********************************************************************/
-  .l_1_ch_2 {
+  .level_1.challenge_2 {
     [ion-row] {
       &.row-0 {
         bottom: 77%;
@@ -244,7 +244,7 @@ page-game-challenge {
   /**********************************************************************
   Level 1 - Challenge 3
   **********************************************************************/
-  .l_1_ch_3 {
+  .level_1.challenge_3 {
     .tepuy-markzone container {
       position: relative;
     }
@@ -320,7 +320,7 @@ page-game-challenge {
   /**********************************************************************
   Level 1 - Challenge 4
   **********************************************************************/
-  .l_1_ch_4 {
+  .level_1.challenge_4 {
 
     ion-slides {
        height: 60%;
@@ -413,7 +413,7 @@ page-game-challenge {
         }
       }
     }
-  
+    //Semaphore styling
     .tepuy-feedback-summary {
       height: 10%;
       text-align: center;
@@ -455,7 +455,7 @@ page-game-challenge {
   /**********************************************************************
   Level 1 - Challenge 5
   **********************************************************************/
-  .l_1_ch_5 {
+  .level_1.challenge_5 {
     [ion-row] {
       &.row-0 {
         bottom: 75%;
@@ -557,5 +557,622 @@ page-game-challenge {
       }
     }
   }
+  /**********************************************************************
+  Level 1 - Challenge 6
+  **********************************************************************/
+  .level_1.challenge_6 {
 
+    ion-slides {
+       height: 60%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom, .container {
+        height: 100%;
+        position:relative;
+      }
+    }
+
+    .interruptor-icon {
+      background-image: url('../assets/game/img/l_1/ch_6/sprite.png');
+      background-color: transparent;
+      background-repeat: no-repeat;
+      display: inline-block;
+      margin: 15px;
+      position: absolute;
+      bottom: 10%;
+      right: 10%;
+      font-size: 3em; //ToDo: Remove this
+      @include transform-origin(right, bottom);
+      
+      $icons: interruptor;
+      @include appSpriteIcons($icons, 20px, 20px, 0px, 40px, 292px, 290px, $alternate:':active');
+    }
+
+    .book-page {
+      position: absolute;
+      height: 100%;
+      width:50%;
+      bottom: 0;
+      &.page-left {
+        left: 0%;
+      }
+      &.page-right {
+        left: 50%;
+      }
+    }
+    .word-container-wrapper {
+      position:relative;
+      width: 100%;
+      height: 100%;
+    }
+    .word-container {
+      position: absolute;
+      left: 0;
+      bottom: 25%;
+      width: 660px;
+      height: 692px;
+      @include transform-origin(bottom, left);
+    }
+
+
+    .word-holder {
+      position: absolute;
+      width: 100%;
+      height: 120px;
+      color: #4d4d4d;
+      font-size: 4.5em;
+      border-bottom: dashed 4px #808080;
+      padding: 16px;
+      display:flex;
+      align-items: center;
+      justify-content: center;
+
+      &.word-holder-0 {
+        bottom: 360px;
+        left: -40%;
+      }
+      &.word-holder-1 {
+        bottom: 180px;
+        left: -20%;
+      }
+      &.word-holder-2 {
+        bottom: 0px;
+        left: 0px;
+      }
+
+      &.tepuy-selected {
+        &.tepuy-correct {
+          border: solid 16px map-get($colors, correct);
+        }
+        &.tepuy-wrong {
+          border: solid 16px map-get($colors, wrong);
+        }
+      }
+    }
+    
+    //Semaphore styling
+    .tepuy-feedback-summary {
+      margin-top:10%;
+      height: 10%;
+      text-align: center;
+      span {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: solid 3.5px #fff;
+        background-color: transparent;
+        text-align: center;
+        display:inline-block;
+        
+        &.tepuy-correct {
+          background-color: map-get($colors, correct);
+        }
+
+        &.tepuy-wrong {
+          background-color: map-get($colors, wrong);
+        }
+      }
+    }
+    .tepuy-activity {
+      &.tepuy-completed {        
+        ion-slides {
+          display: none;
+        }        
+
+        .tepuy-semaphore {
+          position:absolute;
+          bottom: 30%;
+          left: 0;
+          right: 0;
+        }
+
+      }
+    }
+  }
+
+  /**********************************************************************
+  Level 1 - Challenge 7
+  **********************************************************************/
+  .level_1.challenge_7 {
+
+    ion-slides {
+       height: 60%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom, .container {
+        height: 100%;
+        position:relative;
+      }
+    }
+
+    .object-icon {
+      position: absolute;
+      bottom: 15%;
+      right: 15%;
+      @include transform-origin(right, bottom)
+    }
+
+    .book-page {
+      position: absolute;
+      height: 100%;
+      width:50%;
+      bottom: 0;
+      &.page-left {
+        left: 0%;
+      }
+      &.page-right {
+        left: 50%;
+      }
+    }
+    .word-container-wrapper {
+      position:relative;
+      width: 100%;
+      height: 100%;
+    }
+    .word-container {
+      position: absolute;
+      left: 0;
+      bottom: 25%;
+      width: 660px;
+      height: 692px;
+      @include transform-origin(bottom, left);
+    }
+
+
+    .word-holder {
+      position: absolute;
+      width: 100%;
+      height: 120px;
+      color: #4d4d4d;
+      font-size: 4.5em;
+      border-bottom: dashed 4px #808080;
+      padding: 16px;
+      display:flex;
+      align-items: center;
+      justify-content: center;
+
+      &.word-holder-0 {
+        bottom: 360px;
+        left: -40%;
+      }
+      &.word-holder-1 {
+        bottom: 180px;
+        left: -20%;
+      }
+      &.word-holder-2 {
+        bottom: 0px;
+        left: 0px;
+      }
+
+      &.tepuy-selected {
+        &.tepuy-correct {
+          border: solid 16px map-get($colors, correct);
+        }
+        &.tepuy-wrong {
+          border: solid 16px map-get($colors, wrong);
+        }
+      }
+    }
+    
+    //Semaphore styling
+    .tepuy-feedback-summary {
+      margin-top:10%;
+      height: 10%;
+      text-align: center;
+      span {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: solid 3.5px #fff;
+        background-color: transparent;
+        text-align: center;
+        display:inline-block;
+        
+        &.tepuy-correct {
+          background-color: map-get($colors, correct);
+        }
+
+        &.tepuy-wrong {
+          background-color: map-get($colors, wrong);
+        }
+      }
+    }
+    .tepuy-activity {
+      &.tepuy-completed {        
+        ion-slides {
+          display: none;
+        }        
+
+        .tepuy-semaphore {
+          position:absolute;
+          bottom: 30%;
+          left: 0;
+          right: 0;
+        }
+
+      }
+    }
+  }
+  /**********************************************************************
+  Level 1 - Challenge 8
+  **********************************************************************/
+  .level_1.challenge_8 {
+
+    ion-slides {
+       height: 60%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom, .container {
+        height: 100%;
+        position:relative;
+      }
+    }
+
+    .book-page {
+      position: absolute;
+      height: 100%;
+      width:50%;
+      bottom: 0;
+      &.page-left {
+        left: 0%;
+      }
+      &.page-right {
+        left: 50%;
+      }
+    }
+
+    .word-holder {
+      position: absolute;
+      bottom: 30%;
+      right: 5%;
+      width: 500px;
+      height: 120px;
+      color: map-get($colors, text-normal);
+      font-size: 5em;
+      border-bottom: dashed 4px #808080;
+      @include transform-origin(bottom, right);
+    }
+
+
+    .object-container-wrapper {
+      position:relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .object-container {
+      position: absolute;
+      bottom: 12%;
+      left: 0;
+      width: 660px;
+      height: 692px;
+      @include transform-origin(left, bottom);
+    }
+
+    .object-icon {
+      position: absolute;
+      @include scale(0.6);
+      @include transform-origin(left, bottom);
+      background-color: #fff;
+      border: solid 12px #B3B3B3;
+
+      &:active {
+        @include scale(0.55);
+      }
+
+      &.object-pos-0 {
+        bottom: 408px;
+        left: -184px;
+      }
+
+      &.object-pos-1 {
+        bottom: 328px;
+        left: 87px;
+      }
+
+      &.object-pos-2 {
+        bottom: 20px;
+        left: 119px;
+      }
+
+      &.tepuy-selected {
+        &.tepuy-correct {
+          border: solid 24px map-get($colors, correct);
+        }
+        &.tepuy-wrong {
+          border: solid 24px map-get($colors, wrong);
+        }
+      }
+    }
+
+    //Semaphore styling
+    .tepuy-feedback-summary {
+      margin-top:10%;
+      height: 10%;
+      text-align: center;
+      span {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: solid 3.5px #fff;
+        background-color: transparent;
+        text-align: center;
+        display:inline-block;
+        
+        &.tepuy-correct {
+          background-color: map-get($colors, correct);
+        }
+
+        &.tepuy-wrong {
+          background-color: map-get($colors, wrong);
+        }
+      }
+    }
+    .tepuy-activity {
+      &.tepuy-completed {        
+        ion-slides {
+          display: none;
+        }        
+
+        .tepuy-semaphore {
+          position:absolute;
+          bottom: 30%;
+          left: 0;
+          right: 0;
+        }
+
+      }
+    }
+  }
+  /**********************************************************************
+  Level 1 - Challenge 9
+  **********************************************************************/
+  .level_1.challenge_9 {
+
+    ion-slides {
+       height: 70%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom, .container {
+        height: 100%;
+        position:relative;
+      }
+    }
+
+    .object-container {
+      position: absolute;
+      top: 27.4%;
+      width: 100%;
+      height: 35%;
+      //border: solid 1px red;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .puzzle-container {
+      position: absolute;
+      top: 63.4%;
+      width: 100%;
+      height: 35%;
+      //border: solid 1px blue;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .word-container, .options-container {
+      position: absolute;
+      top: 5%;
+      height: 45%;
+      width: 100%;
+      white-space: nowrap;
+      z-index:1;
+
+      & > div {
+        display: inline-block;
+        width: 36.46px;
+        height: 44.03px;
+      }
+      @media screen and (min-width: 768px) {
+        & > div {
+          display: inline-block;
+          width: 1.8*36.46px;
+          height: 1.8*44.03px;
+        }
+      }
+
+      .keyholder-icon {
+        color: map-get($colors, text-normal);
+        font-size: 5em;
+        margin: 0 4px;
+        @include transform-origin(left, top);      }
+    }
+
+    .tepuy-droppable {
+      position: relative;
+      height: 100%;
+      [tepuy-draggable] {
+        position: absolute;
+      }
+    }
+
+    .options-container {
+      top: 50%;
+    }
+
+    .tepuy-activity {
+      &.tepuy-completed {        
+        ion-slides {
+          display: none;
+        }        
+
+        .tepuy-semaphore {
+          position:absolute;
+          bottom: 30%;
+          left: 0;
+          right: 0;
+        }
+
+      }
+    }
+  }
+  /**********************************************************************
+  Level 1 - Challenge 10
+  **********************************************************************/
+  .level_1.challenge_10 {
+
+    ion-slides {
+       height: 70%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom, .container {
+        height: 100%;
+        position:relative;
+      }
+    }
+
+    .object-container {
+      position: absolute;
+      top: 27.4%;
+      width: 100%;
+      height: 35%;
+      //border: solid 1px red;
+      display: flex;
+      //justify-content: center;
+      align-items: center;
+
+      .object-wrapper {
+        width: 50%;
+        height: 100%;
+        position: relative;
+        .object-icon {
+          position: absolute;
+          right: 0;
+          top: 0;
+          @include transform-origin(top, right);      
+        }
+      }
+
+      .options-wrapper {
+        width: 50%;
+        height: 100%;
+        position: relative;
+        display: flex;
+        justify-content: start;
+        max-width: 120px;
+        whitespace: normal;
+        margin-left: 10px;
+
+        & > div {
+          display: inline-block;
+          width: 36.46px;
+          height: 44.03px;
+        }
+        @media screen and (min-width: 768px) {
+          & > div {
+            display: inline-block;
+            width: 1.8*36.46px;
+            height: 1.8*44.03px;
+          }
+        }
+
+        .keyholder-icon {
+          color: map-get($colors, text-normal);
+          font-size: 5em;
+          margin: 0 4px;
+          @include transform-origin(left, top);
+        }
+      }
+    }
+
+    .puzzle-container {
+      position: absolute;
+      top: 63.4%;
+      width: 100%;
+      height: 35%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      //z-index: -1;
+    }
+
+    .word-container {
+      position: absolute;
+      top: 30%;
+      height: 40%;
+      width: 100%;
+      white-space: nowrap;
+      //z-index:1;
+
+      & > div {
+        display: inline-block;
+        width: 36.46px;
+        height: 44.03px;
+      }
+      @media screen and (min-width: 768px) {
+        & > div {
+          display: inline-block;
+          width: 1.8*36.46px;
+          height: 1.8*44.03px;
+        }
+      }
+
+      .keyholder-icon {
+        color: map-get($colors, text-normal);
+        font-size: 5em;
+        margin: 0 4px;
+        @include transform-origin(left, top);      
+      }
+    }
+
+    .tepuy-droppable {
+      position: relative;
+      height: 100%;
+      [tepuy-draggable] {
+        position: absolute;
+      }
+    }
+
+    .tepuy-activity {
+      &.tepuy-completed {        
+        ion-slides {
+          display: none;
+        }        
+
+        .tepuy-semaphore {
+          position:absolute;
+          bottom: 30%;
+          left: 0;
+          right: 0;
+        }
+
+      }
+    }
+  }
 }

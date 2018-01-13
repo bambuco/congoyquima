@@ -41,7 +41,7 @@ export class MediaCatalog {
 
     //Challenge intro
     for(let l of [1]){
-      for (let ch of [1, 2, 3]) {
+      for (let ch = 1; ch < 11; ch++) {
         this.assets.push({
           type: 'audio',
           key: ['l_', l, '_ch_', ch, '_intro'].join(''),
@@ -49,6 +49,24 @@ export class MediaCatalog {
           preload: true 
         });
       }
+    }
+
+    //Words
+    let words = ["arbol", "casa", "canasta", "radio", "cama","baston", "televisor", "carro", "cuchara", "plato",
+      "vaso", "vaca", "perro", "gato","caballo", "sombrero", "zapato", "camisa", "pantalon", "reloj",
+      "mesa", "silla", "moneda","billete", "llave", "lapiz", "libro", "manzana", "banano", "pera",
+      "zanahoria", "tomate","telefono", "vela", "cuchillo", "tenedor", "olla", "motocicleta","bicicleta",
+      "bus", "computador", "escoba", "cepillo", "gafas", "balon", "bombillo",
+      "puerta", "ventana", "ventilador", "pastillas", "cuaderno","tijeras", "caja", "frasco", "botella",
+      "vestido", "flor", "sol", "luna", "estufa", "sombrilla"
+    ];
+    for (let word of words) {
+      this.assets.push({
+        type: 'audio',
+        key: word,
+        path: path + ['words/', word, '.mp3'].join(''),
+        preload: true 
+      });
     }
   }
 

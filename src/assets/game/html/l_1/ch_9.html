@@ -1,0 +1,38 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-slide-delay=".5">
+  <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.words'; count: 5; let groups=values">
+    <ion-slides class="tepuy-activity-content" zoom="false" pager="true" paginationType="progress" effect="fade">
+      <ion-slide *ngFor="let word of groups" [ngStyle]="{'width.px':playZone?.width}">
+        <div class="container" tepuy-item-group [tepuy-group-id]="word.id" data-tepuy-autocomplete-after="2">
+          <div class="object-container">
+            <div class="object-icon obj-{{word.data|objectkey}}" tepuy-scale="1920"></div>
+          </div>
+          <div class="puzzle-container" *tepuyValueGenerator="'randomof:array:min-dist=2;count=2';data:word.data; type:'scalar';array:true; let missing=values">
+            <div class="word-container">
+              <div *ngFor="let ch of word.data | lowercase | spell; let i=index">
+                <div [tepuy-drop-zone]="missing[0].indexOf(i) >= 0" 
+                  [tepuy-correct-values]="ch|lowercase"
+                  data-tepuy-allow-multiple="true"
+                  data-tepuy-auto-feedback="true">
+                  <div class="keyholder-icon keyholder" tepuy-scale="1920" drop-ignore>
+                    {{missing[0].indexOf(i) < 0 ? ch : '&nbsp;'}}
+                  </div>                
+                </div>         
+              </div>
+            </div>
+            <div class="options-container">
+              <ng-container *tepuyValueGenerator="'randomof:letters:min=a;max=z';exclude:word.data; type:'scalar';count:1; let extra=values">
+                <div *ngFor="let ch of [extra[0], word.data[missing[0][0]],word.data[missing[0][1]]]|shuffle;"
+                   tepuy-item tepuy-draggable tepuy-greetable [tepuy-value]="ch|lowercase">
+                  <div tepuy-item-value
+                    class="keyholder-icon keyholder" tepuy-scale="1920">                    
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </ng-container>
+</div>
+

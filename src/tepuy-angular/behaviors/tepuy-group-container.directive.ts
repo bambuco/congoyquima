@@ -15,7 +15,7 @@ export class TepuyValueGeneratorDirective implements OnChanges {
   @Input() tepuyValueGeneratorArray: boolean = false;
   @Input() tepuyValueGeneratorExclude: any;
   @Input() tepuyValueGeneratorType: string = 'object';
-  
+  @Input() tepuyValueGeneratorData: any;  
   private dataProvider:IDataProvider = null;
 
   values:any[];
@@ -31,7 +31,7 @@ export class TepuyValueGeneratorDirective implements OnChanges {
 
       if (isNaN(this.tepuyValueGeneratorCount)) return; //No limit for the value provider
 
-      this.dataProvider = this.activityService.getDataProvider(this.tepuyValueGenerator);
+      this.dataProvider = this.activityService.getDataProvider(this.tepuyValueGenerator, this.tepuyValueGeneratorData);
 
       if (!this.dataProvider) {
         throw new Error('TepuyValueProviderDirective: provider expression resulted in a null provider');      
@@ -42,8 +42,13 @@ export class TepuyValueGeneratorDirective implements OnChanges {
     this.values = [];
     const isArray = this.tepuyValueGeneratorArray;
     let exclude = [];
-    if (this.tepuyValueGeneratorExclude && Array.isArray(this.tepuyValueGeneratorExclude)) {
-      exclude = this.tepuyValueGeneratorExclude;
+    if (this.tepuyValueGeneratorExclude) {
+      if (Array.isArray(this.tepuyValueGeneratorExclude)) {
+        exclude = this.tepuyValueGeneratorExclude;
+      }
+      else if (typeof(this.tepuyValueGeneratorExclude) === 'string') {
+        exclude = this.tepuyValueGeneratorExclude.split('');
+      }
     }
     let val;
     let attempts = 0;

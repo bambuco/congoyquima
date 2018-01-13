@@ -49,11 +49,11 @@
   <ion-navbar no-padding no-margin>
     <ion-buttons no-padding no-margin text-center>
       <ion-scroll scrollX="true">
-        <button ion-button no-margin [ngClass]="{active:viewType=='audio'}" class="app-icon content-audio" (click)="setViewType('audio')"></button>
-        <button ion-button no-margin [ngClass]="{active:viewType=='video'}" class="app-icon content-video" (click)="setViewType('video')"></button>
-        <button ion-button no-margin [ngClass]="{active:viewType=='images'}" class="app-icon content-images" (click)="setViewType('images')"></button>
-        <button ion-button no-margin [ngClass]="{active:viewType=='docs'}" class="app-icon content-docs" (click)="setViewType('docs')"></button>
-        <button ion-button no-margin class="app-icon home" (click)="goHome()"></button>
+        <button no-margin [ngClass]="{active:viewType=='audio'}" class="app-icon content-audio" (click)="setViewType('audio')"></button>
+        <button no-margin [ngClass]="{active:viewType=='video'}" class="app-icon content-video" (click)="setViewType('video')"></button>
+        <button no-margin [ngClass]="{active:viewType=='images'}" class="app-icon content-images" (click)="setViewType('images')"></button>
+        <button no-margin [ngClass]="{active:viewType=='docs'}" class="app-icon content-docs" (click)="setViewType('docs')"></button>
+        <button no-margin class="app-icon home" (click)="goHome()"></button>
       </ion-scroll>
     </ion-buttons>
   </ion-navbar>
