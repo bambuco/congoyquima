@@ -20,16 +20,16 @@ export const Flags = {
   GAME_HOME_ENTERED: (one=one<<1),
   GAME_LEVELS_ENTERED: (one=one<<1),
   GAME_CHALLENGE_ENTERED: (one=one<<1),
-  CHALLENGE1_PLAYED: (one=one<<1),
-  CHALLENGE2_PLAYED: (one=one<<1),
-  CHALLENGE3_PLAYED: (one=one<<1),
-  CHALLENGE4_PLAYED: (one=one<<1),
-  CHALLENGE5_PLAYED: (one=one<<1),
-  CHALLENGE6_PLAYED: (one=one<<1),
-  CHALLENGE7_PLAYED: (one=one<<1),
-  CHALLENGE8_PLAYED: (one=one<<1),
-  CHALLENGE9_PLAYED: (one=one<<1),
-  CHALLENGE10_PLAYED: (one=one<<1)
+  L01_CH01_PLAYED: (one=one<<1),
+  L01_CH02_PLAYED: (one=one<<1),
+  L01_CH03_PLAYED: (one=one<<1),
+  L01_CH04_PLAYED: (one=one<<1),
+  L01_CH05_PLAYED: (one=one<<1),
+  L01_CH06_PLAYED: (one=one<<1),
+  L01_CH07_PLAYED: (one=one<<1),
+  L01_CH08_PLAYED: (one=one<<1),
+  L01_CH09_PLAYED: (one=one<<1),
+  L01_CH10_PLAYED: (one=one<<1)
 };
 
 @Injectable()
