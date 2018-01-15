@@ -113,19 +113,22 @@ export class GameChallengePage {
   initialize() {
     this.appData.setFlag(Flags.GAME_CHALLENGE_ENTERED);
     //Play intro if required
-    if (!this.appData.hasFlag(Flags[this.introKey.toUpperCase()])) {
+    /*if (!this.appData.hasFlag(Flags[this.introKey.toUpperCase()])) {
       this.setReady();
       this.appData.setFlag(Flags[this.introKey.toUpperCase()]);
       this.playAudioIntro();
     }
     else {
       this.setReady();
-    }
-    const id = parseInt(this.id);
-    const flagKey='CHALLENGE'+(id+1)+'_PLAYED';
+    }*/
+    this.setReady();
+    const chId = '0'+(parseInt(this.id)+1);
+    const lId = '0'+this.levelId;
+    const flagKey=['L', lId.substring(lId.length-2), '_CH', chId.substring(chId.length-2), '_PLAYED'].join('');
     if (!this.appData.hasFlag(Flags[flagKey])){
       this.appData.setFlag(Flags[flagKey]);
       this.showIndicator = true;
+      this.playAudioIntro();
     }
   }
 
@@ -150,6 +153,7 @@ export class GameChallengePage {
   showHelp(actType) {
     if (this.busy) return;
     this.stopSounds();
+    if (this.id == '0' && this.levelId == '1') actType = actType+'2'; //Play long video if challenge 0 level 1
     this.mediaPlayer.playVideoFromCatalog(actType+'_howto').subscribe(()=>{});
   }
 

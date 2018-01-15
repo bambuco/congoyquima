@@ -29,7 +29,9 @@ export class GameDataProvider {
 
     //ToDo: Remove this line so the level state is not cleared
     //this.storage.remove('level_1_state'); //clear level 1 each time the application starts
-    
+
+    //ToRemove this.restoreState(1, 9);
+
     Observable.forkJoin([setup, Observable.fromPromise(gameState)]).subscribe((data) => {
       let gameSetup:any = data[0];
       let gameState:GameState = data[1];
@@ -65,6 +67,19 @@ export class GameDataProvider {
     });
   }
 
+  restoreState(level:number, challenge:number) {
+    this.storage.set(game_state_key, {
+      firstTime: false,
+      maxLevelCompleted: level-1
+    });
+
+    this.storage.get(level_state_key.replace('$id', level+'')).then((state:LevelState) => {
+      state.currentChallenge = challenge;
+      state.challenges.splice(challenge, 10-challenge);
+      this.storage.set(level_state_key.replace('$id', '1'), state);
+    });    
+  }
+
   ready():Observable<any> {
     return this.observer;
   }
@@ -88,7 +103,7 @@ export class GameDataProvider {
           this.storage.get(level_state_key.replace('$id', id)).then((state:LevelState) => {
             if (state == null) state = new LevelState();
             level.currentChallenge = state.currentChallenge;
-            
+
             for(var i = 0; i < level.challenges.length; i++){
               let challenge = level.challenges[i];
               challenge.levelId = parseInt(id);
@@ -193,6 +208,8 @@ export class GameDataProvider {
           this.storage.set(game_state_key, gameState);
           if (challenge.levelId < this.settings.levels.length) {
             let nextLevel = this.settings.levels[challenge.levelId];
+            nextLevel.unlocked = true;
+            nextLevel.currentChallenge = 0;
             nextChallenge = nextLevel.challenges[0];
           }
         }
