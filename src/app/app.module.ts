@@ -21,12 +21,13 @@ import { MobileAccessibility } from '@ionic-native/mobile-accessibility';
 
 import { MyApp } from './app.component';
 
-import { HomePage } from '../pages/home/home';
+import { HomePage, ConfigPopover } from '../pages/home/home';
 import { GamePage } from '../pages/game/game';
 import { GameLevelPage } from '../pages/game/game-level';
 import { GameChallengePage } from '../pages/game/game-challenge';
 import { ContentPage } from '../pages/content/content';
 import { ProgressPage } from '../pages/progress/progress';
+import { AboutPage } from '../pages/about/about';
 import { ErrorsPage } from '../pages/errors/errors';
 import { ErrorDetailComponent } from '../pages/errors/error-detail';
 
@@ -50,9 +51,11 @@ import { CustomErrorHandler } from '../providers/custom-error.handler';
     GameChallengePage,
     ContentPage,
     ProgressPage,
+    AboutPage,
     VideoPlayerComponent,
     ErrorsPage,
-    ErrorDetailComponent
+    ErrorDetailComponent,
+    ConfigPopover
   ],
   imports: [
     BrowserModule,
@@ -83,9 +86,11 @@ import { CustomErrorHandler } from '../providers/custom-error.handler';
     GameChallengePage,
     ContentPage,
     ProgressPage,
+    AboutPage,
     VideoPlayerComponent,
     ErrorsPage,
-    ErrorDetailComponent
+    ErrorDetailComponent,
+    ConfigPopover
   ],
   providers: [
     StatusBar,

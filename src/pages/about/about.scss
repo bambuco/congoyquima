@@ -1,0 +1,16 @@
+/***************************************
+Acerca de
+***************************************/
+
+page-about {
+  
+  ion-content {
+    background-image: none;
+    background-color: map-get($colors, lightgreencustom);
+  }
+
+  .header-ios, .header-md,  .footer-ios, .footer-md {
+    background-color: map-get($colors, darkgreencustom);
+  }
+
+}
