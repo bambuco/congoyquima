@@ -53,9 +53,10 @@ export class GameDataProvider {
           if (i == gameState.maxLevelCompleted) {
             this.getLevel(i+1).subscribe((aLevel:LevelState) => {
               level.currentChallenge = aLevel.currentChallenge;
-              //aLevel.currentChallenge = 10;
-              //this.storage.set('level_1_state', aLevel);
             });
+          }
+          else {
+            level.currentChallenge = 10; //it is completed
           }
         }
         settings.levels.push(level);

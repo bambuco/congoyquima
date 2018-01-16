@@ -159,14 +159,14 @@
         {
           "id": 0,
           "label":"1",
-          "unavailable": true,
-          "type": "select",
+          "type": "classify",
           "parameters": {
           }
         },
         {
           "id": 1,
           "label":"2",
+          "unavailable": true,
           "type": "select",
           "parameters": {
           }

@@ -9,7 +9,7 @@ page-game-challenge {
     position: relative;
     overflow: auto;
 
-    @for $l from 1 through 1 {
+    @for $l from 1 through 2 {
       @for $ch from 1 through 10 {
         &.level_#{$l}.challenge_#{$ch} {
           background-image: url('../assets/game/img/l_#{$l}/ch_#{$ch}/bg.png');
@@ -1095,6 +1095,7 @@ page-game-challenge {
           height: 44.03px;
         }
         @media screen and (min-width: 768px) {
+          max-width: 1.8*120px;
           & > div {
             display: inline-block;
             width: 1.8*36.46px;
@@ -1159,6 +1160,95 @@ page-game-challenge {
       }
     }
 
+    .tepuy-activity {
+      &.tepuy-completed {        
+        ion-slides {
+          display: none;
+        }        
+
+        .tepuy-semaphore {
+          position:absolute;
+          bottom: 30%;
+          left: 0;
+          right: 0;
+        }
+
+      }
+    }
+  }
+  /**********************************************************************
+  Level 2 - Challenge 1
+  **********************************************************************/
+  .level_2.challenge_1 {
+    ion-slides {
+       height: 60%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom, .container {
+        position: absolute;
+        height: 90px;
+        bottom: 4%;
+        width: 100%;
+      }
+    }
+    
+    $scale: .25;
+    .seed-bag {
+      width: 252px * $scale;
+      height: 350px * $scale;
+      font-size: 96px * $scale;
+      line-height: 156px * $scale;
+
+      span {
+        position:absolute;
+        left: 50%;
+        top: 50%;
+        margin-top: -40px * $scale;
+        margin-left: -80px * $scale;
+        width: 160px * $scale;
+        height: 160px * $scale;
+        border-radius: 50%;
+        border: solid 3px #fff;
+        background-color: #333333;
+        text-align: center;
+      }    
+
+      &.tepuy-selected {
+        span {
+          background-color: map-get($colors, neutral);
+        }
+        &.tepuy-correct span {
+          background-color: map-get($colors, correct);
+        }
+        &.tepuy-wrong span {
+          background-color: map-get($colors, wrong);
+        }
+      }
+    }
+    //Semaphore styling
+    .tepuy-feedback-summary {
+      margin-top:5%;
+      height: 10%;
+      text-align: center;
+      span {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: solid 3.5px #fff;
+        background-color: transparent;
+        text-align: center;
+        display:inline-block;
+        
+        &.tepuy-correct {
+          background-color: map-get($colors, correct);
+        }
+
+        &.tepuy-wrong {
+          background-color: map-get($colors, wrong);
+        }
+      }
+    }
     .tepuy-activity {
       &.tepuy-completed {        
         ion-slides {

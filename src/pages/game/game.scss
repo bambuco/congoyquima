@@ -65,21 +65,30 @@ page-game {
     $icons: level-lock-r;
     @include appSpriteIcons($icons, 20px, 360px, 28, 0, 402px, 136px);
 
-    $icons: level-lock-l;
-    @include appSpriteIcons($icons, 20px, 180px, 28, 0, 402px, 136px);
-
     $icons: level-progress-1 level-progress-2;
     @include appSpriteIcons($icons, 20px, 20px, 28, 0, 402px, 136px);
 
     .level-progress-bar {
-      padding-left: 132px;
-      padding-top: 38px;
+
       div {
         background-color: #73AB40;
         border: solid 2px #FFFFFF;
         width: 26px;
         height: 57px;
         float: left;
+      }
+    }
+
+    &.progress-l {
+      .level-progress-bar {
+        padding-top: 38px;
+        padding-left: 132px;
+      }
+    }
+    &.progress-r {
+      .level-progress-bar {
+        padding-top: 42px;
+        padding-left: 10px;
       }
     }
   }
