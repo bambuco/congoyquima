@@ -1265,4 +1265,162 @@ page-game-challenge {
       }
     }
   }
+
+  /**********************************************************************
+  Level 2 - Challenge 2
+  **********************************************************************/
+  .level_2.challenge_2 {
+    ion-slides {
+       height: 70%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom, .container {
+        position: absolute;
+        height: 100%;
+        bottom: 4%;
+        width: 100%;
+      }
+    }
+
+    .row {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      &.row-0 {
+        height: 34%;
+        bottom: 38%;
+      }
+      &.row-1 {
+        height: 15%;
+        bottom: 19%;
+        > div {
+          margin: 0 5px;
+        }
+      }
+      &.row-2 {
+        height: 15%;
+        bottom: 0%;
+        > div {
+          margin: 0 5px;
+        }
+      }
+    }
+    
+    /************************************************
+    Challenge Icons
+    ************************************************/
+    .l2_ch3_icon {
+      background-image: url('../assets/game/img/l_2/ch_2/sprite.png');
+      background-color: transparent;
+      background-repeat: no-repeat;
+      display: inline-block;
+      @include transform-origin(left, top);
+        
+      $icons: growing-plant;
+      @include appSpriteIcons($icons, 250px, 20px, 0px, 0px, 212px, 450px);  
+
+      $icons: plant-hole;  
+      @include appSpriteIcons($icons, 250px, 550px, 0px, 0px, 212px, 450px);  
+
+      $icons: empty-bag;
+      @include appSpriteIcons($icons, 20px, 148px, 0px, 0px, 160px, 238px);  
+
+      $icons: big-seed;
+      @include appSpriteIcons($icons, 20px, 20px, 0px, 0px, 82px, 78px);  
+    }
+
+    .growing-plant, .plant-hole {
+      font-size: 50px;
+      line-height: 70px;
+      font-family: Arial;
+      font-weight: bold;
+      position: relative;
+
+      span {
+        position:absolute;
+        left: 50%;
+        top: 10%;
+        margin-top: 0px;
+        margin-left: -30px;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: solid 6px #fff;
+        color: #333333;
+        background-color: #fff;
+        text-align: center;
+      }
+    }
+
+    .empty-bag {
+      font-size: 76px;
+      line-height: 96px;
+      font-family: Arial;
+      font-weight: bold;
+      position: relative;
+
+      span {
+        position:absolute;
+        left: 50%;
+        top: 25%;
+        margin-top: 0px;
+        margin-left: -50px;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: solid 6px #fff;
+        color: #333333;
+        background-color: #fff;
+        text-align: center;
+      }
+    }
+
+    .seed-bag-container {
+      position: relative;
+
+      .big-seed-container {
+        position: absolute;
+        bottom: 2%;
+        left: 50%;
+        margin-left: -26%;      
+      }
+    }
+
+    .plant-hole-container {
+      position: relative;
+      .drop-target {
+        position: absolute;
+        bottom: 8%;
+        left: 50%;
+        margin-left: -30%;
+        .invisible {
+          visibility: hidden;
+        }
+        
+        .big-seed-container {
+          position: absolute;
+        } 
+      }
+    }
+
+    .tepuy-correct span {
+      background-color: map-get($colors, correct);
+      color: #fff;
+    }
+    .tepuy-wrong span {
+      background-color: map-get($colors, wrong);
+      color: #fff;
+    }
+
+    .tepuy-activity {
+      &.tepuy-completed {        
+        ion-slides {
+          display: none;
+        }        
+      }
+    }
+  }
 }

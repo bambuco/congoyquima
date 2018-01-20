@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 //General directives
 import { TepuyRandomDirective } from './directives/random.directive';
 import { TepuyRepeatDirective } from './directives/repeat.directive';
-import { TepuyScaleWidthDirective, TepuyScaleDirective } from './directives/scale-width.directive';
+import { TepuyScaleWidthDirective, TepuyScaleDirective, TepuyAutofitDirective } from './directives/scale-width.directive';
 
 //Activity directives
 import { 
@@ -35,6 +35,7 @@ import {
     TepuyRepeatDirective,
     TepuyScaleWidthDirective,
     TepuyScaleDirective,
+    TepuyAutofitDirective,
     TepuyActivityDirective,
     TepuyValueGeneratorDirective,
     TepuyGroupDirective,
@@ -57,6 +58,7 @@ import {
     TepuyRepeatDirective,
     TepuyScaleWidthDirective,
     TepuyScaleDirective,
+    TepuyAutofitDirective,
     //
     TepuyActivityDirective,
     TepuyValueGeneratorDirective,

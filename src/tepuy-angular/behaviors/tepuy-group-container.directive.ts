@@ -14,8 +14,10 @@ export class TepuyValueGeneratorDirective implements OnChanges {
   @Input() tepuyValueGeneratorCount: number = 1;
   @Input() tepuyValueGeneratorArray: boolean = false;
   @Input() tepuyValueGeneratorExclude: any;
+  @Input() tepuyValueGeneratorInclude: any;
   @Input() tepuyValueGeneratorType: string = 'object';
   @Input() tepuyValueGeneratorData: any;  
+  @Input() tepuyValueGeneratorShuffle: boolean = false;  
   private dataProvider:IDataProvider = null;
 
   values:any[];
@@ -50,10 +52,24 @@ export class TepuyValueGeneratorDirective implements OnChanges {
         exclude = this.tepuyValueGeneratorExclude.split('');
       }
     }
+    let include = [];
+    if (this.tepuyValueGeneratorInclude) {
+      if (Array.isArray(this.tepuyValueGeneratorInclude)) {
+        include = this.tepuyValueGeneratorInclude;
+      }
+      else if (typeof(this.tepuyValueGeneratorInclude) === 'string') {
+        include = this.tepuyValueGeneratorInclude.split('');
+      }
+    }
+
+    if (include.length) {
+      this.values = include.slice();
+      exclude = exclude.concat(include);
+    }
     let val;
     let attempts = 0;
     const maxAttempts = 100;
-    for(let i = 0; i < this.tepuyValueGeneratorCount; i++) {
+    for(let i = include.length; i < this.tepuyValueGeneratorCount; i++) {
       do {
         val = (this.tepuyValueGeneratorType == 'scalar') ?
           (isArray ? this.dataProvider.nextGroup() : this.dataProvider.next()) :
@@ -66,7 +82,22 @@ export class TepuyValueGeneratorDirective implements OnChanges {
     }
 
     this.viewContainer.createEmbeddedView(this.templateRef, {
-      values: this.values
+      values: (this.tepuyValueGeneratorShuffle ? this.shuffle(this.values) : this.values)
     });      
+  }
+
+  /**
+   * Shuffles an array.
+   * @a {Array} An array containing the items.
+   */
+  shuffle(a) {
+    if (!a) return;
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+    }
+    return a;
   }
 }

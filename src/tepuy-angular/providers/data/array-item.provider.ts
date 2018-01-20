@@ -52,11 +52,11 @@ export class ArrayItemProvider extends DataProvider {
     let value;
     if (this.fn == 'random') {
       this.seed = this.random(this.min, this.max);
-      value = this.values[this.seed];
+      value = this.seed; //this.values[this.seed];
       return value;
     }
     else {
-      value = this.values[(++this.seed)];
+      value = ++this.seed; //this.values[(++this.seed)];
       return value;
     }
   }  

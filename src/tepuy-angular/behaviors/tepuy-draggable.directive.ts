@@ -4,6 +4,7 @@ import { Directive, Output, ElementRef, HostBinding,
 import { DomController } from 'ionic-angular';
 
 import { TepuyDraggableService } from '../providers';
+import { TepuyDropZoneDirective } from './tepuy-drop-zone.directive';
 
 @Directive({ 
   selector: '[tepuy-draggable]',
@@ -24,6 +25,7 @@ export class TepuyDraggableDirective implements AfterViewInit {
   private originalStyle: any;
   private canDrag:boolean = false;
   private item:any;
+  private droppetAt:TepuyDropZoneDirective;
 
   constructor(
       private elRef: ElementRef,
@@ -74,27 +76,33 @@ export class TepuyDraggableDirective implements AfterViewInit {
     }
 
     if (targetEl && targetEl == this.originalParent) { //Allows to return to the parent container
+      this.clearTarget();
       this.resetPosition();
     }
     else {
       //Subscribe to drop before sending dragend event
       const subscription = this.dragService.ondrop.subscribe((result:any) => {
-        if (!result.dropped){
-          this.domCtrl.write(() => {
-            this.dragService.setTranslate(this.elRef.nativeElement, null);
-          });
-        }
+        this.clearTarget();
+        this.droppetAt = result.target;
         subscription.unsubscribe(); //Do not listen unless we are interested
       });
 
       this.item.answered = false;
-
-      this.dragService.dragEnd({
+      const dragEvent:any = {
         item: this.item,
         el: this.elRef.nativeElement,
         position: { x: ev.center.x, y: ev.center.y },
         target: targetEl
-      });
+      };
+      this.dragService.dragEnd(dragEvent);
+      setTimeout(()=> {
+        if (!dragEvent.handled){
+          this.domCtrl.write(() => {
+            this.dragService.setTranslate(this.elRef.nativeElement, null);
+          });
+          subscription.unsubscribe();
+        }
+      }, 100);
     }
 
     this.renderer.removeClass(this.elRef.nativeElement, "tepuy-dragging");
@@ -133,6 +141,13 @@ export class TepuyDraggableDirective implements AfterViewInit {
     //Restart the visibility
     el.style.display = display;
     return target;
+  }
+
+  private clearTarget() {
+    if (this.droppetAt) {
+      this.droppetAt.clearValue(this.item);
+      this.droppetAt = null;
+    }
   }
 
   private resetPosition() {

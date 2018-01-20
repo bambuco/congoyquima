@@ -7,7 +7,9 @@ import { TepuyDraggableService } from '../providers';
 @Directive({ 
   selector: '[tepuy-drop-zone]',
   host: {
-    '[class.tepuy-droppable]': 'enabled !== false'
+    '[class.tepuy-droppable]': 'enabled !== false',
+    "[class.tepuy-correct]" : "succeed === true",
+    "[class.tepuy-wrong]": "succeed === false"
   }
 })
 export class TepuyDropZoneDirective implements AfterViewInit {
@@ -19,6 +21,10 @@ export class TepuyDropZoneDirective implements AfterViewInit {
   @Input('tepuy-auto-feedback') autoFeedback: boolean = false;
 
   private correctValues: Array<any> = [];
+  private dropTarget:any;
+  private valuePresenter:any;
+  private subscription: any;
+  private succeed: boolean;
 
   constructor(
       private elRef: ElementRef,
@@ -34,9 +40,12 @@ export class TepuyDropZoneDirective implements AfterViewInit {
   //Lifecycle events
   ngAfterViewInit() {
     if (this.enabled === false) return;
+    const el = this.elRef.nativeElement;
+    let dropTarget = el.querySelector('.drop-target');
+    this.dropTarget = (dropTarget == null ? el : dropTarget);
+    this.valuePresenter = el.querySelector('.drop-value');
     if (!this.correctValueList) {
       //Try get values from a dl container
-      const el = this.elRef.nativeElement;
       const valuesContainer = el.querySelector('dl.tepuy-correct-values');
       if (valuesContainer) {
         this.correctValues = valuesContainer.querySelectorAll('dd').map(dd => {
@@ -52,25 +61,31 @@ export class TepuyDropZoneDirective implements AfterViewInit {
   }
 
   //Item events
-  onDragEnd(data:any) {
+  onDragEnd(ev:any) {
     const el = this.elRef.nativeElement;
-    const dropped = (this.enabled !== false) && (el == data.target);
+    const dropped = (this.enabled !== false) && (el == ev.target);
     if (dropped) {
+      ev.handled = true;
       //ToDo: Need to account for drop zone allowing multiple elements
-      el.appendChild(data.el);
+      this.dropTarget.appendChild(ev.el);
+      this.setValue(ev.item.value);
       this.domCtrl.write(() => {
-        this.dragService.setTranslate(data.el, null);
-        this.renderer.setStyle(data.el, 'left', '0px');
-        this.renderer.setStyle(data.el, 'top', '0px');
-        this.renderer.addClass(data.el, 'tepuy-dropped');
+        this.dragService.setTranslate(ev.el, null);
+        this.renderer.setStyle(ev.el, 'left', '0px');
+        this.renderer.setStyle(ev.el, 'top', '0px');
+        this.renderer.addClass(ev.el, 'tepuy-dropped');
       });
-      data.item.isCorrect = !(this.correctValues.indexOf(data.item.value) < 0);
-      data.item.answered = true;
-      this.checkAutofeedback(data);      
+      ev.item.isCorrect = !(this.correctValues.indexOf(ev.item.value) < 0);
+      ev.item.answered = true;
+      this.subscription = ev.item.resolved.subscribe(() => {
+        this.succeed = ev.item.succeed;
+      });
+      this.checkAutofeedback(ev);      
+      this.dragService.drop({
+        dropped: dropped,
+        target: this
+      });
     }
-    this.dragService.drop({
-      dropped: dropped
-    });
   }
 
   //Helpers
@@ -79,6 +94,23 @@ export class TepuyDropZoneDirective implements AfterViewInit {
     //this.correctValues = [];
     const splitRE = /,(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)/;
     this.correctValues = !values ? [] : (values+'').split(splitRE, -1);
+  }
+  
+  clearValue(item:any) {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+    this.setValue('');
+  }
+
+  private setValue(value) {
+    if (!this.valuePresenter) return;
+    if (this.valuePresenter.value) {
+      this.valuePresenter.value = value;
+    }
+    else {
+      this.valuePresenter.innerHTML = value;
+    }
   }
 
   private checkAutofeedback(data:any) {

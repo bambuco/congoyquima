@@ -1,5 +1,5 @@
 import { Directive, Input, HostBinding, HostListener, OnChanges,
-  ElementRef, AfterViewInit
+  ElementRef, AfterViewInit, Renderer2
 } from '@angular/core';
 /*
 function _window() : any {
@@ -101,5 +101,49 @@ export class TepuyScaleDirective implements OnChanges, AfterViewInit {
     const transform = 'scale(' + scale + ') ' + (!this.extra? '' : this.extra);
     el.style.transform = transform;      
     el.style.display = this.originalDisplay;
+  }
+}
+
+
+@Directive({ 
+  selector: '[tepuy-autofit]',
+  host: {
+    "(window:resize)": "onResize($event)"
+  }
+ })
+export class TepuyAutofitDirective implements OnChanges, AfterViewInit {
+
+  //@HostListener('window:resize', ['$event'])
+  onResize($event=null) {
+    setTimeout(() => {
+      this.autofit();
+    }, 200);
+  }
+
+  private originalDisplay: string;
+
+  constructor(private elRef:ElementRef) {
+  }
+
+  ngOnChanges() {
+    this.autofit();
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.autofit();
+    }, 200);
+  }
+
+  autofit() {
+    const el = this.elRef.nativeElement;
+    if (!el.children.length) return;
+
+    const first = el.children[0];
+    const rect = first.getBoundingClientRect();
+    //el.style.width = first.offsetWidth + 'px';
+    //el.style.height = first.offsetHeight + 'px';
+    el.style.width = (rect.width + 8) + 'px';
+    el.style.height = (rect.height + 8) + 'px';
   }
 }
