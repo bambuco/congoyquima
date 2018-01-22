@@ -1481,11 +1481,12 @@ page-game-challenge {
         
       $icons: green-flower black-flower red-flower yellow-flower fucsia-flower white-flower violet-flower blue-flower;
       @include appSpriteIcons($icons, 20px, 20px, 138px, 0px, 112px, 178px);
+      $icons: quima-zum;
+      @include appSpriteIcons($icons, 2000px, 24px, 0px, 0px, 248px, 384px);
       
-      &.no-flower {
-        width: 302px;
-        height: 368px;
-        background-image: none;
+      &.quima-zum {
+        width: 248px;
+        height: 384px;
         //visibility: hidden;
       }
     }
@@ -1598,6 +1599,113 @@ page-game-challenge {
           &.tepuy-wrong {
             border-color: map-get($colors, wrong);
           }
+        }
+      }
+    }
+
+    //Semaphore styling
+    .tepuy-feedback-summary {
+      margin-top:5%;
+      height: 10%;
+      text-align: center;
+
+      .group-control {
+        display: inline-block;
+  
+        .listen-icon {
+          &.tepuy-correct, &.tepuy-wrong {
+            background-image: none;
+            border-radius: 50%;
+            border: solid 12px #fff;
+          }
+
+          &.tepuy-correct {
+            background-color: map-get($colors, correct);
+          }
+
+          &.tepuy-wrong {
+            background-color: map-get($colors, wrong);
+          }
+        }
+      }
+    }
+    
+    .tepuy-activity {
+      &.tepuy-completed {        
+        ion-slides {
+          display: none;
+        }        
+
+        .tepuy-semaphore {
+          position:absolute;
+          bottom: 30%;
+          left: 0;
+          right: 0;
+        }
+      }
+    }
+  }
+  /**********************************************************************
+  Level 2 - Challenge 5
+  **********************************************************************/ 
+  .level_2.challenge_5 {
+    ion-slides {
+       height: 70%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom, .container {
+        position: absolute;
+        height: 100%;
+        bottom: 0%;
+        width: 100%;
+      }
+    }
+
+    .row {
+      justify-content: center;
+      margin-top: -1%;
+      &:first-child {
+        margin-top: 2%;
+      }
+    }
+
+    .object-container {
+      position: relative;
+      width: 360px;
+      height: 360px;
+      border: solid 12px #5B636C;
+      border-radius: 50%;
+      background-color: #E6E6E6;
+      @include transform-origin(left, top);
+      .object-icon {
+        position: absolute;
+        @include scale(0.19);
+        @include transform-origin(left, top);
+
+        &.obj-1 { top: 0; left: 25%; }
+        &.obj-2 { top: 0; left: 50%; }
+        &.obj-3 { top: 25%; left: 0; }
+        &.obj-4 { top: 25%; left: 25%; }
+        &.obj-5 { top: 25%; left: 50%; }
+        &.obj-6 { top: 25%; left: 75%; }
+        &.obj-7 { top: 50%; left: 0; }
+        &.obj-8 { top: 50%; left: 25%; }
+        &.obj-9 { top: 50%; left: 50%; }
+        &.obj-10 { top: 50%; left: 75%; }
+        &.obj-11 { top: 75%; left: 25%; }
+        &.obj-12 { top: 75%; left: 50%; }
+      }
+    }
+    .quantity-zone {
+      &.tepuy-selected {
+        &.tepuy-correct {
+          .object-container {
+            border-color: map-get($colors, correct);
+          }          
+        }
+        &.tepuy-wrong {
+          .object-container { border-color: map-get($colors, wrong); }
         }
       }
     }
