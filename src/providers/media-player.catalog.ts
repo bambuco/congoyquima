@@ -79,6 +79,17 @@ export class MediaCatalog {
         preload: true 
       });
     }
+    //Level 2 - Challenge 4 questions
+    const questions = ["picnic_in","picnic_out","room_in","room_out","house_in","house_out"];
+    for(let q of questions) {
+      this.assets.push({
+        type: 'audio',
+        key: q,
+        path: path + ['l_2/ch_4/', q, '.mp3'].join(''),
+        preload: true 
+      });
+    }
+
   }
 
   get audios():Array<any> {

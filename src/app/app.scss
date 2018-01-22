@@ -293,7 +293,7 @@ Object Icons
   $icons: obj-tenedor obj-bombillo obj-cuaderno obj-libro obj-ventilador obj-tijeras obj-telefono obj-flor obj-sol obj-luna obj-bicicleta;
   @include appSpriteIcons($icons, 0px, 1880px, 0px, 0px, 420px, 470px);
 
-  $icons: obj-pastillas obj-cuchillo obj-olla obj-motocicleta obj-sombrilla obj-cepillo;
+  $icons: obj-pastillas obj-cuchillo obj-olla obj-motocicleta obj-sombrilla obj-cepillo obj-anillo obj-chanclas obj-jabon obj-muñeca;
   @include appSpriteIcons($icons, 0px, 2350px, 0px, 0px, 420px, 470px);
 
 }

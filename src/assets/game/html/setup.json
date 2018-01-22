@@ -184,14 +184,21 @@
         {
           "id": 3,
           "label":"4",
-          "unavailable": true,
+          "autofeedback": true,
           "type": "select",
           "parameters": {
+            "picnic_in": ["botella", "manzana", "banano", "pera", "zanahoria", "tomate"],
+            "picnic_out": ["arbol", "cuchara", "tenedor", "cuchillo", "plato", "vaso"],
+            "room_in": ["sombrero", "camisa", "pantalon", "vestido", "zapato", "chanclas", "baston"],
+            "room_out": ["mesa", "vela", "radio", "libro", "lapiz", "gafas", "silla"],
+            "house_in": ["mesa", "silla", "radio", "reloj", "televisor", "telefono", "estufa", "olla"],
+            "house_out": ["bicicleta", "motocicleta", "arbol", "manzana", "pera", "sombrilla", "luna", "caballo", "vaca", "escoba", "perro"]
           }
         },
         {
           "id": 4,
           "label":"5",
+          "unavailable": true,
           "type": "select",
           "parameters": {
           }
