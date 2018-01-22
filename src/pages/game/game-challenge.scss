@@ -1312,7 +1312,7 @@ page-game-challenge {
     /************************************************
     Challenge Icons
     ************************************************/
-    .l2_ch3_icon {
+    .l2_ch2_icon {
       background-image: url('../assets/game/img/l_2/ch_2/sprite.png');
       background-color: transparent;
       background-repeat: no-repeat;
@@ -1420,6 +1420,115 @@ page-game-challenge {
         ion-slides {
           display: none;
         }        
+      }
+    }
+  }
+  /**********************************************************************
+  Level 2 - Challenge 3
+  **********************************************************************/
+  .level_2.challenge_3 {
+    ion-slides {
+       height: 60%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom, .container {
+        position: absolute;
+        height: 100%;
+        bottom: 0%;
+        width: 100%;
+      }
+    }
+
+    table {
+      height: 100%;
+      margin: 0 auto;
+      td {
+        text-align: center;
+        padding: 5px;
+      }
+    }
+
+    .flower-zone {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      border: solid 3px #5B636C;
+      background-color: #5B636C;
+      margin: 0 auto;
+
+      &.tepuy-selected {
+        background-color: #fff;
+        &.tepuy-correct {
+          border-color: map-get($colors, correct);
+        }
+        &.tepuy-wrong {
+          border-color: map-get($colors, wrong);
+        }
+      }
+    }
+
+    /************************************************
+    Challenge Icons
+    ************************************************/
+    .l2_ch3_icon {
+      background-image: url('../assets/game/img/l_2/ch_3/sprite_flowers.png');
+      background-color: transparent;
+      background-repeat: no-repeat;
+      display: inline-block;
+      @include transform-origin(left, top);
+        
+      $icons: green-flower black-flower red-flower yellow-flower fucsia-flower white-flower violet-flower blue-flower;
+      @include appSpriteIcons($icons, 20px, 20px, 138px, 0px, 112px, 178px);
+      
+      &.no-flower {
+        width: 302px;
+        height: 368px;
+        background-image: none;
+        //visibility: hidden;
+      }
+    }
+
+    //Semaphore styling
+    .tepuy-feedback-summary {
+      margin-top:5%;
+      height: 10%;
+      text-align: center;
+
+      .group-control {
+        display: inline-block;
+  
+        .listen-icon {
+          &.tepuy-correct, &.tepuy-wrong {
+            background-image: none;
+            border-radius: 50%;
+            border: solid 12px #fff;
+          }
+
+          &.tepuy-correct {
+            background-color: map-get($colors, correct);
+          }
+
+          &.tepuy-wrong {
+            background-color: map-get($colors, wrong);
+          }
+        }
+      }
+    }
+    
+    .tepuy-activity {
+      &.tepuy-completed {        
+        ion-slides {
+          display: none;
+        }        
+
+        .tepuy-semaphore {
+          position:absolute;
+          bottom: 30%;
+          left: 0;
+          right: 0;
+        }
       }
     }
   }

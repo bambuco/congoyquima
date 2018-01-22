@@ -63,11 +63,19 @@ export class TepuyActivityDirective implements OnInit, AfterContentInit {
   ngAfterContentInit(){
     if (this.slides.length) {
       this.setupSlider();
+      this.setGroupActive(0);
     }
 
     this.slides.changes.subscribe((changes) => {
       this.setupSlider();
+      this.setGroupActive(0);
     });
+  }
+
+  private setGroupActive(id) {
+    setTimeout(() => {
+      this.valueGenerator.values[id].active = true;
+    }, 100);
   }
 
   private setupSlider() {
@@ -93,9 +101,11 @@ export class TepuyActivityDirective implements OnInit, AfterContentInit {
   }
 
   private autoVerifyActivity(result:any){
-    this.valueGenerator.values[result.group].state = result.state;
+    const group = parseInt(result.group);
+    this.valueGenerator.values[group].state = result.state;
+    delete this.valueGenerator.values[group].active;
     //is it last group?
-    if (result.group == (this.valueGenerator.tepuyValueGeneratorCount - 1)) {
+    if (group == (this.valueGenerator.tepuyValueGeneratorCount - 1)) {
       this.activityService.verify();
       this.isComplete = true;
     }
@@ -104,6 +114,7 @@ export class TepuyActivityDirective implements OnInit, AfterContentInit {
         this.slideCtrl.lockSwipes(false);
         this.slideCtrl.slideNext();
         this.slideCtrl.lockSwipes(true);
+        this.valueGenerator.values[group+1].active = true;
       }
     }
   }

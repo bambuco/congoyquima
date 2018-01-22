@@ -112,7 +112,8 @@ export class TepuyScaleDirective implements OnChanges, AfterViewInit {
   }
  })
 export class TepuyAutofitDirective implements OnChanges, AfterViewInit {
-
+  @Input('tepuy-square') public square: boolean = false;
+  @Input('tepuy-offset') public offset: number = 0;
   //@HostListener('window:resize', ['$event'])
   onResize($event=null) {
     setTimeout(() => {
@@ -121,6 +122,7 @@ export class TepuyAutofitDirective implements OnChanges, AfterViewInit {
   }
 
   private originalDisplay: string;
+  //private offset:number = 8;
 
   constructor(private elRef:ElementRef) {
   }
@@ -143,7 +145,9 @@ export class TepuyAutofitDirective implements OnChanges, AfterViewInit {
     const rect = first.getBoundingClientRect();
     //el.style.width = first.offsetWidth + 'px';
     //el.style.height = first.offsetHeight + 'px';
-    el.style.width = (rect.width + 8) + 'px';
-    el.style.height = (rect.height + 8) + 'px';
+    const width = (this.square ? Math.max(rect.width, rect.height) : rect.width) + this.offset;
+    const height = (this.square ? Math.max(rect.width, rect.height) : rect.height) + this.offset;
+    el.style.width = width + 'px';
+    el.style.height = height + 'px';
   }
 }

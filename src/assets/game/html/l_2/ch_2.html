@@ -6,38 +6,38 @@
           <div tepuy-item-group data-tepuy-group-id="{{group.id}}" data-tepuy-autocomplete-after="2"> 
             <div ion-row class="row-0">
               <div class="" *tepuyRepeat="3;let i=index" tepuy-autofit>
-                <div class="l2_ch3_icon growing-plant" tepuy-scale="1920">
+                <div class="l2_ch2_icon growing-plant" tepuy-scale="1920">
                   <span>{{sequence[i+5]}}</span>
                 </div>
               </div>
               <div class="plant-hole-container" *tepuyRepeat="2;let i=index" tepuy-autofit tepuy-drop-zone [tepuy-correct-values]="sequence[i+8]" data-tepuy-auto-feedback="true">
-                <div class="l2_ch3_icon plant-hole" tepuy-scale="2020" drop-ignore>
+                <div class="l2_ch2_icon plant-hole" tepuy-scale="2020" drop-ignore>
                   <span class="drop-value"></span>
                 </div>
                 <div class="drop-target" tepuy-autofit drop-ignore>
-                  <div class="l2_ch3_icon big-seed invisible" tepuy-scale="1920"></div>
+                  <div class="l2_ch2_icon big-seed invisible" tepuy-scale="1920"></div>
                 </div>
               </div>
             </div>
             <ng-container *tepuyValueGenerator="'randomof:array:count=3';data:sequence; type:'scalar'; exclude:[5,6,7];include:[8,9];count:5;shuffle:true;let extra=values">
             <div ion-row class="row-1">
               <div class="seed-bag-container" *tepuyRepeat="3;let i=index" tepuy-autofit tepuy-greetable="[tepuy-value]">
-                <div class="l2_ch3_icon empty-bag" tepuy-scale="2020" drop-ignore>
+                <div class="l2_ch2_icon empty-bag" tepuy-scale="2020" drop-ignore>
                   <span tepuy-value>{{sequence[extra[i]]}}</span>
                 </div>
                 <div class="big-seed-container" tepuy-autofit tepuy-draggable tepuy-item [tepuy-value]="sequence[extra[i]]">
-                  <div class="l2_ch3_icon big-seed" tepuy-scale="1920"></div>
+                  <div class="l2_ch2_icon big-seed" tepuy-scale="1920"></div>
                   <input type="hidden" value="{{sequence[extra[i]]}}" tepuy-item-value />
                 </div>
               </div>
             </div>
             <div ion-row class="row-2">
               <div class="seed-bag-container" *tepuyRepeat="2;let i=index" tepuy-autofit tepuy-greetable="[tepuy-value]">
-                <div class="l2_ch3_icon empty-bag" tepuy-scale="2020" drop-ignore>
+                <div class="l2_ch2_icon empty-bag" tepuy-scale="2020" drop-ignore>
                   <span tepuy-value>{{sequence[extra[i+3]]}}</span>
                 </div>
                 <div class="big-seed-container" tepuy-autofit tepuy-draggable tepuy-item [tepuy-value]="sequence[extra[i+3]]">
-                  <div class="l2_ch3_icon big-seed" tepuy-scale="1920"></div>
+                  <div class="l2_ch2_icon big-seed" tepuy-scale="1920"></div>
                   <input type="hidden" value="{{sequence[extra[i+3]]}}" tepuy-item-value />
                 </div>
               </div>

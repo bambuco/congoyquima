@@ -71,7 +71,7 @@ export class TepuyDraggableDirective implements AfterViewInit {
     this.isDragging = false;
 
     let targetEl = this.getElementFromPoint(this.elRef.nativeElement, ev.center.x, ev.center.y);
-    while(targetEl.hasAttribute('drop-ignore')) {
+    while(targetEl && targetEl.hasAttribute('drop-ignore')) {
       targetEl = targetEl.parentElement;
     }
 

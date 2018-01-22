@@ -175,14 +175,16 @@
         {
           "id": 2,
           "label":"3",
-          "unavailable": true,
           "type": "select",
+          "autofeedback": true,
           "parameters": {
+            "directions": ["r_gr","r_ye","r_fu","l_bk","r_bk","l_qu","r_qu","l_wh","r_wh","l_re","l_bl","l_vi","b_gr","a_ye","b_ye","a_fu","b_bk","a_qu","b_qu","a_wh","b_re","a_bl","b_bl","a_vi"]
           }
         },
         {
           "id": 3,
           "label":"4",
+          "unavailable": true,
           "type": "select",
           "parameters": {
           }

@@ -6,6 +6,7 @@ export interface IDataProvider {
   next():any;
   nextGroup():any[];
   reset():void;
+  shuffle(a:any[]):any[];
 }
 
 /**
@@ -31,6 +32,20 @@ export abstract class DataProvider implements IDataProvider {
     throw new Error('Not implemented');    
   }
 
+  /**
+   * Shuffles an array.
+   * @a {Array} An array containing the items.
+   */
+  shuffle(a:any[]) {
+    if (!a) return;
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+    }
+    return a;
+  }
 
   protected random(min, max, round=true, repeat=false) {
     if (!min) {

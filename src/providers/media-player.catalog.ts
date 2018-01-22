@@ -52,7 +52,7 @@ export class MediaCatalog {
     }
 
     //Words
-    let words = ["arbol", "casa", "canasta", "radio", "cama","baston", "televisor", "carro", "cuchara", "plato",
+    const words = ["arbol", "casa", "canasta", "radio", "cama","baston", "televisor", "carro", "cuchara", "plato",
       "vaso", "vaca", "perro", "gato","caballo", "sombrero", "zapato", "camisa", "pantalon", "reloj",
       "mesa", "silla", "moneda","billete", "llave", "lapiz", "libro", "manzana", "banano", "pera",
       "zanahoria", "tomate","telefono", "vela", "cuchillo", "tenedor", "olla", "motocicleta","bicicleta",
@@ -65,6 +65,17 @@ export class MediaCatalog {
         type: 'audio',
         key: word,
         path: path + ['words/', word, '.mp3'].join(''),
+        preload: true 
+      });
+    }
+
+    //Level 2 - Challenge 3 directions
+    const directions = ["r_gr","r_ye","r_fu","l_bk","r_bk","l_qu","r_qu","l_wh","r_wh","l_re","l_bl","l_vi","b_gr","a_ye","b_ye","a_fu","b_bk","a_qu","b_qu","a_wh","b_re","a_bl","b_bl","a_vi"];
+    for(let dir of directions) {
+      this.assets.push({
+        type: 'audio',
+        key: dir,
+        path: path + ['l_2/ch_3/', dir, '.mp3'].join(''),
         preload: true 
       });
     }

@@ -328,6 +328,21 @@ Key Icons
     }
   }
 }
+/************************************************
+Listen Interruptor Icons
+************************************************/
+.listen-icon {
+  background-image: url('../assets/game/img/shared/sprite_listen.png');
+  background-color: transparent;
+  background-repeat: no-repeat;
+  display: inline-block;
+  @include transform-origin(left, top);
+  
+  $icons: listen-active;
+  @include appSpriteIcons($icons, 20px, 20px, 0px, 0px, 180px, 180px);
+  $icons: listen-inactive;
+  @include appSpriteIcons($icons, 20px, 250px, 0px, 0px, 180px, 180px);
+}
 /***********************************************
   Animations
 ***********************************************/

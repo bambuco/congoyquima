@@ -10,6 +10,8 @@ export class SetupProvider extends DataProvider {
   fn: string = 'random';
   _next:number;
   values: Array<any>;
+  queue: Array<any>;
+  usequeue: boolean = false;
 
   constructor(fn:string, opts:any, setup:any) {
     super();
@@ -21,6 +23,10 @@ export class SetupProvider extends DataProvider {
     
     if (!opts.key) {
       throw new Error("SetupProvider:Missing key");
+    }
+
+    if (opts.fromQ) {
+      this.usequeue = /^true$/i.test(opts.fromQ);
     }
     
     for(let key of opts.key.split('.')) {
@@ -36,8 +42,11 @@ export class SetupProvider extends DataProvider {
       throw new Error('SetupProvider:' + opts.key + ' expected to be an array');
     }
 
-    this.values = values;
-
+    this.values = values.slice(0);
+    if (this.usequeue) {
+      this.queue = this.shuffle(this.values.slice(0));  
+    }
+    
     this.min = 0;
     this.max = values.length - 1;
     
@@ -48,8 +57,13 @@ export class SetupProvider extends DataProvider {
   next():string {
     let value;
     if (this.fn == 'random') {
-      this.seed = this.random(this.min, this.max);
-      value = this.values[this.seed];
+      if (this.usequeue) {
+        value = this.fromQ();
+      }
+      else {
+        this.seed = this.random(this.min, this.max);
+        value = this.values[this.seed];
+      }
       return value;
     }
     else {
@@ -61,5 +75,22 @@ export class SetupProvider extends DataProvider {
   reset() {
     this.cacheHash = {};
     this.seed = this.random(this.min, this.max);
+  }
+
+  private fromQ() {
+    let value:any;
+    do {
+      if (this.queue.length) {
+        value = this.queue.pop();
+      }
+      else {
+        this.queue = this.shuffle(this.values.slice(0));
+        value = this.queue.pop();  
+      }
+    }
+    while (this.cacheHash[value]);
+
+    this.cacheHash[value] = true;
+    return value;
   }
 }

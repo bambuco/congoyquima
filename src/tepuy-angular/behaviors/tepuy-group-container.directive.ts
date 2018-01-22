@@ -82,22 +82,7 @@ export class TepuyValueGeneratorDirective implements OnChanges {
     }
 
     this.viewContainer.createEmbeddedView(this.templateRef, {
-      values: (this.tepuyValueGeneratorShuffle ? this.shuffle(this.values) : this.values)
+      values: (this.tepuyValueGeneratorShuffle ? this.dataProvider.shuffle(this.values) : this.values)
     });      
-  }
-
-  /**
-   * Shuffles an array.
-   * @a {Array} An array containing the items.
-   */
-  shuffle(a) {
-    if (!a) return;
-    for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        const t = a[i];
-        a[i] = a[j];
-        a[j] = t;
-    }
-    return a;
   }
 }
