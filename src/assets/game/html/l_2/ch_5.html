@@ -1,36 +1,40 @@
 <div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-slide-delay="1">
   <ng-container *tepuyValueGenerator="'randomof:numbers:min=2;max=12;';count:5;let groups=values">
-    <ion-slides class="tepuy-activity-content" zoom="false" pager="true" paginationType="progress" effect="slide">
-      <ion-slide *ngFor="let group of groups;let id=index" [ngStyle]="{'width.px':playZone?.width}">
-        <ng-container *tepuyValueGenerator="'randomof:numbers:min=2;max=12;';type:'scalar';count:8;include:[group.data];shuffle:true;let options=values">
-        <div tepuy-item-group data-tepuy-group-id="{{group.id}}" *tepuyValueGenerator="'randomof:setup:key=parameters.objects;';type:'scalar';count:8;let objects=values">
-          <div class="row">
-            <div *tepuyRepeat="3; let k=index" class="quantity-zone" tepuy-autofit [tepuy-square]="true" tepuy-item tepuy-selectable data-tepuy-auto-feedback="true" [tepuy-correct]="(group.data==options[k])">
-              <div class="object-container" tepuy-scale="1920">
-                <div *ngFor="let it of 1|range:12|shuffle|initial:12-options[k]; let i=index" class="object-icon obj-{{objects[k]}} obj-{{it}}"></div>
+    <ion-slides class="tepuy-activity-content" zoom="false" pager="true" paginationType="progress" effect="fade">
+      <ng-container *tepuyValueGenerator="'randomof:numbers:min=2;max=12;';type:'scalar';count:8;include:[groups[0].data,groups[1].data,groups[2].data,groups[3].data,groups[4].data];shuffle:true;let options=values">
+        <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.objects;';type:'scalar';count:8;let objects=values">
+          <ng-container *tepuyValueGenerator="'sequenceof:numbers:min=1;max=1;count=12;repeat=true;';array:true;type:'scalar';count:8;let positions=values">
+          <ion-slide *ngFor="let group of groups;let id=index" [ngStyle]="{'width.px':playZone?.width}">
+            <div tepuy-item-group data-tepuy-group-id="{{group.id}}">
+              <div class="row">
+                <div *tepuyRepeat="3; let k=index" class="quantity-zone" tepuy-autofit [tepuy-square]="true" tepuy-item tepuy-selectable data-tepuy-auto-feedback="true" [tepuy-correct]="(group.data==options[k])">
+                  <div class="object-container" tepuy-scale="1920">
+                    <div *ngFor="let it of positions[k]|initial:12-options[k]; let i=index" class="object-icon obj-{{objects[k]}} obj-{{it}}"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div *tepuyRepeat="2; let k=index" class="quantity-zone" tepuy-autofit [tepuy-square]="true" tepuy-item tepuy-selectable data-tepuy-auto-feedback="true" [tepuy-correct]="(group.data==options[k+3])">
+                  <div class="object-container" tepuy-scale="1920">
+                    <div *ngFor="let it of positions[k]|initial:12-options[k+3]; let i=index" class="object-icon obj-{{objects[k+3]}} obj-{{it}}"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div *tepuyRepeat="3; let k=index" class="quantity-zone" tepuy-autofit [tepuy-square]="true" tepuy-item tepuy-selectable data-tepuy-auto-feedback="true" [tepuy-correct]="(group.data==options[k+5])">
+                  <div class="object-container" tepuy-scale="1920">
+                    <div *ngFor="let it of positions[k]|initial:12-options[k+5]; let i=index" class="object-icon obj-{{objects[k+5]}} obj-{{it}}"></div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div *tepuyRepeat="2; let k=index" class="quantity-zone" tepuy-autofit [tepuy-square]="true" tepuy-item tepuy-selectable data-tepuy-auto-feedback="true" [tepuy-correct]="(group.data==options[k+3])">
-              <div class="object-container" tepuy-scale="1920">
-                <div *ngFor="let it of 1|range:12|shuffle|initial:12-options[k+3]; let i=index" class="object-icon obj-{{objects[k+3]}} obj-{{it}}"></div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div *tepuyRepeat="3; let k=index" class="quantity-zone" tepuy-autofit [tepuy-square]="true" tepuy-item tepuy-selectable data-tepuy-auto-feedback="true" [tepuy-correct]="(group.data==options[k+5])">
-              <div class="object-container" tepuy-scale="1920">
-                <div *ngFor="let it of 1|range:12|shuffle|initial:12-options[k+5]; let i=index" class="object-icon obj-{{objects[k+5]}} obj-{{it}}"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+          </ion-slide>
+          </ng-container>
         </ng-container>
-      </ion-slide>
+      </ng-container>
     </ion-slides>
     <div class="tepuy-feedback-summary tepuy-semaphore">
-      <div *ngFor="let g of groups" class="group-control" tepuy-autofit>
+      <div *ngFor="let g of groups" class="listen-control" tepuy-autofit>
         <div class="tepuy-{{g.state}} listen-icon" [class.listen-active]="g.active" [class.listen-inactive]="!g.active" tepuy-scale="1920" tepuy-greetable="[greet-value]" [attr.disabled]="!g.active">
           <input greet-value type="hidden" value="{{g.data}}" />
         </div>

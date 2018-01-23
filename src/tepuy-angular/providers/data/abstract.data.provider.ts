@@ -55,7 +55,7 @@ export abstract class DataProvider implements IDataProvider {
         max = 1;
     }
     
-    if (min >= max) {
+    if (min > max) {
         max = min + 1;
     }
 

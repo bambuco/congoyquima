@@ -15,7 +15,7 @@
         </ng-container>
       </ng-container>
       <div class="tepuy-feedback-summary tepuy-semaphore">
-        <div *ngFor="let g of groups" class="group-control" tepuy-autofit>
+        <div *ngFor="let g of groups" class="listen-control" tepuy-autofit>
           <div class="tepuy-{{g.state}} listen-icon" [class.listen-active]="g.active" [class.listen-inactive]="!g.active" tepuy-scale="1920" tepuy-greetable="[greet-value]" [attr.disabled]="!g.active">
             <input greet-value type="hidden" value="{{scene}}_{{g.data==0?'in':'out'}}" />
           </div>

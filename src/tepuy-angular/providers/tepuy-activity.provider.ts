@@ -66,6 +66,11 @@ export class TepuyActivityService {
   
   clearItems() {
     this.items = [];
+    this.groups = [];
+  }
+
+  addGroup(group) {
+    this.groups.push(group);
   }
   /**
    * Evaluates the result of the activity.
@@ -74,12 +79,20 @@ export class TepuyActivityService {
   verify() {
     let good = 0;
     let total = 0;
-    for(let item of this.items) {
-      item.succeed = item.isCorrect; //(item.correct && item.selected);
-      total += TepuyUtils.bValue(item.correct) + TepuyUtils.bValue((!item.correct && item.answered));
-      good += TepuyUtils.bValue(item.succeed);
-      item.resolve(item.succeed);
+
+    if (this.groups.length > 1) {
+      total = this.groups.length;
+      good = this.groups.filter((g) => g.succeed).length;
     }
+    else {
+      for(let item of this.items) {
+        item.succeed = item.isCorrect; //(item.correct && item.selected);
+        total += TepuyUtils.bValue(item.correct) + TepuyUtils.bValue((!item.correct && item.answered));
+        good += TepuyUtils.bValue(item.succeed);
+        item.resolve(item.succeed);
+      }
+    }
+
     const score = (good / total);
     const rate = score == 1 ? 'perfect' : score >= this.minScore ? 'good' : 'wrong';
     this.emit('activityVerified', { 

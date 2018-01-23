@@ -9,7 +9,7 @@
             </div>
             <div class="options-wrapper" ion-row>
               <div  *ngFor="let ch of word.data|lowercase|spell|shuffle; let i=index"
-                tepuy-item tepuy-draggable tepuy-greetable [tepuy-value]="ch|lowercase">
+                tepuy-item tepuy-draggable tepuy-greetable [tepuy-value]="ch|lowercase" tepuy-autofit>
                 <div class="keyholder-icon keyholder" tepuy-scale="1920" tepuy-item-value>
                   {{ch}}
                 </div>                
@@ -22,7 +22,7 @@
                 <div tepuy-drop-zone 
                   [tepuy-correct-values]="ch|lowercase"
                   data-tepuy-allow-multiple="true"
-                  data-tepuy-auto-feedback="true">
+                  data-tepuy-auto-feedback="true" tepuy-autofit>
                   <div class="keyholder-icon keyholder" tepuy-scale="1920" drop-ignore>
                     &nbsp;
                   </div> 
@@ -33,6 +33,9 @@
         </div>
       </ion-slide>
     </ion-slides>
+    <div class="tepuy-feedback-summary tepuy-semaphore">
+      <span *ngFor="let g of groups" class="tepuy-{{g.state}}"></span>
+    </div>
   </ng-container>
 </div>
 

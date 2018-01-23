@@ -94,16 +94,18 @@ export class NumbersProvider extends DataProvider {
       }
     }
     else {
-      const value = (this.seed++);
+      this.seed = this.random(this.min, this.max, undefined, this.repeat);
+      let value = (this.seed++);
       if (this.count == 1) {
         return [ value ];
       }
       else {
         let i = 1;
         let values = [ value ];
-        while (i < this.count) {
-          values.push(value )
+        while (i++ < this.count) {
+          values.push(++value)
         }
+        return values;
       }
     }
   }

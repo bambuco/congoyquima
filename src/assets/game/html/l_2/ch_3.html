@@ -1,6 +1,6 @@
 <div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-slide-delay="1">
   <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.directions;fromQ=true'count:5;let groups=values">
-    <ion-slides class="tepuy-activity-content" zoom="false" pager="true" paginationType="progress" effect="slide">
+    <ion-slides class="tepuy-activity-content" zoom="false" pager="true" paginationType="progress" effect="fade">
       <ion-slide *ngFor="let group of groups;let id=index" [ngStyle]="{'width.px':playZone?.width}">
         <table tepuy-item-group data-tepuy-group-id="{{group.id}}"> 
           <tr ion-row2 class="row-0">
@@ -58,7 +58,7 @@
       </ion-slide>
     </ion-slides>
     <div class="tepuy-feedback-summary tepuy-semaphore">
-      <div *ngFor="let g of groups" class="group-control" tepuy-autofit>
+      <div *ngFor="let g of groups" class="listen-control" tepuy-autofit>
         <div class="tepuy-{{g.state}} listen-icon" [class.listen-active]="g.active" [class.listen-inactive]="!g.active" tepuy-scale="1920" tepuy-greetable="[greet-value]" [attr.disabled]="!g.active">
           <input greet-value type="hidden" value="{{g.data}}" />
         </div>
