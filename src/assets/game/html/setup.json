@@ -206,14 +206,14 @@
         {
           "id": 5,
           "label":"6",
-          "unavailable": true,
-          "type": "select",
+          "type": "sort",
           "parameters": {
           }
         },
         {
           "id": 6,
           "label":"7",
+          "unavailable": true,
           "type": "select",
           "parameters": {
           }

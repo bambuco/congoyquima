@@ -10,7 +10,7 @@ import { TepuyScaleWidthDirective, TepuyScaleDirective, TepuyAutofitDirective } 
 import { 
   TepuyActivityDirective, TepuyGroupDirective, TepuyItemDirective,
   TepuySelectableDirective, TepuyGreetableDirective, TepuyDraggableDirective, TepuyDropZoneDirective,
-  TepuyMarkableComponent, TepuyValueGeneratorDirective
+  TepuyMarkableComponent, TepuyValueGeneratorDirective, TepuySortableDirective
 } from './behaviors';
 
 //Activity Services
@@ -45,6 +45,7 @@ import {
     TepuyDraggableDirective,
     TepuyDropZoneDirective,
     TepuyMarkableComponent,
+    TepuySortableDirective,
     DistributePipe,
     ObjectKeyPipe,
     SpellPipe
@@ -69,6 +70,7 @@ import {
     TepuyDraggableDirective,
     TepuyDropZoneDirective,
     TepuyMarkableComponent,
+    TepuySortableDirective,
     DistributePipe,
     ObjectKeyPipe,
     SpellPipe

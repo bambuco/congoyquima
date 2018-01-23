@@ -33,6 +33,10 @@ page-game-challenge {
     }
   }
 
+  .tepuy-sortable {
+    white-space: nowrap;
+  }
+
   .modal-wrapper {
     width: 100%;
     height: 100%;
@@ -1578,6 +1582,57 @@ page-game-challenge {
         &.tepuy-wrong {
           .object-container { border-color: map-get($colors, wrong); }
         }
+      }
+    }
+  }
+  /**********************************************************************
+  Level 2 - Challenge 6
+  **********************************************************************/ 
+  .level_2.challenge_6 {
+    .container {
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      top: 32%;
+      width: 100%;
+
+      .flower-container {
+        display: inline-block;
+
+        &.tepuy-correct {
+          .flower-with-letter {
+            background-position: -20px -350px;
+          }
+        }
+        &.tepuy-wrong {
+          .flower-with-letter {
+            background-position: -20px -700px;
+          }
+        }
+      }
+    }
+
+    .flower-icon {
+      background-image: url('../assets/game/img/l_2/ch_6/sprite.png');
+      background-color: transparent;
+      background-repeat: no-repeat;
+      position: relative;
+      @include transform-origin(left, top);
+      pointer-events: none;
+      
+      $icons: flower-with-letter;
+      @include appSpriteIcons($icons, 20px, 20px, 0px, 0px, 183px, 260px);
+
+      span {
+        position: absolute;
+        color: map-get($colors, text-normal);
+        font-size: 5em;
+        top: 26px;
+        left: 54px;
+        width: 86px;
+        height: 86px;
+        text-align: center;
+        pointer-events:none;
       }
     }
   }

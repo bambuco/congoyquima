@@ -7,3 +7,4 @@ export { TepuyValueGeneratorDirective } from './tepuy-group-container.directive'
 export { TepuyGroupDirective } from './tepuy-group.directive';
 export { TepuyItemDirective } from './tepuy-item.directive';
 export { TepuyMarkableComponent } from './tepuy-markable.directive';
+export { TepuySortableDirective } from './tepuy-sortable.directive';

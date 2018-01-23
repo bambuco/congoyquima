@@ -92,7 +92,6 @@ export class TepuyActivityService {
         item.resolve(item.succeed);
       }
     }
-
     const score = (good / total);
     const rate = score == 1 ? 'perfect' : score >= this.minScore ? 'good' : 'wrong';
     this.emit('activityVerified', { 

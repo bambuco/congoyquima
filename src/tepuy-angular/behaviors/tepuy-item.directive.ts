@@ -3,6 +3,7 @@ import { Directive, Input, Output, ElementRef, OnInit,
 } from '@angular/core';
 
 import { TepuyActivityService } from '../providers';
+import { findReorderItem } from '../classes/reorder-util';
 
 
 @Directive({ 
@@ -48,6 +49,7 @@ export class TepuyItemDirective implements OnInit, AfterViewInit {
       private elRef: ElementRef,
       private activityService: TepuyActivityService
     ) {
+    this.elRef.nativeElement.$tepuyItem = this;
   }
 
   //Lifecycle events
@@ -62,10 +64,14 @@ export class TepuyItemDirective implements OnInit, AfterViewInit {
     this.refresh();
     
     if (!this.readyReported && (this.correct === true || this.correct === false)){
+      this.readyReported = true;
       this.activityService.itemReady(this);
     }
   }
 
+  getReorderNode(): HTMLElement {
+    return findReorderItem(this.elRef.nativeElement, null);
+  }
   //Helpers
   private setValueEl() {
     if (this.valueEl) return;
