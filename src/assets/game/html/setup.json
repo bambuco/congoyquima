@@ -251,15 +251,16 @@
         {
           "id": 8,
           "label":"9",
-          "unavailable": true,
-          "type": "select",
+          "type": "classify",
           "parameters": {
+            "expressions": ["sorprendida", "alegre", "enojada", "triste", "pensativa", "confundida", "enamorada", "enferma", "tranquila", "cansada", "sonrojada", "somnolienta"]
           }
         },
         {
           "id": 9,
           "label":"10",
           "type": "select",
+          "unavailable": true,
           "parameters": {
           }
         }

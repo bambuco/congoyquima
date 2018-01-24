@@ -1684,8 +1684,10 @@ page-game-challenge {
     .container {
       display: flex;
       justify-content: center;
+      height: 47%;
       .word-wrapper {
-        width: 300px;
+        width: 200px;
+        height: 100%;
         display: inline-block;
         text-align: center;
         font-size: 1.5em;
@@ -1698,6 +1700,7 @@ page-game-challenge {
           margin: 4px;
           padding: 4px;
           width: 100%;
+          height: 15%;
           color: map-get($colors, text-normal);
 
           &.tepuy-selected {
@@ -1720,6 +1723,82 @@ page-game-challenge {
       bottom: 36%;
       left: 50%;
       @include translate(-55%, 0);
+    }
+  }
+  /**********************************************************************
+  Level 2 - Challenge 9
+  **********************************************************************/ 
+  .level_2.challenge_9 {
+    ion-slides {
+       height: 70%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom {
+        position: absolute;
+        height: 100%;
+        bottom: 0%;
+        width: 100%;
+      }
+    }
+
+    .container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .expression-container {    
+      position: absolute;
+      top: 54%;
+      left: 50%;
+      @include transform(translate(-136%, 0) rotate(-6deg));
+      .expression-icon {
+        background-image: url('../assets/game/img/l_2/ch_9/sprite.png');
+        background-color: transparent;
+        background-repeat: no-repeat;
+        @include transform-origin(left, top);
+        pointer-events: none;
+        
+        $icons: sorprendida;
+        @include appSpriteIcons($icons, 20px, 20px, 0px, 0px, 300px, 355px);
+
+        $icons: alegre enojada triste pensativa confundida enamorada enferma tranquila cansada sonrojada somnolienta;
+        @include appSpriteIcons($icons, 400px, 20px, 100px, 0px, 300px, 355px);
+      } 
+    }
+
+    .word-wrapper {
+      position:absolute;
+      top: 3%;
+      left: 50%;
+      width: 170px;
+      height: 30%;
+      display: inline-block;
+      text-align: center;
+      font-size: 1.5em;
+      .word-holder {
+        display: block;
+        border: solid 3.5px #B3B3B3;
+        border-radius: 10px;
+        background-color: #fff;
+        margin: 8px;
+        padding: 8px 4px;
+        width: 100%;
+        color: map-get($colors, text-normal);
+
+        &.tepuy-selected {
+          border-color: map-get($colors, neutral);
+
+          &.tepuy-correct {
+            border-color: map-get($colors, correct);
+          }
+
+          &.tepuy-wrong {
+            border-color: map-get($colors, wrong);
+          }
+        }
+      }
     }
   }
 }

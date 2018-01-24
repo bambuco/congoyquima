@@ -1,0 +1,21 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-slide-delay=".5">
+  <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.expressions;fromQ=true'; count: 5; let groups=values">
+    <ion-slides class="tepuy-activity-content" zoom="false" pager="true" paginationType="progress" effect="fade">
+      <ion-slide *ngFor="let group of groups" [style.width]="auto">
+        <div *tepuyValueGenerator="'randomof:setup:key=parameters.expressions;';count:2;type:'scalar';include:[group.data];shuffle:true;let words=values" class="container" tepuy-item-group [tepuy-group-id]="group.id">
+          <div class="expression-container" tepuy-autofit>
+            <div class="expression-icon {{group.data}}" tepuy-scale="1920"></div> 
+          </div>
+          <div class="word-wrapper">
+            <div *ngFor="let word of words" class="word-holder" tepuy-item tepuy-selectable data-tepuy-auto-feedback="true" [tepuy-correct]="group.data==word">
+              {{word|ucfirst}}
+            </div>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+    <div class="tepuy-feedback-summary tepuy-semaphore">
+      <span *ngFor="let p of groups" class="tepuy-{{p.state}}"></span>
+    </div>
+  </ng-container>
+</div>
