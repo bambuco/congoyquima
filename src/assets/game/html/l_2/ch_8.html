@@ -3,7 +3,7 @@
   <ng-container *ngFor="let frg of fragments">
     <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.'+frg+'_correct;';type:'scalar';count:3;let correct=values">
       <div class="container" *tepuyValueGenerator="'randomof:setup:key=parameters.'+frg+'_wrong;';type:'scalar';count:6;include:correct;shuffle:true;let items=values">
-        <div class="word-wrapper">
+        <div col-7 col-sm-4 col-md-3 class="word-wrapper">
           <div col-12 class="word-holder" *ngFor="let it of items" tepuy-item tepuy-selectable [tepuy-correct]="correct.indexOf(it)>=0">
             {{it}}
           </div>

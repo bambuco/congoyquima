@@ -400,6 +400,7 @@ page-game-challenge {
       background-repeat: no-repeat;
       display: inline-block;
       margin: 15px;
+      pointer-events: none;
       
       $icons: seed-icon-1;
       @include appSpriteIcons($icons, 20px, 20px, 10px, 0px, 74px, 91px);
@@ -1686,14 +1687,16 @@ page-game-challenge {
       justify-content: center;
       height: 47%;
       .word-wrapper {
-        width: 200px;
+        //width: 200px;
         height: 100%;
         display: inline-block;
         text-align: center;
         font-size: 1.5em;
 
         .word-holder {
-          display: block;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           border: solid 3.5px #B3B3B3;
           border-radius: 10px;
           background-color: #fff;
@@ -1769,12 +1772,12 @@ page-game-challenge {
     }
 
     .word-wrapper {
-      position:absolute;
+      //position:absolute;
       top: 3%;
-      left: 50%;
-      width: 170px;
+      //left: 50%;
+      //width: 170px;
       height: 30%;
-      display: inline-block;
+      //display: inline-block;
       text-align: center;
       font-size: 1.5em;
       .word-holder {
@@ -1782,7 +1785,7 @@ page-game-challenge {
         border: solid 3.5px #B3B3B3;
         border-radius: 10px;
         background-color: #fff;
-        margin: 8px;
+        margin: 8px 0px;
         padding: 8px 4px;
         width: 100%;
         color: map-get($colors, text-normal);

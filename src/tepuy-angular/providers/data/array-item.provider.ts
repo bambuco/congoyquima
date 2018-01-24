@@ -14,6 +14,7 @@ export class ArrayItemProvider extends DataProvider {
   _next:number;
   values: Array<any>;
   usequeue: boolean = false;
+  indexes: boolean = false;
 
   constructor(fn:string, opts:any, array:any) {
     super();
@@ -37,7 +38,9 @@ export class ArrayItemProvider extends DataProvider {
     if (opts.fromQ) {
       this.usequeue = /^true$/i.test(opts.fromQ);
     }
-    
+
+    this.indexes = /^true$/i.test(opts.indexes+'');
+
     this.count = (isNaN(opts.count)) ? 1 : parseInt(opts.count);
 
     if (!isNaN(opts['min-dist'])) {
@@ -65,15 +68,15 @@ export class ArrayItemProvider extends DataProvider {
       }
       else {
         this.seed = this.random(this.min, this.max);
-        value = this.values[this.seed];
+        value = this.indexes ? this.seed : this.values[this.seed];
       }
       //this.seed = this.random(this.min, this.max);
       //value = this.seed; //this.values[this.seed];
       return value;
     }
     else {
-      value = ++this.seed; //this.values[(++this.seed)];
-      return value;
+      value = this.seed++; //this.values[(++this.seed)];
+      return this.indexes ? value : this.values[value];
     }
   }  
 
@@ -98,7 +101,6 @@ export class ArrayItemProvider extends DataProvider {
             value2 = this.random(this.min, this.max, undefined, true);
           } while((Math.abs(value2 - value) < this.minDist || result.indexOf(value2) >= 0) && (++attempts) < maxAttempts);
           if (attempts == maxAttempts) {
-            console.log(this.values);
             throw new Error('ArrayItemProvider:Maximum number of attempts to get an item has been reached');              
           }
           result.push(value2);

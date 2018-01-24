@@ -199,6 +199,7 @@
           "id": 4,
           "label":"5",
           "type": "select",
+          "autofeedback": true,
           "parameters": {
             "objects":["flor", "moneda", "gato", "manzana", "pera", "carro", "gafas", "balon", "bombillo", "tijeras", "sol", "llave"]
           }
