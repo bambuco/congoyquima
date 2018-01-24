@@ -1,0 +1,33 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-win-score="0.6" tepuy-slide-delay=".5">
+  <ng-container *tepuyValueGenerator="'randomof:array:';data:[0,1,2,3,4,5];count:1;type:'scalar';let fragments=values">
+  <ng-container *ngFor="let frg of fragments">
+    <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.'+frg+'_correct;';type:'scalar'count:3;let correct=values">
+      <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.'+frg+'_wrong;';type:'scalar'count:6;include:correct;shuffle:true;let items=values">
+        <div class="container">
+          <table tepuy-item-group data-tepuy-group-id="1"> 
+            <tr class="row-0">
+              <td *ngFor="let it of items|initial:3" >
+                <div class="object-zone" tepuy-autofit [tepuy-square]="true" [tepuy-offset]="10" tepuy-item tepuy-selectable [tepuy-correct]="correct.indexOf(it)>=0">
+                  <div tepuy-autofit><div class="object-icon obj-{{it}}" [tepuy-scale]="1920*1.3"></div></div>
+                </div>
+              </td>
+            </tr>
+            <tr class="row-1">
+              <td *ngFor="let it of items|tail:3" >
+                <div class="object-zone" tepuy-autofit [tepuy-square]="true" [tepuy-offset]="10" tepuy-item tepuy-selectable [tepuy-correct]="correct.indexOf(it)>=0">
+                  <div tepuy-autofit><div class="object-icon obj-{{it}}" [tepuy-scale]="1920*1.3"></div></div>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="listen-control" tepuy-autofit>
+          <div class="listen-icon listen-active" tepuy-scale="1920" tepuy-greetable="[greet-value]">
+            <input greet-value type="hidden" value="fr_{{frg+1}}" />
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+  </ng-container>
+</div>
