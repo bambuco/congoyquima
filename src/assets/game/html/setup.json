@@ -232,14 +232,26 @@
         {
           "id": 7,
           "label":"8",
-          "unavailable": true,
           "type": "select",
           "parameters": {
+            "0_correct": ["Moneda","Billete","Casa","Perro","Gato","Vaca","Caballo"],
+            "0_wrong": ["Sombrero","Vestido","Zanahoria","Bicicleta","Tijeras","Botella","Sol","Sombrilla","Lápiz","Manzana"],
+            "1_correct": ["Casa","Bicicleta","Motocicleta","Carro","Bus","Libro"],
+            "1_wrong": ["Árbol","Canasta","Cama","Vaso","Zapato","Mesa","Banano","Vela","Olla","Escoba","Ventilador"],
+            "2_correct": ["Manzana","Banano","Pera","Zanahoria","Tomate","Radio"],
+            "2_wrong": ["Sombrilla","Luna","Vestido","Puerta","Bus","telefono","Silla","Reloj","Pantalón","Caballo"],
+            "3_correct": ["Cuchara","Plato","Vaso","Tenedor","Cuchillo","Olla","Estufa"],
+            "3_wrong": ["Llave","Puerta","Zapato","Ventilador","Cuaderno","Sombrilla","Luna","Balón","Gafas","Caja"],
+            "4_correct": ["Sombrero","Zapato","Camisa","Pantalón","Vestido","Chancla"],
+            "4_wrong": ["Árbol","Radio","Gato","Caballo","Silla","Escoba","Bus","Ventana","Tijeras","Flor","Luna"],
+            "5_correct": ["Cama","Luna","Sol","Cuaderno","Lápiz","Reloj"],
+            "5_wrong": ["Canasta","Vaca","Bastón","Carro","Zapato","Moneda","Pera","Estufa","Frasco","Balón","Caja","Bicicleta"]
           }
         },
         {
           "id": 8,
           "label":"9",
+          "unavailable": true,
           "type": "select",
           "parameters": {
           }

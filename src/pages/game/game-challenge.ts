@@ -48,6 +48,7 @@ export class GameChallengePage {
   showIndicator: boolean = false;
 
   private id: string;
+  private nId: number;
   private levelId: string;
   private activityService: TepuyActivityService;
   private busy: boolean = true;
@@ -66,6 +67,7 @@ export class GameChallengePage {
       params: NavParams
       ) {
     this.id = params.get('id');
+    this.nId = parseInt(this.id) + 1;
     this.levelId = params.get('levelId');
     this.sourcePage = params.get('source');
   }

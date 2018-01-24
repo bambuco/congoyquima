@@ -10,7 +10,6 @@ export class SetupProvider extends DataProvider {
   fn: string = 'random';
   _next:number;
   values: Array<any>;
-  queue: Array<any>;
   usequeue: boolean = false;
 
   constructor(fn:string, opts:any, setup:any) {
@@ -58,7 +57,7 @@ export class SetupProvider extends DataProvider {
     let value;
     if (this.fn == 'random') {
       if (this.usequeue) {
-        value = this.fromQ();
+        value = this.fromQ(this.values);
       }
       else {
         this.seed = this.random(this.min, this.max);
@@ -75,22 +74,5 @@ export class SetupProvider extends DataProvider {
   reset() {
     this.cacheHash = {};
     this.seed = this.random(this.min, this.max);
-  }
-
-  private fromQ() {
-    let value:any;
-    do {
-      if (this.queue.length) {
-        value = this.queue.pop();
-      }
-      else {
-        this.queue = this.shuffle(this.values.slice(0));
-        value = this.queue.pop();  
-      }
-    }
-    while (this.cacheHash[value]);
-
-    this.cacheHash[value] = true;
-    return value;
   }
 }

@@ -1677,4 +1677,49 @@ page-game-challenge {
       @include translate(-55%, 0);
     }
   }
+  /**********************************************************************
+  Level 2 - Challenge 8
+  **********************************************************************/ 
+  .level_2.challenge_8 {
+    .container {
+      display: flex;
+      justify-content: center;
+      .word-wrapper {
+        width: 300px;
+        display: inline-block;
+        text-align: center;
+        font-size: 1.5em;
+
+        .word-holder {
+          display: block;
+          border: solid 3.5px #B3B3B3;
+          border-radius: 10px;
+          background-color: #fff;
+          margin: 4px;
+          padding: 4px;
+          width: 100%;
+          color: map-get($colors, text-normal);
+
+          &.tepuy-selected {
+            border-color: map-get($colors, neutral);
+
+            &.tepuy-correct {
+              border-color: map-get($colors, correct);
+            }
+
+            &.tepuy-wrong {
+              border-color: map-get($colors, wrong);
+            }
+          }
+        }
+      }
+    }
+
+    .listen-control {
+      position:absolute;
+      bottom: 36%;
+      left: 50%;
+      @include translate(-55%, 0);
+    }
+  }
 }

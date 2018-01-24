@@ -17,6 +17,8 @@ export interface IDataProvider {
 export abstract class DataProvider implements IDataProvider {
   protected settings: any;
   protected cacheHash = {};
+  protected queue: Array<any>;
+
   constructor(){
   }
 
@@ -70,4 +72,21 @@ export abstract class DataProvider implements IDataProvider {
     }
     return num;
   }  
+
+  protected fromQ(startValues:Array<any>) {
+    let value:any;
+    do {
+      if (this.queue.length) {
+        value = this.queue.pop();
+      }
+      else {
+        this.queue = this.shuffle(startValues.slice(0));
+        value = this.queue.pop();  
+      }
+    }
+    while (this.cacheHash[value]);
+
+    this.cacheHash[value] = true;
+    return value;
+  }
 }
