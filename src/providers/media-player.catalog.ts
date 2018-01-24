@@ -89,6 +89,16 @@ export class MediaCatalog {
         preload: true 
       });
     }
+    //Level 2 - Challenge 7 Fragments
+    const fragments = ['fr_1','fr_2','fr_3','fr_4','fr_5','fr_6'];
+    for(let frg of fragments) {
+      this.assets.push({
+        type: 'audio',
+        key: frg,
+        path: path + ['l_2/ch_7/', frg, '.mp3'].join(''),
+        preload: true 
+      });
+    }
 
   }
 

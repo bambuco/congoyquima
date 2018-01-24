@@ -12,7 +12,7 @@ export class ItemReorderGesture {
   private offset: PointerCoordinates;
   private lastToIndex: number;
   private lastXcoord: number;
-  private lastScrollPosition: number;
+  //private lastScrollPosition: number;
   private emptyZone: boolean;
   private windowWidth: number;
   private events: UIEventManager;
@@ -157,7 +157,7 @@ export class ItemReorderGesture {
 
 
 const AUTO_SCROLL_MARGIN = 60;
-const SCROLL_JUMP = 10;
+//const SCROLL_JUMP = 10;
 const ITEM_REORDER_ACTIVE = 'reorder-active';
 
 export interface ItemReorderGestureDelegate {

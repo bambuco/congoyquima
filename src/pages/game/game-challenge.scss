@@ -1636,4 +1636,45 @@ page-game-challenge {
       }
     }
   }
+  /**********************************************************************
+  Level 2 - Challenge 7
+  **********************************************************************/ 
+  .level_2.challenge_7 {
+    .container {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+
+      .object-zone {
+        border: solid 3.5px #B3B3B3;
+        border-radius: 50%;
+        background-color: #fff;
+        margin: 4px;
+        display: flex;
+        justify-content: center;
+        &.tepuy-selected {
+          border-color: map-get($colors, neutral);
+
+          &.tepuy-correct {
+            border-color: map-get($colors, correct);
+          }
+
+          &.tepuy-wrong {
+            border-color: map-get($colors, wrong);
+          }
+        }
+      }
+
+      .object-icon {
+        @include transform-origin(left, top);
+      }
+    }
+
+    .listen-control {
+      position:absolute;
+      bottom: 36%;
+      left: 50%;
+      @include translate(-55%, 0);
+    }
+  }
 }
