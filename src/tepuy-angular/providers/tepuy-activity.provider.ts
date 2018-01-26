@@ -26,6 +26,7 @@ export class TepuyActivityService {
   ACTIVITY_RESET = 'activityReset';
   ACTIVITY_REQUESTED = 'verifyRequested';
   ITEM_READY = 'itemReady';
+  ITEM_DESTROYED = 'itemDestroyed';
   ITEM_TOUCHED = 'itemTouched';
   ITEM_GROUP_COMPLETING = "groupCompleting";
   ITEM_GROUP_COMPLETED = "groupCompleted";
@@ -35,6 +36,7 @@ export class TepuyActivityService {
     this.registerEvent(this.ACTIVITY_REQUESTED);
     this.registerEvent(this.ACTIVITY_RESET);
     this.registerEvent(this.ITEM_READY);
+    this.registerEvent(this.ITEM_DESTROYED);
     this.registerEvent(this.ITEM_TOUCHED);
     this.registerEvent(this.ITEM_GROUP_COMPLETED);
   }
@@ -60,6 +62,14 @@ export class TepuyActivityService {
     this.emit(this.ITEM_READY, item);
   }
 
+  itemDestroyed(item: any) {
+    let index = this.items.findIndex((it, i) => {
+      return it.id == item.id;
+    });
+    this.items.splice(index, 1);
+    this.emit(this.ITEM_DESTROYED, item);
+  }
+
   setSetup(setup) {
     this.setup = setup;
   }
@@ -79,7 +89,6 @@ export class TepuyActivityService {
   verify() {
     let good = 0;
     let total = 0;
-
     if (this.groups.length > 1) {
       total = this.groups.length;
       good = this.groups.filter((g) => g.succeed).length;

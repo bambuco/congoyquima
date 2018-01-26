@@ -186,7 +186,7 @@ export class GameDataProvider {
       chState.scores.push(score);
       if (success) {
         const i = chState.topScores.findIndex((value) => {
-          return value < score;
+          return !isFinite(value) || value < score;
         });
         if (i >= 0) {
           chState.topScores.splice(i, 0, score);

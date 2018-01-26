@@ -293,9 +293,17 @@ Object Icons
   $icons: obj-tenedor obj-bombillo obj-cuaderno obj-libro obj-ventilador obj-tijeras obj-telefono obj-flor obj-sol obj-luna obj-bicicleta;
   @include appSpriteIcons($icons, 0px, 1880px, 0px, 0px, 420px, 470px);
 
-  $icons: obj-pastillas obj-cuchillo obj-olla obj-motocicleta obj-sombrilla obj-cepillo obj-anillo obj-chanclas obj-jabon obj-muñeca;
+  $icons: obj-pastillas obj-cuchillo obj-olla obj-motocicleta obj-sombrilla obj-cepillo obj-anillo obj-chanclas obj-jabon obj-muñeca obj-aceite;
   @include appSpriteIcons($icons, 0px, 2350px, 0px, 0px, 420px, 470px);
 
+  $icons: obj-leche obj-huevos obj-arroz obj-lentejas obj-frijoles obj-cebolla obj-lechuga obj-carne obj-arepas obj-pollo obj-mantequilla;
+  @include appSpriteIcons($icons, 0px, 2820px, 0px, 0px, 420px, 470px);
+
+  $icons: obj-tomates obj-harina obj-pan obj-panela obj-galletas obj-cafe obj-chocolate obj-papas obj-miel obj-naranja obj-pastas;
+  @include appSpriteIcons($icons, 0px, 3290px, 0px, 0px, 420px, 470px);
+
+  $icons: obj-azucar obj-sal;
+  @include appSpriteIcons($icons, 0px, 3760px, 0px, 0px, 420px, 470px);
 }
 /************************************************
 Key Icons

@@ -168,7 +168,7 @@ export class TepuyDraggableDirective implements AfterViewInit {
       this.dragService.setTranslate(el, null);
     });
     this.item.answered = false;
-    this.item.isCorrect = false;
+    this.item.isCorrect = null;
   }
 
 }

@@ -62,8 +62,10 @@ export class TepuyDropZoneDirective implements AfterViewInit {
 
   //Item events
   onDragEnd(ev:any) {
+    if (this.enabled === false) return;
+
     const el = this.elRef.nativeElement;
-    const dropped = (this.enabled !== false) && (el == ev.target);
+    const dropped = (el == ev.target);
     if (dropped) {
       ev.handled = true;
       //ToDo: Need to account for drop zone allowing multiple elements

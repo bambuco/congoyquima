@@ -1,4 +1,4 @@
-import { Directive, Input, Output, ElementRef, OnInit,
+import { Directive, Input, Output, ElementRef, OnInit, OnDestroy,
   AfterViewInit, EventEmitter
 } from '@angular/core';
 
@@ -23,8 +23,10 @@ export class TepuyItemDirective implements OnInit, AfterViewInit {
   succeed: boolean = null;
   isCorrect: boolean = null;
   answered: boolean;
+  id: string;
   private valueEl:any;
   private readyReported: boolean;
+
 
   //Property setters/getters
   get value() {
@@ -50,11 +52,16 @@ export class TepuyItemDirective implements OnInit, AfterViewInit {
       private activityService: TepuyActivityService
     ) {
     this.elRef.nativeElement.$tepuyItem = this;
+    this.id = this.uniqueId();
   }
 
   //Lifecycle events
   ngOnInit() {
     this.setValueEl();
+  }
+
+  ngOnDestroy() {
+    this.activityService.itemDestroyed(this);
   }
 
   ngAfterViewInit() {
@@ -88,5 +95,11 @@ export class TepuyItemDirective implements OnInit, AfterViewInit {
   resolve(result) {
     this.succeed = result;
     this.resolved.emit(result);
+  }
+
+  uniqueId() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
   }
 }

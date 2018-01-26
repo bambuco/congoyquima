@@ -6,7 +6,7 @@
           <div class="expression-container" tepuy-autofit>
             <div class="expression-icon {{group.data}}" tepuy-scale="1920"></div> 
           </div>
-          <div col-6 col-sm-3 col-md-2 offset-6 class="word-wrapper">
+          <div col-6 col-md-5 col-lg-4 col-xl-3 offset-6 class="word-wrapper">
             <div *ngFor="let word of words" class="word-holder" tepuy-item tepuy-selectable data-tepuy-auto-feedback="true" [tepuy-correct]="group.data==word">
               {{word|ucfirst}}
             </div>

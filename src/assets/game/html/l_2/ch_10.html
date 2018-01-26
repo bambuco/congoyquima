@@ -1,0 +1,31 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-win-score="0.7" tepuy-slide-delay=".5">
+  <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.items';type:'scalar';count:5;let words=values">
+    <div ion-row class="container" tepuy-item-group [tepuy-group-id]="1" (groupInit)="prepare($event, words)">
+      <div class="object-container" [ngStyle]="lBoxStyle">
+        <div class="object-row" *ngFor="let word of words; let i=index">
+          <div tepuy-autofit [tepuy-square]="true">
+            <div class="object-icon obj-{{word|objectkey}}" [tepuy-scale]="1920*2.2"></div>
+          </div>
+          <div class="word-container">
+            <ng-container *ngFor="let ch of word|spell;let k=index">
+              <div *ngIf="isMissing(i,k); else staticChar" tepuy-autofit
+                tepuy-drop-zone [tepuy-correct-values]="ch">
+                <div class="keyholder-icon keyholder" [tepuy-scale]="1920*1.5" drop-ignore><span drop-ignore>&nbsp;</span></div>
+              </div>
+              <ng-template #staticChar>
+                <div  tepuy-autofit>
+                  <div class="keyholder-icon keyholder" [tepuy-scale]="1920*1.5"><span>{{ch}}</span></div>
+                </div>
+              </ng-template>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="chars-container" [ngStyle]="rBoxStyle">
+        <div *ngFor="let ch of chars" tepuy-autofit tepuy-draggable tepuy-item tepuy-greetable [tepuy-value]="ch" [tepuy-correct]="true">
+          <div class="keyholder-icon keyholder" [tepuy-scale]="1920*1.5"><span tepuy-item-value></span></div>          
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

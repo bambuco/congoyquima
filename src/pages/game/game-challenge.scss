@@ -7,7 +7,7 @@ page-game-challenge {
     background-size: auto 100%;
     margin: 0 auto;
     position: relative;
-    overflow: auto;
+    overflow: hidden;
 
     @for $l from 1 through 2 {
       @for $ch from 1 through 10 {
@@ -55,6 +55,7 @@ page-game-challenge {
 
     img {
       height: 100%;
+      -webkit-user-drag: none;
     }
   }
 
@@ -66,6 +67,7 @@ page-game-challenge {
     width: 100%;
     background-color: rgb(255, 255, 255);
     background-color: rgba(255, 255, 255, 0.7);
+    -webkit-user-drag: none;
 
     img {
       height: 100%;
@@ -1632,6 +1634,7 @@ page-game-challenge {
         left: 54px;
         width: 86px;
         height: 86px;
+        line-height: 86px;
         text-align: center;
         pointer-events:none;
       }
@@ -1655,6 +1658,7 @@ page-game-challenge {
         justify-content: center;
         &.tepuy-selected {
           border-color: map-get($colors, neutral);
+          background-color: rgba(255,255,255, 0.7);
 
           &.tepuy-correct {
             border-color: map-get($colors, correct);
@@ -1691,7 +1695,7 @@ page-game-challenge {
         height: 100%;
         display: inline-block;
         text-align: center;
-        font-size: 1.5em;
+        font-size: 2em;
 
         .word-holder {
           display: flex;
@@ -1749,6 +1753,9 @@ page-game-challenge {
       width: 100%;
       height: 100%;
       position: relative;
+      float: left;
+      display: flex;
+      align-items: center;
     }
 
     .expression-container {    
@@ -1772,14 +1779,10 @@ page-game-challenge {
     }
 
     .word-wrapper {
-      //position:absolute;
-      top: 3%;
-      //left: 50%;
-      //width: 170px;
-      height: 30%;
-      //display: inline-block;
+      //margin-top: 30%;
+      //height: 30%;
       text-align: center;
-      font-size: 1.5em;
+      font-size: 1.7em;
       .word-holder {
         display: block;
         border: solid 3.5px #B3B3B3;
@@ -1801,6 +1804,103 @@ page-game-challenge {
             border-color: map-get($colors, wrong);
           }
         }
+      }
+    }
+  }
+  /**********************************************************************
+  Level 2 - Challenge 10
+  **********************************************************************/ 
+  .level_2.challenge_10 {
+
+    color: map-get($colors, text-normal);
+    text-align: center;
+    font-size: 1.2em;
+
+    .container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .col-1 {
+      width: 100%;
+      position: absolute;
+      left: 0;
+      top: 17%;
+      margin-left: -32%;
+      height: 54%;
+    }
+
+    .col-2 {
+      width: 20%;
+      left: 50%;
+      top: 17%;
+      margin-left: 20%; 
+    }
+
+
+
+    .object-container {    
+      position: absolute;
+
+      .object-row {
+        height: 18%;
+        display: flex;
+        align-items: center;
+        justify-content: left;
+
+        .object-icon, .keyholder-icon {
+          @include transform-origin(left, top);
+        }
+
+        .keyholder-icon {
+          font-size: 5.5em;
+          font-weight: bold;
+        }
+
+        .word-container {
+          & > [tepuy-autofit] { 
+            display: inline-block;
+            position: relative;
+            span { position: absolute; width: 100%; height: 100%; left: 0; top: 0; line-height: 1em; }
+
+            .tepuy-dropped {
+              position:absolute;
+              left: 0;
+              top: 0;
+              color: map-get($colors, neutral);
+            }
+          }
+          white-space: nowrap;
+          display: flex;
+        }
+      }
+    }
+
+    .chars-container {
+      position: absolute;
+      background-color: rgba(255,255,179,.8);
+      border-radius: 5px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      & > [tepuy-autofit] {
+        display: inline-block;
+        margin-right: 4px;
+        margin-bottom: 4px;
+        position: relative;
+        & > span { position: absolute; width: 100%; height: 100%; left: 4px; top: 4px; line-height: 1em; }
+      }
+
+      .keyholder-icon {
+        margin: 4px;
+        span {
+          font-size: 5.5em;
+          font-weight: bold;
+        }
+        @include transform-origin(left, top);
       }
     }
   }

@@ -31,8 +31,6 @@ export class TepuyValueGeneratorDirective implements OnChanges {
     if (!this.dataProvider) {
       if (!this.tepuyValueGenerator) return; //No expression provided
 
-      console.log(this.tepuyValueGenerator);
-
       if (isNaN(this.tepuyValueGeneratorCount)) return; //No limit for the value provider
 
       this.dataProvider = this.activityService.getDataProvider(this.tepuyValueGenerator, this.tepuyValueGeneratorData);

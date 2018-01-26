@@ -1,5 +1,5 @@
-import { Directive, ContentChildren, QueryList, Input, HostBinding,
-  OnInit, AfterContentInit, OnDestroy
+import { Directive, ContentChildren, QueryList, Input, Output, HostBinding,
+  OnInit, AfterContentInit, OnDestroy, EventEmitter, NgZone, ElementRef
 } from '@angular/core';
 
 import { 
@@ -26,6 +26,8 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
   @Input('tepuy-correct-options') correctSource: any;
   @Input('tepuy-wrong-options') wrongSource: any;
   @Input('tepuy-autocomplete-after') autocompleteAfter: number = 1;
+  
+  @Output('groupInit') groupinit = new EventEmitter();
 
   valueSource: Array<any>;
   isCorrect: boolean;
@@ -39,6 +41,8 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
   groupValue:any;
 
   constructor(
+    private elRef: ElementRef,
+    private zone: NgZone,
     private errorProvider: TepuyErrorProvider,
     //private groupProvider: TepuyGroupService,
     private actProvider: TepuyActivityService) 
@@ -84,6 +88,10 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
       this.wrongDataProvider = this.actProvider.getDataProvider(options.wrongSource);
     }
 
+    this.actProvider.on(this.actProvider.ACTIVITY_VERIFIED).subscribe(() => {
+      this.isComplete = true;
+    });
+    
     this.actProvider.on(this.actProvider.ACTIVITY_RESET).subscribe(() => {
       this.resetItemValues();
     });
@@ -99,7 +107,8 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
       item.group = this.id;
     });        
     //select a set of values
-    this.resetItemValues();    
+    this.resetItemValues();
+    this.groupinit.emit({ zone: this.zone, elRef: this.elRef });
   }
 
   private resetItemValues() {

@@ -215,6 +215,7 @@
           "id": 6,
           "label":"7",
           "type": "select",
+          "script": "assets/game/html/l_2/ch_7",
           "parameters": {
             "0_correct": ["moneda","billete","casa","perro","gato","vaca","caballo"],
             "0_wrong": ["sombrero","vestido","zanahoria","bicicleta","tijeras","botella","sol","sombrilla","lapiz","manzana"],
@@ -224,7 +225,7 @@
             "2_wrong": ["sombrilla","luna","vestido","puerta","bus","telefono","silla","reloj","pantalon","caballo"],
             "3_correct": ["cuchara","plato","vaso","tenedor","cuchillo","olla","estufa"],
             "3_wrong": ["llave","puerta","zapato","ventilador","cuaderno","sombrilla","luna","balon","gafas","caja"],
-            "4_correct": ["sombrero","zapato","camisa","pantalon","vestido","chancla"],
+            "4_correct": ["sombrero","zapato","camisa","pantalon","vestido","chanclas"],
             "4_wrong": ["arbol","radio","gato","caballo","silla","escoba","bus","ventana","tijeras","flor","luna"],
             "5_correct": ["cama","luna","sol","cuaderno","lapiz","reloj"],
             "5_wrong": ["canasta","vaca","baston","carro","zapato","moneda","pera","estufa","frasco","balon","caja","bicicleta"]
@@ -234,6 +235,7 @@
           "id": 7,
           "label":"8",
           "type": "select",
+          "script": "assets/game/html/l_2/ch_8",
           "parameters": {
             "0_correct": ["Moneda","Billete","Casa","Perro","Gato","Vaca","Caballo"],
             "0_wrong": ["Sombrero","Vestido","Zanahoria","Bicicleta","Tijeras","Botella","Sol","Sombrilla","Lápiz","Manzana"],
@@ -243,7 +245,7 @@
             "2_wrong": ["Sombrilla","Luna","Vestido","Puerta","Bus","telefono","Silla","Reloj","Pantalón","Caballo"],
             "3_correct": ["Cuchara","Plato","Vaso","Tenedor","Cuchillo","Olla","Estufa"],
             "3_wrong": ["Llave","Puerta","Zapato","Ventilador","Cuaderno","Sombrilla","Luna","Balón","Gafas","Caja"],
-            "4_correct": ["Sombrero","Zapato","Camisa","Pantalón","Vestido","Chancla"],
+            "4_correct": ["Sombrero","Zapato","Camisa","Pantalón","Vestido","Chanclas"],
             "4_wrong": ["Árbol","Radio","Gato","Caballo","Silla","Escoba","Bus","Ventana","Tijeras","Flor","Luna"],
             "5_correct": ["Cama","Luna","Sol","Cuaderno","Lápiz","Reloj"],
             "5_wrong": ["Canasta","Vaca","Bastón","Carro","Zapato","Moneda","Pera","Estufa","Frasco","Balón","Caja","Bicicleta"]
@@ -253,6 +255,7 @@
           "id": 8,
           "label":"9",
           "type": "classify",
+          "autofeedback": true,
           "parameters": {
             "expressions": ["sorprendida", "alegre", "enojada", "triste", "pensativa", "confundida", "enamorada", "enferma", "tranquila", "cansada", "sonrojada", "somnolienta"]
           }
@@ -261,8 +264,9 @@
           "id": 9,
           "label":"10",
           "type": "select",
-          "unavailable": true,
+          "script": "assets/game/html/l_2/ch_10",
           "parameters": {
+            "items": ["leche", "arepas", "aceite", "huevos", "arroz", "harina", "tomates", "fríjoles", "lentejas", "cebolla", "lechuga", "zanahoria", "manzana", "pera", "banano", "jabón", "carne", "pollo", "panela", "galletas", "café", "chocolate", "papas", "miel", "naranja", "pastas", "azúcar"]
           }
         }
       ]
@@ -275,6 +279,77 @@
         "progress": ["l", 450, 280]
       },
       "challenges": [
+        {
+          "id": 0,
+          "label":"1",
+          "type": "sort",
+          "unavailable": true,
+          "parameters": {
+          }
+        },
+        {
+          "id": 1,
+          "label":"2",
+          "type": "sort",
+          "parameters": {
+          }
+        },
+        {
+          "id": 2,
+          "label":"3",
+          "type": "sort",
+          "parameters": {
+          }
+        },
+        {
+          "id": 3,
+          "label":"4",
+          "type": "sort",
+          "parameters": {
+          }
+        },
+        {
+          "id": 4,
+          "label":"5",
+          "type": "sort",
+          "parameters": {
+          }
+        },
+        {
+          "id": 5,
+          "label":"6",
+          "type": "sort",
+          "parameters": {
+          }
+        },
+        {
+          "id": 6,
+          "label":"7",
+          "type": "sort",
+          "parameters": {
+          }
+        },
+        {
+          "id": 7,
+          "label":"8",
+          "type": "sort",
+          "parameters": {
+          }
+        },
+        {
+          "id": 8,
+          "label":"9",
+          "type": "sort",
+          "parameters": {
+          }
+        },
+        {
+          "id": 9,
+          "label":"10",
+          "type": "sort",
+          "parameters": {
+          }
+        }
       ]
     },
     {

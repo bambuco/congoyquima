@@ -139,7 +139,7 @@ export class TepuyAutofitDirective implements OnChanges, AfterViewInit {
 
   autofit() {
     const el = this.elRef.nativeElement;
-    if (!el.children.length) return;
+    if (!el.children || !el.children.length) return;
 
     const first = el.children[0];
     const rect = first.getBoundingClientRect();
@@ -149,5 +149,41 @@ export class TepuyAutofitDirective implements OnChanges, AfterViewInit {
     const height = (this.square ? Math.max(rect.width, rect.height) : rect.height) + this.offset;
     el.style.width = width + 'px';
     el.style.height = height + 'px';
+  }
+}
+
+
+@Directive({ 
+  selector: '[tepuy-portrait]',
+  host: {
+    "(window:resize)": "onResize($event)"
+  }
+ })
+export class TepuyPortraitDirective implements OnChanges, AfterViewInit {
+  //@HostListener('window:resize', ['$event'])
+  onResize($event=null) {
+    setTimeout(() => {
+      this.autofit();
+    }, 200);
+  }
+
+  constructor(private elRef:ElementRef) {
+  }
+
+  ngOnChanges() {
+    this.autofit();
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.autofit();
+    }, 200);
+  }
+
+  autofit() {
+    const el = this.elRef.nativeElement;
+    const rect = el.getBoundingClientRect();
+    const width = Math.min(rect.width, rect.height);
+    el.style.width = width + 'px';
   }
 }
