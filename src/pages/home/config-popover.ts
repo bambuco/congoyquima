@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { PopoverController, ViewController, ModalController } from 'ionic-angular';
+import { ViewController, ModalController } from 'ionic-angular';
 
 import { AboutPage } from '../about/about';
 

@@ -52,7 +52,7 @@ export class ContentPage {
 
   open(content, $event) {
     if (this.viewType === 'video') {
-      this.mediaPlayer.playVideo({ path: 'content/video/' + content.path });
+      this.mediaPlayer.playVideo({ path: 'content/video/' + content.path }).subscribe(() => {});
     }
 
     if (this.viewType === 'audio') {

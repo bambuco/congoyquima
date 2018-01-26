@@ -1,4 +1,4 @@
-import { Component, Injectable, Type, ViewEncapsulation } from '@angular/core';
+import { Component, Type, ViewEncapsulation } from '@angular/core';
 
 export function componentBuilder(template:string, css:string): Type<any> {
   @Component({

@@ -121,7 +121,7 @@ export class TepuyAutofitDirective implements OnChanges, AfterViewInit {
     }, 200);
   }
 
-  private originalDisplay: string;
+  //private originalDisplay: string;
   //private offset:number = 8;
 
   constructor(private elRef:ElementRef) {

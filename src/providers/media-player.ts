@@ -65,6 +65,7 @@ export class MediaPlayer {
   }
 
   playVideo(video, orientation:string = 'portrait', options?:any):Observable<any> {
+    console.log('playing: ' + video.path);
     return this.playVideoBrowser(video.path, options);
   }
 

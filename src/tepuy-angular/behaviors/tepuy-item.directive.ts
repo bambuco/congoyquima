@@ -14,7 +14,7 @@ import { findReorderItem } from '../classes/reorder-util';
     "[attr.is-succeed]": "succeed"
   }
 })
-export class TepuyItemDirective implements OnInit, AfterViewInit {
+export class TepuyItemDirective implements OnInit, AfterViewInit, OnDestroy {
   @Input('tepuy-group-id') group: string;
   @Input('tepuy-correct') correct: boolean;
   @Output('tepuyitemresolved') resolved = new EventEmitter(); 

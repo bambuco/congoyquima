@@ -1,4 +1,4 @@
-import { Component, Injectable, Type, ViewEncapsulation, ElementRef, NgZone, HostListener } from '@angular/core';
+import { Component, Type, ViewEncapsulation, ElementRef, NgZone, HostListener } from '@angular/core';
 import { ShufflePipe } from 'ngx-pipes';
 import { Platform } from 'ionic-angular';
 

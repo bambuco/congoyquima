@@ -3,7 +3,7 @@
     <ion-slides class="tepuy-activity-content" zoom="false" pager="true" paginationType="progress" effect="fade">
       <ng-container *tepuyValueGenerator="'randomof:numbers:min=2;max=12;';type:'scalar';count:8;include:[groups[0].data,groups[1].data,groups[2].data,groups[3].data,groups[4].data];shuffle:true;let options=values">
         <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.objects;';type:'scalar';count:8;let objects=values">
-          <ng-container *tepuyValueGenerator="'sequenceof:numbers:min=1;max=1;count=12;repeat=true;';array:true;type:'scalar';count:8;let positions=values">
+          <ng-container *tepuyValueGenerator="'sequenceof:numbers:min=1;max=1;count=12;repeat=true;';array:true;type:'scalar';shuffle:true;count:8;let positions=values">
           <ion-slide *ngFor="let group of groups;let id=index" [ngStyle]="{'width.px':playZone?.width}">
             <div tepuy-item-group data-tepuy-group-id="{{group.id}}">
               <div class="row">

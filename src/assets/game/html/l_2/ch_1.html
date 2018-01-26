@@ -3,13 +3,17 @@
     <ion-slides class="tepuy-activity-content" zoom="false" pager="true" paginationType="progress" effect="fade">
       <ion-slide *ngFor="let pair of pairs" [style.width]="auto">
         <div class="container" tepuy-item-group [tepuy-group-id]="pair.id">
-          <div class="seed-bag q-left" tepuy-item tepuy-selectable tepuy-greetable
+          <div tepuy-autofit>
+            <div class="seed-bag q-left" tepuy-item tepuy-selectable tepuy-greetable tepuy-scale="1920"
                 data-tepuy-auto-feedback="true" [tepuy-correct]="pair.data[0]>pair.data[1]">
-            <span tepuy-item-value>{{pair.data[0]}}</span> 
+              <span tepuy-item-value>{{pair.data[0]}}</span> 
+            </div>
           </div>
-          <div class="seed-bag q-right" tepuy-item tepuy-selectable tepuy-greetable
-                data-tepuy-auto-feedback="true" [tepuy-correct]="pair.data[1]>pair.data[0]">
-            <span tepuy-item-value>{{pair.data[1]}}</span> 
+          <div tepuy-autofit>
+            <div class="seed-bag q-right" tepuy-item tepuy-selectable tepuy-greetable tepuy-scale="1920"
+                  data-tepuy-auto-feedback="true" [tepuy-correct]="pair.data[1]>pair.data[0]">
+              <span tepuy-item-value>{{pair.data[1]}}</span> 
+            </div>
           </div>
         </div>
       </ion-slide>

@@ -1,4 +1,4 @@
-import { Directive, ElementRef, EventEmitter, Input, NgZone, Optional, Output, Renderer2, AfterContentInit } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Input, NgZone, Output, Renderer2, AfterContentInit } from '@angular/core';
 
 //import { Content } from '../content/content';
 import { Platform, DomController } from 'ionic-angular';
@@ -132,7 +132,6 @@ export class TepuySortableDirective implements ItemReorderGestureDelegate, After
         //const indexes = new ReorderIndexes(fromIndex, toIndex);
         //this.ionItemReorder.emit(indexes);
         let children: any = this._element.children;
-        let item2 = children[toIndex].$tepuyItem;
         let start = fromIndex;
         let step = fromIndex > toIndex ? -1 : 1;
         let aux = children[fromIndex].$tepuyItem.value;
