@@ -134,6 +134,7 @@
           "label":"10",
           "type": "drag",
           "autofeedback": true,
+          "script": "assets/game/html/l_1/ch_10",
           "parameters": {
             "words": [
               "Árbol", "Casa", "Canasta", "Radio", "Cama","Bastón", "Televisor", "Carro", "Cuchara", "Plato",

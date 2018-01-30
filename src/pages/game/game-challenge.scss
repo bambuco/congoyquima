@@ -1097,7 +1097,7 @@ page-game-challenge {
       position: absolute;
       top: 27.4%;
       width: 100%;
-      height: 35%;
+      height: 38%;
       //border: solid 1px red;
       display: flex;
       //justify-content: center;
@@ -1116,14 +1116,19 @@ page-game-challenge {
       }
 
       .options-wrapper {
-        width: 50%;
+        left: 55%;
         height: 100%;
-        position: relative;
+        position: absolute;
+        //display: block;
         display: flex;
-        justify-content: start;
-        max-width: 120px;
+        align-content: start;
+        //justify-content: start;
+        //max-width: 120px;
         whitespace: normal;
-        margin-left: 10px;
+        //margin-left: 10px;
+        padding: 4px;
+        border-radius: 5px;
+        background-color: rgba(255,255,179,.8);
 
         & > div {
           display: inline-block;
@@ -1894,7 +1899,8 @@ page-game-challenge {
       border-radius: 5px;
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
+      justify-content: start;
+      align-content: start;
 
       & > [tepuy-autofit] {
         display: inline-block;

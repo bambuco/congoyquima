@@ -191,7 +191,13 @@ export class GameChallengePage {
     this.stopSounds();
     this.sourcePage = null;
     const nextId = (parseInt(this.id) + 1) % 10;
-    this.navCtrl.setRoot(GameChallengePage, { id: nextId, levelId: nextId == 0 ? (parseInt(this.levelId) + 1) : this.levelId });
+    if (nextId == 0) {
+      this.navCtrl.setRoot(GameLevelPage, { id: parseInt(this.levelId) + 1 });
+    }
+    else {
+      //this.navCtrl.setRoot(GameChallengePage, { id: nextId, levelId: nextId == 0 ? (parseInt(this.levelId) + 1) : this.levelId });
+      this.navCtrl.setRoot(GameChallengePage, { id: nextId, levelId: this.levelId });
+    }
   }
 
   //Activity Events

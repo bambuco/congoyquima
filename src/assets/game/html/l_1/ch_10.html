@@ -7,7 +7,7 @@
             <div class="object-wrapper">
               <div class="object-icon obj-{{word.data|objectkey}}" tepuy-scale="1920"></div>
             </div>
-            <div class="options-wrapper" ion-row>
+            <div class="options-wrapper" ion-row [ngStyle]="rBoxStyle">
               <div  *ngFor="let ch of word.data|lowercase|spell|shuffle; let i=index"
                 tepuy-item tepuy-draggable tepuy-greetable [tepuy-value]="ch|lowercase" tepuy-autofit>
                 <div class="keyholder-icon keyholder" tepuy-scale="1920" tepuy-item-value>

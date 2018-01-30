@@ -29,7 +29,7 @@ export class TepuyAudioPlayerProvider {
     key = this.objKeyPipe.transform(key);
     const sound = this.sounds[key];
     if (!sound) {
-      console.log('Audio not found: ' + key);
+      //console.log('Audio not found: ' + key);
       return;
     }
 

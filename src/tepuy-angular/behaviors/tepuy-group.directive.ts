@@ -155,7 +155,7 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
     if (this.items.length && answered.length < this.autocompleteAfter) return;
 
     const groupFailures = this.items.find((itm) => { return itm.group == this.id && itm.isCorrect === false });
-    const succeed = groupFailures == null;
+    const succeed = (this.items.length) ? groupFailures == null : result.succeed;
     result.group = this.id;
     result.state = succeed ? 'correct' : 'wrong';
     answered.forEach((it) => { it.resolve(it.isCorrect); });

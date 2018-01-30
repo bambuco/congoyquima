@@ -68,6 +68,9 @@ page-game {
     $icons: level-progress-1 level-progress-2;
     @include appSpriteIcons($icons, 20px, 20px, 28, 0, 402px, 136px);
 
+    $icons: level-progress-3 level-progress-4;
+    @include appSpriteIcons($icons, 20px, 540px, 28, 0, 402px, 136px);
+
     .level-progress-bar {
 
       div {

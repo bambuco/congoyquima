@@ -67,9 +67,9 @@ export class GameLevelPage {
 
   initialize() {
     //Play intro if required
-    //if (!this.appData.hasFlag(Flags[this.introKey.toUpperCase()])) {
-    //  this.playIntro();
-    //}
+    if (!this.appData.hasFlag(Flags[this.introKey.toUpperCase()])) {
+      this.playIntro();
+    }
     this.appData.setFlag(Flags.GAME_LEVELS_ENTERED);
     if (!this.appData.hasFlag(Flags.GAME_CHALLENGE_ENTERED)) {
       //this.playIntro();
