@@ -1,4 +1,4 @@
-import { Directive, HostBinding,
+import { Directive, HostBinding, EventEmitter, Output,
   AfterViewInit, Input
 } from '@angular/core';
 
@@ -16,6 +16,7 @@ export class TepuySelectableDirective implements AfterViewInit {
   @HostBinding("class.tepuy-selected") isSelected: boolean = false;
   @Input('tepuy-auto-feedback') autoFeedback: boolean = false;
   @Input('tepuy-multiple') multiple: boolean = true;
+  @Output('tepuySelecting') onSelecting= new EventEmitter();
 
   item:any;
   private canSelect:boolean;
@@ -40,13 +41,21 @@ export class TepuySelectableDirective implements AfterViewInit {
 
   //Select Events
   toggle(ev) {    
-
     if (this.item && !this.item.actAsGreetable) {
       this.audioPlayer.stopAll();
     }
 
     //toogle only if has not been resolved
     if (!this.canSelect) return;
+
+    let selEvent = {
+      selected: this.isSelected,
+      cancel: false
+    };
+    this.onSelecting.emit(selEvent);
+
+    if (selEvent.cancel) return;
+
     this.isSelected = !this.isSelected;
     this.item.isCorrect = (this.item.correct && this.isSelected);
     this.item.answered = this.isSelected;
@@ -56,7 +65,7 @@ export class TepuySelectableDirective implements AfterViewInit {
   private checkAutofeedback() {
     if (this.autoFeedback) {
       const service = this.item.activityService;
-      this.item.resolve(this.item.isCorrect);
+      //this.item.resolve(this.item.isCorrect);
       service.emit(service.ITEM_GROUP_COMPLETING, { 
         succeed: this.item.isCorrect
       }, this.item.group);

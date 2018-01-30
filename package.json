@@ -1,6 +1,6 @@
 {
     "name": "congoyquima",
-    "version": "1.0.11",
+    "version": "1.0.18",
     "author": "Bambuco",
     "homepage": "https://bambuco.co",
     "private": true,
@@ -46,7 +46,6 @@
         "cordova-sqlite-storage": "^2.1.4",
         "element-resize-detector": "^1.1.12",
         "g": "^2.0.1",
-        "ionic": "^3.19.0",
         "ionic-angular": "3.9.2",
         "ionic-img-viewer": "^2.9.0",
         "ionic-plugin-keyboard": "^2.2.1",
@@ -64,6 +63,7 @@
         "@types/node": "^8.5.1",
         "angular2-template-loader": "^0.6.2",
         "html-loader": "^0.5.1",
+        "ionic": "3.19.1",
         "istanbul-instrumenter-loader": "^3.0.0",
         "jasmine": "^2.8.0",
         "jasmine-spec-reporter": "^4.2.1",

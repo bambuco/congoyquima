@@ -29,7 +29,10 @@ export const Flags = {
   L01_CH07_PLAYED: (one=one<<1),
   L01_CH08_PLAYED: (one=one<<1),
   L01_CH09_PLAYED: (one=one<<1),
-  L01_CH10_PLAYED: (one=one<<1)
+  L01_CH10_PLAYED: (one=one<<1),
+  LEVEL2_INTRO: (one=one<<1),
+  LEVEL3_INTRO: (one=one<<1),
+  LEVEL4_INTRO: (one=one<<1),
 };
 
 @Injectable()

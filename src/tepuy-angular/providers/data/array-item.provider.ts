@@ -13,6 +13,8 @@ export class ArrayItemProvider extends DataProvider {
   fn: string = 'random';
   _next:number;
   values: Array<any>;
+  usequeue: boolean = false;
+  indexes: boolean = false;
 
   constructor(fn:string, opts:any, array:any) {
     super();
@@ -32,13 +34,23 @@ export class ArrayItemProvider extends DataProvider {
     if (!(values instanceof Array)) {
       throw new Error('ArrayItemProvider: array expected to be an Array');
     }
+
+    if (opts.fromQ) {
+      this.usequeue = /^true$/i.test(opts.fromQ);
+    }
+
+    this.indexes = /^true$/i.test(opts.indexes+'');
+
     this.count = (isNaN(opts.count)) ? 1 : parseInt(opts.count);
 
     if (!isNaN(opts['min-dist'])) {
       this.minDist = parseInt(opts['min-dist'])
     }
 
-    this.values = values; 
+    this.values = values.slice(0);
+    if (this.usequeue) {
+      this.queue = this.shuffle(this.values.slice(0));  
+    }
 
     this.min = 0;
     this.max = values.length - 1;
@@ -51,13 +63,20 @@ export class ArrayItemProvider extends DataProvider {
   next():string {
     let value;
     if (this.fn == 'random') {
-      this.seed = this.random(this.min, this.max);
-      value = this.values[this.seed];
+      if (this.usequeue) {
+        value = this.fromQ(this.values);
+      }
+      else {
+        this.seed = this.random(this.min, this.max);
+        value = this.indexes ? this.seed : this.values[this.seed];
+      }
+      //this.seed = this.random(this.min, this.max);
+      //value = this.seed; //this.values[this.seed];
       return value;
     }
     else {
-      value = this.values[(++this.seed)];
-      return value;
+      value = this.seed++; //this.values[(++this.seed)];
+      return this.indexes ? value : this.values[value];
     }
   }  
 
@@ -82,7 +101,6 @@ export class ArrayItemProvider extends DataProvider {
             value2 = this.random(this.min, this.max, undefined, true);
           } while((Math.abs(value2 - value) < this.minDist || result.indexOf(value2) >= 0) && (++attempts) < maxAttempts);
           if (attempts == maxAttempts) {
-            console.log(this.values);
             throw new Error('ArrayItemProvider:Maximum number of attempts to get an item has been reached');              
           }
           result.push(value2);

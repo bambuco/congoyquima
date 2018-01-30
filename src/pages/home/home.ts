@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, PopoverController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { GamePage } from '../game/game';
 import { ContentPage } from '../content/content';
-import { ErrorsPage } from '../errors/errors';
+import { ConfigPopover } from './config-popover';
 //import { ProgressPage } from '../progress/progress';
 import { MediaPlayer } from '../../providers/media-player';
 import { AppDataProvider, Flags } from '../../providers/app-data';
+
+export { ConfigPopover };
 
 @Component({
   selector: 'page-home',
@@ -18,10 +20,8 @@ export class HomePage {
   pages: any = { game: GamePage, contents: ContentPage };
   showIndicator: boolean = false;
 
-  private eggCounter: number = 0;
-  private lastEggClicked: number = 0;
-
   constructor(private navCtrl: NavController,
+    private popOverCtrl: PopoverController,
     private splashScreen: SplashScreen,
     private mediaPlayer: MediaPlayer,
     private appData: AppDataProvider
@@ -71,20 +71,9 @@ export class HomePage {
     });
   }
 
-  errorEgg() {
-    const now = new Date().getTime();
-    const window = now - this.lastEggClicked;
-    if (window < 2000) {// two senconds
-      this.eggCounter++;
-    }
-    else {
-      this.eggCounter = 1;
-    }
-    this.lastEggClicked = now;
-
-    if (this.eggCounter == 7) {
-      this.navCtrl.setRoot(ErrorsPage);
-    }
+  configMenu(ev) {
+    const popover = this.popOverCtrl.create(ConfigPopover);
+    popover.present({ev:ev});
   }
 
   private playIntro(ondemand:boolean=false) {
@@ -99,5 +88,4 @@ export class HomePage {
       }
     });
   }
-
 }

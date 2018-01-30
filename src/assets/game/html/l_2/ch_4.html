@@ -1,0 +1,26 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-slide-delay="1">
+  <ng-container *tepuyValueGenerator="'randomof:numbers:min=0;max=1;repeat=true';count:5;let groups=values">
+    <div class="scene {{scene}}-scene" *ngFor="let scene of ['picnic','room','house']|sample">
+      <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.'+scene+'_in;';type:'scalar'count:5;let inside=values">
+        <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.'+scene+'_out;';type:'scalar';count:5;let outside=values">
+          <ion-slides class="tepuy-activity-content" zoom="false" pager="true" paginationType="progress" effect="slide">
+            <ion-slide *ngFor="let group of groups;let id=index" [ngStyle]="{'width.px':playZone?.width}">
+              <div class="question-container" tepuy-item-group data-tepuy-group-id="{{group.id}}">
+                <div *ngFor="let item of [inside[id], outside[id]]|shuffle" class="image-zone" tepuy-autofit [tepuy-square]="true" tepuy-item tepuy-selectable data-tepuy-auto-feedback="true" [tepuy-correct]="(group.data==0 && item==inside[id] || group.data==1 && item==outside[id])">
+                  <div tepuy-autofit><div class="object-icon obj-{{item}}" [tepuy-scale]="1920*2"></div></div>
+                </div>
+              </div>
+            </ion-slide>
+          </ion-slides>
+        </ng-container>
+      </ng-container>
+      <div class="tepuy-feedback-summary tepuy-semaphore">
+        <div *ngFor="let g of groups" class="listen-control" tepuy-autofit>
+          <div class="tepuy-{{g.state}} listen-icon" [class.listen-active]="g.active" [class.listen-inactive]="!g.active" tepuy-scale="1920" tepuy-greetable="[greet-value]" [attr.disabled]="!g.active">
+            <input greet-value type="hidden" value="{{scene}}_{{g.data==0?'in':'out'}}" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

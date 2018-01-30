@@ -28,6 +28,8 @@ export class ContentPage {
   private docsThumbTpl: TemplateRef<any>;
   /* eslint-enable no-unused-vars */
 
+  private currentAudio: HTMLAudioElement;
+
 
   constructor(private navCtrl: NavController,
       private contentProvider: ContentProvider,
@@ -52,7 +54,7 @@ export class ContentPage {
 
   open(content, $event) {
     if (this.viewType === 'video') {
-      this.mediaPlayer.playVideo({ path: 'content/video/' + content.path });
+      this.mediaPlayer.playVideo({ path: 'content/video/' + content.path }).subscribe(() => {});
     }
 
     if (this.viewType === 'audio') {
@@ -67,5 +69,14 @@ export class ContentPage {
 
   viewTemplate() {
     return this[this.viewType+'ThumbTpl'];
+  }
+
+  playingAudio(ev) {
+    if (this.currentAudio && !this.currentAudio.paused) {
+      this.currentAudio.pause();
+      this.currentAudio.currentTime = 0;
+    }
+
+    this.currentAudio = ev.target;
   }
 }

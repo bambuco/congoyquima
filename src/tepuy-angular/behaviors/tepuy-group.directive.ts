@@ -1,5 +1,5 @@
-import { Directive, ContentChildren, QueryList, Input, HostBinding,
-  OnInit, AfterContentInit, OnDestroy
+import { Directive, ContentChildren, QueryList, Input, Output, HostBinding,
+  OnInit, AfterContentInit, OnDestroy, EventEmitter, NgZone, ElementRef
 } from '@angular/core';
 
 import { 
@@ -26,6 +26,8 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
   @Input('tepuy-correct-options') correctSource: any;
   @Input('tepuy-wrong-options') wrongSource: any;
   @Input('tepuy-autocomplete-after') autocompleteAfter: number = 1;
+  
+  @Output('groupInit') groupinit = new EventEmitter();
 
   valueSource: Array<any>;
   isCorrect: boolean;
@@ -39,6 +41,8 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
   groupValue:any;
 
   constructor(
+    private elRef: ElementRef,
+    private zone: NgZone,
     private errorProvider: TepuyErrorProvider,
     //private groupProvider: TepuyGroupService,
     private actProvider: TepuyActivityService) 
@@ -84,6 +88,10 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
       this.wrongDataProvider = this.actProvider.getDataProvider(options.wrongSource);
     }
 
+    this.actProvider.on(this.actProvider.ACTIVITY_VERIFIED).subscribe(() => {
+      this.isComplete = true;
+    });
+    
     this.actProvider.on(this.actProvider.ACTIVITY_RESET).subscribe(() => {
       this.resetItemValues();
     });
@@ -99,7 +107,8 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
       item.group = this.id;
     });        
     //select a set of values
-    this.resetItemValues();    
+    this.resetItemValues();
+    this.groupinit.emit({ zone: this.zone, elRef: this.elRef });
   }
 
   private resetItemValues() {
@@ -145,16 +154,15 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
     const answered = this.items.filter((it) => { return it.answered === true });
     if (this.items.length && answered.length < this.autocompleteAfter) return;
 
-    if (!this.multiple && !result.succeed) {
-      //find the correct one.
-      const right = this.items.find((itm) => { return itm.correct });
-      if (right != null) {
-        right.correct = false;
-      }
-    }
+    const groupFailures = this.items.find((itm) => { return itm.group == this.id && itm.isCorrect === false });
+    const succeed = (this.items.length) ? groupFailures == null : result.succeed;
     result.group = this.id;
-    result.state = result.succeed ? 'correct' : 'wrong';
+    result.state = succeed ? 'correct' : 'wrong';
     answered.forEach((it) => { it.resolve(it.isCorrect); });
+    this.actProvider.addGroup({
+      id: this.id,
+      succeed: succeed
+    });
     this.actProvider.emit(this.actProvider.ITEM_GROUP_COMPLETED, result);
     this.isComplete = true;
   }

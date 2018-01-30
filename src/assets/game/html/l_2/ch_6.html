@@ -1,0 +1,15 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-win-score="0.6" tepuy-slide-delay=".5">
+  <ng-container *tepuyValueGenerator="'randomof:array:';data:['min=A;max=U','min=a;max=u']; type:'scalar';count:1;let bounds=values">
+    <ng-container *tepuyValueGenerator="'sequenceof:letters:'+bounds[0];count:6;type:'scalar';let letters=values">
+      <div class="container">
+        <div tepuy-sortable="true" [tepuy-order]="letters" tepuy-item-group [tepuy-group-id]="1">
+          <div class="flower-container" *ngFor="let letter of letters|shuffle; let i=index" tepuy-item tepuy-greetable [tepuy-correct]="false" tepuy-autofit>
+            <div class="flower-icon flower-with-letter" tepuy-scale="1920">
+               <span tepuy-item-value>{{letter}}</span>
+            </div> 
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>

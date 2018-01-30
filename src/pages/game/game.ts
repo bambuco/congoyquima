@@ -116,7 +116,7 @@ export class GamePage {
     }
 
     let className = item.unlocked ?
-      'level-progress-' + (i + 1) :
+      'level-progress-' + (i + 1) + ' progress-'+item.tile.progress[0] :
       'level-lock-' + item.tile.progress[0];
 
     this.lpbCss.push({

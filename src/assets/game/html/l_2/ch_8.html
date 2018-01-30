@@ -1,0 +1,20 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-win-score="0.5" tepuy-slide-delay=".5">
+  <ng-container *tepuyValueGenerator="'randomof:array:fromQ=true;';data:[0,1,2,3,4,5];count:1;type:'scalar';let fragments=values">
+  <ng-container *ngFor="let frg of fragments">
+    <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.'+frg+'_correct;';type:'scalar';count:3;let correct=values">
+      <div class="container" *tepuyValueGenerator="'randomof:setup:key=parameters.'+frg+'_wrong;';type:'scalar';count:6;include:correct;shuffle:true;let items=values" tepuy-item-group data-tepuy-group-id="1" (groupInit)="prepare($event)">
+        <div col-7 col-sm-5 col-lg-3 class="word-wrapper">
+          <div col-12 class="word-holder" *ngFor="let it of items" tepuy-item tepuy-selectable [tepuy-correct]="correct.indexOf(it)>=0" (tepuySelecting)="onSelecting($event)">
+            {{it}}
+          </div>
+        </div>
+        <div class="listen-control" tepuy-autofit>
+          <div class="listen-icon listen-active" tepuy-scale="1920" tepuy-greetable="[greet-value]">
+            <input greet-value type="hidden" value="fr_{{frg+1}}" />
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+  </ng-container>
+</div>

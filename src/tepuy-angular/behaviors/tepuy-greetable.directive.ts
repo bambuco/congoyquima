@@ -77,6 +77,8 @@ export class TepuyGreetableDirective implements AfterViewInit, OnDestroy {
   //Item DOM Event
   onTouchStart() {
     if (!this.canGreet) return true;
+    const disabled = this.elRef.nativeElement.getAttribute('disabled');
+    if (disabled && disabled == 'true') return true;
     this.itemTouchedTime = new Date().getTime();
     this.play();
     return true;
@@ -84,6 +86,8 @@ export class TepuyGreetableDirective implements AfterViewInit, OnDestroy {
 
   onMouseDown() {
     if (!this.canGreet) return true;
+    const disabled = this.elRef.nativeElement.getAttribute('disabled');
+    if (disabled && disabled == 'true') return true;
     const time = new Date().getTime();
     if ((time)-this.itemTouchedTime > 2) { //To prevent touch and click firing twice
       this.itemTouchedTime = time;      

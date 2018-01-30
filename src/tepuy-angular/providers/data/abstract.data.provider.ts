@@ -6,6 +6,7 @@ export interface IDataProvider {
   next():any;
   nextGroup():any[];
   reset():void;
+  shuffle(a:any[]):any[];
 }
 
 /**
@@ -16,6 +17,8 @@ export interface IDataProvider {
 export abstract class DataProvider implements IDataProvider {
   protected settings: any;
   protected cacheHash = {};
+  protected queue: Array<any>;
+
   constructor(){
   }
 
@@ -31,6 +34,20 @@ export abstract class DataProvider implements IDataProvider {
     throw new Error('Not implemented');    
   }
 
+  /**
+   * Shuffles an array.
+   * @a {Array} An array containing the items.
+   */
+  shuffle(a:any[]) {
+    if (!a) return;
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+    }
+    return a;
+  }
 
   protected random(min, max, round=true, repeat=false) {
     if (!min) {
@@ -40,7 +57,7 @@ export abstract class DataProvider implements IDataProvider {
         max = 1;
     }
     
-    if (min >= max) {
+    if (min > max) {
         max = min + 1;
     }
 
@@ -55,4 +72,21 @@ export abstract class DataProvider implements IDataProvider {
     }
     return num;
   }  
+
+  protected fromQ(startValues:Array<any>) {
+    let value:any;
+    do {
+      if (this.queue.length) {
+        value = this.queue.pop();
+      }
+      else {
+        this.queue = this.shuffle(startValues.slice(0));
+        value = this.queue.pop();  
+      }
+    }
+    while (this.cacheHash[value]);
+
+    this.cacheHash[value] = true;
+    return value;
+  }
 }

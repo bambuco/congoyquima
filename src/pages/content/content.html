@@ -37,7 +37,7 @@
       <h2>{{item.title}}</h2>
       <p>{{item.description}}</p>
       <div *ngIf="viewType=='audio'">
-        <audio controls preload="none">
+        <audio controls preload="none" (playing)="playingAudio($event)">
           <source src="assets/content/audio/{{item.path}}"/>
         </audio>
       </div>

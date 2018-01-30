@@ -53,9 +53,10 @@ export class GameDataProvider {
           if (i == gameState.maxLevelCompleted) {
             this.getLevel(i+1).subscribe((aLevel:LevelState) => {
               level.currentChallenge = aLevel.currentChallenge;
-              //aLevel.currentChallenge = 10;
-              //this.storage.set('level_1_state', aLevel);
             });
+          }
+          else {
+            level.currentChallenge = 10; //it is completed
           }
         }
         settings.levels.push(level);
@@ -185,7 +186,7 @@ export class GameDataProvider {
       chState.scores.push(score);
       if (success) {
         const i = chState.topScores.findIndex((value) => {
-          return value < score;
+          return !isFinite(value) || value < score;
         });
         if (i >= 0) {
           chState.topScores.splice(i, 0, score);

@@ -134,12 +134,13 @@
           "label":"10",
           "type": "drag",
           "autofeedback": true,
+          "script": "assets/game/html/l_1/ch_10",
           "parameters": {
             "words": [
               "Árbol", "Casa", "Canasta", "Radio", "Cama","Bastón", "Televisor", "Carro", "Cuchara", "Plato",
               "Vaso", "Vaca", "Perro", "Gato","Caballo", "Sombrero", "Zapato", "Camisa", "Pantalón", "Reloj",
               "Mesa", "Silla", "Moneda","Billete", "Llave", "Lápiz", "Libro", "Manzana", "Banano", "Pera",
-              "Zanahoria", "Tomate","Teléfono", "Vela", "Cuchillo", "Tenedor", "Olla", "Motocicleta","Bicicleta",
+              "Zanahoria", "Tomate","Teléfono", "Vela", "Cuchillo", "Tenedor", "Olla","Bicicleta",
               "Bus", "Computador", "Escoba", "Cepillo", "Gafas", "Balón", "Bombillo",
               "Puerta", "Ventana", "Ventilador", "Pastillas", "Cuaderno","Tijeras", "Caja", "Frasco", "Botella",
               "Vestido", "Flor", "Sol", "Luna", "Estufa", "Sombrilla"
@@ -159,15 +160,16 @@
         {
           "id": 0,
           "label":"1",
-          "unavailable": true,
-          "type": "select",
+          "type": "classify",
+          "autofeedback": true,
           "parameters": {
           }
         },
         {
           "id": 1,
           "label":"2",
-          "type": "select",
+          "type": "drag",
+          "autofeedback": true,
           "parameters": {
           }
         },
@@ -175,27 +177,38 @@
           "id": 2,
           "label":"3",
           "type": "select",
+          "autofeedback": true,
           "parameters": {
+            "directions": ["r_gr","r_ye","r_fu","l_bk","r_bk","l_qu","r_qu","l_wh","r_wh","l_re","l_bl","l_vi","b_gr","a_ye","b_ye","a_fu","b_bk","a_qu","b_qu","a_wh","b_re","a_bl","b_bl","a_vi"]
           }
         },
         {
           "id": 3,
           "label":"4",
+          "autofeedback": true,
           "type": "select",
           "parameters": {
+            "picnic_in": ["botella", "manzana", "banano", "pera", "zanahoria", "tomate"],
+            "picnic_out": ["arbol", "cuchara", "tenedor", "cuchillo", "plato", "vaso"],
+            "room_in": ["sombrero", "camisa", "pantalon", "vestido", "zapato", "chanclas", "baston"],
+            "room_out": ["mesa", "vela", "radio", "libro", "lapiz", "gafas", "silla"],
+            "house_in": ["mesa", "silla", "radio", "reloj", "televisor", "telefono", "estufa", "olla"],
+            "house_out": ["motocicleta", "arbol", "sombrilla", "luna", "caballo", "vaca", "perro"]
           }
         },
         {
           "id": 4,
           "label":"5",
           "type": "select",
+          "autofeedback": true,
           "parameters": {
+            "objects":["flor", "moneda", "gato", "manzana", "pera", "carro", "gafas", "balon", "bombillo", "tijeras", "sol", "llave"]
           }
         },
         {
           "id": 5,
           "label":"6",
-          "type": "select",
+          "type": "sort",
           "parameters": {
           }
         },
@@ -203,28 +216,58 @@
           "id": 6,
           "label":"7",
           "type": "select",
+          "script": "assets/game/html/l_2/ch_7",
           "parameters": {
+            "0_correct": ["moneda","billete","casa","perro","gato","vaca","caballo"],
+            "0_wrong": ["sombrero","vestido","zanahoria","bicicleta","tijeras","botella","sol","sombrilla","lapiz","manzana"],
+            "1_correct": ["casa","bicicleta","motocicleta","carro","bus","libro"],
+            "1_wrong": ["arbol","canasta","cama","vaso","zapato","mesa","banano","vela","olla","escoba","ventilador"],
+            "2_correct": ["manzana","banano","pera","zanahoria","tomate","radio"],
+            "2_wrong": ["sombrilla","luna","vestido","puerta","bus","telefono","silla","reloj","pantalon","caballo"],
+            "3_correct": ["cuchara","plato","vaso","tenedor","cuchillo","olla","estufa"],
+            "3_wrong": ["llave","puerta","zapato","ventilador","cuaderno","sombrilla","luna","balon","gafas","caja"],
+            "4_correct": ["sombrero","zapato","camisa","pantalon","vestido","chanclas"],
+            "4_wrong": ["arbol","radio","gato","caballo","silla","escoba","bus","ventana","tijeras","flor","luna"],
+            "5_correct": ["cama","luna","sol","cuaderno","lapiz","reloj"],
+            "5_wrong": ["canasta","vaca","baston","carro","zapato","moneda","pera","estufa","frasco","balon","caja","bicicleta"]
           }
         },
         {
           "id": 7,
           "label":"8",
           "type": "select",
+          "script": "assets/game/html/l_2/ch_8",
           "parameters": {
+            "0_correct": ["Moneda","Billete","Casa","Perro","Gato","Vaca","Caballo"],
+            "0_wrong": ["Sombrero","Vestido","Zanahoria","Bicicleta","Tijeras","Botella","Sol","Sombrilla","Lápiz","Manzana"],
+            "1_correct": ["Casa","Bicicleta","Motocicleta","Carro","Bus","Libro"],
+            "1_wrong": ["Árbol","Canasta","Cama","Vaso","Zapato","Mesa","Banano","Vela","Olla","Escoba","Ventilador"],
+            "2_correct": ["Manzana","Banano","Pera","Zanahoria","Tomate","Radio"],
+            "2_wrong": ["Sombrilla","Luna","Vestido","Puerta","Bus","telefono","Silla","Reloj","Pantalón","Caballo"],
+            "3_correct": ["Cuchara","Plato","Vaso","Tenedor","Cuchillo","Olla","Estufa"],
+            "3_wrong": ["Llave","Puerta","Zapato","Ventilador","Cuaderno","Sombrilla","Luna","Balón","Gafas","Caja"],
+            "4_correct": ["Sombrero","Zapato","Camisa","Pantalón","Vestido","Chanclas"],
+            "4_wrong": ["Árbol","Radio","Gato","Caballo","Silla","Escoba","Bus","Ventana","Tijeras","Flor","Luna"],
+            "5_correct": ["Cama","Luna","Sol","Cuaderno","Lápiz","Reloj"],
+            "5_wrong": ["Canasta","Vaca","Bastón","Carro","Zapato","Moneda","Pera","Estufa","Frasco","Balón","Caja","Bicicleta"]
           }
         },
         {
           "id": 8,
           "label":"9",
-          "type": "select",
+          "type": "classify",
+          "autofeedback": true,
           "parameters": {
+            "expressions": ["sorprendida", "alegre", "enojada", "triste", "pensativa", "confundida", "enamorada", "enferma", "tranquila", "cansada", "sonrojada", "somnolienta"]
           }
         },
         {
           "id": 9,
           "label":"10",
           "type": "select",
+          "script": "assets/game/html/l_2/ch_10",
           "parameters": {
+            "items": ["leche", "arepas", "aceite", "huevos", "arroz", "harina", "tomates", "fríjoles", "lentejas", "cebolla", "lechuga", "zanahoria", "manzana", "pera", "banano", "jabón", "carne", "pollo", "panela", "galletas", "café", "chocolate", "papas", "miel", "naranja", "pastas", "azúcar"]
           }
         }
       ]
@@ -237,6 +280,77 @@
         "progress": ["l", 450, 280]
       },
       "challenges": [
+        {
+          "id": 0,
+          "label":"1",
+          "type": "sort",
+          "unavailable": true,
+          "parameters": {
+          }
+        },
+        {
+          "id": 1,
+          "label":"2",
+          "type": "sort",
+          "parameters": {
+          }
+        },
+        {
+          "id": 2,
+          "label":"3",
+          "type": "sort",
+          "parameters": {
+          }
+        },
+        {
+          "id": 3,
+          "label":"4",
+          "type": "sort",
+          "parameters": {
+          }
+        },
+        {
+          "id": 4,
+          "label":"5",
+          "type": "sort",
+          "parameters": {
+          }
+        },
+        {
+          "id": 5,
+          "label":"6",
+          "type": "sort",
+          "parameters": {
+          }
+        },
+        {
+          "id": 6,
+          "label":"7",
+          "type": "sort",
+          "parameters": {
+          }
+        },
+        {
+          "id": 7,
+          "label":"8",
+          "type": "sort",
+          "parameters": {
+          }
+        },
+        {
+          "id": 8,
+          "label":"9",
+          "type": "sort",
+          "parameters": {
+          }
+        },
+        {
+          "id": 9,
+          "label":"10",
+          "type": "sort",
+          "parameters": {
+          }
+        }
       ]
     },
     {

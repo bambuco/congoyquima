@@ -1,2 +1,2 @@
 # congoyquima
-Un reto por la alfabetización
+"Congo y Quima, un reto por la alfabetización" es una aplicación de la Gobernación de Antioquia, desarrollada por la Facultad de Educación de la Universidad de Antioquia. Fue construida para ayudar de manera directa a las personas en situación de analfabetismo en el departamento de Antioquia a partir de la formación en procesos básicos de lectura, escritura, cálculo básico y uso de Tecnologías de la información y la comunicación. En el proceso de desarrollo de la aplicación se ha puesto especial cuidado en lograr una herramienta interactiva que permita aprender de manera sencilla y entretenida, y que además pueda ser usada fácilmente por el público objetivo.

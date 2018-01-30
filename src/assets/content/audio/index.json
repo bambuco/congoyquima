@@ -54,5 +54,53 @@
     "meta": {
       "duration": ""
     }
+  },
+  {
+    "title": "Consejo 7",
+    "description": "",
+    "path": "tip_7.mp3",
+    "meta": {
+      "duration": ""
+    }
+  },
+  {
+    "title": "Consejo 8",
+    "description": "",
+    "path": "tip_8.mp3",
+    "meta": {
+      "duration": ""
+    }
+  },
+  {
+    "title": "Consejo 9",
+    "description": "",
+    "path": "tip_9.mp3",
+    "meta": {
+      "duration": ""
+    }
+  },
+  {
+    "title": "Consejo 10",
+    "description": "",
+    "path": "tip_10.mp3",
+    "meta": {
+      "duration": ""
+    }
+  },
+  {
+    "title": "Consejo 11",
+    "description": "",
+    "path": "tip_11.mp3",
+    "meta": {
+      "duration": ""
+    }
+  },
+  {
+    "title": "Consejo 12",
+    "description": "",
+    "path": "tip_12.mp3",
+    "meta": {
+      "duration": ""
+    }
   }
 ]

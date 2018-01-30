@@ -40,7 +40,7 @@ export class MediaCatalog {
     });
 
     //Challenge intro
-    for(let l of [1]){
+    for(let l of [1,2]){
       for (let ch = 1; ch < 11; ch++) {
         this.assets.push({
           type: 'audio',
@@ -52,7 +52,7 @@ export class MediaCatalog {
     }
 
     //Words
-    let words = ["arbol", "casa", "canasta", "radio", "cama","baston", "televisor", "carro", "cuchara", "plato",
+    const words = ["arbol", "casa", "canasta", "radio", "cama","baston", "televisor", "carro", "cuchara", "plato",
       "vaso", "vaca", "perro", "gato","caballo", "sombrero", "zapato", "camisa", "pantalon", "reloj",
       "mesa", "silla", "moneda","billete", "llave", "lapiz", "libro", "manzana", "banano", "pera",
       "zanahoria", "tomate","telefono", "vela", "cuchillo", "tenedor", "olla", "motocicleta","bicicleta",
@@ -68,6 +68,38 @@ export class MediaCatalog {
         preload: true 
       });
     }
+
+    //Level 2 - Challenge 3 directions
+    const directions = ["r_gr","r_ye","r_fu","l_bk","r_bk","l_qu","r_qu","l_wh","r_wh","l_re","l_bl","l_vi","b_gr","a_ye","b_ye","a_fu","b_bk","a_qu","b_qu","a_wh","b_re","a_bl","b_bl","a_vi"];
+    for(let dir of directions) {
+      this.assets.push({
+        type: 'audio',
+        key: dir,
+        path: path + ['l_2/ch_3/', dir, '.mp3'].join(''),
+        preload: true 
+      });
+    }
+    //Level 2 - Challenge 4 questions
+    const questions = ["picnic_in","picnic_out","room_in","room_out","house_in","house_out"];
+    for(let q of questions) {
+      this.assets.push({
+        type: 'audio',
+        key: q,
+        path: path + ['l_2/ch_4/', q, '.mp3'].join(''),
+        preload: true 
+      });
+    }
+    //Level 2 - Challenge 7 Fragments
+    const fragments = ['fr_1','fr_2','fr_3','fr_4','fr_5','fr_6'];
+    for(let frg of fragments) {
+      this.assets.push({
+        type: 'audio',
+        key: frg,
+        path: path + ['l_2/ch_7/', frg, '.mp3'].join(''),
+        preload: true 
+      });
+    }
+
   }
 
   get audios():Array<any> {

@@ -29,7 +29,7 @@ export class LettersProvider extends DataProvider {
       return letters[this.seed];
     }
     else {
-      return letters[(++this.seed)];
+      return letters[this.seed++];
     }
   }  
 

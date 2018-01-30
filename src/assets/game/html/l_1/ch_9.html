@@ -9,7 +9,7 @@
           <div class="puzzle-container" *tepuyValueGenerator="'randomof:array:min-dist=2;count=2';data:word.data; type:'scalar';array:true; let missing=values">
             <div class="word-container">
               <div *ngFor="let ch of word.data | lowercase | spell; let i=index">
-                <div [tepuy-drop-zone]="missing[0].indexOf(i) >= 0" 
+                <div [tepuy-drop-zone]="missing[0].indexOf(i) >= 0" tepuy-autofit
                   [tepuy-correct-values]="ch|lowercase"
                   data-tepuy-allow-multiple="true"
                   data-tepuy-auto-feedback="true">
@@ -22,7 +22,7 @@
             <div class="options-container">
               <ng-container *tepuyValueGenerator="'randomof:letters:min=a;max=z';exclude:word.data; type:'scalar';count:1; let extra=values">
                 <div *ngFor="let ch of [extra[0], word.data[missing[0][0]],word.data[missing[0][1]]]|shuffle;"
-                   tepuy-item tepuy-draggable tepuy-greetable [tepuy-value]="ch|lowercase">
+                   tepuy-item tepuy-draggable tepuy-greetable [tepuy-value]="ch|lowercase" tepuy-autofit>
                   <div tepuy-item-value
                     class="keyholder-icon keyholder" tepuy-scale="1920">                    
                   </div>
@@ -33,6 +33,9 @@
         </div>
       </ion-slide>
     </ion-slides>
+    <div class="tepuy-feedback-summary tepuy-semaphore">
+      <span *ngFor="let g of groups" class="tepuy-{{g.state}}"></span>
+    </div>
   </ng-container>
 </div>
 

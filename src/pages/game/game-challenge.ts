@@ -48,6 +48,7 @@ export class GameChallengePage {
   showIndicator: boolean = false;
 
   private id: string;
+  private nId: number;
   private levelId: string;
   private activityService: TepuyActivityService;
   private busy: boolean = true;
@@ -56,6 +57,7 @@ export class GameChallengePage {
   //private nextAvailable: boolean = false;
   private sourcePage: string = null;
   private introKey: string;
+  private scriptLoaded: Promise<any>;
 
   constructor(
       private navCtrl: NavController,
@@ -66,6 +68,7 @@ export class GameChallengePage {
       params: NavParams
       ) {
     this.id = params.get('id');
+    this.nId = parseInt(this.id) + 1;
     this.levelId = params.get('levelId');
     this.sourcePage = params.get('source');
   }
@@ -81,8 +84,11 @@ export class GameChallengePage {
         };
         if (data != null && data.template != 'NotFound') {
           this.challenge = data.setup;
-          this.template = data.template;
-          this.templateCss = data.css;
+          this.scriptLoaded = this.loadScript();
+          this.scriptLoaded.then(() => {
+            this.template = data.template;
+            this.templateCss = data.css;
+          });
           this.activityType = this.challenge.type;
           this.introKey = this.activityType+'_howto';
           this.verifyDisabled = this.challenge.autofeedback === true;
@@ -112,33 +118,28 @@ export class GameChallengePage {
 
   initialize() {
     this.appData.setFlag(Flags.GAME_CHALLENGE_ENTERED);
-    //Play intro if required
-    /*if (!this.appData.hasFlag(Flags[this.introKey.toUpperCase()])) {
-      this.setReady();
-      this.appData.setFlag(Flags[this.introKey.toUpperCase()]);
-      this.playAudioIntro();
-    }
-    else {
-      this.setReady();
-    }*/
-    this.setReady();
-    const chId = '0'+(parseInt(this.id)+1);
-    const lId = '0'+this.levelId;
-    const flagKey=['L', lId.substring(lId.length-2), '_CH', chId.substring(chId.length-2), '_PLAYED'].join('');
-    if (!this.appData.hasFlag(Flags[flagKey])){
-      this.appData.setFlag(Flags[flagKey]);
+    const helpKey = this.activityType+'_howto';
+    if (!this.appData.hasFlag(Flags[helpKey.toUpperCase()])) {
       this.showIndicator = true;
-      this.playAudioIntro();
     }
+
+    this.scriptLoaded.then(() => {
+      setTimeout(() => {
+        this.setReady();
+        this.playAudioIntro();
+      }, 200);
+    });
   }
 
   @HostListener('window:resize', ['$event'])
   onResize($event=null) {
     let dim = this.content.getContentDimensions();
     setTimeout(() => {
-      this.pzStyle = { 'height.px': dim.contentHeight };
-      this.settings.playZone.height = this.content.contentHeight;
-      this.settings.playZone.width = this.content.contentWidth;
+      const height = dim.contentHeight;
+      const width = Math.min(dim.contentWidth, dim.contentHeight);
+      this.pzStyle = { 'height.px': height, 'width.px': width };
+      this.settings.playZone.height = height;
+      this.settings.playZone.width = width;
     }, 1);
     return true;
   }
@@ -154,7 +155,10 @@ export class GameChallengePage {
     if (this.busy) return;
     this.stopSounds();
     if (this.id == '0' && this.levelId == '1') actType = actType+'2'; //Play long video if challenge 0 level 1
-    this.mediaPlayer.playVideoFromCatalog(actType+'_howto').subscribe(()=>{});
+    this.mediaPlayer.playVideoFromCatalog(actType+'_howto').subscribe(()=>{
+      const helpKey = this.activityType+'_howto';
+      this.appData.setFlag(Flags[helpKey.toUpperCase()]);
+    });
   }
 
   listen() {
@@ -187,7 +191,13 @@ export class GameChallengePage {
     this.stopSounds();
     this.sourcePage = null;
     const nextId = (parseInt(this.id) + 1) % 10;
-    this.navCtrl.setRoot(GameChallengePage, { id: nextId, levelId: nextId == 0 ? (parseInt(this.levelId) + 1) : this.levelId });
+    if (nextId == 0) {
+      this.navCtrl.setRoot(GameLevelPage, { id: parseInt(this.levelId) + 1 });
+    }
+    else {
+      //this.navCtrl.setRoot(GameChallengePage, { id: nextId, levelId: nextId == 0 ? (parseInt(this.levelId) + 1) : this.levelId });
+      this.navCtrl.setRoot(GameChallengePage, { id: nextId, levelId: this.levelId });
+    }
   }
 
   //Activity Events
@@ -294,5 +304,19 @@ export class GameChallengePage {
   private clearFlags() {
     this.levelJustCompleted = false;
     this.btnHigthlight = '';
+  }
+  
+  private loadScript():Promise<any> {
+    const script = this.challenge.script;
+    if (!script) return Promise.resolve();
+
+    return import('../../'+script).then(mod => {
+      if (mod.hasOwnProperty('contextInstance')) {
+        this.settings.ctx = new mod.contextInstance();
+      }      
+      if (mod.hasOwnProperty('componentBuilder')) {
+        this.settings.componentBuilder = mod.componentBuilder;
+      }
+    });
   }
 }

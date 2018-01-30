@@ -36,7 +36,10 @@ export class CompileDirective implements OnChanges {
     this.vcRef.clear();
     this.compRef = null;
 
-    const component = this.createDynamicComponent(this.compile, this.compileCss );
+    const component = (this.compileContext && this.compileContext.componentBuilder) ?
+      this.compileContext.componentBuilder(this.compile, this.compileCss) :
+      this.createDynamicComponent(this.compile, this.compileCss );
+
     const module = this.createDynamicModule(component);
     this.compiler.compileModuleAndAllComponentsAsync(module)
       .then((moduleWithFactories: ModuleWithComponentFactories<any>) => {
@@ -52,6 +55,7 @@ export class CompileDirective implements OnChanges {
 
   updateProperties() {
     for(var prop in this.compileContext) {
+      if (prop == 'componentBuilder') continue;
       this.compRef.instance[prop] = this.compileContext[prop];
     }
   }

@@ -4,13 +4,13 @@ import { CommonModule } from '@angular/common';
 //General directives
 import { TepuyRandomDirective } from './directives/random.directive';
 import { TepuyRepeatDirective } from './directives/repeat.directive';
-import { TepuyScaleWidthDirective, TepuyScaleDirective } from './directives/scale-width.directive';
+import { TepuyScaleWidthDirective, TepuyScaleDirective, TepuyAutofitDirective, TepuyPortraitDirective } from './directives/scale-width.directive';
 
 //Activity directives
 import { 
   TepuyActivityDirective, TepuyGroupDirective, TepuyItemDirective,
   TepuySelectableDirective, TepuyGreetableDirective, TepuyDraggableDirective, TepuyDropZoneDirective,
-  TepuyMarkableComponent, TepuyValueGeneratorDirective
+  TepuyMarkableComponent, TepuyValueGeneratorDirective, TepuySortableDirective
 } from './behaviors';
 
 //Activity Services
@@ -35,6 +35,8 @@ import {
     TepuyRepeatDirective,
     TepuyScaleWidthDirective,
     TepuyScaleDirective,
+    TepuyAutofitDirective,
+    TepuyPortraitDirective,
     TepuyActivityDirective,
     TepuyValueGeneratorDirective,
     TepuyGroupDirective,
@@ -44,6 +46,7 @@ import {
     TepuyDraggableDirective,
     TepuyDropZoneDirective,
     TepuyMarkableComponent,
+    TepuySortableDirective,
     DistributePipe,
     ObjectKeyPipe,
     SpellPipe
@@ -57,6 +60,8 @@ import {
     TepuyRepeatDirective,
     TepuyScaleWidthDirective,
     TepuyScaleDirective,
+    TepuyAutofitDirective,
+    TepuyPortraitDirective,
     //
     TepuyActivityDirective,
     TepuyValueGeneratorDirective,
@@ -67,6 +72,7 @@ import {
     TepuyDraggableDirective,
     TepuyDropZoneDirective,
     TepuyMarkableComponent,
+    TepuySortableDirective,
     DistributePipe,
     ObjectKeyPipe,
     SpellPipe

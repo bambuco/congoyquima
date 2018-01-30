@@ -273,13 +273,14 @@ export class TepuyMarkableComponent implements AfterViewInit, OnDestroy {
 
       //Need to make sure it will count only as one if the markable does not accept multiple selection.
       //ToDo: It would be ideally to let the group to take care of this but currently it is not grabbing the items collection
+      /*
       if (!this.multiple && !this.isCorrect) {
         //find the correct one.
         const right = this.items.find((itm) => { return itm.correct });
         if (right != null) {
           right.correct = false;
         }
-      }
+      }*/
       this.activityService.emit(this.activityService.ITEM_GROUP_COMPLETING, {
         succeed: item.isCorrect
       }, this.group);
