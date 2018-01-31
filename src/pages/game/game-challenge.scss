@@ -9,7 +9,7 @@ page-game-challenge {
     position: relative;
     overflow: hidden;
 
-    @for $l from 1 through 2 {
+    @for $l from 1 through 3 {
       @for $ch from 1 through 10 {
         &.level_#{$l}.challenge_#{$ch} {
           background-image: url('../assets/game/img/l_#{$l}/ch_#{$ch}/bg.png');
@@ -1917,6 +1917,87 @@ page-game-challenge {
           font-weight: bold;
         }
         @include transform-origin(left, top);
+      }
+    }
+  }
+  /**********************************************************************
+  Level 3 - Challenge 1
+  **********************************************************************/ 
+  .level_3.challenge_1 {
+
+    .row-0, .row-1 {
+      width: 100%;
+      height: auto;
+      position:absolute;
+      .bag-wrapper {
+        position: relative;
+        height: auto;
+        width: 100%;
+        .bag-container {
+          position: absolute;
+        }
+      }
+    }
+
+    .row-0 {
+      top:30%;      
+      .bag-container {
+        @for $l from 0 through 7  {
+          .bag-#{$l} {
+            position: absolute;
+            left: $l * 14.28%;
+          }
+        }
+      }
+    }
+    .row-1 {
+      bottom:46.82%;
+      .bag-container {
+        @for $l from 0 through 5  {
+          .bag-#{$l} {
+            position: absolute;
+            left: 1.5% + $l * 16.7;
+          }
+        }
+      }
+    }
+
+    .seedbag-icon {
+      background-image: url('../assets/game/img/l_3/ch_1/sprite.png');
+      background-color: transparent;
+      background-repeat: no-repeat;
+      @include transform-origin(left, top);
+      pointer-events: none;
+
+      $icons: seedbag-full seedbag-empty;
+      @include appSpriteIcons($icons, 20px, 20px, 20, 0px, 140px, 207px);
+    }
+    
+    .seedbag-full {
+      span {
+        position:absolute;
+        left: 50%;
+        top: 50%;
+        margin-top: -30px;
+        margin-left: -55px;
+        width: 110px;
+        height: 110px;
+        white-space: nowrap;
+        border-radius: 50%;
+        border: solid 9px #fff;
+        background-color: #333333;
+        text-align: center;
+        font-size: 5.5em;
+        font-weight: bold;
+        color: #fff;
+      }    
+    }
+    .tepuy-dropped {
+      &.tepuy-correct span {
+        background-color: map-get($colors, correct);
+      }
+      &.tepuy-wrong span {
+        background-color: map-get($colors, wrong);
       }
     }
   }

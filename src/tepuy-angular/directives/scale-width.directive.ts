@@ -71,7 +71,7 @@ export class TepuyScaleDirective implements OnChanges, AfterViewInit {
   onResize($event=null) {
     setTimeout(() => {
       this.calculateScale();
-    }, 200);
+    }, 300);
   }
 
   private originalDisplay: string;
