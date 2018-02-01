@@ -29,11 +29,9 @@ export function componentBuilder(template:string, css:string): Type<any> {
 
     calculateDimensions(el) {
       const rect = this.platform.getElementBoundingClientRect(el);
-      const lContainerDim = { w: 944, h: 948 }; 
       const scale = rect.height / 1920;
       let rBoxRect:any = {
         w: 15 + 106 * 3 * scale //106+8
-        //h: 128 * 5 * scale, //128 + 8
       };
 
       this.ngZone.run(() => {

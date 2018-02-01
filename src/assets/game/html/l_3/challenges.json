@@ -11,14 +11,17 @@
     "id": 1,
     "label":"2",
     "type": "sort",
-    "unavailable": true,
+    "script": "assets/game/html/l_3/ch_2",
     "parameters": {
+      "kg": ["Computador", "Televisor", "Estufa", "Mesa", "Cama", "Perro", "Gato", "Caballo", "Radio", "Vaca", "Motocicleta", "Carro", "Silla", "Libro", "Bicicleta", "Teléfono", "Puerta", "Ventana"],      
+      "gr": ["Manzana", "Pera", "Llave", "Cuchara", "Plato", "Vaso", "Zapato", "Camisa", "Pantalón", "Vestido", "Moneda", "Billete", "Gafas", "Balón", "Muñeca", "Tijeras", "Escoba", "Carne"]
     }
   },
   {
     "id": 2,
     "label":"3",
     "type": "sort",
+    "unavailable": true,
     "parameters": {
     }
   },

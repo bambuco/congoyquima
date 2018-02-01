@@ -33,6 +33,8 @@ export const Flags = {
   LEVEL2_INTRO: (one=one<<1),
   LEVEL3_INTRO: (one=one<<1),
   LEVEL4_INTRO: (one=one<<1),
+  LEVEL5_INTRO: (one=one<<1),
+  SORT_HOWTO: (one=one<<1),
 };
 
 @Injectable()

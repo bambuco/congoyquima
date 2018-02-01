@@ -5,7 +5,6 @@ import { Directive, Input, Output, ElementRef, OnInit, OnDestroy,
 import { TepuyActivityService } from '../providers';
 import { findReorderItem } from '../classes/reorder-util';
 
-
 @Directive({ 
   selector: '[tepuy-item]',
   host: { 
@@ -27,7 +26,6 @@ export class TepuyItemDirective implements OnInit, AfterViewInit, OnDestroy {
   private valueEl:any;
   private readyReported: boolean;
 
-
   //Property setters/getters
   get value() {
     return ('value' in this.valueEl) ? this.valueEl.value : this.valueEl.innerText;
@@ -35,7 +33,7 @@ export class TepuyItemDirective implements OnInit, AfterViewInit, OnDestroy {
   @Input('tepuy-value')
   set value(val) {
     this.setValueEl();
-    if (this.valueEl.value)
+    if ('value' in this.valueEl)
       this.valueEl.value = val;
     else {
       this.valueEl.innerText = val;
