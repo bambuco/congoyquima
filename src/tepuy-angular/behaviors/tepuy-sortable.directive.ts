@@ -7,7 +7,7 @@ import { ItemReorderGesture, ItemReorderGestureDelegate } from '../classes/reord
 
 
 export class ReorderIndexes {
-  constructor(public from: number, public to: number) {}
+  constructor(public from: number, public to: number, public items?:any[]) {}
 
   applyTo(array: any) {
     reorderArray(array, this);
@@ -39,7 +39,7 @@ export class TepuySortableDirective implements ItemReorderGestureDelegate, After
    * @output {object} Emitted when the item is reordered. Emits an object
    * with `from` and `to` properties.
    */
-  @Output() ionItemReorder: EventEmitter<ReorderIndexes> = new EventEmitter<ReorderIndexes>();
+  @Output() tepuyItemReorder: EventEmitter<ReorderIndexes> = new EventEmitter<ReorderIndexes>();
 
   /**
    * @input {string} Which side of the view the ion-reorder should be placed. Default `"end"`.
@@ -129,20 +129,23 @@ export class TepuySortableDirective implements ItemReorderGestureDelegate, After
     this._reorderReset();
     if (fromIndex !== toIndex) {
       this._zone.run(() => {
-        //const indexes = new ReorderIndexes(fromIndex, toIndex);
-        //this.ionItemReorder.emit(indexes);
         let children: any = this._element.children;
-        let start = fromIndex;
+        if (this.tepuyItemReorder.observers.length) {
+          const items:any[] = Array.from(children).map((it:any) => it.$tepuyItem);
+          this.tepuyItemReorder.emit(new ReorderIndexes(fromIndex, toIndex, items));
+          return;
+        }
+        let i = fromIndex;
         let step = fromIndex > toIndex ? -1 : 1;
         let aux = children[fromIndex].$tepuyItem.value;
-        while(start != toIndex) {
-          let val = children[start+step].$tepuyItem.value;
-          children[start].$tepuyItem.value = val;
-          children[start].$tepuyItem.isCorrect = (val == this._order[start]);
-          start+=step;
+        while(i != toIndex) {
+          const val = children[i+step].$tepuyItem.value
+          children[i].$tepuyItem.value = val;
+          children[i].$tepuyItem.isCorrect = (val == this._order[i]);
+          i+=step;         
         }
-        children[start].$tepuyItem.value = aux;
-        children[start].$tepuyItem.isCorrect = (aux == this._order[start]);
+        children[i].$tepuyItem.value = aux;
+        children[i].$tepuyItem.isCorrect = (aux == this._order[i]);
       });
     }
   }

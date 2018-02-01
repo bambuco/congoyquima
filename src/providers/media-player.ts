@@ -20,6 +20,7 @@ const videoCatalog = {
   'select2_howto': 'game/vid/shared/select2_howto.mp4',
   'drag_howto': 'game/vid/shared/drag_howto.mp4',
   'mark_howto': 'game/vid/shared/mark_howto.mp4',
+  'sort_howto': 'game/vid/shared/sort_howto.mp4',
   'classify_howto': 'game/vid/shared/classify_howto.mp4',
   'level1_intro': 'game/vid/l_1/intro.mp4',
   'level2_intro': 'game/vid/l_2/intro.mp4',

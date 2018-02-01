@@ -9,9 +9,6 @@ export function componentBuilder(template:string, css:string): Type<any> {
     encapsulation: ViewEncapsulation.None
   })
   class L3Ch1Component {
-    missings: any[];
-    chars: any[];
-    prepared:boolean = false;
     tBoxStyle:any;
     bBoxStyle:any;
 

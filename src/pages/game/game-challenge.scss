@@ -2001,4 +2001,71 @@ page-game-challenge {
       }
     }
   }
+  /**********************************************************************
+  Level 3 - Challenge 2
+  **********************************************************************/ 
+  .level_3.challenge_2 {
+
+    .row-0 {
+      width: 100%;
+      height: auto;
+      position:absolute;
+      top: 38.75%;
+      height: 20.83%;
+      .container {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        [tepuy-sortable] {
+          position: absolute;
+        }
+      }
+    }
+
+    $w: 208px;
+    $scale: .4362;
+    .sort-item {
+      display: inline-block;
+      .sort-item-content {
+        width: $w;
+        height: 400px;
+        position: relative;
+        pointer-events: none;
+        @include transform-origin(left, top);
+
+        .highlight-circle {
+          position: absolute;
+          top: 8px;
+          left: 6px;
+          width: 194px;
+          height: 194px;
+          border-radius: 50%;
+          background-color: transparent;
+        }
+        .object-icon {
+          @include transform-origin(left, top);
+          @include scale($scale);
+          position:absolute;
+          top:0;
+          left: ($w - (420 * $scale))/2;
+        }
+
+        span {
+          position: absolute;
+          bottom: 40px;
+          height: 48px;
+          width: 157px;
+          left: 20px;
+          font-size: 3.6em;
+          text-align: center;
+        }
+      }
+      &.tepuy-correct .highlight-circle {
+        border: solid 12px map-get($colors, correct);
+      }
+      &.tepuy-wrong .highlight-circle {
+        border: solid 12px map-get($colors, wrong);
+      }
+    }
+  }
 }

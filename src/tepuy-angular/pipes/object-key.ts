@@ -7,6 +7,7 @@ export class ObjectKeyPipe implements PipeTransform {
     if (!word) {
       return word;
     }
-    return word.normalize('NFD').replace(/[\u0300-\u0302\u0304-\u036f]/g, "").toLowerCase();
+    let val = word.normalize('NFD').replace(/[\u0300-\u0302\u0304-\u036f]/g, "").toLowerCase();
+    return val.replace(/[\u0303]/g, 'h');
   }
 } //U+00F1
