@@ -29,8 +29,9 @@
   {
     "id": 3,
     "label":"4",
-    "type": "sort",
-    "unavailable": true,
+    "type": "drag",
+    "script": "assets/game/html/l_3/ch_4",
+    "autofeedback": true,
     "parameters": {
     }
   },
@@ -38,6 +39,7 @@
     "id": 4,
     "label":"5",
     "type": "sort",
+    "unavailable": true,
     "parameters": {
     }
   },

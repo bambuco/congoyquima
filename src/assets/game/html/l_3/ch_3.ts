@@ -26,7 +26,6 @@ export function componentBuilder(template:string, css:string): Type<any> {
     }
 
     prepare($event, group) {
-      _window().FF = this.getDigitsSum.bind(this);
       const digits = group.id < 2 ? 2 : (group.id < 4 ? 3 : 4);
       let value = this.getDigitsSum(digits, 10);
       while (this.values.indexOf(value) >= 0) {
