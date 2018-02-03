@@ -47,7 +47,8 @@ $colors: (
   correct-dark: #3DB77A,
   correct:      #B2E07F,  
   wrong:        #F2674C,
-  neutral:      #FBB03B  
+  neutral:      #FBB03B,
+  operator:     #EBD065
 );
 
 $text-color: map-get($colors, darkgreencustom);

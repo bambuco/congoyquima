@@ -38,8 +38,9 @@
   {
     "id": 4,
     "label":"5",
-    "type": "sort",
-    "unavailable": true,
+    "type": "classify",
+    "script": "assets/game/html/l_3/ch_5",
+    "autofeedback": true,
     "parameters": {
     }
   },
@@ -47,6 +48,7 @@
     "id": 5,
     "label":"6",
     "type": "sort",
+    "unavailable": true,
     "parameters": {
     }
   },

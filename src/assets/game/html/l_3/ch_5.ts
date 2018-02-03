@@ -1,6 +1,10 @@
 import { Component, Type, ViewEncapsulation, ElementRef, NgZone, HostListener } from '@angular/core';
 import { Platform } from 'ionic-angular';
 
+export function rand(max:number, min:number = 0):number {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 export function componentBuilder(template:string, css:string): Type<any> {
   @Component({
     selector: 'mini-game',
@@ -9,7 +13,8 @@ export function componentBuilder(template:string, css:string): Type<any> {
     encapsulation: ViewEncapsulation.None
   })
   class L3Ch4Component {
-    tBoxStyle:any;    
+    tBoxStyle:any;
+    ops:any = { "+":true, "=": true };
 
     constructor(private elRef: ElementRef,
         private ngZone: NgZone,
@@ -21,8 +26,19 @@ export function componentBuilder(template:string, css:string): Type<any> {
     }
 
     prepare($event, group) {
+      let term = rand(group.data);
+      const correct = [term, '+', group.data - term, '=', group.data].join('');
+      const otherValue = rand(99, 3);
+      term = rand(otherValue);
+      let term2 = rand(99, 3);
+      while (term2+term==otherValue) term2 = rand(99, 3);
+      const incorrect = [term, '+', term2, '=', otherValue].join('');
+      const lcorrect = rand(1) == 0;
+
       setTimeout(() => {
-        group.value = Math.floor(Math.random() * (group.data + 1));
+        group.left = lcorrect ? correct : incorrect;
+        group.right = lcorrect ? incorrect : correct;
+        group.isleft = lcorrect;
         group.ready = true;
       },100);
     }
@@ -38,8 +54,8 @@ export function componentBuilder(template:string, css:string): Type<any> {
       const rect = this.platform.getElementBoundingClientRect(el);
       const scale = rect.height / 1920;
       let tBoxRect:any = {
-        w: 1055 * scale,
-        h: 190 * scale
+        w: 1053 * scale,
+        h: 200 * scale
       };
       //tBoxRect.l = Math.floor((((rect.width - tBoxRect.w) * 0.5206/rect.width))*10000)/100;
 
