@@ -1,10 +1,6 @@
 import { Component, Type, ViewEncapsulation, ElementRef, NgZone, HostListener } from '@angular/core';
 import { Platform } from 'ionic-angular';
 
-export function _window():any {
-  return window;
-}
-
 export function componentBuilder(template:string, css:string): Type<any> {
   @Component({
     selector: 'mini-game',
