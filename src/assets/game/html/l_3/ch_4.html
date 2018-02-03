@@ -1,0 +1,41 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding (activityRestart)="onReset()">
+  <ng-container *tepuyValueGenerator="'randomof:numbers:min=3;max=99;'count:5;let groups=values">
+    <ion-slides class="tepuy-activity-content" zoom="false" pager="true" paginationType="progress" effect="fade">
+      <ng-container *ngFor="let group of groups;let id=index">
+        <ion-slide tepuy-item-group [tepuy-group-id]="id" (groupInit)="prepare($event, group)">
+          <ng-container *ngIf="group.ready">
+            <div class="row-0">
+                <div class="panel-container" [ngStyle]="tBoxStyle">
+                  <div class="panel-0" tepuy-autofit>
+                    <div class="panel-icon panel-full" [tepuy-scale]="1920">
+                      <span>{{group.data-group.value}}</span>
+                    </div>
+                  </div>
+                  <div class="panel-1">
+                    <div tepuy-autofit tepuy-drop-zone [tepuy-correct-values]="group.value" tepuy-auto-feedback="true">
+                      <div class="panel-icon panel-empty" [tepuy-scale]="1920">&nbsp;</div>
+                    </div>
+                  </div>
+                  <div class="panel-2" tepuy-autofit>
+                    <div class="sum-result" [tepuy-scale]="1920">{{group.data}}</div>
+                  </div>
+                </div>
+            </div>
+            <div class="row-1" *tepuyValueGenerator="'randomof:numbers:min=0;max='+group.data+';'; include:[group.value]; count:3;shuffle:true;type:'scalar' let options=values">
+              <div class="panel-container" [ngStyle]="tBoxStyle">
+                <div *ngFor="let opt of options; let i=index" class="panel-{{i}}" tepuy-item tepuy-draggable tepuy-greetable [tepuy-group-id]="group.id" [tepuy-value]="opt" tepuy-autofit>
+                  <div class="panel-icon panel-full" [tepuy-scale]="1920">
+                    <span tepuy-item-value>&nbsp;</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </ion-slide>
+      </ng-container>
+    </ion-slides>
+    <div class="tepuy-feedback-summary tepuy-semaphore">
+      <span *ngFor="let g of groups" class="tepuy-{{g.state}}"></span>
+    </div>
+  </ng-container>
+</div>

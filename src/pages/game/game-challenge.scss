@@ -2127,4 +2127,91 @@ page-game-challenge {
       top: 48%;//1235,635
     }
   }
+  /**********************************************************************
+  Level 3 - Challenge 4
+  **********************************************************************/ 
+  .level_3.challenge_4 {
+    ion-slides {
+       height: 70%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom, .container {
+        position: relative;
+        height: 100%;
+        bottom: 0%;
+        width: 100%;
+      }
+    }
+
+    .row-0, .row-1 {
+      width: 100%;
+      height: 15%;
+      position:absolute;
+      display:flex;
+      justify-content: center;
+      .panel-container {
+        position: relative;
+      }
+    }
+
+    .row-0 {
+      top:29%;      
+      .panel-container {
+        @for $l from 0 through 2  {
+          .panel-#{$l} {
+            position: absolute;
+            left: $l * 41%;
+            .tepuy-droppable { position: relative; }
+          }
+        }
+      }
+    }
+    .row-1 {
+      bottom:15%;
+      display:flex;
+      justify-content: center;
+      .panel-container {
+        @for $l from 0 through 2  {
+          .panel-#{$l} {
+            position: absolute;
+            left: 22% + $l * 20%;
+          }
+        }
+      }
+    }
+
+    .sum-result {
+      width: 194px;
+      height: 182px;
+      @include transform-origin(left, top);
+    }
+
+    .panel-icon {
+      background-image: url('../assets/game/img/l_3/ch_4/sprite.png');
+      background-color: transparent;
+      background-repeat: no-repeat;
+      @include transform-origin(left, top);
+      pointer-events: none;
+
+      $icons: panel-full panel-empty;
+      @include appSpriteIcons($icons, 20px, 20px, 36, 0px, 194px, 182px);
+    }
+
+    .panel-icon, .sum-result {
+      font-size: 5em;
+      font-weight: bold;
+      line-height: 2em;
+      color: #fff
+    }
+    
+    .tepuy-dropped {
+      &.tepuy-correct {
+        .panel-icon { color: map-get($colors, correct); }
+      }
+      &.tepuy-wrong {
+        .panel-icon { color: map-get($colors, wrong); }
+      }
+    }
+  }
 }
