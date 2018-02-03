@@ -2068,4 +2068,63 @@ page-game-challenge {
       }
     }
   }
+  /**********************************************************************
+  Level 3 - Challenge 3
+  **********************************************************************/ 
+  .level_3.challenge_3 {
+
+    ion-slides {
+       height: 70%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom, .container {
+        position: relative;
+        height: 100%;
+        bottom: 0%;
+        width: 100%;
+      }
+    }
+
+    .sum-0, .sum-1,, .sum-2 {
+      color: #fff;
+      font-weight: bold;
+      position: absolute;
+      //border: solid 1px red;
+      display: flex;
+      .sum-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        span {
+          height: 100%;
+          font-size: 1.5em;
+          font-size: 1.5rem;
+          @media screen and (min-width: 768px) {
+            font-size: 2.5rem;
+          }
+          pointer-events: none;
+          flex: 1 1 content;
+          &.operator {
+            color: #EBD065
+          }
+        }
+      }
+      &.tepuy-correct {
+        color: map-get($colors, correct);
+      }
+      &.tepuy-wrong {
+        color: map-get($colors, wrong);
+      }
+    }
+    .sum-0 {
+      top: 30%; //570,396
+    }
+    .sum-1 {
+      top: 61%; //469,812
+    }
+    .sum-2 {
+      top: 48%;//1235,635
+    }
+  }
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+//import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
 import { TepuyErrorProvider, Errors } from './error.provider';
@@ -126,7 +127,7 @@ export class TepuyActivityService {
    * returns observable for subscription
    */  
   on(eventName: string, key?:any): Observable<any> {
-    const observerName = eventName + ( key ? '_' + key : '');
+    const observerName = eventName + (key !== undefined ? '_' + key : '');
     if (!(observerName in this.observers)) this.errorProvider.raise(Errors.EventEmitterNotRegistered);
     return this.observers[observerName];
   }
@@ -136,7 +137,7 @@ export class TepuyActivityService {
    * @emit {event} {id: activityId, score: the score for the activity }
    */  
   emit(eventName:string, eventData?:any, key?:any) {
-    const observerName = eventName + ( key ? '_' + key : '');
+    const observerName = eventName + ( key !== undefined ? '_' + key : '');
     if (!(observerName in this.observers)) this.errorProvider.raise(Errors.EventEmitterNotRegistered);
     this.observers[observerName].next(eventData);
   }
@@ -146,9 +147,9 @@ export class TepuyActivityService {
    * @eventName {string} The name of the event to register
    */  
   registerEvent(eventName: string, key?:any){
-    const observerName = eventName + ( key ? '_' + key : '');
+    const observerName = eventName + ( key !== undefined ? '_' + key : '');
     if (observerName in this.observers) return; 
-    this.observers[observerName] = new ReplaySubject(1);
+    this.observers[observerName] = new Subject();
   }
 
   /**

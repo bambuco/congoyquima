@@ -2,6 +2,8 @@ import { Directive, ContentChildren, QueryList, Input, Output, HostBinding,
   OnInit, AfterContentInit, OnDestroy, EventEmitter, NgZone, ElementRef
 } from '@angular/core';
 
+import { Subscription } from 'rxjs/subscription';
+
 import { 
   TepuyActivityService, TepuyDraggableService,
   IDataProvider,
@@ -33,6 +35,7 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
   isCorrect: boolean;
   correctDataProvider: IDataProvider;
   wrongDataProvider: IDataProvider;
+  private subscriptions: Subscription[] = [];
 
   @ContentChildren(TepuyItemDirective, { descendants: true}) items: QueryList<TepuyItemDirective>;
   @ContentChildren(TepuyDropZoneDirective, { descendants: true}) targets: QueryList<TepuyDropZoneDirective>;
@@ -51,6 +54,10 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
 
   ngOnDestroy() {
     this.actProvider.unregisterEvent(this.actProvider.ITEM_GROUP_COMPLETING, this.id);
+    for(let s of this.subscriptions) {
+      s.unsubscribe();
+    }
+    this.subscriptions = [];
   }
 
   ngOnInit() {
@@ -88,17 +95,17 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
       this.wrongDataProvider = this.actProvider.getDataProvider(options.wrongSource);
     }
 
-    this.actProvider.on(this.actProvider.ACTIVITY_VERIFIED).subscribe(() => {
+    this.subscriptions.push(this.actProvider.on(this.actProvider.ACTIVITY_VERIFIED).subscribe(() => {
       this.isComplete = true;
-    });
+    }));
     
-    this.actProvider.on(this.actProvider.ACTIVITY_RESET).subscribe(() => {
+    this.subscriptions.push(this.actProvider.on(this.actProvider.ACTIVITY_RESET).subscribe(() => {
       this.resetItemValues();
-    });
+    }));
 
-    this.actProvider.on(this.actProvider.ITEM_GROUP_COMPLETING, this.id).subscribe((result) => {
+    this.subscriptions.push(this.actProvider.on(this.actProvider.ITEM_GROUP_COMPLETING, this.id).subscribe((result) => {
       this.onGroupCompleting(result);      
-    });
+    }));
   }
 
   ngAfterContentInit() {
