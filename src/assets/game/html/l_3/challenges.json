@@ -20,8 +20,9 @@
   {
     "id": 2,
     "label":"3",
-    "type": "sort",
-    "unavailable": true,
+    "type": "select",
+    "script": "assets/game/html/l_3/ch_3",
+    "autofeedback": true,
     "parameters": {
     }
   },
@@ -29,6 +30,7 @@
     "id": 3,
     "label":"4",
     "type": "sort",
+    "unavailable": true,
     "parameters": {
     }
   },
