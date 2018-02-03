@@ -2301,4 +2301,113 @@ page-game-challenge {
       }
     }
   }
+  /**********************************************************************
+  Level 3 - Challenge 6
+  **********************************************************************/
+  .level_3.challenge_6 {
+    ion-slides {
+       height: 70%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom, .container {
+        position: relative;
+        height: 100%;
+        bottom: 0%;
+        width: 100%;
+      }
+    }
+
+    .row-0 {
+      width: 100%;
+      height: 41%;
+      top:37%;
+      position:absolute;
+      display:flex;
+      justify-content: center;
+      .signal-holder {
+        position: relative;
+
+        .signal-container {
+          position: relative;
+          display: flex;
+          //width: auto;
+          //height: auto;
+          align-items: center;
+          justify-content: center;
+          @include transform-origin(left, top);
+
+          .highligther {
+            position:absolute;
+            width: 444px;
+            height: 444px;
+            left: 48px;
+            top: 48px;
+            border-radius: 50%;
+            background-color: #fff;
+            z-index:-1;
+          }
+        }
+
+        &.tepuy-selected {
+          &.tepuy-correct {
+            .signal-container .highligther {
+              background-color: map-get($colors, correct);
+            }
+          }
+          &.tepuy-wrong {
+            .signal-container .highligther {
+              background-color: map-get($colors, wrong);
+            }
+          }
+        }
+      }
+    }
+
+    .signal-icon {
+      background-image: url('../assets/game/img/l_3/ch_6/sprite.png');
+      background-color: transparent;
+      background-repeat: no-repeat;
+      pointer-events: none;
+
+      $icons: sign-zona_escolar sign-obra_en_la_via;
+      @include appSpriteIcons($icons, 16px, 800px, 34, 0px, 350px, 342px);
+
+      $icons: sign-hospedaje;
+      @include appSpriteIcons($icons, 20px, 1200px, 108, 0px, 272px, 272px);
+
+      $icons: sign-banhos sign-museo sign-punto_de_informacion;
+      @include appSpriteIcons($icons, 400px, 1200px, 128, 0px, 272px, 272px);
+
+      $icons: sign-estacion_de_gasolina;
+      @include appSpriteIcons($icons, 20px, 1600px, 163, 0px, 217px, 294px);
+
+      $icons: sign-restaurante sign-primeros_auxilios sign-servicio_de_telefono sign-personas_con_discapacidad sign-cruce_peatonal sign-montallantas;
+      @include appSpriteIcons($icons, 400px, 1600px, 183, 0px, 217px, 294px);
+
+      $icons: sign-prohibido_parquear;
+      @include appSpriteIcons($icons, 20px, 2000px, 71, 0px, 309px, 309px);
+
+      $icons: sign-prohibido_fumar sign-paradero_de_bus sign-taxis sign-ciclovia;
+      @include appSpriteIcons($icons, 400px, 2000px, 88, 0px, 312px, 312px);
+
+      $icons: sign-gas_inflamable;
+      @include appSpriteIcons($icons, 20px, 2400px, 73, 0px, 307px, 272px);
+
+      $icons: sign-riesgo_electrico sign-peligro_de_intoxicacion sign-peligro_de_caida;
+      @include appSpriteIcons($icons, 400px, 2400px, 93, 0px, 307px, 272px);
+
+      $icons: sign-pare;
+      @include appSpriteIcons($icons, 20px, 2800px, 0, 0px, 313px, 313px);
+
+      $icons: sign-wifi;
+      @include appSpriteIcons($icons, 400px, 2800px, 36, 0px, 247px, 188px);
+
+      &.signal-container {
+        background-position: -20px -14px;
+        width: 540px;
+        height: 540px;
+      }
+    }
+  }
 }
