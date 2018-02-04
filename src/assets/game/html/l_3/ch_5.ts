@@ -1,9 +1,7 @@
 import { Component, Type, ViewEncapsulation, ElementRef, NgZone, HostListener } from '@angular/core';
 import { Platform } from 'ionic-angular';
 
-export function rand(max:number, min:number = 0):number {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+import { rand } from '../utils';
 
 export function componentBuilder(template:string, css:string): Type<any> {
   @Component({
@@ -12,7 +10,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
     styles: [ css || '' ],
     encapsulation: ViewEncapsulation.None
   })
-  class L3Ch4Component {
+  class L3Ch5Component {
     tBoxStyle:any;
     ops:any = { "+":true, "=": true };
 
@@ -71,5 +69,5 @@ export function componentBuilder(template:string, css:string): Type<any> {
     }    
   }
 
-  return L3Ch4Component;
+  return L3Ch5Component;
 }

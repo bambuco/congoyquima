@@ -1,6 +1,8 @@
 import { Component, Type, ViewEncapsulation, ElementRef, NgZone, HostListener } from '@angular/core';
 import { Platform } from 'ionic-angular';
 
+import { getDigitsSum } from '../utils';
+
 export function componentBuilder(template:string, css:string): Type<any> {
   @Component({
     selector: 'mini-game',
@@ -23,9 +25,9 @@ export function componentBuilder(template:string, css:string): Type<any> {
 
     prepare($event, group) {
       const digits = group.id < 2 ? 2 : (group.id < 4 ? 3 : 4);
-      let value = this.getDigitsSum(digits, 10);
+      let value = getDigitsSum(digits, 10);
       while (this.values.indexOf(value) >= 0) {
-        value = this.getDigitsSum(digits, 10);
+        value = getDigitsSum(digits, 10);
       }
       this.values.push(value);
       setTimeout(() => {
@@ -89,26 +91,6 @@ export function componentBuilder(template:string, css:string): Type<any> {
       }
       return total == 10;
     }
-
-    private getDigitsSum(operands:number, quantity:number) {
-      let max = 9;
-      const maxPosible = max * operands;
-      if (maxPosible < quantity) {
-        throw new Error('Sum cannot be generated with only digits');
-      }
-      
-      if (operands == 1) {
-        return quantity;
-      }
-
-      const nextMaxPosible = maxPosible - max;
-      const min = Math.max(quantity - nextMaxPosible, 0);
-      max = Math.min(max, quantity);
-      const digit = Math.floor(Math.random() * (max - min)) + min;
-      return digit * Math.pow(10, operands - 1) + this.getDigitsSum(--operands, quantity-digit);
-    }
-
   }
-
   return L3Ch3Component;
 }

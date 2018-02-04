@@ -6,7 +6,7 @@
           <div class="row-0" tepuy-item-group data-tepuy-group-id="{{group.id}}">
             <div class="signal-holder" *ngFor="let opt of options; let i=index" tepuy-item tepuy-selectable data-tepuy-auto-feedback="true" [tepuy-correct]="(group.data==opt)" tepuy-autofit>
               <div class="signal-icon signal-container" tepuy-scale="1920">
-                <div class="highligther"></div>
+                <div class="highlighter"></div>
                 <div class="signal-icon sign-{{opt|objectkey}}"></div>
               </div>
             </div>
