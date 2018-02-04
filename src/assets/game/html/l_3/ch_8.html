@@ -1,0 +1,27 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-slide-delay="1"(activityRestart)="onReset()">
+  <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.words;fromQ=true;';count:5;let groups=values">
+    <ion-slides class="tepuy-activity-content" zoom="false" pager="true" paginationType="progress" effect="slide">
+      <ion-slide *ngFor="let group of groups;let id=index" [ngStyle]="{'width.px':playZone?.width}">
+        <div class="container" tepuy-item-group [tepuy-group-id]="group.id" (groupInit)="prepare($event, group)">
+          <ng-container *ngIf="group.ready">
+            <div class="object-container" [ngStyle]="boxStyles[0]">
+              <div class="object-icon obj-{{group.data|objectkey}}" tepuy-scale="1920"></div>
+            </div>
+            <div class="label-container" [ngStyle]="boxStyles[1]">
+              <span class="text-label" tepuy-scale="1920">{{group.data|ucfirst}}</span>
+            </div>
+            <div class="words-container" [ngStyle]="boxStyles[2]">
+              <div *ngFor="let opt of group.options; let i=index" tepuy-item tepuy-selectable tepuy-auto-feedback="true" [tepuy-correct]="opt==group.answer" tepuy-autofit [tepuy-group-id]="group.id">
+                <span class="text-label" tepuy-item-value tepuy-scale="1920">{{opt|ucfirst}}</span>
+                <div class="highlighter"></div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </ion-slide>
+    </ion-slides>
+    <div class="tepuy-feedback-summary tepuy-semaphore">
+      <span *ngFor="let g of groups" class="tepuy-{{g.state}}"></span>
+    </div>
+  </ng-container>
+</div>

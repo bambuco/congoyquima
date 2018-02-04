@@ -64,15 +64,18 @@
   {
     "id": 7,
     "label":"8",
-    "type": "sort",
-    "unavailable": true,
+    "type": "select",
+    "script": "assets/game/html/l_3/ch_8",
+    "autofeedback": true,
     "parameters": {
+      "words": ["billete", "miel", "vaso", "semilla", "manzana", "bosque", "lápiz", "sol", "flor", "chocolate"]
     }
   },
   {
     "id": 8,
     "label":"9",
     "type": "sort",
+    "unavailable": true,
     "parameters": {
     }
   },

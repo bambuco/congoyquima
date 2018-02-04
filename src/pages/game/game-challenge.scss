@@ -184,6 +184,10 @@ page-game-challenge {
     }
   }
 
+  [tepuy-scale] {
+    @include transform-origin(left, top);
+  }
+
   @include keyframes(activity-pointer){
     0%, 20%, 50%, 80%, 100% {
       @include transform(scale(0.4) translate(-280%, -400%) rotate(90deg));
@@ -2468,6 +2472,84 @@ page-game-challenge {
       @for $seq from 1 through 12  {
         $icons: seq-#{$seq}-stage-1 seq-#{$seq}-stage-2 seq-#{$seq}-stage-3 seq-#{$seq}-stage-4 seq-#{$seq}-stage-5;
         @include appSpriteIcons($icons, 17px, 20px + (300 * ($seq - 1)), 54, 0px, 196px, 232px);
+      }
+    }
+  }
+  /**********************************************************************
+  Level 3 - Challenge 8
+  **********************************************************************/
+  .level_3.challenge_8 {
+    ion-slides {
+       height: 70%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom, .container {
+        position: relative;
+        height: 100%;
+        bottom: 0%;
+        width: 100%;
+      }
+    }
+    .container {
+      .object-container {
+        position: absolute;
+        top: 36.45%; //490
+      }
+      .label-container {
+        position: absolute;
+        top: 75%; //1005
+        span.text-label {
+          color: #fff;
+        }
+      }
+      .words-container {
+        position: absolute;
+        top: 31.25%; //420
+        display: flex;
+        flex-wrap: wrap;
+        align-content: space-between;
+
+        & > [tepuy-autofit] {
+          position: relative;
+
+          .highlighter {
+            position:absolute;
+            width: 99%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            margin: 0 1%;
+            border: solid 3px;
+            border-radius: 4px;
+            display:none;
+          }
+
+          &.tepuy-correct {
+            .highlighter {
+              border-color: map-get($colors, correct);
+              display: block;
+            }
+          }
+
+          &.tepuy-wrong {
+            .highlighter {
+              border-color: map-get($colors, wrong);
+              display: block;
+            }
+          }
+        }
+      }
+
+      span.text-label {
+        display: block;
+        width: 498px;
+        height: 106px;
+        font-size: 4.5em;
+        font-weight: bold;
+        color: map-get($colors, text-normal);
+        text-align:center;
+        white-space: nowrap;
       }
     }
   }
