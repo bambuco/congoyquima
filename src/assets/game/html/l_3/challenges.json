@@ -57,7 +57,7 @@
     "id": 6,
     "label":"7",
     "type": "sort",
-    "unavailable": true,
+    "script": "assets/game/html/l_3/ch_7",
     "parameters": {
     }
   },
@@ -65,6 +65,7 @@
     "id": 7,
     "label":"8",
     "type": "sort",
+    "unavailable": true,
     "parameters": {
     }
   },
