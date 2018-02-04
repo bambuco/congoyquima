@@ -2563,7 +2563,7 @@ page-game-challenge {
         display: flex;
         flex-wrap: wrap;
         align-content: space-between;
-        
+
         .text-label {
           display: block;
           font-size: 66px;
@@ -2573,10 +2573,67 @@ page-game-challenge {
           text-align:center;
           white-space: nowrap;
         }
-        
+
         & > [tepuy-autofit] {
           border-radius: 5px;
           background-color: #ff8;
+          position: relative;
+
+          &.tepuy-correct {
+            .text-label { color: map-get($colors, correct); }
+          }
+          &.tepuy-wrong {
+            .text-label { color: map-get($colors, wrong); }
+          }
+        }
+      }
+    }
+  }
+  /**********************************************************************
+  Level 3 - Challenge 10
+  **********************************************************************/
+  .level_3.challenge_10 {
+    
+    .text-label {
+      background-image: url('../assets/game/img/l_3/ch_10/sprite.png');
+      background-color: transparent;
+      background-repeat: no-repeat;
+      pointer-events: none;
+
+      $icons: right-label left-label;
+      @include appSpriteIcons($icons, 20px, 20px, 0, 0px, 498px, 86px);
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      top: 9.27%; //178
+      width: 100%;
+      heigth: 40.73%; //782
+
+      .container-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .left-box, .right-box {
+        position: absolute;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: space-between;
+
+        .text-label {
+          font-size: 66px;
+          line-height: 86px;
+          font-weight: bold;
+          color: map-get($colors, text-normal);
+          text-align:center;
+          white-space: nowrap;
+        }
+
+        & > [tepuy-autofit] {
           position: relative;
 
           &.tepuy-correct {
