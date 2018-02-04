@@ -8,17 +8,17 @@ import { UIEventManager } from '../classes/ui-event-manager.class';
  */
 export class ItemReorderGesture {
   private selectedItemEle: HTMLElement = null;
-  private selectedItemWidth: number;
+  private selectedItemSize: number;
   private offset: PointerCoordinates;
   private lastToIndex: number;
-  private lastXcoord: number;
+  private lastCoord: number;
   //private lastScrollPosition: number;
   private emptyZone: boolean;
-  private windowWidth: number;
+  private windowSize: number;
   private events: UIEventManager;
 
 
-  constructor(public plt: Platform, public reorderList: ItemReorderGestureDelegate) {
+  constructor(public plt: Platform, public reorderList: ItemReorderGestureDelegate, public direction:('h'|'v')='h') {
     this.events = new UIEventManager(plt);
     this.events.pointerEvents({
       element: this.reorderList.getNativeElement(),
@@ -36,7 +36,7 @@ export class ItemReorderGesture {
     let reorderElement = ev.target;
     let reorderMark = reorderElement['$tepuyItem'];
     if (!reorderMark) {
-      console.error('ion-reorder does not contain $tepuyItem');
+      console.error('tepuy-reorder does not contain $tepuyItem');
       return false;
     }
     this.reorderList._reorderPrepare();
@@ -48,13 +48,14 @@ export class ItemReorderGesture {
     }
     ev.preventDefault();
 
+    const isH = this.direction == HORIZONTALLY;
     // Preparing state
     this.selectedItemEle = item;
-    this.selectedItemWidth = item.offsetWidth;
-    this.lastXcoord = -100;
+    this.selectedItemSize = isH ? item.offsetWidth : item.offsetHeight;
+    this.lastCoord = -100;
     this.lastToIndex = indexForItem(item);
 
-    this.windowWidth = this.plt.width() - AUTO_SCROLL_MARGIN;
+    this.windowSize = (isH ? this.plt.width() : this.plt.height()) - AUTO_SCROLL_MARGIN;
     //this.lastScrollPosition = this.reorderList._scrollContent(0);
 
     this.offset = pointerCoord(ev);
@@ -72,24 +73,25 @@ export class ItemReorderGesture {
     }
     ev.preventDefault();
 
+    const isH = this.direction == HORIZONTALLY;
     // Get coordinate
     const coord = pointerCoord(ev);
-    const posX = coord.x;
+    const pos = isH ? coord.x : coord.y;
 
     // Scroll if we reach the scroll margins
     //const scrollPosition = this.scroll(posY);
 
     // Only perform hit test if we moved at least 30px from previous position
-    if (Math.abs(posX - this.lastXcoord) > 30) {
+    if (Math.abs(pos - this.lastCoord) > 30) {
       var overItem = this.itemForCoord(coord);
       if (overItem) {
         var toIndex = indexForItem(overItem);
         if (toIndex !== undefined && (toIndex !== this.lastToIndex || this.emptyZone)) {
           var fromIndex = indexForItem(selectedItem);
           this.lastToIndex = toIndex;
-          this.lastXcoord = posX;
+          this.lastCoord = pos;
           this.emptyZone = false;
-          this.reorderList._reorderMove(fromIndex, toIndex, this.selectedItemWidth);
+          this.reorderList._reorderMove(fromIndex, toIndex, this.selectedItemSize);
         }
       } else {
         this.emptyZone = true;
@@ -97,8 +99,9 @@ export class ItemReorderGesture {
     }
 
     // Update selected item position
-    const xdiff = Math.round(posX - this.offset.x); // + scrollPosition);
-    (<any>selectedItem.style)[this.plt.Css.transform] = `translateX(${xdiff}px)`;
+    const diff = Math.round(pos - (isH ? this.offset.x : this.offset.y)); // + scrollPosition);
+    const coordStr = isH ? 'X' : 'Y';
+    (<any>selectedItem.style)[this.plt.Css.transform] = `translate${coordStr}(${diff}px)`;
   }
 
   private onDragEnd(ev: any) {
@@ -155,7 +158,12 @@ export class ItemReorderGesture {
   }
 }
 
+export enum Direction {
+  Horizontally = 'h',
+  Vertically = 'y'
+};
 
+const HORIZONTALLY = 'h';
 const AUTO_SCROLL_MARGIN = 60;
 //const SCROLL_JUMP = 10;
 const ITEM_REORDER_ACTIVE = 'reorder-active';

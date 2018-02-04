@@ -31,6 +31,7 @@ export class TepuySortableDirective implements ItemReorderGestureDelegate, After
   _sortEnabled: boolean = false;
   _visibleReorder: boolean = false;
   _order: any[] = [];
+  _direction: ('h'|'v') = 'h';
   _reorderGesture: ItemReorderGesture;
   _lastToIndex: number = -1;
   _element: HTMLElement;
@@ -47,6 +48,11 @@ export class TepuySortableDirective implements ItemReorderGestureDelegate, After
   @Input('tepuy-order')
   set order(order: any[]) {
     this._order = order;
+  }
+
+  @Input('tepuy-direction')
+  set direction(direction: ('h'|'v')) {
+    this._direction = direction;
   }
 
   constructor(
@@ -99,7 +105,7 @@ export class TepuySortableDirective implements ItemReorderGestureDelegate, After
       setTimeout(() => this._sortEnabled = false, 400);
 
     } else if (enabled && !this._reorderGesture) {
-      this._reorderGesture = new ItemReorderGesture(this._plt, this);
+      this._reorderGesture = new ItemReorderGesture(this._plt, this, this._direction);
 
       this._sortEnabled = true;
 
@@ -170,7 +176,7 @@ export class TepuySortableDirective implements ItemReorderGestureDelegate, After
     this._lastToIndex = -1;
   }
 
-  _reorderMove(fromIndex: number, toIndex: number, itemWidth: number) {
+  _reorderMove(fromIndex: number, toIndex: number, itemSize: number) {
     if (this._lastToIndex === -1) {
       this._lastToIndex = fromIndex;
     }
@@ -182,6 +188,7 @@ export class TepuySortableDirective implements ItemReorderGestureDelegate, After
 
     /********* DOM READ ********** */
     let children = this._element.children;
+    const coord = this._direction == 'h' ? 'X' : 'Y';
 
     /********* DOM WRITE ********* */
     let transform = this._plt.Css.transform;
@@ -189,7 +196,7 @@ export class TepuySortableDirective implements ItemReorderGestureDelegate, After
       for (let i = lastToIndex; i <= toIndex; i++) {
         if (i !== fromIndex) {
           (<any>children[i]).style[transform] = (i > fromIndex)
-            ? `translateX(${-itemWidth}px)` : '';
+            ? `translate${coord}(${-itemSize}px)` : '';
         }
       }
     }
@@ -198,7 +205,7 @@ export class TepuySortableDirective implements ItemReorderGestureDelegate, After
       for (let i = toIndex; i <= lastToIndex; i++) {
         if (i !== fromIndex) {
           (<any>children[i]).style[transform] = (i < fromIndex)
-            ? `translateX(${itemWidth}px)` : '';
+            ? `translate${coord}(${itemSize}px)` : '';
         }
       }
     }

@@ -75,14 +75,16 @@
     "id": 8,
     "label":"9",
     "type": "sort",
-    "unavailable": true,
+    "script": "assets/game/html/l_3/ch_9",
     "parameters": {
+      "synonymous": [["acabar", "finalizar"], ["amplificar", "agrandar"], ["anteojos", "gafas"], ["andar", "caminar"], ["batalla", "guerra"], ["bonito", "hermoso"], ["cabello", "pelo"], ["cálido", "caliente"], ["calmar", "tranquilizar"], ["camino", "sendero"], ["castigar", "sancionar"], ["cómodo", "confortable"], ["comprender", "entender"], ["crear", "inventar"], ["cumbre", "cima"], ["danza", "baile"], ["decir", "pronunciar"], ["defecto", "imperfección"], ["demente", "loco"], ["desobediente", "indisciplinado"], ["iniciar", "empezar"], ["destruir", "eliminar"], ["ebrio", "borracho"], ["economizar", "ahorrar"], ["elegir", "escoger"], ["enfurecer", "enojar"], ["escuchar", "oír"], ["entero", "completo"], ["estudiante", "alumno"], ["extraño", "raro"], ["fácil", "sencillo"], ["fallecer", "morir"], ["flaco", "delgado"], ["fragmento", "pedazo"], ["gigante", "enorme"], ["gordo", "obeso"], ["idéntico", "igual"], ["lanzar", "arrojar"], ["llano", "plano"], ["maestro", "profesor"], ["nunca", "jamás"], ["observar", "mirar"], ["orar", "rezar"], ["parar", "detener"], ["paz", "tranquilidad"], ["poco", "escaso"], ["previo", "anterior"], ["profundo", "hondo"], ["razón", "motivo"], ["hurtar", "robar"], ["rostro", "cara"], ["responder", "contestar"], ["sano", "saludable"], ["penumbra", "oscuridad"], ["sumar", "agregar"], ["tomar", "beber"], ["triunfo", "victoria"], ["veloz", "rápido"], ["volver", "regresar"], ["proteger", "cuidar"]]
     }
   },
   {
     "id": 9,
     "label":"10",
     "type": "sort",
+    "unavailable": true,
     "parameters": {
     }
   }

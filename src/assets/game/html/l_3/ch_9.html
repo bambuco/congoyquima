@@ -1,0 +1,20 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-win-score="0.6" (activityRestart)="onReset()">
+  <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.synonymous;fromQ=true';count:6;type:'scalar';let pairs=values">
+    <div class="container" tepuy-item-group [tepuy-group-id]="1" (groupInit)="prepare($event, pairs)">
+      <div *ngIf="itemsSorted" class="container-wrapper">
+        <div class="left-box" [ngStyle]="boxStyles[0]">          
+          <div *ngFor="let pair of pairs" tepuy-autofit>
+            <div class="text-label left-label" tepuy-scale="1920">{{pair[0]|ucfirst}}</div>
+          </div>
+        </div>
+        <div class="right-box" tepuy-sortable="true" [tepuy-order]="itemsSorted" tepuy-direction="v" [ngStyle]="boxStyles[1]" (tepuyItemReorder)="itemsReorder($event)">
+          <div *ngFor="let it of items; let i=index" tepuy-item [tepuy-correct]="false"  tepuy-autofit [tepuy-value]="it.val">
+            <div class="text-label right-label" tepuy-scale="1920">{{it.val|ucfirst}}</div> 
+            <!--div class="highlighter"></div-->
+            <input type="hidden" tepuy-item-value />
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
