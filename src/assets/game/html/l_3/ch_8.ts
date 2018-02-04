@@ -47,31 +47,31 @@ export function componentBuilder(template:string, css:string): Type<any> {
       "semilla": {
         "answers": [0,4,1,3,2],
         "sets": [
-          ["pequeñas", "dolorosas", "amigables", "rudas", "cómodas"],
-          ["simpáticas", "culpables", "solitarias", "dolorosas", "duras"],
-          ["pensativas", "valiosas", "orgullosas", "peligrosas", "invisibles"],
-          ["pesadas", "enfermas", "altas", "livianas", "arriesgadas"],
-          ["tiernas", "nerviosas", "importantes", "impacientes", "deprimidas"]
+          ["pequeña", "dolorosa", "amigable", "ruda", "cómoda"],
+          ["simpática", "culpable", "solitaria", "dolorosa", "dura"],
+          ["pensativa", "valiosa", "orgullosa", "peligrosa", "invisible"],
+          ["pesada", "enferma", "alta", "liviana", "arriesgada"],
+          ["tierna", "nerviosa", "importante", "impaciente", "deprimida"]
         ]
       },
       "manzana": {
         "answers": [1,2,0,3,4],
         "sets": [
-          ["tímidas", "rojas", "enojadas", "picantes", "graciosas"],
-          ["cuadradas", "rectangulares", "redondas", "triangulares", "grises"],
-          ["comestibles", "desconfiadas", "grandes", "cordiales", "atrevidas"],
-          ["sonrientes", "estudiosas", "lamentables", "deliciosas", "astutas"],
-          ["ardientes", "mansas", "largas", "familiares", "nutritivas"]
+          ["tímida", "roja", "enojada", "picante", "graciosa"],
+          ["cuadrada", "rectangular", "redonda", "triangular", "gris"],
+          ["comestible", "desconfiada", "grande", "cordial", "atrevida"],
+          ["sonriente", "estudiosa", "lamentable", "deliciosa", "astuta"],
+          ["ardiente", "mansa", "larga", "familiar", "nutritiva"]
         ]
       },
       "bosque": {
         "answers": [2,3,4,0,1],
         "sets": [
-          ["simpáticos", "morados", "importantes", "elegantes", "cuadrados"],
-          ["brillantes", "enojados", "gordos", "tranquilos", "amargos"],
-          ["engreídos", "estúpidos", "educados", "grasosos", "naturales"],
-          ["valiosos", "golosos", "generosos", "impulsivos", "arenosos"],
-          ["negros", "frescos", "rudos", "intolerantes", "torpes"]
+          ["simpático", "morado", "importante", "elegante", "cuadrado"],
+          ["brillante", "enojado", "gordo", "tranquilo", "amargo"],
+          ["engreído", "estúpido", "educado", "grasoso", "natural"],
+          ["valioso", "goloso", "generoso", "impulsivo", "arenoso"],
+          ["negro", "fresco", "rudo", "intolerante", "torpe"]
         ]
       },
       "lápiz": {
@@ -97,11 +97,11 @@ export function componentBuilder(template:string, css:string): Type<any> {
       "flor": {
         "answers": [0,1,2,3,4],
         "sets": [
-          ["bonitas", "sensatas", "puntuales", "rápidas", "aburridas"],
-          ["pegajosas", "coloridas", "desordenadas", "maduras", "ruidosas"],
-          ["peligrosas", "arriesgadas", "delicadas", "espesas", "traviesas"],
-          ["rectangulares", "calientes", "conversadoras", "olorosas", "tontas"],
-          ["ágiles", "pesadas", "lentas", "decaídas", "variadas"]
+          ["bonita", "sensata", "puntuale", "rápida", "aburrida"],
+          ["pegajosa", "colorida", "desordenada", "madura", "ruidosa"],
+          ["peligrosa", "arriesgada", "delicada", "espesa", "traviesa"],
+          ["rectangular", "caliente", "conversadora", "olorosa", "tonta"],
+          ["ágil", "pesada", "lenta", "decaída", "variada"]
         ]
       },
       "chocolate": {
