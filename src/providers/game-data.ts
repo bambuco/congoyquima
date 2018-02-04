@@ -101,7 +101,13 @@ export class GameDataProvider {
         let level = settings.levels.find(l => { return l.id == id });
         if (level && level.unlocked && !level.prepared) {
 
-          let challenges = this.http.get(['assets/game/html/l_', id, '/challenges.json'].join(''));
+          let challenges = this.http.get(['assets/game/html/l_', id, '/challenges.json'].join(''))
+            .catch(error => {
+              let items = [];
+              for(let i = 0; i < 10; i++) items.push({id: i, label: (i+1)+''});
+              items[0].unavailable = true;
+              return Observable.of(items);
+            });
           let levelState = this.storage.get(level_state_key.replace('$id', id));
 
           Observable.forkJoin([challenges, Observable.fromPromise(levelState)]).subscribe((data) => {
@@ -217,7 +223,7 @@ export class GameDataProvider {
             let nextLevel = this.settings.levels[challenge.levelId];
             nextLevel.unlocked = true;
             nextLevel.currentChallenge = 0;
-            nextChallenge = nextLevel.challenges[0];
+            nextChallenge = null; //nextLevel.challenges[0];
           }
         }
         else {
