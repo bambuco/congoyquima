@@ -2339,10 +2339,10 @@ page-game-challenge {
 
           .highligther {
             position:absolute;
-            width: 444px;
-            height: 444px;
-            left: 48px;
-            top: 48px;
+            width: 442px;
+            height: 442px;
+            left: 52px;
+            top: 44px;
             border-radius: 50%;
             background-color: #fff;
             z-index:-1;
@@ -2407,6 +2407,67 @@ page-game-challenge {
         background-position: -20px -14px;
         width: 540px;
         height: 540px;
+      }
+    }
+  }
+  /**********************************************************************
+  Level 3 - Challenge 7
+  **********************************************************************/
+  .level_3.challenge_7 {
+    .container {
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      top: 34.58%;
+      width: 100%;
+
+      .tepuy-sortable {
+        display:flex;
+        justify-content:space-between;
+      }
+
+      .sequence-container {
+        display: inline-block;
+        position: relative;
+
+        .highlighter {
+          position:absolute;
+          width: 99%;
+          height: 100%;
+          left: 0;
+          top: 0;
+          margin: 0 1%;
+          border: solid 3px;
+          border-radius: 4px;
+          display:none;
+        }
+
+        &.tepuy-correct {
+          .highlighter {
+            border-color: map-get($colors, correct);
+            display: block;
+          }
+        }
+        &.tepuy-wrong {
+          .highlighter {
+            border-color: map-get($colors, wrong);
+            display: block;
+          }
+        }
+      }
+    }
+
+    .sequence-stage {
+      background-image: url('../assets/game/img/l_3/ch_7/sprite.png');
+      background-color: transparent;
+      background-repeat: no-repeat;
+      position: relative;
+      @include transform-origin(left, top);
+      pointer-events: none;
+
+      @for $seq from 1 through 12  {
+        $icons: seq-#{$seq}-stage-1 seq-#{$seq}-stage-2 seq-#{$seq}-stage-3 seq-#{$seq}-stage-4 seq-#{$seq}-stage-5;
+        @include appSpriteIcons($icons, 17px, 20px + (300 * ($seq - 1)), 54, 0px, 196px, 232px);
       }
     }
   }
