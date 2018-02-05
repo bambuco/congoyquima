@@ -2,6 +2,10 @@ import { Directive, Input, TemplateRef, ViewContainerRef, OnChanges } from '@ang
 
 import { TepuyActivityService, IDataProvider } from '../providers';
 
+export function isFunction(functionToCheck) {
+ return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]';
+}
+
 @Directive({ selector: '[tepuyValueGenerator]' })
 export class TepuyValueGeneratorDirective implements OnChanges {
 
@@ -49,7 +53,7 @@ export class TepuyValueGeneratorDirective implements OnChanges {
       if (Array.isArray(this.tepuyValueGeneratorExclude)) {
         exclude = this.tepuyValueGeneratorExclude;
       }
-      else if (Array.isArray(this.tepuyValueGeneratorExclude)) {
+      else if (isFunction(this.tepuyValueGeneratorExclude)) {
         excludeFn = this.tepuyValueGeneratorExclude
       }
       else if (typeof(this.tepuyValueGeneratorExclude) === 'string') {
