@@ -9,11 +9,10 @@ page-game-level {
     background-repeat:no-repeat;
     overflow: auto;
     position:relative;
-    &.level_1 {
-      background-image: url('../assets/game/img/shared/level_1_bg.png');
-    }
-    &.level_2 {
-      background-image: url('../assets/game/img/shared/level_2_bg.png');
+    @for $l from 1 through 5 {
+      &.level_#{$l} {
+        background-image: url('../assets/game/img/shared/level_#{$l}_bg.png');
+      }
     }
   }
 

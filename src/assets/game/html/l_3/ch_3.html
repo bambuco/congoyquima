@@ -6,8 +6,10 @@
           <ng-container *ngIf="group.ready">
             <ng-container *tepuyValueGenerator="'randomof:numbers:min=0;max='+group.max+';'; include:[group.value];   exclude:exclude; count:3;shuffle:true;type:'scalar' let options=values">
               <div *ngFor="let opt of options; let i=index" class="sum-{{i}}" [ngStyle]="boxStyle[i]" tepuy-item tepuy-selectable tepuy-auto-feedback="true" [tepuy-correct]="group.value==opt" [tepuy-group-id]="group.id">
-                <div class="sum-wrapper">
-                  <span *ngFor="let ch of opt|sumofdigits:group.digits" [class.operator]="ch=='+'">{{ch}}</span>
+                <div tepuy-autofit>
+                  <div class="sum-wrapper sum-digits-{{group.digits}}" tepuy-scale="1920">
+                    <span *ngFor="let ch of opt|sumofdigits:group.digits" [class.operator]="ch=='+'">{{ch}}</span>
+                  </div>
                 </div>
               </div>
             </ng-container>

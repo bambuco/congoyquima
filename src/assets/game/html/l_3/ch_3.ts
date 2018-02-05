@@ -53,7 +53,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
         h: 90 * scale //126
       };
 
-      let lPos = [570, 470, 1235];
+      let lPos = [562, 462, 1227];
       let boxRect = [];
 
       for(let pos of lPos) {

@@ -2121,22 +2121,27 @@ page-game-challenge {
       position: absolute;
       //border: solid 1px red;
       display: flex;
+      justify-content: center;
       .sum-wrapper {
         position: relative;
-        width: 100%;
-        height: 100%;
+        width: 270px;
+        height: 104px;
+        white-space: nowrap;
         span {
           height: 100%;
-          font-size: 1.5em;
-          font-size: 1.5rem;
-          @media screen and (min-width: 768px) {
-            font-size: 2.5rem;
-          }
+          font-size: 104px;
+          line-height: 104px;
           pointer-events: none;
           flex: 1 1 content;
           &.operator {
             color: map-get($colors, operator);
           }
+        }
+        &.sum-digits-3 {
+          span { font-size: 94px; }
+        }
+        &.sum-digits-4 {
+          span { font-size: 68px; }
         }
       }
       &.tepuy-correct {
@@ -2147,13 +2152,13 @@ page-game-challenge {
       }
     }
     .sum-0 {
-      top: 30%; //570,396
+      top: 29%; //570,396
     }
     .sum-1 {
-      top: 61%; //469,812
+      top: 60%; //469,812
     }
     .sum-2 {
-      top: 48%;//1235,635
+      top: 47%;//1235,635
     }
   }
   /**********************************************************************
@@ -2541,14 +2546,14 @@ page-game-challenge {
       pointer-events: none;
 
       $icons: right-label left-label;
-      @include appSpriteIcons($icons, 20px, 20px, 0, 0px, 498px, 86px);
+      @include appSpriteIcons($icons, 20px, 20px, 32, 0px, 498px, 110px);
     }
 
     .container {
       display: flex;
       justify-content: center;
       position: absolute;
-      top: 9.27%; //178
+      top: 9%; //178
       width: 100%;
       heigth: 40.73%; //782
 
@@ -2567,7 +2572,7 @@ page-game-challenge {
         .text-label {
           display: block;
           font-size: 66px;
-          line-height: 86px;
+          line-height: 106px;
           font-weight: bold;
           color: map-get($colors, text-normal);
           text-align:center;
@@ -2575,8 +2580,6 @@ page-game-challenge {
         }
 
         & > [tepuy-autofit] {
-          border-radius: 5px;
-          background-color: #ff8;
           position: relative;
 
           &.tepuy-correct {
@@ -2601,14 +2604,14 @@ page-game-challenge {
       pointer-events: none;
 
       $icons: right-label left-label;
-      @include appSpriteIcons($icons, 20px, 20px, 0, 0px, 498px, 86px);
+      @include appSpriteIcons($icons, 20px, 20px, 32, 0px, 498px, 110px);
     }
 
     .container {
       display: flex;
       justify-content: center;
       position: absolute;
-      top: 9.27%; //178
+      top: 9%; //178
       width: 100%;
       heigth: 40.73%; //782
 
@@ -2626,7 +2629,7 @@ page-game-challenge {
 
         .text-label {
           font-size: 66px;
-          line-height: 86px;
+          line-height: 106px;
           font-weight: bold;
           color: map-get($colors, text-normal);
           text-align:center;
