@@ -1,0 +1,97 @@
+[
+  {
+    "id": 0,
+    "label":"1",
+    "type": "select",
+    "script": "assets/game/html/l_4/ch_1",
+    "parameters": {
+    }
+  },
+  {
+    "id": 1,
+    "label":"2",
+    "type": "sort",
+    "unavailable": true,
+    "script": "assets/game/html/l_3/ch_2",
+    "preload": {"images": ["shared/sprite_objects.png"]},
+    "parameters": {
+      "kg": ["Computador", "Televisor", "Estufa", "Mesa", "Cama", "Perro", "Gato", "Caballo", "Radio", "Vaca", "Motocicleta", "Carro", "Silla", "Libro", "Bicicleta", "Teléfono", "Puerta", "Ventana"],      
+      "gr": ["Manzana", "Pera", "Llave", "Cuchara", "Plato", "Vaso", "Zapato", "Camisa", "Pantalón", "Vestido", "Moneda", "Billete", "Gafas", "Balón", "Muñeca", "Tijeras", "Escoba", "Carne"]
+    }
+  },
+  {
+    "id": 2,
+    "label":"3",
+    "type": "select",
+    "script": "assets/game/html/l_3/ch_3",
+    "autofeedback": true,
+    "parameters": {
+    }
+  },
+  {
+    "id": 3,
+    "label":"4",
+    "type": "drag",
+    "script": "assets/game/html/l_3/ch_4",
+    "autofeedback": true,
+    "parameters": {
+    }
+  },
+  {
+    "id": 4,
+    "label":"5",
+    "type": "classify",
+    "script": "assets/game/html/l_3/ch_5",
+    "autofeedback": true,
+    "parameters": {
+    }
+  },
+  {
+    "id": 5,
+    "label":"6",
+    "type": "classify",
+    "preload": {"images": ["l_3/ch_5/sprite.png","shared/sprite_listen.png"]},
+    "autofeedback": true,
+    "parameters": {
+      "signals": ["gas_inflamable", "hospedaje", "montallantas", "museo", "obra_en_la_via", "paradero_de_bus", "pare", "peligro_de_caida", "peligro_de_intoxicacion", "personas_con_discapacidad", "primeros_auxilios", "prohibido_fumar", "prohibido_parquear", "punto_de_informacion", "restaurante", "riesgo_electrico", "servicio_de_telefono", "taxis", "wifi", "zona_escolar", "ciclovia", "cruce_peatonal", "baños", "estacion_de_gasolina"]
+    }
+  },
+  {
+    "id": 6,
+    "label":"7",
+    "type": "sort",
+    "script": "assets/game/html/l_3/ch_7",
+    "preload": {"images": ["l_3/ch_7/sprite.png"]},
+    "parameters": {
+    }
+  },
+  {
+    "id": 7,
+    "label":"8",
+    "type": "select",
+    "script": "assets/game/html/l_3/ch_8",
+    "preload": {"images": ["shared/sprite_objects.png"]},
+    "autofeedback": true,
+    "parameters": {
+      "words": ["billete", "miel", "vaso", "semilla", "manzana", "bosque", "lápiz", "sol", "flor", "chocolate"]
+    }
+  },
+  {
+    "id": 8,
+    "label":"9",
+    "type": "sort",
+    "script": "assets/game/html/l_3/ch_9",
+    "parameters": {
+      "synonymous": [["acabar", "finalizar"], ["amplificar", "agrandar"], ["anteojos", "gafas"], ["andar", "caminar"], ["batalla", "guerra"], ["bonito", "hermoso"], ["cabello", "pelo"], ["cálido", "caliente"], ["calmar", "tranquilizar"], ["camino", "sendero"], ["castigar", "sancionar"], ["cómodo", "confortable"], ["comprender", "entender"], ["crear", "inventar"], ["cumbre", "cima"], ["danza", "baile"], ["decir", "pronunciar"], ["defecto", "imperfección"], ["demente", "loco"], ["desobediente", "indisciplinado"], ["iniciar", "empezar"], ["destruir", "eliminar"], ["ebrio", "borracho"], ["economizar", "ahorrar"], ["elegir", "escoger"], ["enfurecer", "enojar"], ["escuchar", "oír"], ["entero", "completo"], ["estudiante", "alumno"], ["extraño", "raro"], ["fácil", "sencillo"], ["fallecer", "morir"], ["flaco", "delgado"], ["fragmento", "pedazo"], ["gigante", "enorme"], ["gordo", "obeso"], ["idéntico", "igual"], ["lanzar", "arrojar"], ["llano", "plano"], ["maestro", "profesor"], ["nunca", "jamás"], ["observar", "mirar"], ["orar", "rezar"], ["parar", "detener"], ["paz", "tranquilidad"], ["poco", "escaso"], ["previo", "anterior"], ["profundo", "hondo"], ["razón", "motivo"], ["hurtar", "robar"], ["rostro", "cara"], ["responder", "contestar"], ["sano", "saludable"], ["penumbra", "oscuridad"], ["sumar", "agregar"], ["tomar", "beber"], ["triunfo", "victoria"], ["veloz", "rápido"], ["volver", "regresar"], ["proteger", "cuidar"]]
+    }
+  },
+  {
+    "id": 9,
+    "label":"10",
+    "type": "sort",
+    "script": "assets/game/html/l_3/ch_10",
+    "parameters": {
+      "antonyms": [["frío", "caliente"], ["bonito", "feo"], ["alegre", "triste"], ["alto", "bajo"], ["valiente", "cobarde"], ["silencioso", "ruidoso"], ["cerca", "lejos"], ["luz", "oscuridad"], ["fácil", "difícil"], ["pequeño", "grande"], ["borrar", "escribir"], ["eventual", "permanente"], ["destruir", "construir"], ["cerrar", "abrir"], ["acentuar", "atenuar"], ["derrota", "triunfo"], ["aceptar", "rechazar"], ["idéntico", "distinto"], ["caridad", "egoísmo"], ["morir", "vivir"], ["justo", "injusto"], ["mentira", "verdad"], ["sólido", "líquido"], ["ciego", "vidente"], ["duro", "blando"], ["fallar", "acertar"], ["quitar", "poner"], ["pedir", "dar"], ["encender", "apagar"], ["seco", "húmedo"], ["humor", "seriedad"], ["guerra", "paz"], ["delgado", "grueso"], ["afirmar", "negar"], ["caerse", "levantarse"], ["preocupación", "tranquilidad"], ["aburrir", "divertir"], ["fácil", "difícil"], ["futuro", "pasado"], ["raro", "común"], ["amar", "odiar"], ["interior", "exterior"], ["superior", "inferior"], ["sucio", "limpio"], ["parar", "continuar"], ["adiós", "hola"], ["buscar", "encontrar "], ["entrada", "salida"], ["divertirse", "aburrirse"], ["flexible", "rígido"], ["despreciar", "valorar"], ["claro", "oscuro"], ["meter", "sacar"], ["presente", "pasado"], ["causa", "efecto"], ["sobrar", "faltar"], ["juntar", "separar"], ["día", "noche"]]
+    }
+  }
+]
