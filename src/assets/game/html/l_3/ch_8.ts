@@ -97,7 +97,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
       "flor": {
         "answers": [0,1,2,3,4],
         "sets": [
-          ["bonita", "sensata", "puntuale", "rápida", "aburrida"],
+          ["bonita", "sensata", "puntual", "rápida", "aburrida"],
           ["pegajosa", "colorida", "desordenada", "madura", "ruidosa"],
           ["peligrosa", "arriesgada", "delicada", "espesa", "traviesa"],
           ["rectangular", "caliente", "conversadora", "olorosa", "tonta"],

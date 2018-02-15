@@ -19,7 +19,8 @@ import {
   //TepuyDraggableService,
   TepuyAudioPlayerProvider,
   TepuyErrorProvider,
-  ResizeSensor
+  ResizeSensor,
+  ResourceProvider
 } from './providers';
 
 import {
@@ -80,7 +81,7 @@ import {
     SumOfDigitsPipe
   ],
   providers: [
-    TepuyActivityService, TepuyErrorProvider, TepuyAudioPlayerProvider, ResizeSensor, ObjectKeyPipe
+    TepuyActivityService, TepuyErrorProvider, TepuyAudioPlayerProvider, ResizeSensor, ResourceProvider, ObjectKeyPipe
   ]
 })
 export class TepuyModule {}

@@ -302,7 +302,7 @@ Object Icons
   $icons: obj-tomates obj-harina obj-pan obj-panela obj-galletas obj-cafe obj-chocolate obj-papas obj-miel obj-naranja obj-pastas;
   @include appSpriteIcons($icons, 0px, 3290px, 0px, 0px, 420px, 470px);
 
-  $icons: obj-azucar obj-sal;
+  $icons: obj-azucar obj-sal obj-semilla obj-bosque;
   @include appSpriteIcons($icons, 0px, 3760px, 0px, 0px, 420px, 470px);
 }
 /************************************************

@@ -19,6 +19,7 @@
     "id": 2,
     "label":"3",
     "type": "select",
+    "preload": {"images": ["l_2/ch_3/sprite_flowers.png","shared/sprite_listen.png"]},
     "autofeedback": true,
     "parameters": {
       "directions": ["r_gr","r_ye","r_fu","l_bk","r_bk","l_qu","r_qu","l_wh","r_wh","l_re","l_bl","l_vi","b_gr","a_ye","b_ye","a_fu","b_bk","a_qu","b_qu","a_wh","b_re","a_bl","b_bl","a_vi"]
@@ -29,6 +30,7 @@
     "label":"4",
     "autofeedback": true,
     "type": "select",
+    "preload": {"images": ["l_2/ch_4/bg_picnic.png","l_2/ch_4/bg_room.png","l_2/ch_4/bg_house.png"]},
     "parameters": {
       "picnic_in": ["botella", "manzana", "banano", "pera", "zanahoria", "tomate"],
       "picnic_out": ["arbol", "cuchara", "tenedor", "cuchillo", "plato", "vaso"],
@@ -42,6 +44,7 @@
     "id": 4,
     "label":"5",
     "type": "select",
+    "preload": {"images": ["shared/sprite_objects.png","shared/sprite_listen.png"]},
     "autofeedback": true,
     "parameters": {
       "objects":["flor", "moneda", "gato", "manzana", "pera", "carro", "gafas", "balon", "bombillo", "tijeras", "sol", "llave"]
@@ -59,6 +62,7 @@
     "label":"7",
     "type": "select",
     "script": "assets/game/html/l_2/ch_7",
+    "preload": {"images": ["shared/sprite_objects.png","shared/sprite_listen.png"]},
     "parameters": {
       "0_correct": ["moneda","billete","casa","perro","gato","vaca","caballo"],
       "0_wrong": ["sombrero","vestido","zanahoria","bicicleta","tijeras","botella","sol","sombrilla","lapiz","manzana"],
@@ -98,6 +102,7 @@
     "id": 8,
     "label":"9",
     "type": "classify",
+    "preload": {"images": ["l_2/ch_9/sprite.png"]},
     "autofeedback": true,
     "parameters": {
       "expressions": ["sorprendida", "alegre", "enojada", "triste", "pensativa", "confundida", "enamorada", "enferma", "tranquila", "cansada", "sonrojada", "somnolienta"]
@@ -108,6 +113,7 @@
     "label":"10",
     "type": "select",
     "script": "assets/game/html/l_2/ch_10",
+    "preload": {"images": ["shared/sprite_objects.png","shared/sprite_keys.png"]},
     "parameters": {
       "items": ["leche", "arepas", "aceite", "huevos", "arroz", "harina", "tomates", "fríjoles", "lentejas", "cebolla", "lechuga", "zanahoria", "manzana", "pera", "banano", "jabón", "carne", "pollo", "panela", "galletas", "café", "chocolate", "papas", "miel", "naranja", "pastas", "azúcar"]
     }
