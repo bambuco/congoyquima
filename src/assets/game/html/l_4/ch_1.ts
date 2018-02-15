@@ -11,7 +11,6 @@ export function componentBuilder(template:string, css:string): Type<any> {
   class L4Ch1Component {
     lBoxStyle:any;
     rBoxStyle:any;
-
     constructor(private elRef: ElementRef,
         private ngZone: NgZone,
         private platform: Platform) {
@@ -39,7 +38,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
         h: 568 * scale
       };
       const sw = rect.height; // * 100 / 70;
-      let left = sw * (497 / 1920);
+      let left = sw * (517 / 1920);
       let offset = (sw - rect.width) / 2;
       left -= offset;
       lBoxRect.l = left;
@@ -65,6 +64,15 @@ export function componentBuilder(template:string, css:string): Type<any> {
           'left.px': rBoxRect.l,
         };
       });
+    }
+
+    onSelect(idx, group, response) {
+      group.answer = idx;
+      group.answerValue = idx+1;
+      group.result = (group.answerValue == response) ? 'correct' : 'wrong';
+    }
+    
+    onReset() {
     }
   }
   return L4Ch1Component;

@@ -2703,6 +2703,14 @@ page-game-challenge {
         color: #97EFE2;
       }
     }
+    .operator {
+      position: absolute;
+      top: 0;
+      width: 66px;
+      font-size: 100px;
+      font-weight: bold;
+      line-height: 190px;
+    }
 
     .bag-container {
       position: absolute;
@@ -2712,14 +2720,13 @@ page-game-challenge {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      justify-content: center;
+      justify-content: start;
       & > div {
         display: inline-block;
         position: relative;
         width: 196px;
         height: 190px;
         .seed-bag {
-          //display: inline-block;
           position:absolute;
           top: 0;
           left: 0;
@@ -2734,18 +2741,21 @@ page-game-challenge {
             height: 90px;
             margin-left: -45px;
             margin-top: -20px;
+            border-width: 8px;
+            font-size: 70px;
+            line-height: 80px;
+            background-color: #fff;
           }
         }
         .operator {
-          //display: inline-block;
-          position: absolute;
-          top: 0;
           right: 0;
-          width: 66px;
-          font-size: 100px;
-          font-weight: bold;
-          line-height: 190px;
         }
+      }
+      &.tepuy-wrong {
+        .seed-bag span { background-color: map-get($colors, wrong); }
+      }
+      &.tepuy-correct {
+        .seed-bag span { background-color: map-get($colors, correct); }
       }
     }
 
@@ -2754,6 +2764,11 @@ page-game-challenge {
       top: 40%;
       width: 150px;
       height: 219px;
+      .operator {
+        left: -100px;
+        line-height: 219px;
+        color: #72724A;
+      }
       .seed-bag {
         width: 150px;
         height: 219px;
@@ -2766,8 +2781,9 @@ page-game-challenge {
           height: 120px;
           margin-left: -60px;
           margin-top: -40px;
-          font-size: 80px;
-          line-height: 120px;
+          border-width: 12px;
+          font-size: 70px;
+          line-height: 100px;
         }
       }
     }
@@ -2779,6 +2795,7 @@ page-game-challenge {
 
       & > [tepuy-selectable] {
         display: inline-block;
+        cursor: pointer;
       }
 
       .option-value {
@@ -2791,8 +2808,8 @@ page-game-challenge {
         font-weight: bold;
         line-height: 110px;
 
-        $icons: opt-unselected;
-        @include appSpriteIcons($icons, 20px, 20px, 0, 0px, 109px, 113px);
+        $icons: opt-unselected opt-selected;
+        @include appSpriteIcons($icons, 20px, 20px, 21, 0px, 109px, 113px);
       }
     }
   }

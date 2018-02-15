@@ -8,22 +8,23 @@
               <h1 tepuy-textfill>{{group.data}} x {{extra[0]}} = {{group.data * extra[0]}}</h1>
               <h2 tepuy-textfill>({{group.data}} veces {{extra[0]}} es igual a {{group.data * extra[0]}})</h2>
             </div>
-            <div class="bag-container" tepuy-scale="1920" [ngStyle]="lBoxStyle">
+            <div class="bag-container tepuy-{{group.result}}" tepuy-scale="1920" [ngStyle]="lBoxStyle">
               <div *tepuyRepeat="group.data; let last=last">
                 <div class="seed-bag">
-                  <span>{{selectedValue}}</span>
+                  <span>{{group.answerValue}}</span>
                 </div>
                 <div class="operator" *ngIf="!last">+</div>
               </div>
             </div>
             <div class="result-container" tepuy-scale="1920" [ngStyle]="rBoxStyle">
+              <div class="operator">=</div>
               <div class="seed-bag operation-result">
                 <span>{{group.data * extra[0]}}</span>
               </div>
             </div>
             <div class="options-container">
-              <div *tepuyRepeat="9; let i=index" tepuy-item tepuy-selectable [tepuy-correct]="(i+1)==extra[0]" tepuy-auto-feedback="true" tepuy-autofit>
-                <div class="option-value opt-unselected" tepuy-scale="1920">{{i+1}}</div>
+              <div *tepuyRepeat="9; let i=index" tepuy-item tepuy-selectable [tepuy-correct]="(i+1)==extra[0]" tepuy-auto-feedback="true" tepuy-autofit (click)="onSelect(i, group, extra[0])">
+                <div class="option-value" tepuy-scale="1920" [class.opt-unselected]="i !== group.answer" [class.opt-selected]="i == group.answer">{{i+1}}</div>
               </div>
             </div>
             <!--div *ngFor="let opt of options; let i=index" class="sum-{{i}}" [ngStyle]="boxStyle[i]" tepuy-item tepuy-selectable tepuy-auto-feedback="true" [tepuy-correct]="group.value==opt" [tepuy-group-id]="group.id">
