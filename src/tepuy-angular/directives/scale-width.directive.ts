@@ -152,6 +152,43 @@ export class TepuyAutofitDirective implements OnChanges, AfterViewInit {
   }
 }
 
+@Directive({ 
+  selector: '[tepuy-textfill]',
+  host: {
+    "(window:resize)": "onResize($event)"
+  }
+ })
+export class TepuyTextFillDirective implements OnChanges, AfterViewInit {
+  onResize($event=null) {
+    setTimeout(() => {
+      this.textfill();
+    }, 200);
+  }
+
+  //private originalDisplay: string;
+  //private offset:number = 8;
+
+  constructor(private elRef:ElementRef) {
+  }
+
+  ngOnChanges() {
+    this.textfill();
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.textfill();
+    }, 200);
+  }
+
+  textfill() {
+    const el = this.elRef.nativeElement;
+    const rect = el.getBoundingClientRect();
+    const height = rect.height;
+    el.style.fontSize = (height*0.75) + 'px';
+    el.style.lineHeight = height + 'px';
+  }
+}
 
 @Directive({ 
   selector: '[tepuy-portrait]',

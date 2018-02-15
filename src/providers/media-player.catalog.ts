@@ -40,7 +40,7 @@ export class MediaCatalog {
     });
 
     //Challenge intro
-    for(let l of [1,2,3]){
+    for(let l of [1,2,3,4]){
       for (let ch = 1; ch < 11; ch++) {
         this.assets.push({
           type: 'audio',

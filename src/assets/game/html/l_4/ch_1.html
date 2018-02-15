@@ -1,0 +1,44 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding (activityRestart)="onReset()">
+  <ng-container *tepuyValueGenerator="'randomof:numbers:min=2;max=9;'count:5;let groups=values">
+    <ion-slides class="tepuy-activity-content" zoom="false" pager="true" paginationType="progress" effect="slide">
+      <ng-container *ngFor="let group of groups;let id=index">
+        <ion-slide tepuy-item-group [tepuy-group-id]="id" (groupInit)="prepare($event)">
+          <ng-container *tepuyValueGenerator="'randomof:numbers:min=1;max=9;'count:1;type:'scalar';let extra=values">
+            <div class="operation-legend">
+              <h1 tepuy-textfill>{{group.data}} x {{extra[0]}} = {{group.data * extra[0]}}</h1>
+              <h2 tepuy-textfill>({{group.data}} veces {{extra[0]}} es igual a {{group.data * extra[0]}})</h2>
+            </div>
+            <div class="bag-container" tepuy-scale="1920" [ngStyle]="lBoxStyle">
+              <div *tepuyRepeat="group.data; let last=last">
+                <div class="seed-bag">
+                  <span>{{selectedValue}}</span>
+                </div>
+                <div class="operator" *ngIf="!last">+</div>
+              </div>
+            </div>
+            <div class="result-container" tepuy-scale="1920" [ngStyle]="rBoxStyle">
+              <div class="seed-bag operation-result">
+                <span>{{group.data * extra[0]}}</span>
+              </div>
+            </div>
+            <div class="options-container">
+              <div *tepuyRepeat="9; let i=index" tepuy-item tepuy-selectable [tepuy-correct]="(i+1)==extra[0]" tepuy-auto-feedback="true" tepuy-autofit>
+                <div class="option-value opt-unselected" tepuy-scale="1920">{{i+1}}</div>
+              </div>
+            </div>
+            <!--div *ngFor="let opt of options; let i=index" class="sum-{{i}}" [ngStyle]="boxStyle[i]" tepuy-item tepuy-selectable tepuy-auto-feedback="true" [tepuy-correct]="group.value==opt" [tepuy-group-id]="group.id">
+              <div tepuy-autofit>
+                <div class="sum-wrapper sum-digits-{{group.digits}}" tepuy-scale="1920">
+                  <span *ngFor="let ch of opt|sumofdigits:group.digits" [class.operator]="ch=='+'">{{ch}}</span>
+                </div>
+              </div>
+            </div-->
+          </ng-container>
+        </ion-slide>
+      </ng-container>
+    </ion-slides>
+    <div class="tepuy-feedback-summary tepuy-semaphore">
+      <span *ngFor="let g of groups" class="tepuy-{{g.state}}"></span>
+    </div>
+  </ng-container>
+</div>
