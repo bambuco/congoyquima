@@ -20,7 +20,7 @@
               </div>
             </div>
             <div class="options-container">
-              <ng-container *tepuyValueGenerator="'randomof:letters:min=a;max=z';exclude:word.data; type:'scalar';count:1; let extra=values">
+              <ng-container *tepuyValueGenerator="'randomof:letters:min=a;max=z';exclude:word.data.toLowerCase(); type:'scalar';count:1; let extra=values">
                 <div *ngFor="let ch of [extra[0], word.data[missing[0][0]],word.data[missing[0][1]]]|shuffle;"
                    tepuy-item tepuy-draggable tepuy-greetable [tepuy-value]="ch|lowercase" tepuy-autofit>
                   <div tepuy-item-value

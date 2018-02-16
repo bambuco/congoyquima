@@ -109,7 +109,16 @@ export class MediaCatalog {
         preload: true
       });
     }
-
+    //Miscellaneous
+    const miscellaneous = ["por"];
+    for (let misc of miscellaneous) {
+      this.assets.push({
+        type: 'audio',
+        key: misc,
+        path: path + ['misc/', misc, '.mp3'].join(''),
+        preload: true
+      });
+    }
   }
 
   get audios():Array<any> {
