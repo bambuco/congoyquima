@@ -12,7 +12,8 @@ export class TepuyRepeatDirective {
     for(var i=0;i<c;i++) {
       this.viewContainer.createEmbeddedView(this.templateRef, {
         index: i,
-        last: last==i
+        last: last==i,
+        first: i == 0
       });
     }
   }

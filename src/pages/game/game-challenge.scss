@@ -197,7 +197,7 @@ page-game-challenge {
       display: inline-block;
 
       .listen-icon {
-        &.tepuy-correct, &.tepuy-wrong {
+        &.listen-inactive-empty, &.tepuy-correct, &.tepuy-wrong {
           background-image: none;
           border-radius: 50%;
           border: solid 12px #fff;
@@ -209,6 +209,11 @@ page-game-challenge {
 
         &.tepuy-wrong {
           background-color: map-get($colors, wrong);
+        }
+
+        &.listen-inactive-empty {
+          width: 180px;
+          height: 180px;
         }
       }
     }
@@ -230,7 +235,7 @@ page-game-challenge {
   }
 
   [tepuy-scale] {
-    @include transform-origin(left, top);
+    @include transform-origin(left top);
   }
 
   @include keyframes(activity-pointer){
@@ -693,7 +698,7 @@ page-game-challenge {
       bottom: 10%;
       right: 10%;
       font-size: 3em; //ToDo: Remove this
-      @include transform-origin(right, bottom);
+      @include transform-origin(right bottom);
       
       $icons: interruptor;
       @include appSpriteIcons($icons, 20px, 20px, 0px, 40px, 292px, 290px, $alternate:':active');
@@ -722,7 +727,7 @@ page-game-challenge {
       bottom: 25%;
       width: 660px;
       height: 692px;
-      @include transform-origin(bottom, left);
+      @include transform-origin(bottom left);
     }
 
 
@@ -821,7 +826,7 @@ page-game-challenge {
       position: absolute;
       bottom: 15%;
       right: 15%;
-      @include transform-origin(right, bottom)
+      @include transform-origin(right bottom)
     }
 
     .book-page {
@@ -847,7 +852,7 @@ page-game-challenge {
       bottom: 25%;
       width: 660px;
       height: 692px;
-      @include transform-origin(bottom, left);
+      @include transform-origin(bottom left);
     }
 
 
@@ -963,7 +968,7 @@ page-game-challenge {
       color: map-get($colors, text-normal);
       font-size: 5em;
       border-bottom: dashed 4px #808080;
-      @include transform-origin(bottom, right);
+      @include transform-origin(bottom right);
     }
 
 
@@ -979,13 +984,13 @@ page-game-challenge {
       left: 0;
       width: 660px;
       height: 692px;
-      @include transform-origin(left, bottom);
+      @include transform-origin(left bottom);
     }
 
     .object-icon {
       position: absolute;
       @include scale(0.6);
-      @include transform-origin(left, bottom);
+      @include transform-origin(left bottom);
       background-color: #fff;
       border: solid 12px #B3B3B3;
 
@@ -1082,6 +1087,9 @@ page-game-challenge {
       display: flex;
       justify-content: center;
       align-items: center;
+      [tepuy-scale] {
+        @include transform-origin(unset);
+      }
     }
 
     .puzzle-container {
@@ -1111,7 +1119,7 @@ page-game-challenge {
         color: map-get($colors, text-normal);
         font-size: 5em;
         margin: 0 4px;
-        @include transform-origin(left, top);      }
+        @include transform-origin(left top);      }
     }
 
     .tepuy-droppable {
@@ -1160,7 +1168,7 @@ page-game-challenge {
           position: absolute;
           right: 0;
           top: 0;
-          @include transform-origin(top, right);      
+          @include transform-origin(top right);
         }
       }
 
@@ -1187,7 +1195,7 @@ page-game-challenge {
           color: map-get($colors, text-normal);
           font-size: 5em;
           margin: 0 4px;
-          @include transform-origin(left, top);
+          @include transform-origin(left top);
         }
       }
     }
@@ -1218,7 +1226,7 @@ page-game-challenge {
         color: map-get($colors, text-normal);
         font-size: 5em;
         margin: 0 4px;
-        @include transform-origin(left, top);      
+        @include transform-origin(left top);
       }
     }
 
@@ -1259,7 +1267,7 @@ page-game-challenge {
       font-size: 96px;
       line-height: 156px;
       margin: 0;
-      @include transform-origin(left, top);
+      @include transform-origin(left top);
 
       span {
         position:absolute;
@@ -1340,7 +1348,7 @@ page-game-challenge {
       background-color: transparent;
       background-repeat: no-repeat;
       display: inline-block;
-      @include transform-origin(left, top);
+      @include transform-origin(left top);
         
       $icons: growing-plant;
       @include appSpriteIcons($icons, 250px, 20px, 0px, 0px, 212px, 450px);  
@@ -1500,7 +1508,7 @@ page-game-challenge {
       background-color: transparent;
       background-repeat: no-repeat;
       display: inline-block;
-      @include transform-origin(left, top);
+      @include transform-origin(left top);
         
       $icons: green-flower black-flower red-flower yellow-flower fucsia-flower white-flower violet-flower blue-flower;
       @include appSpriteIcons($icons, 20px, 20px, 138px, 0px, 112px, 178px);
@@ -1561,7 +1569,7 @@ page-game-challenge {
       justify-content: center;
       background-color: rgba(255,255,255,0.5);
       .object-icon {
-        @include transform-origin(left, top);
+        @include transform-origin(left top);
       }
       .image-zone {
         display: inline-flex;
@@ -1616,11 +1624,11 @@ page-game-challenge {
       border: solid 12px #5B636C;
       border-radius: 50%;
       background-color: #E6E6E6;
-      @include transform-origin(left, top);
+      @include transform-origin(left top);
       .object-icon {
         position: absolute;
         @include scale(0.19);
-        @include transform-origin(left, top);
+        @include transform-origin(left top);
 
         &.obj-1 { top: 0; left: 25%; }
         &.obj-2 { top: 0; left: 50%; }
@@ -1681,7 +1689,7 @@ page-game-challenge {
       background-color: transparent;
       background-repeat: no-repeat;
       position: relative;
-      @include transform-origin(left, top);
+      @include transform-origin(left top);
       pointer-events: none;
       
       $icons: flower-with-letter;
@@ -1732,7 +1740,7 @@ page-game-challenge {
       }
 
       .object-icon {
-        @include transform-origin(left, top);
+        @include transform-origin(left top);
       }
     }
 
@@ -1828,7 +1836,7 @@ page-game-challenge {
         background-image: url('../assets/game/img/l_2/ch_9/sprite.png');
         background-color: transparent;
         background-repeat: no-repeat;
-        @include transform-origin(left, top);
+        @include transform-origin(left top);
         pointer-events: none;
         
         $icons: sorprendida;
@@ -1915,7 +1923,7 @@ page-game-challenge {
         justify-content: left;
 
         .object-icon, .keyholder-icon {
-          @include transform-origin(left, top);
+          @include transform-origin(left top);
         }
 
         .keyholder-icon {
@@ -1965,7 +1973,7 @@ page-game-challenge {
           font-size: 5.5em;
           font-weight: bold;
         }
-        @include transform-origin(left, top);
+        @include transform-origin(left top);
       }
     }
   }
@@ -2015,7 +2023,7 @@ page-game-challenge {
       background-image: url('../assets/game/img/l_3/ch_1/sprite.png');
       background-color: transparent;
       background-repeat: no-repeat;
-      @include transform-origin(left, top);
+      @include transform-origin(left top);
       pointer-events: none;
 
       $icons: seedbag-full seedbag-empty;
@@ -2080,7 +2088,7 @@ page-game-challenge {
         height: 400px;
         position: relative;
         pointer-events: none;
-        @include transform-origin(left, top);
+        @include transform-origin(left top);
 
         .highlight-circle {
           position: absolute;
@@ -2092,7 +2100,7 @@ page-game-challenge {
           background-color: transparent;
         }
         .object-icon {
-          @include transform-origin(left, top);
+          @include transform-origin(left top);
           @include scale($scale);
           position:absolute;
           top:0;
@@ -2238,14 +2246,14 @@ page-game-challenge {
     .sum-result {
       width: 194px;
       height: 182px;
-      @include transform-origin(left, top);
+      @include transform-origin(left top);
     }
 
     .panel-icon {
       background-image: url('../assets/game/img/l_3/ch_4/sprite.png');
       background-color: transparent;
       background-repeat: no-repeat;
-      @include transform-origin(left, top);
+      @include transform-origin(left top);
       pointer-events: none;
 
       $icons: panel-full panel-empty;
@@ -2324,7 +2332,7 @@ page-game-challenge {
       background-image: url('../assets/game/img/l_3/ch_5/sprite.png');
       background-color: transparent;
       background-repeat: no-repeat;
-      @include transform-origin(left, top);
+      @include transform-origin(left top);
       pointer-events: none;
       display:flex;
       justify-content: center;
@@ -2389,7 +2397,7 @@ page-game-challenge {
           //height: auto;
           align-items: center;
           justify-content: center;
-          @include transform-origin(left, top);
+          @include transform-origin(left top);
 
           .highlighter {
             width: 442px;
@@ -2492,7 +2500,7 @@ page-game-challenge {
       background-color: transparent;
       background-repeat: no-repeat;
       position: relative;
-      @include transform-origin(left, top);
+      @include transform-origin(left top);
       pointer-events: none;
 
       @for $seq from 1 through 12  {
@@ -2811,6 +2819,60 @@ page-game-challenge {
         $icons: opt-unselected opt-selected;
         @include appSpriteIcons($icons, 20px, 20px, 21, 0px, 109px, 113px);
       }
+    }
+  }
+  /**********************************************************************
+  Level 4 - Challenge 2
+  **********************************************************************/
+  .level_4.challenge_2 {
+    ion-slides {
+       height: 70%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom, .container {
+        position: relative;
+        height: 100%;
+        bottom: 0%;
+        width: 100%;
+      }
+    }
+
+    $header-bg: #3AAFA9;
+    $col-bg: #A6A19C;
+    $color: #5E564E;
+
+    .tbl {
+      position: relative;
+      margin: 0 auto;
+      display: inline-block;
+
+      .tbl-row {
+        .tbl-col {
+          display: inline-block;
+          border: solid 0.5px $color;
+          white-space: nowrap;
+          background-color: $col-bg;
+          color: $color;
+          opacity: 0.8;
+          &.select-path {
+            background-color: $header-bg;
+          }
+          &.header {
+            background-color: $header-bg;
+            color: #fff;
+            opacity: 1;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+
+    .container {
+      position: absolute;
+      top: 5%;
+      width: 100%;
+      height: 95%;
     }
   }
 }

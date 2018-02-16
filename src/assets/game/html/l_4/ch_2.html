@@ -1,0 +1,39 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding (activityRestart)="onReset()">
+  <ng-container *tepuyValueGenerator="'randomof:numbers:min=1;max=9;'count:5;let groups=values">
+    <ion-slides class="tepuy-activity-content" zoom="false" pager="true" paginationType="progress" effect="slide">
+      <ng-container *ngFor="let group of groups;let id=index">
+        <ng-container *tepuyValueGenerator="'randomof:numbers:min=1;max=9;'count:1;type:'scalar';let extra=values">
+          <ion-slide tepuy-item-group [tepuy-group-id]="id" (groupInit)="prepare($event, group, extra[0])">
+            <div class="container" *ngIf="group.ready">
+              <div class="tbl tepuy-{{group.status}}">
+                <div class="tbl-row">
+                  <div class="tbl-col" [ngStyle]="cellStyle">x</div><div class="tbl-col header" *tepuyRepeat="dimensions; let k=index" [ngStyle]="cellStyle">
+                    {{group.matrix[0][k+1]}}
+                  </div>
+                </div>
+                <div class="tbl-row" *tepuyRepeat="dimensions; let i=index">
+                  <div class="tbl-col header" [ngStyle]="cellStyle">{{group.matrix[i+1][0]}}</div><div class="tbl-col" *tepuyRepeat="dimensions; let k=index" [ngStyle]="cellStyle"
+                    tepuy-item tepuy-selectable tepuy-auto-feedback="true" (click)="onSelect(i,k,group)" [tepuy-correct]="group.answer.test(''+i+k)" [tepuy-group-id]="id" [class.select-path]="(i==group.R||k==group.C)&&((i+1)*(k+1)<group.I)" [class.selected]="i==group.R&&k==group.C">
+                    {{group.matrix[i+1][k+1]}}
+                  </div>
+                </div>
+                <div class="highlighter row" [ngStyle]="rowHStyle"></div>
+                <div class="highlighter column" [ngStyle]="colHStyle"></div>
+                <div class="highlighter cell" [ngStyle]="celHStyle"></div>
+              </div>
+            </div>
+          </ion-slide>
+        </ng-container>
+      </ng-container>
+    </ion-slides>
+    <div class="tepuy-feedback-summary tepuy-semaphore">
+      <ng-container *ngFor="let g of groups">
+      <div *ngIf="g.ready" class="listen-control" tepuy-autofit>
+        <div class="tepuy-{{g.state}} listen-icon" [class.listen-active]="g.active" [class.listen-inactive-empty]="!g.active" tepuy-scale="1920" tepuy-greetable="[greet-value]" [attr.disabled]="!g.active">
+          <input greet-value type="hidden" value="{{g.data}}|por|{{g.data2}}" />
+        </div>
+      </div>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>

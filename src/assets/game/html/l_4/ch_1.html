@@ -27,13 +27,6 @@
                 <div class="option-value" tepuy-scale="1920" [class.opt-unselected]="i !== group.answer" [class.opt-selected]="i == group.answer">{{i+1}}</div>
               </div>
             </div>
-            <!--div *ngFor="let opt of options; let i=index" class="sum-{{i}}" [ngStyle]="boxStyle[i]" tepuy-item tepuy-selectable tepuy-auto-feedback="true" [tepuy-correct]="group.value==opt" [tepuy-group-id]="group.id">
-              <div tepuy-autofit>
-                <div class="sum-wrapper sum-digits-{{group.digits}}" tepuy-scale="1920">
-                  <span *ngFor="let ch of opt|sumofdigits:group.digits" [class.operator]="ch=='+'">{{ch}}</span>
-                </div>
-              </div>
-            </div-->
           </ng-container>
         </ion-slide>
       </ng-container>
