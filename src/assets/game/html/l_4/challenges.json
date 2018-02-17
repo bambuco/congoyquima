@@ -29,7 +29,7 @@
   {
     "id": 3,
     "label":"4",
-    "type": "drag",
+    "type": "select",
     "script": "assets/game/html/l_4/ch_4",
     "preload": {"images": ["l_4/ch_4/sprite.png"]},
     "autofeedback": true,
@@ -39,9 +39,9 @@
   {
     "id": 4,
     "label":"5",
-    "type": "classify",
-    "unavailable": true,
-    "script": "assets/game/html/l_3/ch_5",
+    "type": "drag",
+    "script": "assets/game/html/l_4/ch_5",
+    "preload": {"images": ["l_4/ch_5/sprite.png"]},
     "autofeedback": true,
     "parameters": {
     }
@@ -50,6 +50,7 @@
     "id": 5,
     "label":"6",
     "type": "classify",
+    "unavailable": true,
     "preload": {"images": ["l_3/ch_5/sprite.png","shared/sprite_listen.png"]},
     "autofeedback": true,
     "parameters": {

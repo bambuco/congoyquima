@@ -3071,4 +3071,102 @@ page-game-challenge {
       }
     }
   }
+  /**********************************************************************
+  Level 4 - Challenge 5
+  **********************************************************************/
+  .level_4.challenge_5 {
+    ion-slides {
+       height: 70%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom, .container {
+        position: relative;
+        height: 100%;
+        bottom: 0%;
+        width: 100%;
+      }
+    }
+
+    .row-0, .row-1 {
+      width: 100%;
+      height: 20.4%;
+      position: absolute;
+      display:flex;
+      justify-content: center;
+      .leaf-container {
+        position: relative;
+      }
+    }
+
+    .row-0 {
+      top:22%;
+      .leaf-container {
+        @for $l from 0 through 2  {
+          .leaf-#{$l} {
+            position: absolute;
+            left: 10% + $l * 36%;
+            bottom: 0;
+            .tepuy-droppable { position: relative; }
+          }
+        }
+      }
+    }
+    .row-1 {
+      bottom:15%;
+      display:flex;
+      justify-content: center;
+      .leaf-container {
+        @for $l from 0 through 2  {
+          .leaf-#{$l} {
+            position: absolute;
+            left: 22% + $l * 20%;
+          }
+        }
+      }
+    }
+
+    .leaf-result {
+      //width: 194px;
+      //height: 182px;
+    }
+
+    .leaf-icon {
+      background-image: url('../assets/game/img/l_4/ch_5/sprite.png');
+      background-color: transparent;
+      background-repeat: no-repeat;
+      @include transform-origin(left top);
+      pointer-events: none;
+
+      $icons: leaf-full;
+      @include appSpriteIcons($icons, 50px, 50px, 0, 0px, 109px, 203px);
+      $icons: leaf-empty;
+      @include appSpriteIcons($icons, 250px, 50px, 0, 0px, 109px, 234px);
+      $icons: leaf-result;
+      @include appSpriteIcons($icons, 450px, 50px, 0, 0px, 143px, 275px);
+
+      $icons: leaf-draggable;
+      @include appSpriteIcons($icons, 50px, 400px, 0, 0px, 132px, 190px);
+    }
+
+    .leaf-icon, .leaf-result {
+      font-size: 5em;
+      font-weight: bold;
+      line-height: 2em;
+      color: #fff
+    }
+    
+    .tepuy-dropped {
+      &.tepuy-correct {
+        .leaf-icon {
+          background-position: -250px -400px;
+        }
+      }
+      &.tepuy-wrong {
+        .leaf-icon {
+          background-position: -450px -400px;
+        }
+      }
+    }
+  }
 }
