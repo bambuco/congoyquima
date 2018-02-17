@@ -2985,4 +2985,90 @@ page-game-challenge {
     }
 
   }
+  /**********************************************************************
+  Level 4 - Challenge 4
+  **********************************************************************/ 
+  .level_4.challenge_4 {
+    ion-slides {
+       height: 70%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom, .container {
+        position: relative;
+        height: 100%;
+        bottom: 0%;
+        width: 100%;
+      }
+    }
+
+    .operation-container {
+      position: absolute;
+      top: 36%;
+      color: #fff;
+      font-weight: bold;
+
+      span.operator {
+        color: #FF931E;
+      }
+    }
+
+    .container-wrapper {
+      position:absolute;
+      width: 100%;
+      top: 60%;
+      height: 40%;
+      display:flex;
+      justify-content: center;
+      .cave-container {
+        position: relative;
+        width: 100%;
+        cursor: pointer;
+
+        [tepuy-autofit] {
+          display: inline-block;
+          position:absolute;
+
+          &.tepuy-correct {
+            .cave-numbered {
+              background-position: -850px -50px;
+            }
+          }
+
+          &.tepuy-wrong {
+            .cave-numbered {
+              background-position: -1250px -50px;
+            }
+          }
+        }
+        .cave-0 { top: 33.3% }
+        .cave-1 { top: 8.4% }
+        .cave-2 { top: 29.6% }
+
+      }
+    }
+
+    .cave-icon {
+      background-image: url('../assets/game/img/l_4/ch_4/sprite.png');
+      background-color: transparent;
+      background-repeat: no-repeat;
+      pointer-events: none;
+      position: relative;
+
+      $icons: cave-numbered;
+      @include appSpriteIcons($icons, 450px, 50px, 0, 0px, 372px, 275px);
+
+      span {
+        width: 114px;
+        height: 127px;
+        position: absolute;
+        top: 0px;
+        left: 125px;
+        color: #fff;
+        font-size: 127px * .6;
+        line-height: 127px;
+        font-weight: bold;
+      }
+    }
+  }
 }
