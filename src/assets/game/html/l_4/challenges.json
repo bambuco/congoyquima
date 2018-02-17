@@ -21,9 +21,8 @@
     "id": 2,
     "label":"3",
     "type": "select",
-    "unavailable": true,
-    "script": "assets/game/html/l_3/ch_3",
-    "autofeedback": true,
+    "script": "assets/game/html/l_4/ch_3",
+    "preload": {"images": ["l_4/ch_3/sprite.png"]},
     "parameters": {
     }
   },
@@ -31,6 +30,7 @@
     "id": 3,
     "label":"4",
     "type": "drag",
+    "unavailable": true,
     "script": "assets/game/html/l_3/ch_4",
     "autofeedback": true,
     "parameters": {

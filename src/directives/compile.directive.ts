@@ -36,16 +36,22 @@ export class CompileDirective implements OnChanges {
     this.vcRef.clear();
     this.compRef = null;
 
-    const component = (this.compileContext && this.compileContext.componentBuilder) ?
+    let declarations = (this.compileContext && this.compileContext.componentBuilder) ?
       this.compileContext.componentBuilder(this.compile, this.compileCss) :
       this.createDynamicComponent(this.compile, this.compileCss );
 
-    const module = this.createDynamicModule(component);
+    if (!Array.isArray(declarations)) declarations = [ declarations ];
+    const component = declarations[0];
+
+    const module = this.createDynamicModule(declarations, declarations);
     this.compiler.compileModuleAndAllComponentsAsync(module)
       .then((moduleWithFactories: ModuleWithComponentFactories<any>) => {
         let compFactory = moduleWithFactories.componentFactories.find(x => x.componentType === component);
 
         this.compRef = this.vcRef.createComponent(compFactory);
+        if (this.compRef.instance['setFactory']) {
+          this.compRef.instance.setFactory(moduleWithFactories.componentFactories);
+        }
         this.updateProperties();
       })
       .catch(error => {
@@ -71,13 +77,14 @@ export class CompileDirective implements OnChanges {
     return CustomDynamicComponent;
   }
 
-  private createDynamicModule (component: Type<any>) {
+  private createDynamicModule (declarations: Type<any>[], entries: Type<any>[]) {
     @NgModule({
       // You might need other modules, providers, etc...
       // Note that whatever components you want to be able
       // to render dynamically must be known to this module
       imports: [CommonModule, IonicModule, TepuyModule, NgPipesModule],
-      declarations: [component]
+      declarations: declarations,
+      entryComponents: entries
     })
     class DynamicModule {}
     return DynamicModule;

@@ -1,7 +1,7 @@
 import { CachedResource, ResourceType } from './cached-resource.interface';
 import { CachedImage } from './cached-image.class';
 
-export function createCachedResource(type: ResourceType) {
+export function createCachedResource(type: ResourceType): CachedResource {
   if (type == ResourceType.Image) {
     let img = new CachedImage();
     img.type = type;
