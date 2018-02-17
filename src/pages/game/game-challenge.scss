@@ -2875,4 +2875,114 @@ page-game-challenge {
       height: 95%;
     }
   }
+  /**********************************************************************
+  Level 4 - Challenge 3
+  **********************************************************************/
+  .level_4.challenge_3 {
+
+    $header-bg: #3AAFA9;
+    $col-bg: #A6A19C;
+    $color: #5E564E;
+
+    .container {
+      position: absolute;
+      top: 5%;
+      width: 100%;
+      height: 65%;
+      text-align: center;
+
+      .tbl {
+        position: relative;
+        margin: 0 auto;
+        display: inline-block;
+
+        .tbl-row {
+          .tbl-col {
+            display: inline-block;
+            border: solid 0.5px $color;
+            white-space: nowrap;
+            background-color: $col-bg;
+            color: $color;
+            opacity: 0.8;
+            &.fillable {
+              background-color: #F7B733;
+              color: #fff;
+              &.active {
+                opacity: .6;
+              }
+              span {
+                pointer-events: none;
+              }
+            }
+
+            &.select-path {
+              background-color: $header-bg;
+            }
+            &.header {
+              background-color: $header-bg;
+              color: #fff;
+              opacity: 1;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+
+      &.tepuy-group-completed {
+        .tbl .tbl-row .tbl-col.fillable {
+          background-color: map-get($colors, wrong);
+
+          &.tepuy-correct {
+            background-color: map-get($colors, correct);
+          }
+        }
+      }
+    }
+
+    .selector-container {
+      position: absolute;
+      bottom: 3%;
+      height: 30%;
+      width: 100%;
+      text-align: center;
+      z-index: 1000;
+
+      [tepuy-autofit] {
+        display: inline-block;
+        margin: 0 auto;
+        position: relative;
+
+        .options-wrapper {
+          position: absolute;
+          bottom: 1%;
+          width: 100%;
+          height: 40%;
+
+          .option-wrapper {
+            display: inline-block;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .sprite-icon {
+        background-image: url('../assets/game/img/l_4/ch_3/sprite.png');
+        background-color: transparent;
+        background-repeat: no-repeat;
+        @include transform-origin(left top);
+        font-size: 183px * .5;
+        font-weight: bold;
+        line-height: 183px;
+        color: #fff;
+
+        $icons: option-value;
+        @include appSpriteIcons($icons, 50px, 50px, 0, 0px, 183px, 183px);
+
+        $icons: options-container;
+        @include appSpriteIcons($icons, 300px, 50px, 0, 0px, 730px, 590px);
+      }
+
+    }
+
+  }
 }
