@@ -1,0 +1,39 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-win-score="0.6">
+  <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.verbs;fromQ=true';count:3;type:'scalar';let verbs=values">
+    <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.adjectives;fromQ=true';count:3;type:'scalar';let adjectives=values">
+    <div class="container" tepuy-item-group [tepuy-group-id]="1">
+      <div class="container-wrapper">
+        <div class="left-box" [ngStyle]="boxStyles[0]">
+          <span class="list-label">Verbos</span>
+          <div *tepuyRepeat="3; let i=index" tepuy-autofit
+            tepuy-drop-zone [tepuy-correct-values]="verbs"
+            >
+            <div class="word-container word-holder" tepuy-scale="1920" drop-ignore></div>
+          </div>
+        </div>
+        <div class="right-box" [ngStyle]="boxStyles[1]">
+          <span class="list-label">Adjetivos</span>
+          <div *tepuyRepeat="3; let i=index" tepuy-autofit
+            tepuy-drop-zone [tepuy-correct-values]="adjectives"
+            >
+            <div class="word-container word-holder" tepuy-scale="1920" drop-ignore></div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-box">
+        <div class="options-wrapper">
+          <div class="options-container" [ngStyle]="boxStyles[2]">
+            <div class="options-inner-wrapper">
+              <div *ngFor="let it of verbs|union:[adjectives]|shuffle; let i=index" tepuy-item tepuy-draggable 
+                tepuy-autofit [tepuy-value]="it" tepuy-group-id="1" class="option-{{i}}">
+                <div class="word-container word-label" tepuy-scale="1920">{{it}}</div> 
+                <input type="hidden" tepuy-item-value />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  </ng-container>
+</div>
