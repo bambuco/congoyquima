@@ -92,10 +92,15 @@ export class TepuyDropZoneDirective implements AfterViewInit {
 
   //Helpers
   setAllowedValues(values){
-    if (typeof(values) == 'number') values = values+'';
-    //this.correctValues = [];
-    const splitRE = /,(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)/;
-    this.correctValues = !values ? [] : (values+'').split(splitRE, -1);
+    if (!Array.isArray(values)) {
+      if (typeof(values) == 'number') values = values+'';
+      //this.correctValues = [];
+      const splitRE = /,(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)/;
+      this.correctValues = !values ? [] : (values+'').split(splitRE, -1);
+    }
+    else {
+      this.correctValues = values;
+    }
   }
   
   clearValue(item:any) {
