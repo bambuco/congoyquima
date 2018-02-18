@@ -101,12 +101,21 @@ export class MediaCatalog {
     }
 
     //Level 4 - Challenge 7 Phrases
-    const phrases = ["aprender", "importante", "bailar", "seca", "lavar", "caliente", "jugar", "grande", "caminar", "olvidar", "frio", "dormir", "liso", "mejorar", "joven", "ganar", "grueso", "canta", "dulce", "necesita"];
-    for(let phr of phrases) {
+    const l4ch7_phrases = ["aprender", "importante", "bailar", "seca", "lavar", "caliente", "jugar", "grande", "caminar", "olvidar", "frio", "dormir", "liso", "mejorar", "joven", "ganar", "grueso", "canta", "dulce", "necesita"];
+    for(let phr of l4ch7_phrases) {
       this.assets.push({
         type: 'audio',
-        key: 'fra_'+phr,
-        path: path + ['phrases/fra_', phr, '.mp3'].join(''),
+        key: 'l4ch7_'+phr,
+        path: path + ['l_4/ch_7/fra_', phr, '.mp3'].join(''),
+        preload: true
+      });
+    }
+    const l4ch8_phrases = ["fria", "fea", "triste", "silenciosa", "valiente", "alto", "facil", "apagadas", "caerse", "luz", "morir", "verdad", "liquido", "meter", "faltar", "lejos", "construir", "blando", "preocupado", "limpio"];
+    for(let phr of l4ch8_phrases) {
+      this.assets.push({
+        type: 'audio',
+        key: 'l4ch8_'+phr,
+        path: path + ['l_4/ch_8/fra_', phr, '.mp3'].join(''),
         preload: true
       });
     }
