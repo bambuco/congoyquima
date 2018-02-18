@@ -3551,11 +3551,11 @@ page-game-challenge {
           position: absolute;
           bottom: 1%;
           width: 100%;
-          height: 100%;
+          height: 53%;
           display: flex;
           flex-wrap: wrap;
           justify-content: space-between;
-          align-items: stretch;
+          align-items: start;
 
           .option-wrapper {
             display: inline-block;
@@ -3578,7 +3578,142 @@ page-game-challenge {
         @include appSpriteIcons($icons, 50px, 50px, 52, 0px, 398px, 88px);
 
         $icons: options-container;
-        @include appSpriteIcons($icons, 50px, 200px, 0, 0px, 644px, 635px);
+        @include appSpriteIcons($icons, 50px, 200px, 0, 0px, 927px, 635px);
+      }
+
+    }
+
+  }
+  /**********************************************************************
+  Level 4 - Challenge 10
+  **********************************************************************/
+  .level_4.challenge_10 {
+
+    $color: #0D1B40;
+
+    .container {
+      width: 100%;
+      height: 100%;
+
+      .invitation-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+        .invitation-container {
+          position: absolute;
+          top: 10%;
+          font-weight: bold;
+          color: map-get($colors, text-normal);
+
+          .listen-control {
+            font-size: 1.2em;
+            text-decoration: underline;
+            color: $color;
+            margin: 0 auto;
+            display: block;
+          }
+
+          .invitation-item {
+            width: 100%;
+
+            .phrase-text {
+              display: inline-block;
+              .highlighted {
+                color: map-get($colors, neutral);
+              }
+            }
+
+            .word-placeholder {
+              background-color: #fff;
+              opacity: 0.8;
+              color: $color;
+              display: inline-block;
+              text-align: center;
+              cursor: pointer;
+
+              span {
+                pointer-events: none;
+                display: inline-block;
+              }
+
+              &.active {
+                opacity: 0.6;
+              }
+
+              &.tepuy-correct {
+                background-color: map-get($colors, correct);
+              }
+              &.tepuy-wrong {
+                background-color: map-get($colors, wrong);
+              }
+            }
+          }
+
+          .word-container {
+            display: inline-block;
+            padding-top: 3px;
+            position: relative;
+          }
+        }
+      }
+
+      &.tepuy-group-completed {
+        .tbl .tbl-row .tbl-col.fillable {
+          background-color: map-get($colors, wrong);
+
+          &.tepuy-correct {
+            background-color: map-get($colors, correct);
+          }
+        }
+      }
+    }
+
+    .selector-container {
+      position: absolute;
+      bottom: 3%;
+      height: 30%;
+      width: 100%;
+      text-align: center;
+      z-index: 1000;
+
+      [tepuy-autofit] {
+        display: inline-block;
+        margin: 0 auto;
+        position: relative;
+
+        .options-wrapper {
+          position: absolute;
+          bottom: 1%;
+          width: 100%;
+          height: 53%;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          align-items: start;
+
+          .option-wrapper {
+            display: inline-block;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .sprite-icon {
+        background-image: url('../assets/game/img/l_4/ch_10/sprite.png');
+        background-color: transparent;
+        background-repeat: no-repeat;
+        @include transform-origin(left top);
+        font-size: 88px * .5;
+        font-weight: bold;
+        line-height: 88px;
+        color: #fff;
+
+        $icons: option-value-empty option-value;
+        @include appSpriteIcons($icons, 50px, 50px, 35, 0px, 415px, 88px);
+
+        $icons: options-container;
+        @include appSpriteIcons($icons, 50px, 200px, 0, 0px, 927px, 635px);
       }
 
     }
