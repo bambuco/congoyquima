@@ -3,7 +3,7 @@ import { Directive, Output, ElementRef, HostBinding,
 } from '@angular/core';
 import { DomController } from 'ionic-angular';
 
-import { TepuyDraggableService } from '../providers';
+import { TepuyDraggableService, TepuyAudioPlayerProvider } from '../providers';
 import { TepuyDropZoneDirective } from './tepuy-drop-zone.directive';
 
 @Directive({ 
@@ -31,7 +31,8 @@ export class TepuyDraggableDirective implements AfterViewInit {
       private elRef: ElementRef,
       private domCtrl: DomController,
       private renderer: Renderer2,
-      private dragService: TepuyDraggableService
+      private dragService: TepuyDraggableService,
+      private audioPlayer: TepuyAudioPlayerProvider
     ) {
   }
 
@@ -62,6 +63,7 @@ export class TepuyDraggableDirective implements AfterViewInit {
   onPanStart(ev) {
     if (!this.canDrag) return true;
     this.isDragging = true;
+    this.audioPlayer.stopAll();
   }
 
   onPanEnd(ev) {
