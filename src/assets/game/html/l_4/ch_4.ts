@@ -41,7 +41,6 @@ export function componentBuilder(template:string, css:string): Type<any> {
       }
 
       options = this.shuffle.transform(options);
-      console.log(options);
       setTimeout(() => {
         group.val2 = val2;
         group.options = options;
