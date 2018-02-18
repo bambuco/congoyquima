@@ -46,7 +46,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
           { "value": "papas", "words": ["2", "", "picadas"] },
           { "value": "cebolla", "words": ["1 tallo de", "", "larga picado"] },
           { "value": "", "words": ["2 cucharadas de cilantro picado"] },
-          { "value": "sal", "words": ["", "al gusto"] },
+          { "value": "Sal", "words": ["", "al gusto"] },
         ]
       },
       "beans": {
@@ -104,7 +104,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
           { "value": "cortadas", "words": ["2 manzanas", "", "en trozos"] },
           { "value": "bananos", "words": ["2", "", "cortados en rodajas"] },
           { "value": "de", "words": ["1/2 libra", "", "uvas"] },
-          { "value": "helado", "words": ["", "de vainilla"] }
+          { "value": "Helado", "words": ["", "de vainilla"] }
         ]
       },
       "custard": {
@@ -138,7 +138,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
           { "value": "huevos", "words": ["3", "", "batidos"] },
           { "value": "leche", "words": ["1/2 taza de", ""] },
           { "value": "de", "words": ["2 cucharaditas", "", "azúcar"] },
-          { "value": "aceite", "words": ["", "caliente"] }
+          { "value": "Aceite", "words": ["", "caliente"] }
         ]
       }
     };
@@ -209,8 +209,6 @@ export function componentBuilder(template:string, css:string): Type<any> {
     }
 
     onFill(ev, it) {
-
-      console.log('onFill');
       if (!this.enabled || !it.value) {
           return
       }

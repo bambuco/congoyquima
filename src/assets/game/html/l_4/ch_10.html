@@ -1,0 +1,45 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding (activityRestart)="onReset()" (activityCompleted)="onComplete($event)">
+  <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.invitations;fromQ=true;'count:1;type:'scalar';let invitations=values">
+    <div class="container" tepuy-item-group [tepuy-group-id]="1" (groupInit)="prepare($event, invitations[0])">
+      <div class="invitation-wrapper">
+        <div *ngIf="ready" class="invitation-container" [ngStyle]="tBoxStyle">
+          <div class="listen-control" tepuy-autofit>
+            <div class="listen-icon listen-active" tepuy-scale="1920" tepuy-greetable="[greet-value]" [attr.disabled]="!enabled">
+              <input greet-value type="hidden" value="l4ch10_{{tag|objectkey}}" />
+            </div>
+          </div>
+          <div *ngFor="let it of items; let i=index" class="invitation-item">
+            <ng-container *ngFor="let word of it.words;">
+              <span *ngIf="!word.value;else selectable_zone" class="phrase-text" [class.highlighted]="word.playing">{{word.text}}</span>
+              <ng-template #selectable_zone>
+                <div class="word-placeholder" [ngStyle]="phStyle"
+                  [class.active]="word.active"
+                  [class.tepuy-correct]="word.item?.succeed === true"
+                  [class.tepuy-wrong]="word.item?.succeed === false"
+                  (click)="onFill($event,word)">
+                  <span [innerHTML]="word.text">&nbsp;</span>
+                  <input type="hidden" tepuy-item [tepuy-correct]="true" tepuy-group-id="1" />
+                </div>
+              </ng-template>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  
+  <ng-container *ngIf="showSelector">
+    <ion-backdrop (click)="bdClick()"></ion-backdrop>
+    <div class="selector-container">
+      <div class="options-container-wrapper" tepuy-autofit>
+        <div class="sprite-icon options-container" tepuy-scale="1920"></div>
+        <div class="options-wrapper">
+          <div *ngFor="let it of options|filterBy:['used']:false" class="option-wrapper" tepuy-autofit (click)="onSelect(it)">
+            <div class="sprite-icon option-value" tepuy-scale="1920">{{it.val}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+</div>

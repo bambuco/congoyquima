@@ -107,7 +107,7 @@ export class MediaCatalog {
         type: 'audio',
         key: 'l4ch7_'+phr,
         path: path + ['l_4/ch_7/fra_', phr, '.mp3'].join(''),
-        preload: true
+        preload: false
       });
     }
     const l4ch8_phrases = ["fria", "fea", "triste", "silenciosa", "valiente", "alto", "facil", "apagadas", "caerse", "luz", "morir", "verdad", "liquido", "meter", "faltar", "lejos", "construir", "blando", "preocupado", "limpio"];
@@ -116,7 +116,16 @@ export class MediaCatalog {
         type: 'audio',
         key: 'l4ch8_'+phr,
         path: path + ['l_4/ch_8/fra_', phr, '.mp3'].join(''),
-        preload: true
+        preload: false
+      });
+    }
+    const l4ch10_invites = ["birthday", "business", "reunion", "vaccination", "wedding", "game", "fitness", "dancing", "meeting", "dating", "maloca"];
+    for(let inv of l4ch10_invites) {
+      this.assets.push({
+        type: 'audio',
+        key: 'l4ch10_'+inv,
+        path: path + ['l_4/ch_10/', inv, '.mp3'].join(''),
+        preload: false
       });
     }
 

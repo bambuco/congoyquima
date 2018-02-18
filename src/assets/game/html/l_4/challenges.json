@@ -89,11 +89,10 @@
   {
     "id": 9,
     "label":"10",
-    "type": "sort",
-    "unavailable": true,
-    "script": "assets/game/html/l_3/ch_10",
+    "type": "select",
+    "script": "assets/game/html/l_4/ch_10",
     "parameters": {
-      "antonyms": [["frío", "caliente"], ["bonito", "feo"], ["alegre", "triste"], ["alto", "bajo"], ["valiente", "cobarde"], ["silencioso", "ruidoso"], ["cerca", "lejos"], ["luz", "oscuridad"], ["fácil", "difícil"], ["pequeño", "grande"], ["borrar", "escribir"], ["eventual", "permanente"], ["destruir", "construir"], ["cerrar", "abrir"], ["acentuar", "atenuar"], ["derrota", "triunfo"], ["aceptar", "rechazar"], ["idéntico", "distinto"], ["caridad", "egoísmo"], ["morir", "vivir"], ["justo", "injusto"], ["mentira", "verdad"], ["sólido", "líquido"], ["ciego", "vidente"], ["duro", "blando"], ["fallar", "acertar"], ["quitar", "poner"], ["pedir", "dar"], ["encender", "apagar"], ["seco", "húmedo"], ["humor", "seriedad"], ["guerra", "paz"], ["delgado", "grueso"], ["afirmar", "negar"], ["caerse", "levantarse"], ["preocupación", "tranquilidad"], ["aburrir", "divertir"], ["fácil", "difícil"], ["futuro", "pasado"], ["raro", "común"], ["amar", "odiar"], ["interior", "exterior"], ["superior", "inferior"], ["sucio", "limpio"], ["parar", "continuar"], ["adiós", "hola"], ["buscar", "encontrar "], ["entrada", "salida"], ["divertirse", "aburrirse"], ["flexible", "rígido"], ["despreciar", "valorar"], ["claro", "oscuro"], ["meter", "sacar"], ["presente", "pasado"], ["causa", "efecto"], ["sobrar", "faltar"], ["juntar", "separar"], ["día", "noche"]]
+      "invitations": ["birthday", "business", "reunion", "vaccination", "wedding", "game", "fitness", "dancing", "meeting", "dating", "maloca"]
     }
   }
 ]
