@@ -100,6 +100,17 @@ export class MediaCatalog {
       });
     }
 
+    //Level 4 - Challenge 7 Phrases
+    const phrases = ["aprender", "importante", "bailar", "seca", "lavar", "caliente", "jugar", "grande", "caminar", "olvidar", "frio", "dormir", "liso", "mejorar", "joven", "ganar", "grueso", "canta", "dulce", "necesita"];
+    for(let phr of phrases) {
+      this.assets.push({
+        type: 'audio',
+        key: 'fra_'+phr,
+        path: path + ['phrases/fra_', phr, '.mp3'].join(''),
+        preload: true
+      });
+    }
+
     const signals = ["gas_inflamable", "hospedaje", "montallantas", "museo", "obra_en_la_via", "paradero_de_bus", "pare", "peligro_de_caida", "peligro_de_intoxicacion", "personas_con_discapacidad", "primeros_auxilios", "prohibido_fumar", "prohibido_parquear", "punto_de_informacion", "restaurante", "riesgo_electrico", "servicio_de_telefono", "taxis", "wifi", "zona_escolar", "ciclovia", "cruce_peatonal", "discapacitados", "baños", "estacion_de_gasolina"];
     for (let signal of signals) {
       this.assets.push({
