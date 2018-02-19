@@ -40,15 +40,20 @@ export function componentBuilder(template:string, css:string): Type<any> {
       const rect = this.platform.getElementBoundingClientRect(el);
       const scale = rect.height / 1920;
       let tBoxRect:any = {
-        w: 468 * scale,
-        h: 275 * scale
+        w: 528 * scale,
+        h: 257 * scale
       };
-      //tBoxRect.l = Math.floor((((rect.width - tBoxRect.w) * 0.5206/rect.width))*10000)/100;
+      const sw = rect.height; // * 100 / 70;
+      let left = sw * (737 / 1920);
+      let offset = (sw - rect.width) / 2;
+      left -= offset;
+      tBoxRect.l = left;
 
       this.ngZone.run(() => {
         this.tBoxStyle = { 
           'width.px': tBoxRect.w,
-          'height.px': tBoxRect.h
+          'height.px': tBoxRect.h,
+          'left.px': tBoxRect.l
         };
       });
     }

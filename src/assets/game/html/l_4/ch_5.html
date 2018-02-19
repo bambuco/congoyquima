@@ -5,27 +5,35 @@
         <ion-slide tepuy-item-group [tepuy-group-id]="id" (groupInit)="prepare($event, group)">
           <ng-container *ngIf="group.ready">
             <div class="row-0">
+              <div class="row-wrapper">
                 <div class="leaf-container" [ngStyle]="tBoxStyle">
-                  <div class="leaf-0" tepuy-autofit>
-                    <div class="leaf-icon leaf-full" [tepuy-scale]="1920">
-                      <span>{{group.data}}</span>
+                  <div class="leaf-wrapper">
+                    <div class="leaf-0" tepuy-autofit>
+                      <div class="leaf-spot" [tepuy-scale]="1920">
+                        <span>{{group.data}}</span>
+                      </div>
                     </div>
-                  </div>
-                  <div class="leaf-1">
-                    <div tepuy-autofit tepuy-drop-zone [tepuy-correct-values]="group.value" tepuy-auto-feedback="true">
-                      <div class="leaf-icon leaf-empty" [tepuy-scale]="1920">&nbsp;</div>
+                    <div class="leaf-1">
+                      <div tepuy-autofit tepuy-drop-zone [tepuy-correct-values]="group.value" tepuy-auto-feedback="true">
+                        <div class="leaf-spot" [tepuy-scale]="1920" drop-ignore>&nbsp;</div>
+                      </div>
                     </div>
-                  </div>
-                  <div class="leaf-2" tepuy-autofit>
-                    <div class="leaf-icon leaf-result" [tepuy-scale]="1920">{{group.data*group.value}}</div>
+                    <div class="leaf-2" tepuy-autofit>
+                      <div class="leaf-spot leaf-result" [tepuy-scale]="1920">{{group.data*group.value}}</div>
+                    </div>
                   </div>
                 </div>
+              </div>
             </div>
             <div class="row-1" *tepuyValueGenerator="'randomof:numbers:min=1;max=9'+';'; include:[group.value]; count:3;shuffle:true;type:'scalar' let options=values">
-              <div class="leaf-container" [ngStyle]="tBoxStyle">
-                <div *ngFor="let opt of options; let i=index" class="leaf-{{i}}" tepuy-item tepuy-draggable tepuy-greetable [tepuy-group-id]="group.id" [tepuy-value]="opt" tepuy-autofit>
-                  <div class="leaf-icon leaf-draggable" [tepuy-scale]="1920">
-                    <span tepuy-item-value>&nbsp;</span>
+              <div class="row-wrapper">
+                <div class="leaf-container" [ngStyle]="tBoxStyle">
+                  <div class="leaf-wrapper">
+                    <div *ngFor="let opt of options; let i=index" class="leaf-{{i}}" tepuy-item tepuy-draggable tepuy-greetable [tepuy-group-id]="group.id" [tepuy-value]="opt" tepuy-autofit>
+                      <div class="leaf-icon leaf-draggable" [tepuy-scale]="1920">
+                        <span tepuy-item-value>&nbsp;</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
