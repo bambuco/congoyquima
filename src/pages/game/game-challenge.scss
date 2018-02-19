@@ -3094,18 +3094,23 @@ page-game-challenge {
       position: absolute;
       display:flex;
       justify-content: center;
-      .leaf-container {
+      .row-wrapper, .leaf-wrapper {
         position: relative;
+        width: 100%;
+        height: 100%;
+      }
+      .leaf-container {
+        position: absolute;
       }
     }
 
     .row-0 {
-      top:22%;
+      top:24%;
       .leaf-container {
         @for $l from 0 through 2  {
           .leaf-#{$l} {
             position: absolute;
-            left: 10% + $l * 36%;
+            left: $l * 35%;
             bottom: 0;
             .tepuy-droppable { position: relative; }
           }
@@ -3113,22 +3118,26 @@ page-game-challenge {
       }
     }
     .row-1 {
-      bottom:15%;
+      bottom:8%;
       display:flex;
       justify-content: center;
       .leaf-container {
         @for $l from 0 through 2  {
           .leaf-#{$l} {
             position: absolute;
-            left: 22% + $l * 20%;
+            left: $l * 35%;
           }
         }
       }
     }
 
-    .leaf-result {
-      //width: 194px;
-      //height: 182px;
+    .leaf-spot {
+      width: 132px;
+      height: 257px;
+      @include transform-origin(left top);
+      &.leaf-result {
+        width: 149px;
+      }
     }
 
     .leaf-icon {
@@ -3138,33 +3147,26 @@ page-game-challenge {
       @include transform-origin(left top);
       pointer-events: none;
 
-      $icons: leaf-full;
-      @include appSpriteIcons($icons, 50px, 50px, 0, 0px, 109px, 203px);
-      $icons: leaf-empty;
-      @include appSpriteIcons($icons, 250px, 50px, 0, 0px, 109px, 234px);
-      $icons: leaf-result;
-      @include appSpriteIcons($icons, 450px, 50px, 0, 0px, 143px, 275px);
-
       $icons: leaf-draggable;
-      @include appSpriteIcons($icons, 50px, 400px, 0, 0px, 132px, 190px);
+      @include appSpriteIcons($icons, 50px, 50px, 0, 0px, 132px, 257px);
     }
 
-    .leaf-icon, .leaf-result {
-      font-size: 5em;
+    .leaf-icon, .leaf-spot {
+      font-size: 85px;
       font-weight: bold;
-      line-height: 2em;
+      line-height: 120px*2.5;
       color: #fff
     }
 
     .tepuy-dropped {
       &.tepuy-correct {
         .leaf-icon {
-          background-position: -250px -400px;
+          background-position: -250px -50px;
         }
       }
       &.tepuy-wrong {
         .leaf-icon {
-          background-position: -450px -400px;
+          background-position: -450px -50px;
         }
       }
     }

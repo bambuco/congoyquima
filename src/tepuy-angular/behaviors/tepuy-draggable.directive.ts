@@ -63,7 +63,9 @@ export class TepuyDraggableDirective implements AfterViewInit {
   onPanStart(ev) {
     if (!this.canDrag) return true;
     this.isDragging = true;
-    this.audioPlayer.stopAll();
+    if (!this.item.actAsGreetable) {
+      this.audioPlayer.stopAll();
+    }
   }
 
   onPanEnd(ev) {
