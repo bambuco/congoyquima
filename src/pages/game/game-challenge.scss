@@ -3721,4 +3721,162 @@ page-game-challenge {
     }
 
   }
+  /**********************************************************************
+  Level 5 - Challenge 1
+  **********************************************************************/
+  .level_5.challenge_1 {
+
+    $color: #0D1B40;
+
+    .container {
+      width: 100%;
+      height: 100%;
+
+      .row-0 {
+
+      }
+
+      .row-1 {
+        position: absolute;
+        top: 25.8%;
+        height: 30%;
+        width: 100%;
+        display:flex;
+        justify-content: center;
+
+        .abaco-container {
+          position: absolute;
+
+          .abaco-column {
+            position: absolute;            
+          }
+          .column-0 { left: 0 }
+          .column-1 { left: 20% }
+          .column-2 { left: 40% }
+          .column-3 { left: 60% }
+          .column-4 { left: 80% }
+        }
+      }
+
+      .row-wrapper, .abaco-wrapper {
+        position: relative;
+        width: 100%;
+      }
+
+      .invitation-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+        .invitation-container {
+          position: absolute;
+          top: 10%;
+          font-weight: bold;
+          color: map-get($colors, text-normal);
+
+          .listen-control {
+            font-size: 1.2em;
+            text-decoration: underline;
+            color: $color;
+            margin: 0 auto;
+            display: block;
+          }
+
+          .invitation-item {
+            width: 100%;
+
+            .phrase-text {
+              display: inline-block;
+              .highlighted {
+                color: map-get($colors, neutral);
+              }
+            }
+
+            .word-placeholder {
+              background-color: #fff;
+              opacity: 0.8;
+              color: $color;
+              display: inline-block;
+              text-align: center;
+              cursor: pointer;
+
+              span {
+                pointer-events: none;
+                display: inline-block;
+              }
+
+              &.active {
+                opacity: 0.6;
+              }
+
+              &.tepuy-correct {
+                background-color: map-get($colors, correct);
+              }
+              &.tepuy-wrong {
+                background-color: map-get($colors, wrong);
+              }
+            }
+          }
+
+          .word-container {
+            display: inline-block;
+            padding-top: 3px;
+            position: relative;
+          }
+        }
+      }
+
+      &.tepuy-group-completed {
+        .tbl .tbl-row .tbl-col.fillable {
+          background-color: map-get($colors, wrong);
+
+          &.tepuy-correct {
+            background-color: map-get($colors, correct);
+          }
+        }
+      }
+    }
+
+    .abaco-icon {
+      background-image: url('../assets/game/img/l_5/ch_1/sprite.png');
+      background-color: transparent;
+      background-repeat: no-repeat;
+      @include transform-origin(left top);
+
+      $icons: abaco-column-item;
+      @include appSpriteIcons($icons, 62px, 60px, 0, 0px, 132px, 560px);
+    }
+
+    .selector-container {
+      position: absolute;
+      bottom: 3%;
+      height: 30%;
+      width: 100%;
+      text-align: center;
+      z-index: 1000;
+
+      [tepuy-autofit] {
+        display: inline-block;
+        margin: 0 auto;
+        position: relative;
+
+        .options-wrapper {
+          position: absolute;
+          bottom: 1%;
+          width: 100%;
+          height: 53%;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          align-items: start;
+
+          .option-wrapper {
+            display: inline-block;
+            cursor: pointer;
+          }
+        }
+      }
+
+    }
+  }
 }
