@@ -26,7 +26,7 @@ page-game {
     background-size: 100% 100%;
   }
 
-  @for $i from 1 through 4 {
+  @for $i from 1 through 5 {
     .level-block-#{$i} {
       background-image: url(../assets/game/img/tiles/#{$i}.png);
       &.unlocked {
@@ -70,6 +70,9 @@ page-game {
 
     $icons: level-progress-3 level-progress-4;
     @include appSpriteIcons($icons, 20px, 540px, 28, 0, 402px, 136px);
+
+    $icons: level-progress-5;
+    @include appSpriteIcons($icons, 20px, 720px, 28, 0, 402px, 136px);
 
     .level-progress-bar {
 

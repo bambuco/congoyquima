@@ -1,0 +1,99 @@
+[
+  {
+    "id": 0,
+    "label":"1",
+    "unavailable": true,
+    "type": "select",
+    "script": "assets/game/html/l_5 /ch_1",
+    "autofeedback": true,
+    "parameters": {
+    }
+  },
+  {
+    "id": 1,
+    "label":"2",
+    "type": "select",
+    "script": "assets/game/html/l_5 /ch_2",
+    "autofeedback": true,
+    "parameters": {
+    }
+  },
+  {
+    "id": 2,
+    "label":"3",
+    "type": "select",
+    "script": "assets/game/html/l_5 /ch_3",
+    "preload": {"images": ["l_5 /ch_3/sprite.png"]},
+    "parameters": {
+    }
+  },
+  {
+    "id": 3,
+    "label":"4",
+    "type": "select",
+    "script": "assets/game/html/l_5 /ch_4",
+    "preload": {"images": ["l_5 /ch_4/sprite.png"]},
+    "autofeedback": true,
+    "parameters": {
+    }
+  },
+  {
+    "id": 4,
+    "label":"5",
+    "type": "drag",
+    "script": "assets/game/html/l_5 /ch_5",
+    "preload": {"images": ["l_5 /ch_5/sprite.png"]},
+    "autofeedback": true,
+    "parameters": {
+    }
+  },
+  {
+    "id": 5,
+    "label":"6",
+    "type": "drag",
+    "script": "assets/game/html/l_5 /ch_6",
+    "preload": {"images": ["l_5 /ch_6/sprite.png"]},
+    "parameters": {
+      "adjectives": ["Grande", "Seca", "Barata", "Fuerte", "Caro", "Mojado", "Delgada", "Débil", "Flaco", "Liso", "Importante", "Salado", "Frío", "Joven", "Grueso", "Viejo", "Dulce", "Gordo", "Caliente", "Pequeña"],
+      "verbs": ["Amar", "Bailar", "Caminar", "Decir", "Esperar", "Aprender", "Ganar", "Hacer", "Inventar", "Jugar", "Leer", "Mejorar", "Dormir", "Necesitar", "Olvidar", "Perdonar", "Lavar", "Estudiar", "Cantar", "Sonreír"]
+    }
+  },
+  {
+    "id": 6,
+    "label":"7",
+    "type": "drag",
+    "script": "assets/game/html/l_5 /ch_7",
+    "preload": {"images": ["l_5 /ch_7/sprite.png"]},
+    "autofeedback": true,
+    "parameters": {
+    }
+  },
+  {
+    "id": 7,
+    "label":"8",
+    "type": "select",
+    "script": "assets/game/html/l_5 /ch_8",
+    "preload": {"images": ["l_5 /ch_8/sprite.png"]},
+    "autofeedback": true,
+    "parameters": {
+    }
+  },
+  {
+    "id": 8,
+    "label":"9",
+    "type": "select",
+    "script": "assets/game/html/l_5 /ch_9",
+    "parameters": {
+      "recipes": ["milk_rice", "chicken_soup", "beans", "chicken_rice", "home_cake", "fresh_salad", "fruit_salad", "custard", "cookies", "fritters"]
+    }
+  },
+  {
+    "id": 9,
+    "label":"10",
+    "type": "select",
+    "script": "assets/game/html/l_5 /ch_10",
+    "parameters": {
+      "invitations": ["birthday", "business", "reunion", "vaccination", "wedding", "game", "fitness", "dancing", "meeting", "dating", "maloca"]
+    }
+  }
+]
