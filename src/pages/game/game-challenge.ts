@@ -48,6 +48,7 @@ export class GameChallengePage {
   canPlayAgain: boolean = false;
   btnHigthlight: string = '';  
   showIndicator: boolean = false;
+  hasCustomHelp: boolean = false;
 
   private id: string;
   private nId: number;
@@ -87,6 +88,7 @@ export class GameChallengePage {
         };
         if (data != null && data.template != 'NotFound') {
           this.challenge = data.setup;
+          this.hasCustomHelp = (this.challenge.help !== undefined && this.challengeHelp !== null);
           this.scriptLoaded = this.loadScript();
           let resources = [];
           if (this.challenge.preload) {
@@ -138,7 +140,14 @@ export class GameChallengePage {
     this.scriptLoaded.then(() => {
       setTimeout(() => {
         this.setReady();
-        this.playAudioIntro();
+        if (this.hasCustomHelp) {
+          this.mediaPlayer.playVideoFromCatalog(this.challenge.help, { small: true }).subscribe(() => {
+            this.playAudioIntro();
+          });
+        }
+        else {
+          this.playAudioIntro();
+        }
       }, 200);
     });
   }
@@ -287,7 +296,10 @@ export class GameChallengePage {
       this.busy = false;
     });
   }
-
+  challengeHelp() {
+    this.audioPlayer.stopAll();
+    this.mediaPlayer.playVideoFromCatalog(this.challenge.help, { small: true }).subscribe(() => {});
+  }
   //Helpers
   /*private playIntro(ondemand:boolean=false) {    
     this.mediaPlayer.playVideoFromCatalog(this.introKey, { centered: true }).subscribe((done) => {

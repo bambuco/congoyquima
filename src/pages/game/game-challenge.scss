@@ -2,6 +2,15 @@
 Challenge
 ***************************************/
 page-game-challenge {
+  .settings {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    -web-kit-box-shadow: none;
+    box-shadow:none;
+    z-index: 1;
+  }
+
   .content-zone {
     max-width: 1080px;
     background-size: auto 100%;
@@ -3720,5 +3729,129 @@ page-game-challenge {
 
     }
 
+  }
+  /**********************************************************************
+  Level 5 - Challenge 1
+  **********************************************************************/
+  .level_5.challenge_1 {
+
+    $color: #0D1B40;
+
+    .container {
+      width: 100%;
+      height: 100%;
+      color: map-get($colors, text-normal);
+      font-weight: bold;
+
+      .row-0, .row-1, .row-2, .row-3 {
+        position: absolute;
+        width: 100%;
+        display:flex;
+        justify-content: center;
+      }
+
+      .row-0 {
+        top: 25.8%;
+        height: 30%;
+
+        .abaco-container {
+          position: absolute;
+
+          .abaco-column {
+
+            .abaco-column-wrapper {
+              position: relative;
+              .seed-wrapper {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                align-content: space-evenly;
+                justify-content: center;
+                [tepuy-autofit] {
+                  margin: 0 5px;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .row-1 {
+        top: 56%;
+        height: 6%;
+
+        .labels-container {
+          position: absolute;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          & > div {
+            display: inline-block;
+            width: 20%;
+            text-align: center;
+          }
+        }
+      }
+
+      .row-2 {
+        top: 62%;
+        height: 8%;
+
+        .value-container {
+          margin: 0 auto;
+          color: map-get($colors, neutral);
+          text-align: center;
+        }
+      }
+
+      .row-3 {
+        top: 70%;
+        height: 8%;
+
+        .legend-container {
+          position: absolute;
+          color: #fff;
+          text-align: center;
+        }
+      }
+
+      .row-wrapper, .abaco-wrapper {
+        position: relative;
+        width: 100%;
+      }
+
+      .abaco-wrapper {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      &.tepuy-group-completed {
+        .highlighter {
+          margin-top: -2px;
+          display: block;
+        }
+      }
+    }
+
+    .abaco-icon {
+      background-image: url('../assets/game/img/l_5/ch_1/sprite.png');
+      background-color: transparent;
+      background-repeat: no-repeat;
+      @include transform-origin(left top);
+
+      $icons: abaco-column-bg;
+      @include appSpriteIcons($icons, 20px, 20px, 0, 0px, 132px, 560px);
+
+      $icons: abaco-seed;
+      @include appSpriteIcons($icons, 250px, 650px, 0, 0px, 61px, 59px);
+
+      &.abaco-seed.abaco-seed-empty {
+        background-position: -20px -650px;
+      }
+    }
   }
 }

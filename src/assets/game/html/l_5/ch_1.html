@@ -1,0 +1,57 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-win-score="0.6">
+  <ng-container *tepuyValueGenerator="'randomof:numbers:min=100;max=99999';count:1;type:'scalar';let numbers=values">
+    <div class="container" tepuy-item-group [tepuy-group-id]="1" (groupInit)="prepare($event, numbers[0])">
+      <ng-container *ngIf="ready">
+        <div class="row-0">
+          <div class="row-wrapper">
+            <div class="abaco-container" [ngStyle]="tBoxStyle">
+              <div class="abaco-wrapper">
+                <div class="abaco-column" *ngFor="let bar of bars; let i=index"
+                  tepuy-item
+                  [tepuy-correct]="true"
+                  tepuy-group-id="1"
+                  [tepuy-is-correct]="(bar.value === bar.answer)"
+                  [tepuy-value]="bar.value"
+                  >
+                  <div class="abaco-column-wrapper" tepuy-autofit>
+                    <div class="abaco-icon abaco-column-bg" tepuy-scale="1920"></div>
+                    <div class="seed-wrapper">
+                      <div *tepuyRepeat="9; let k=index" (click)="onSelect($event,bar,9-k)" tepuy-autofit>
+                        <div class="abaco-icon abaco-seed" [class.abaco-seed-empty]="(9-k)>bar.value" tepuy-scale="1920"></div>
+                      </div>
+                    </div>
+                    <div class="highlighter" [ngStyle]="hlBoxStyle"></div>
+                    <input type="hidden" tepuy-item-value />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row-1">
+          <div class="row-wrapper">
+            <div class="labels-container" [ngStyle]="bBoxStyle">
+              <div>Decenas de mil</div>
+              <div>Unidades de mil</div>
+              <div>Centenas</div>
+              <div>Decenas</div>
+              <div>Unidades</div>
+            </div>
+          </div>
+        </div>
+        <div class="row-2">
+          <div class="row-wrapper">
+            <div class="value-container" [ngStyle]="vBoxStyle">{{value}}</div>
+          </div>
+        </div>
+        <div class="row-3">
+          <div class="row-wrapper">
+            <div class="legend-container" [ngStyle]="bBoxStyle">
+              {{legend|ucfirst}}
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>
