@@ -2,6 +2,15 @@
 Challenge
 ***************************************/
 page-game-challenge {
+  .settings {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    -web-kit-box-shadow: none;
+    box-shadow:none;
+    z-index: 1;
+  }
+
   .content-zone {
     max-width: 1080px;
     background-size: auto 100%;
@@ -3731,30 +3740,82 @@ page-game-challenge {
     .container {
       width: 100%;
       height: 100%;
+      color: map-get($colors, text-normal);
+      font-weight: bold;
 
-      .row-0 {
-
-      }
-
-      .row-1 {
+      .row-0, .row-1, .row-2, .row-3 {
         position: absolute;
-        top: 25.8%;
-        height: 30%;
         width: 100%;
         display:flex;
         justify-content: center;
+      }
+
+      .row-0 {
+        top: 25.8%;
+        height: 30%;
 
         .abaco-container {
           position: absolute;
 
           .abaco-column {
-            position: absolute;            
+
+            .abaco-column-wrapper {
+              position: relative;
+              .seed-wrapper {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                align-content: space-evenly;
+                justify-content: center;
+                [tepuy-autofit] {
+                  margin: 0 5px;
+                }
+              }
+            }
           }
-          .column-0 { left: 0 }
-          .column-1 { left: 20% }
-          .column-2 { left: 40% }
-          .column-3 { left: 60% }
-          .column-4 { left: 80% }
+        }
+      }
+
+      .row-1 {
+        top: 56%;
+        height: 6%;
+
+        .labels-container {
+          position: absolute;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          & > div {
+            display: inline-block;
+            width: 20%;
+            text-align: center;
+          }
+        }
+      }
+
+      .row-2 {
+        top: 62%;
+        height: 8%;
+
+        .value-container {
+          margin: 0 auto;
+          color: map-get($colors, neutral);
+          text-align: center;
+        }
+      }
+
+      .row-3 {
+        top: 70%;
+        height: 8%;
+
+        .legend-container {
+          position: absolute;
+          color: #fff;
+          text-align: center;
         }
       }
 
@@ -3763,76 +3824,15 @@ page-game-challenge {
         width: 100%;
       }
 
-      .invitation-wrapper {
-        position: relative;
-        width: 100%;
-        height: 100%;
-
-        .invitation-container {
-          position: absolute;
-          top: 10%;
-          font-weight: bold;
-          color: map-get($colors, text-normal);
-
-          .listen-control {
-            font-size: 1.2em;
-            text-decoration: underline;
-            color: $color;
-            margin: 0 auto;
-            display: block;
-          }
-
-          .invitation-item {
-            width: 100%;
-
-            .phrase-text {
-              display: inline-block;
-              .highlighted {
-                color: map-get($colors, neutral);
-              }
-            }
-
-            .word-placeholder {
-              background-color: #fff;
-              opacity: 0.8;
-              color: $color;
-              display: inline-block;
-              text-align: center;
-              cursor: pointer;
-
-              span {
-                pointer-events: none;
-                display: inline-block;
-              }
-
-              &.active {
-                opacity: 0.6;
-              }
-
-              &.tepuy-correct {
-                background-color: map-get($colors, correct);
-              }
-              &.tepuy-wrong {
-                background-color: map-get($colors, wrong);
-              }
-            }
-          }
-
-          .word-container {
-            display: inline-block;
-            padding-top: 3px;
-            position: relative;
-          }
-        }
+      .abaco-wrapper {
+        display: flex;
+        justify-content: space-between;
       }
 
       &.tepuy-group-completed {
-        .tbl .tbl-row .tbl-col.fillable {
-          background-color: map-get($colors, wrong);
-
-          &.tepuy-correct {
-            background-color: map-get($colors, correct);
-          }
+        .highlighter {
+          margin-top: -2px;
+          display: block;
         }
       }
     }
@@ -3843,40 +3843,15 @@ page-game-challenge {
       background-repeat: no-repeat;
       @include transform-origin(left top);
 
-      $icons: abaco-column-item;
-      @include appSpriteIcons($icons, 62px, 60px, 0, 0px, 132px, 560px);
-    }
+      $icons: abaco-column-bg;
+      @include appSpriteIcons($icons, 20px, 20px, 0, 0px, 132px, 560px);
 
-    .selector-container {
-      position: absolute;
-      bottom: 3%;
-      height: 30%;
-      width: 100%;
-      text-align: center;
-      z-index: 1000;
+      $icons: abaco-seed;
+      @include appSpriteIcons($icons, 250px, 650px, 0, 0px, 61px, 59px);
 
-      [tepuy-autofit] {
-        display: inline-block;
-        margin: 0 auto;
-        position: relative;
-
-        .options-wrapper {
-          position: absolute;
-          bottom: 1%;
-          width: 100%;
-          height: 53%;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: space-between;
-          align-items: start;
-
-          .option-wrapper {
-            display: inline-block;
-            cursor: pointer;
-          }
-        }
+      &.abaco-seed.abaco-seed-empty {
+        background-position: -20px -650px;
       }
-
     }
   }
 }

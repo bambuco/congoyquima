@@ -16,6 +16,7 @@ import { findReorderItem } from '../classes/reorder-util';
 export class TepuyItemDirective implements OnInit, AfterViewInit, OnDestroy {
   @Input('tepuy-group-id') group: string;
   @Input('tepuy-correct') correct: boolean;
+  @Input('tepuy-is-correct') _correct: boolean = null;
   @Output('tepuyitemresolved') resolved = new EventEmitter(); 
   @Output('tepuyitemready') ready = new EventEmitter(); 
 
@@ -43,7 +44,7 @@ export class TepuyItemDirective implements OnInit, AfterViewInit, OnDestroy {
       this.activityService.itemReady(this);
     }
   }
-
+  
   //Constructor
   constructor(
       private elRef: ElementRef,
@@ -86,7 +87,7 @@ export class TepuyItemDirective implements OnInit, AfterViewInit, OnDestroy {
   private refresh() {
     this.answered = false;
     this.succeed = null;
-    this.isCorrect = null;
+    this.isCorrect = this._correct;
     this.ready.emit(this);
   }
 
