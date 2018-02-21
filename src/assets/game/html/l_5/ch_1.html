@@ -14,10 +14,11 @@
                   [tepuy-value]="bar.value"
                   >
                   <div class="abaco-column-wrapper" tepuy-autofit>
-                    <div class="abaco-icon abaco-column-bg" tepuy-scale="1920"></div>
-                    <div class="seed-wrapper">
-                      <div *tepuyRepeat="9; let k=index" (click)="onSelect($event,bar,9-k)" tepuy-autofit>
-                        <div class="abaco-icon abaco-seed" [class.abaco-seed-empty]="(9-k)>bar.value" tepuy-scale="1920"></div>
+                    <div class="abaco-icon abaco-column-bg" tepuy-scale="1920">
+                      <div *tepuyRepeat="9; let k=index"
+                        class="abaco-icon abaco-seed"
+                        [class.abaco-seed-empty]="(9-k)>bar.value"
+                        (click)="onSelect($event,bar,9-k)">
                       </div>
                     </div>
                     <div class="highlighter" [ngStyle]="hlBoxStyle"></div>

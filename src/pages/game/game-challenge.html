@@ -9,7 +9,7 @@
 </ion-header>
 
 <ion-content [ngClass]="{'center-vertical': loading}" #content>
-  <button *ngIf="hasCustomHelp" class="app-icon settings" (click)="challengeHelp($event)"></button>
+  <button *ngIf="hasCustomHelp" class="listen-icon context-help" (click)="challengeHelp($event)" tepuy-scale="1920"></button>
   <div class="content-zone level_{{levelId}} challenge_{{nId}}"
       [ngClass]="status" 
       [ngStyle]="pzStyle">

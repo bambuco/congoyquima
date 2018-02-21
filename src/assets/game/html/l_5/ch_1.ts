@@ -110,11 +110,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
     }
 
     onSelect($event, bar, value) {
-      if (bar.value === value && value > 1) {
-        return;
-      }
-
-      if (bar.value === value && value == 1) {
+      if (bar.value === value) {
         value = 0;
       }
 
