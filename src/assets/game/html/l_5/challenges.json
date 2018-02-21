@@ -2,7 +2,7 @@
   {
     "id": 0,
     "label":"1",
-    "type": "drag",
+    "type": "select",
     "script": "assets/game/html/l_5/ch_1",
     "help": "abaco_howto",
     "parameters": {
@@ -12,7 +12,6 @@
     "id": 1,
     "label":"2",
     "type": "select",
-    "unavailable": true,
     "script": "assets/game/html/l_5/ch_2",
     "autofeedback": true,
     "parameters": {
@@ -24,6 +23,7 @@
     "type": "select",
     "script": "assets/game/html/l_5/ch_3",
     "preload": {"images": ["l_5/ch_3/sprite.png"]},
+    "unavailable": true,
     "parameters": {
     }
   },
