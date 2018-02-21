@@ -3964,4 +3964,109 @@ page-game-challenge {
       @include appSpriteIcons($icons, 50px, 200px, 0, 0px, 72px, 53px);
     }
   }
+/**********************************************************************
+  Level 5 - Challenge 3
+  **********************************************************************/
+  .level_5.challenge_3 {
+
+    ion-slides {
+       height: 70%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom, .container {
+        position: relative;
+        height: 100%;
+        bottom: 0%;
+        width: 100%;
+      }
+    }
+
+    $color: #0D1B40;
+
+    .container {
+      width: 100%;
+      height: 100%;
+      color: map-get($colors, text-normal);
+      font-weight: bold;
+
+      .row-0, .row-1 {
+        position: absolute;
+        width: 100%;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .row-0 {
+        top: 17%;
+        height: 30%;
+
+        .operator {
+          width: 100px;
+          height: 380px;
+          font-size: 200px;
+          font-weight: bold;
+          line-height: 380px;
+          color: #97EFE2;
+        }
+
+        .seed-bag-wrapper {
+          position: relative;
+
+          .tepuy-dropped {
+            position: absolute;
+          }
+        }
+      }
+
+      .row-1 {
+        top: 56%;
+        height: 27%;
+      }
+
+      .row-wrapper, .abaco-wrapper {
+        position: relative;
+        width: 100%;
+      }
+
+      .tepuy-correct .sprite-item.empty-bag {
+        background-position: -650px -50px;
+      }
+      .tepuy-wrong .sprite-item.empty-bag {
+        background-position: -950px -50px;
+      }
+    }
+
+    .sprite-item {
+      background-image: url('../assets/game/img/l_5/ch_3/sprite.png');
+      background-color: transparent;
+      background-repeat: no-repeat;
+
+      $icons: empty-bag mistery-bag;
+      @include appSpriteIcons($icons, 50px, 50px, 44, 0px, 266px, 380px);
+
+      $icons: seed-icon;
+      @include appSpriteIcons($icons, 50px, 500px, 0, 0px, 62px, 46px);
+
+      &.empty-bag {
+        position: relative;
+      }
+
+      &.seed-icon {
+        position: absolute;
+
+        &.seed-1 { bottom: 15%; left: 15%; }
+        &.seed-2 { bottom: 17%; left: 40%; }
+        &.seed-3 { bottom: 15%; left: 68%; }
+        &.seed-4 { bottom: 27%; left: 16%; }
+        &.seed-5 { bottom: 29%; left: 40%; }
+        &.seed-6 { bottom: 27%; left: 67%; }
+        &.seed-7 { bottom: 39%; left: 18%; }
+        &.seed-8 { bottom: 39%; left: 65%; }
+        &.seed-9 { bottom: 51%; left: 20%; }
+        &.seed-10 { bottom: 51%; left: 63%; }
+      }
+    }
+  }
 }
