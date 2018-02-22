@@ -66,8 +66,8 @@
     "script": "assets/game/html/l_5/ch_7",
     "preload": {"images": ["l_5/ch_7/sprite.png"]},
     "autofeedback": true,
-    "unavailable": true,
     "parameters": {
+      "legend_types": ["Invitación", "Nota", "Receta", "Carta"]
     }
   },
   {
@@ -77,6 +77,7 @@
     "script": "assets/game/html/l_5/ch_8",
     "preload": {"images": ["l_5/ch_8/sprite.png"]},
     "autofeedback": true,
+    "unavailable": true,
     "parameters": {
     }
   },

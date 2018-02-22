@@ -71,7 +71,6 @@ export function componentBuilder(template:string, css:string): Type<any> {
 
       let positions:any[] = [[784,256],[784,390],[784,524],[458,906],[1033,906],[746,1053]]; //
       const sw = rect.height; // * 100 / 70;
-      let left = sw * (539 / 1920);
       let offset = (sw - rect.width) / 2;
       positions = positions.map(pos => {
         return [pos[0]*scale - offset, [pos[1]*scale]];
