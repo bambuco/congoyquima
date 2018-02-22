@@ -12,7 +12,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
     styles: [ css || '' ],
     encapsulation: ViewEncapsulation.None
   })
-  class L5Ch4Component {
+  class L5Ch5Component {
     boxStyles: any[];
 
     private shuffle: ShufflePipe;
@@ -97,5 +97,5 @@ export function componentBuilder(template:string, css:string): Type<any> {
     onReset() {
     }
   }
-  return L5Ch4Component;
+  return L5Ch5Component;
 }
