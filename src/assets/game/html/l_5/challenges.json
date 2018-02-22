@@ -52,7 +52,7 @@
   {
     "id": 5,
     "label":"6",
-    "type": "drag",
+    "type": "sort",
     "script": "assets/game/html/l_5/ch_6",
     "preload": {"images": ["l_5/ch_6/sprite.png"]},
     "parameters": {
@@ -62,7 +62,7 @@
   {
     "id": 6,
     "label":"7",
-    "type": "drag",
+    "type": "select",
     "script": "assets/game/html/l_5/ch_7",
     "preload": {"images": ["l_5/ch_7/sprite.png"]},
     "autofeedback": true,
@@ -75,10 +75,8 @@
     "label":"8",
     "type": "select",
     "script": "assets/game/html/l_5/ch_8",
-    "preload": {"images": ["l_5/ch_8/sprite.png"]},
-    "autofeedback": true,
-    "unavailable": true,
     "parameters": {
+      "fragments": ["fr_1", "fr_2", "fr_3", "fr_4", "fr_5", "fr_6"]
     }
   },
   {
@@ -86,6 +84,7 @@
     "label":"9",
     "type": "select",
     "script": "assets/game/html/l_5/ch_9",
+    "unavailable": true,
     "parameters": {
       "recipes": ["milk_rice", "chicken_soup", "beans", "chicken_rice", "home_cake", "fresh_salad", "fruit_salad", "custard", "cookies", "fritters"]
     }

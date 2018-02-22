@@ -3474,8 +3474,6 @@ page-game-challenge {
   **********************************************************************/
   .level_4.challenge_9 {
 
-    $color: #0D1B40;
-
     .container {
       width: 100%;
       height: 100%;
@@ -3494,7 +3492,7 @@ page-game-challenge {
           h2 {
             font-size: 1.2em;
             text-decoration: underline;
-            color: $color;
+            color: map-get($colors, text-primary);
             margin-top: 0;
           }
 
@@ -3504,7 +3502,7 @@ page-game-challenge {
             .word-placeholder {
               background-color: #fff;
               opacity: 0.8;
-              color: $color;
+              color: map-get($colors, text-primary);
               display: inline-block;
               text-align: center;
               cursor: pointer;
@@ -3601,8 +3599,6 @@ page-game-challenge {
   **********************************************************************/
   .level_4.challenge_10 {
 
-    $color: #0D1B40;
-
     .container {
       width: 100%;
       height: 100%;
@@ -3621,7 +3617,7 @@ page-game-challenge {
           .listen-control {
             font-size: 1.2em;
             text-decoration: underline;
-            color: $color;
+            color: map-get($colors, text-primary);
             margin: 0 auto;
             display: block;
           }
@@ -3639,7 +3635,7 @@ page-game-challenge {
             .word-placeholder {
               background-color: #fff;
               opacity: 0.8;
-              color: $color;
+              color: map-get($colors, text-primary);
               display: inline-block;
               text-align: center;
               cursor: pointer;
@@ -3735,8 +3731,6 @@ page-game-challenge {
   Level 5 - Challenge 1
   **********************************************************************/
   .level_5.challenge_1 {
-
-    $color: #0D1B40;
 
     .container {
       width: 100%;
@@ -3864,8 +3858,6 @@ page-game-challenge {
       }
     }
 
-    $color: #0D1B40;
-
     .container {
       width: 100%;
       height: 100%;
@@ -3981,8 +3973,6 @@ page-game-challenge {
         width: 100%;
       }
     }
-
-    $color: #0D1B40;
 
     .container {
       width: 100%;
@@ -4196,8 +4186,6 @@ page-game-challenge {
   **********************************************************************/
   .level_5.challenge_6 {
 
-    $color: #0D1B40;
-
     .container {
       width: 100%;
       height: 100%;
@@ -4228,7 +4216,7 @@ page-game-challenge {
       background-repeat: no-repeat;
       font-size: 45px;
       line-height: 126px;
-      color: $color;
+      color: map-get($colors, text-primary);
       text-align: center;
       pointer-events: none;
 
@@ -4294,6 +4282,75 @@ page-game-challenge {
 
       $icons: opt-panel;
       @include appSpriteIcons($icons, 50px, 50px, 44, 0px, 366px, 123px);
+    }
+  }
+/**********************************************************************
+  Level 5 - Challenge 8
+  **********************************************************************/
+  .level_5.challenge_8 {
+
+    ion-slides {
+       height: 70%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom, .container {
+        position: relative;
+        height: 100%;
+        bottom: 0%;
+        width: 100%;
+      }
+    }
+
+    .container {
+      width: 100%;
+      height: 100%;
+      color: #fff;
+      font-weight: bold;
+      position: relative;
+
+      .listen-control {
+        position: absolute;
+      }
+      ul {
+        list-style: none;
+        counter-reset: li;
+
+        li {
+          position: absolute;
+          background-color: rgba(255,255,179,.8);
+          color: map-get($colors, text-primary);
+          border: solid 1px #e6e843;
+          border-radius: 6px;
+          text-align: left;
+          list-style: none;
+          padding-left: 1.2em;
+          counter-increment: li;
+
+          &::before {
+            content: counter(li, upper-alpha) ".";
+            color: #5A9FAF;
+            display: inline-block; width: 1em;
+            position: absolute;
+            left: 2px;
+          }
+        }
+      }
+      [tepuy-selectable] {
+        &.tepuy-selected {
+          color: map-get($colors, neutral);          
+          border-color: map-get($colors, neutral);
+          
+          &.tepuy-correct {
+            color: map-get($colors, text-correct);
+            border-color: map-get($colors, correct);
+          }
+          &.tepuy-wrong {
+            color: map-get($colors, wrong);
+            border-color: map-get($colors, wrong);
+          }
+        }
+      }
     }
   }
 }
