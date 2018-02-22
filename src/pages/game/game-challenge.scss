@@ -4069,4 +4069,80 @@ page-game-challenge {
       }
     }
   }
+/**********************************************************************
+  Level 5 - Challenge 4
+  **********************************************************************/
+  .level_5.challenge_4 {
+
+    ion-slides {
+       height: 70%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom, .container {
+        position: relative;
+        height: 100%;
+        bottom: 0%;
+        width: 100%;
+      }
+    }
+
+    $color: #0D1B40;
+
+    .container {
+      width: 100%;
+      height: 100%;
+      color: #fff;
+      font-weight: bold;
+      position: relative;
+
+      .opt-panel-wrapper {
+        position: absolute;
+
+        .opt-wrapper {
+          position: relative;
+          width: 100%;
+          height: 100%;
+        }
+
+        &.panel-result {
+          padding-top: 3px;
+        }
+      }
+
+      .tepuy-correct .sprite-item.opt-panel {
+        background-position: -550px -50px;
+      }
+      .tepuy-wrong .sprite-item.opt-panel {
+        background-position: -1050px -50px;
+      }
+    }
+
+
+    empty-panel-container {
+      position: relative;
+    }
+    .empty-panel {
+      width: 448px;
+      height: 133px;
+    }
+
+    .sprite-item {
+      background-image: url('../assets/game/img/l_5/ch_4/sprite.png');
+      background-color: transparent;
+      background-repeat: no-repeat;
+      font-size: 80px;
+      line-height: 133px;
+      position: relative;
+
+      $icons: opt-panel;
+      @include appSpriteIcons($icons, 50px, 50px, 44, 0px, 448px, 133px);
+
+      span.operator {
+        position: absolute;
+        left: 25%;
+        color: #59B1C9;
+      }
+    }
+  }
 }

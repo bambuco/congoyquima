@@ -4,7 +4,7 @@
     "label":"1",
     "type": "select",
     "script": "assets/game/html/l_5/ch_1",
-    "preload": {"images": ["l_5/ch_2/sprite.png"]},
+    "preload": {"images": ["l_5/ch_1/sprite.png"]},
     "help": "abaco_howto",
     "parameters": {
     }
@@ -22,7 +22,7 @@
   {
     "id": 2,
     "label":"3",
-    "type": "select",
+    "type": "drag",
     "script": "assets/game/html/l_5/ch_3",
     "preload": {"images": ["l_5/ch_3/sprite.png"]},
     "autofeedback": true,
@@ -35,7 +35,7 @@
     "type": "select",
     "script": "assets/game/html/l_5/ch_4",
     "preload": {"images": ["l_5/ch_4/sprite.png"]},
-    "unavailable": true,
+    "autofeedback": true,
     "parameters": {
     }
   },
@@ -46,6 +46,7 @@
     "script": "assets/game/html/l_5/ch_5",
     "preload": {"images": ["l_5/ch_5/sprite.png"]},
     "autofeedback": true,
+    "unavailable": true,
     "parameters": {
     }
   },
