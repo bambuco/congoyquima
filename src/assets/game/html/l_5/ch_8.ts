@@ -83,11 +83,11 @@ export function componentBuilder(template:string, css:string): Type<any> {
       const rect = this.platform.getElementBoundingClientRect(el);
       const scale = rect.height / 1920;
       let box:any = {
-        w: 452 * scale,
+        w: 492 * scale,
         h: 140 * scale
       };
 
-      let positions:any[] = [[612,700],[996,562],[996,722],[996,882]]; //
+      let positions:any[] = [[612,700],[976,562],[976,722],[976,882]]; //
       const sw = rect.height; // * 100 / 70;
       let offset = (sw - rect.width) / 2;
       positions = positions.map(pos => {
