@@ -44,7 +44,6 @@ export function componentBuilder(template:string, css:string): Type<any> {
 
     calculateDimensions(el) {
       const rect = this.platform.getElementBoundingClientRect(el);
-      console.log(rect);
       const scale = rect.height / 1920;
       let tBoxRect:any = {
         w: 408 * scale,
@@ -62,8 +61,6 @@ export function componentBuilder(template:string, css:string): Type<any> {
           l: left
         }, tBoxRect));
       }
-      console.log(scale);
-      console.log(boxes);
 
       boxes[2].w = boxes[1].w * 2 + scale * 60;
 
