@@ -23,8 +23,8 @@
               </div>
             </div>
             <div class="row-1">
-              <div class="options-container" [ngStyle]="bBoxStyle">
-                <div class="option-{{i}}" *ngFor="let it of group.options; let i=index" tepuy-item tepuy-draggable [tepuy-value]="it" [tepuy-group-id]="id"  tepuy-autofit>
+              <div class="options-container">
+                <div class="option-{{i}}" *ngFor="let it of group.options; let i=index" tepuy-item tepuy-draggable [tepuy-value]="it" [tepuy-group-id]="id"  tepuy-autofit [ngStyle]="bBoxStyles[i]">
                   <div class="word-holder word-full" tepuy-scale="1920">{{it}}</div>
                   <input type="hidden" tepuy-item-value />
                 </div>
