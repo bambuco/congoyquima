@@ -1,0 +1,37 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-slide-delay=".5">
+  <ng-container *tepuyValueGenerator="'randomof:numbers:min=1;max=10;'; count: 5; let groups=values">
+    <ion-slides class="tepuy-activity-content" zoom="false" pager="true" paginationType="progress" effect="fade">
+      <ion-slide *ngFor="let group of groups;" [style.width]="auto"
+         tepuy-item-group
+         [tepuy-group-id]="group.id"
+         (groupInit)="prepare($event, group)"
+        >
+        <div class="container" *ngIf="group.ready">
+          <div class="row-0">
+            <div class="opt-rock-wrapper" [ngStyle]="boxStyles[0]">
+              <span>{{group.minuend}}</span><span class="operator">&ndash;</span><span>{{group.sustrahend}}</span>
+            </div>
+            <div class="opt-rock-wrapper" *ngFor="let opt of group.options;let k=index" 
+              tepuy-autofit
+              tepuy-item
+              [tepuy-group-id]="group.id"
+              [tepuy-correct]="opt==group.result"
+              tepuy-selectable
+              [tepuy-value]="opt"
+              tepuy-auto-feedback="true"
+              [ngStyle]="boxStyles[k+1]"
+              >
+              <div class="sprite-item opt-rock" tepuy-scale="1920">
+                {{opt}}
+              </div>
+              <input type="hidden" tepuy-item-value />
+            </div>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+    <div class="tepuy-feedback-summary tepuy-semaphore">
+      <span *ngFor="let g of groups" class="tepuy-{{g.state}}"></span>
+    </div>
+  </ng-container>
+</div>
