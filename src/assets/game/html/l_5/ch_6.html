@@ -1,7 +1,8 @@
 <div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-win-score="0.6" (activityRestart)="onReset()">
   <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.invitations;fromQ=true';count:1;type:'scalar';let invitations=values">
     <div class="container" tepuy-item-group [tepuy-group-id]="1" (groupInit)="prepare($event, invitations[0])">
-      <div *ngIf="itemsSorted" tepuy-sortable="true"
+      <div *ngIf="itemsSorted"
+          tepuy-sortable="true"
           [tepuy-order]="itemsSorted"
           tepuy-direction="v"
           (tepuyItemReorder)="itemsReorder($event)" [ngStyle]="boxStyles[0]">

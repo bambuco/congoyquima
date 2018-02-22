@@ -75,7 +75,6 @@ export function componentBuilder(template:string, css:string): Type<any> {
 
     itemsReorder(ev) {
       const auxV = this.items[ev.from].val;
-      console.log(auxV);
 
       let i = ev.from;
       let step = ev.from > ev.to ? -1 : 1;

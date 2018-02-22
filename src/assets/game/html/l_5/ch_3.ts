@@ -1,5 +1,4 @@
 import { Component, Type, ViewEncapsulation, ElementRef, NgZone, HostListener } from '@angular/core';
-import { Platform } from 'ionic-angular';
 
 import { rand } from '../utils';
 
@@ -14,8 +13,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
   class L5Ch3Component {
 
     constructor(private elRef: ElementRef,
-        private ngZone: NgZone,
-        private platform: Platform) {
+        private ngZone: NgZone) {
     }
 
     ngOnInit() {
