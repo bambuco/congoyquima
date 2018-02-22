@@ -42,11 +42,10 @@
   {
     "id": 4,
     "label":"5",
-    "type": "drag",
+    "type": "select",
     "script": "assets/game/html/l_5/ch_5",
     "preload": {"images": ["l_5/ch_5/sprite.png"]},
     "autofeedback": true,
-    "unavailable": true,
     "parameters": {
     }
   },
@@ -56,6 +55,7 @@
     "type": "drag",
     "script": "assets/game/html/l_5/ch_6",
     "preload": {"images": ["l_5/ch_6/sprite.png"]},
+    "unavailable": true,
     "parameters": {
       "adjectives": ["Grande", "Seca", "Barata", "Fuerte", "Caro", "Mojado", "Delgada", "Débil", "Flaco", "Liso", "Importante", "Salado", "Frío", "Joven", "Grueso", "Viejo", "Dulce", "Gordo", "Caliente", "Pequeña"],
       "verbs": ["Amar", "Bailar", "Caminar", "Decir", "Esperar", "Aprender", "Ganar", "Hacer", "Inventar", "Jugar", "Leer", "Mejorar", "Dormir", "Necesitar", "Olvidar", "Perdonar", "Lavar", "Estudiar", "Cantar", "Sonreír"]
