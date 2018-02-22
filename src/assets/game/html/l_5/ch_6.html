@@ -1,0 +1,20 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-win-score="0.6" (activityRestart)="onReset()">
+  <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.invitations;fromQ=true';count:1;type:'scalar';let invitations=values">
+    <div class="container" tepuy-item-group [tepuy-group-id]="1" (groupInit)="prepare($event, invitations[0])">
+      <div *ngIf="itemsSorted" tepuy-sortable="true"
+          [tepuy-order]="itemsSorted"
+          tepuy-direction="v"
+          (tepuyItemReorder)="itemsReorder($event)" [ngStyle]="boxStyles[0]">
+        <div *ngFor="let item of items"
+          tepuy-item
+          [tepuy-correct]="false"
+          [tepuy-value]="item.val"
+          tepuy-autofit
+          >
+          <div class="sprite-item opt-panel" tepuy-scale="1920">{{item.text}}</div>
+          <input type="hidden" tepuy-item-value />
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
