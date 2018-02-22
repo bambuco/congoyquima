@@ -12,7 +12,6 @@ export function componentBuilder(template:string, css:string): Type<any> {
     encapsulation: ViewEncapsulation.None
   })
   class L5Ch3Component {
-    tBoxStyle: any;
 
     constructor(private elRef: ElementRef,
         private ngZone: NgZone,
@@ -44,25 +43,6 @@ export function componentBuilder(template:string, css:string): Type<any> {
     }
 
     calculateDimensions(el) {
-      const rect = this.platform.getElementBoundingClientRect(el);
-      const scale = rect.height / 1920;
-      let tBoxRect:any = {
-        w: 935 * scale,
-        h: 560 * scale
-      };
-      const sw = rect.height; // * 100 / 70;
-      let left = sw * (539 / 1920);
-      let offset = (sw - rect.width) / 2;
-      left -= offset;
-      tBoxRect.l = left;
-
-      this.ngZone.run(() => {
-        this.tBoxStyle = {
-          'width.px': tBoxRect.w,
-          'height.px': tBoxRect.h,
-          'left.px': tBoxRect.l
-        };
-      });
     }
 
     onReset() {
