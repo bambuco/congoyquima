@@ -9,7 +9,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
     styles: [ css || '' ],
     encapsulation: ViewEncapsulation.None
   })
-  class L5Ch7Component {
+  class L5Ch8Component {
     boxStyles:any[] = [];
     
     ready:boolean;
@@ -120,5 +120,5 @@ export function componentBuilder(template:string, css:string): Type<any> {
       this.ready = null;
     }
   }
-  return L5Ch7Component;
+  return L5Ch8Component;
 }

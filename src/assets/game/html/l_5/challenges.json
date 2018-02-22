@@ -84,9 +84,8 @@
     "label":"9",
     "type": "select",
     "script": "assets/game/html/l_5/ch_9",
-    "unavailable": true,
     "parameters": {
-      "recipes": ["milk_rice", "chicken_soup", "beans", "chicken_rice", "home_cake", "fresh_salad", "fruit_salad", "custard", "cookies", "fritters"]
+      "fragments": ["fr_1", "fr_2", "fr_3", "fr_4", "fr_5", "fr_6"]
     }
   },
   {
@@ -94,6 +93,7 @@
     "label":"10",
     "type": "select",
     "script": "assets/game/html/l_5/ch_10",
+    "unavailable": true,
     "parameters": {
       "invitations": ["birthday", "business", "reunion", "vaccination", "wedding", "game", "fitness", "dancing", "meeting", "dating", "maloca"]
     }
