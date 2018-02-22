@@ -4398,4 +4398,62 @@ page-game-challenge {
       }
     }
   }
+/**********************************************************************
+  Level 5 - Challenge 10
+  **********************************************************************/
+  .level_5.challenge_10 {
+
+    .container {
+      width: 100%;
+      height: 100%;
+      color: #fff;
+      font-weight: bold;
+      position: relative;
+
+      .listen-control, .question-box {
+        position: absolute;
+        color: #5A9FAF;
+      }
+
+      ul {
+        list-style: none;
+        counter-reset: li;
+
+        li {
+          position: absolute;
+          background-color: rgba(255,255,179,.8);
+          color: map-get($colors, text-primary);
+          border: solid 1px #e6e843;
+          border-radius: 6px;
+          text-align: left;
+          list-style: none;
+          padding-left: 1.2em;
+          counter-increment: li;
+
+          &::before {
+            content: counter(li, upper-alpha) ".";
+            color: #5A9FAF;
+            display: inline-block; width: 1em;
+            position: absolute;
+            left: 2px;
+          }
+        }
+      }
+      [tepuy-selectable] {
+        &.tepuy-selected {
+          color: map-get($colors, neutral);
+          border-color: map-get($colors, neutral);
+
+          &.tepuy-correct {
+            color: map-get($colors, text-correct);
+            border-color: map-get($colors, correct);
+          }
+          &.tepuy-wrong {
+            color: map-get($colors, wrong);
+            border-color: map-get($colors, wrong);
+          }
+        }
+      }
+    }
+  }
 }
