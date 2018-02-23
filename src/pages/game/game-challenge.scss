@@ -3847,9 +3847,15 @@ page-game-challenge {
       }
 
       &.tepuy-group-completed {
-        .highlighter {
-          margin-top: -2px;
-          display: block;
+        .abaco-column-bg {
+          width: 154px;
+          height: 581px;
+        }
+        .tepuy-correct .abaco-column-bg {
+          background-position: -500px -20px;
+        }
+        .tepuy-wrong .abaco-column-bg {
+          background-position: -250px -20px;
         }
       }
     }
@@ -3861,7 +3867,7 @@ page-game-challenge {
       @include transform-origin(left top);
 
       $icons: abaco-column-bg;
-      @include appSpriteIcons($icons, 20px, 20px, 0, 0px, 132px, 560px);
+      @include appSpriteIcons($icons, 9px, 9px, 0, 0px, 154px, 581px); // 132px, 560px);
 
       $icons: abaco-seed;
       @include appSpriteIcons($icons, 250px, 650px, 0, 0px, 61px, 59px);

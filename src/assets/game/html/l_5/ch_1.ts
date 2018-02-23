@@ -1,6 +1,8 @@
 import { Component, Type, ViewEncapsulation, ElementRef, NgZone, HostListener } from '@angular/core';
 import { Platform } from 'ionic-angular';
 
+import { TepuyAudioPlayerProvider } from '../../../../tepuy-angular/providers/audio-player.provider';
+
 const PAD = '00000';
 
 export function componentBuilder(template:string, css:string): Type<any> {
@@ -23,6 +25,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
     legend: string;
     constructor(private elRef: ElementRef,
         private ngZone: NgZone,
+        private audioPlayer: TepuyAudioPlayerProvider,
         private platform: Platform) {
     }
 
@@ -110,6 +113,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
     }
 
     onSelect($event, bar, value) {
+      this.audioPlayer.stopAll();
       if (bar.value === value) {
         value = 0;
       }
