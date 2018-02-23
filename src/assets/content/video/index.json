@@ -6,5 +6,21 @@
     "meta": {
       "duration": ""
     }
+  },
+  {
+    "title": "El ábaco",
+    "description": "Tutorial como usar el ábaco",
+    "path": "../../game/vid/shared/abaco.mp4",
+    "meta": {
+      "duration": ""
+    }
+  },
+  {
+    "title": "La tabla pitagórica",
+    "description": "Tutorial como usar la tabla pitagórica",
+    "path": "../../game/vid/shared/phytagorean.mp4",
+    "meta": {
+      "duration": ""
+    }
   }
 ]
