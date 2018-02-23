@@ -7,7 +7,7 @@ page-game-level {
     background-size: auto 100%;
     background-position: center bottom;
     background-repeat:no-repeat;
-    overflow: auto;
+    overflow: hidden;
     position:relative;
     @for $l from 1 through 5 {
       &.level_#{$l} {

@@ -88,8 +88,10 @@ export class GameLevelPage {
   }
 
   onResize($event) {
-    let dim = this.contentEl.getContentDimensions();
-    this.itemHeight = (dim.contentHeight) / 10;
+    setTimeout(() => {
+      let dim = this.contentEl.getContentDimensions();
+      this.itemHeight = (dim.contentHeight) / 10;
+    }, 400);
   }
 
   //User actions
