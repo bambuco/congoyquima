@@ -297,7 +297,7 @@ export class GameChallengePage {
     });
   }
   challengeHelp() {
-    this.audioPlayer.stopAll();
+    this.stopSounds();
     this.mediaPlayer.playVideoFromCatalog(this.challenge.help, { small: true }).subscribe(() => {});
   }
   //Helpers
