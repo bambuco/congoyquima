@@ -29,7 +29,7 @@
     <div class="tepuy-feedback-summary tepuy-semaphore">
       <ng-container *ngFor="let g of groups">
       <div *ngIf="g.ready$|async" class="listen-control" tepuy-autofit>
-        <div class="tepuy-{{g.state}} listen-icon" [class.listen-active]="g.active" [class.listen-inactive-empty]="!g.active" tepuy-scale="1920" tepuy-greetable="[greet-value]" [attr.disabled]="!g.active">
+        <div class="tepuy-{{g.state}} listen-icon" [class.listen-active]="g.active" [class.listen-inactive]="!g.active" tepuy-scale="1920" tepuy-greetable="[greet-value]" [attr.disabled]="!g.active">
           <input greet-value type="hidden" value="{{g.data}}|por|{{g.data2}}" />
         </div>
       </div>

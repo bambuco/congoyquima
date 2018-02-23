@@ -2,16 +2,6 @@
 Challenge
 ***************************************/
 page-game-challenge {
-  .listen-icon.context-help {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    -web-kit-box-shadow: none;
-    box-shadow:none;
-    z-index: 1;
-    @include transform-origin(top right);
-  }
-
   .content-zone {
     max-width: 1080px;
     background-size: auto 100%;
@@ -46,6 +36,16 @@ page-game-challenge {
         //fill: #3AAFA9;
       }
     }
+  }
+
+  .listen-icon.context-help {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    -web-kit-box-shadow: none;
+    box-shadow:none;
+    z-index: 1;
+    @include transform-origin(bottom right);
   }
 
   ion-header {
@@ -207,7 +207,7 @@ page-game-challenge {
       display: inline-block;
 
       .listen-icon {
-        &.listen-inactive-empty, &.tepuy-correct, &.tepuy-wrong {
+        &.listen-inactive-empty, &.tepuy-correct, &.tepuy-wrong , &.listen-inactive {
           background-image: none;
           border-radius: 50%;
           border: solid 12px #fff;
@@ -219,11 +219,6 @@ page-game-challenge {
 
         &.tepuy-wrong {
           background-color: map-get($colors, wrong);
-        }
-
-        &.listen-inactive-empty {
-          width: 180px;
-          height: 180px;
         }
       }
     }
