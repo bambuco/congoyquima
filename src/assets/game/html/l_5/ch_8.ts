@@ -43,8 +43,8 @@ export function componentBuilder(template:string, css:string): Type<any> {
         ["valor", "zapatos", "honestidad"],
       ],
       "fr_6": [
-        ["acostarse", "mañana", "lectura"],
         ["tarde", "escribir", "noche"],
+        ["acostarse", "mañana", "lectura"],
         ["madrugar", "rendir", "día"]
       ]
     };
