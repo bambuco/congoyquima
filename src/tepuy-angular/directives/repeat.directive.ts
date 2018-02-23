@@ -10,10 +10,13 @@ export class TepuyRepeatDirective {
     this.viewContainer.clear();
     const last = c-1;
     for(var i=0;i<c;i++) {
+      const even = i % 2 == 0;
       this.viewContainer.createEmbeddedView(this.templateRef, {
         index: i,
         last: last==i,
-        first: i == 0
+        first: i == 0,
+        even: even,
+        odd: !even
       });
     }
   }
