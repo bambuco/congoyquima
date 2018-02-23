@@ -217,9 +217,15 @@ export function componentBuilder(template:string, css:string): Type<any> {
         let el = ev.target.querySelector('input');
         it.item = el.$tepuyItem;
       }
+      //Clear previous selection
+      if (it.selectedOption) {
+        it.selectedOption.used = false;
+        it.text = '';
+        it.item.isCorrect = false;
+        delete it.selectedOption;
+      }
       it.active = true;
       this.activeItem = it;
-      //this.options = cell.options.slice(0);
       this.showSelector = true;
     }
 
@@ -228,9 +234,6 @@ export function componentBuilder(template:string, css:string): Type<any> {
       it.text = opt.val;
       it.active = false;
       it.item.isCorrect = (opt.val == it.value);
-      if (it.selectedOption) {
-        it.selectedOption.used = false;
-      }
       opt.used = true;
       it.selectedOption = opt;
       this.activeItem = null;
