@@ -5,7 +5,7 @@
     "type": "select",
     "script": "assets/game/html/l_5/ch_1",
     "preload": {"images": ["l_5/ch_1/sprite.png"]},
-    "help": "abaco_howto",
+    "help": { "type": "video", "key": "abaco_howto", "autoplay": true },
     "parameters": {
     }
   },
@@ -15,6 +15,7 @@
     "type": "select",
     "script": "assets/game/html/l_5/ch_2",
     "preload": {"images": ["l_5/ch_2/sprite.png"]},
+    "help": { "type": "video", "key": "abaco_howto", "autoplay": false },
     "autofeedback": true,
     "parameters": {
     }

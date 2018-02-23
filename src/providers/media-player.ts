@@ -27,6 +27,8 @@ const videoCatalog = {
   'level3_intro': 'game/vid/l_3/intro.mp4',
   'level4_intro': 'game/vid/l_4/intro.mp4',
   'level5_intro': 'game/vid/l_5/intro.mp4',
+  'sinonimos_howto': 'game/vid/shared/synonyms.mp4',
+  'pitagoras_howto': 'game/vid/shared/phytagorean.mp4',
   'abaco_howto': 'game/vid/shared/abaco.mp4'
 };
 

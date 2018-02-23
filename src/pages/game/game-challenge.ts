@@ -1,4 +1,4 @@
-import { Component, ViewChild, HostListener } from '@angular/core';
+import { Component, ViewChild, HostListener, ElementRef } from '@angular/core';
 import { NavController, NavParams, Content } from 'ionic-angular';
 import { TepuyActivityService, ResourceProvider } from '../../tepuy-angular/providers';
 
@@ -8,6 +8,7 @@ import { GameDataProvider } from '../../providers/game-data';
 import { MediaPlayer } from '../../providers/media-player';
 import { TepuyAudioPlayerProvider } from '../../tepuy-angular/providers';
 import { GameLevelPage } from '../game/game-level';
+import { ImageViewerController } from 'ionic-img-viewer';
 
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
@@ -49,6 +50,7 @@ export class GameChallengePage {
   btnHigthlight: string = '';  
   showIndicator: boolean = false;
   hasCustomHelp: boolean = false;
+  contextImageUrl: string;
 
   private id: string;
   private nId: number;
@@ -61,6 +63,9 @@ export class GameChallengePage {
   private sourcePage: string = null;
   private introKey: string;
   private scriptLoaded: Promise<any>;
+  
+  @ViewChild('contextImage')
+  private contextImage: ElementRef;
 
   constructor(
       private navCtrl: NavController,
@@ -68,6 +73,7 @@ export class GameChallengePage {
       private gameDataProvider: GameDataProvider,
       private mediaPlayer: MediaPlayer,
       private audioPlayer: TepuyAudioPlayerProvider,
+      private imageViewer: ImageViewerController,
       private loader: ResourceProvider,
       params: NavParams
       ) {
@@ -141,9 +147,17 @@ export class GameChallengePage {
       setTimeout(() => {
         this.setReady();
         if (this.hasCustomHelp) {
-          this.mediaPlayer.playVideoFromCatalog(this.challenge.help, { small: true }).subscribe(() => {
+          if (this.challenge.help.type == 'image') {
+            this.contextImageUrl = this.challenge.help.path;
+          }
+          if (this.challenge.help.autoplay) {
+            this.challengeHelp(() => {
+              this.playAudioIntro();
+            });
+          }
+          else {
             this.playAudioIntro();
-          });
+          }
         }
         else {
           this.playAudioIntro();
@@ -184,7 +198,7 @@ export class GameChallengePage {
 
   listen() {
     if (this.busy) return;
-    if (!this.canVerify) return; //Play only if playing
+    //if (!this.canVerify) return; //Play only if playing //As David B requested to allow playing even after verified
     this.stopSounds();    
     this.playAudioIntro();
   }
@@ -296,9 +310,20 @@ export class GameChallengePage {
       this.busy = false;
     });
   }
-  challengeHelp() {
+  challengeHelp(callback:()=>void=null) {
     this.stopSounds();
-    this.mediaPlayer.playVideoFromCatalog(this.challenge.help, { small: true }).subscribe(() => {});
+    const type = this.challenge.help.type;
+    if (type == 'video') {
+      this.mediaPlayer.playVideoFromCatalog(this.challenge.help.key, { small: true }).subscribe(() => {
+        if (callback && (typeof callback == 'function')) {
+          callback();
+        }
+      });
+    }
+    if (type == 'image') {
+      let imgCtrl = this.imageViewer.create(this.contextImage.nativeElement);
+      imgCtrl.present();
+    }
   }
   //Helpers
   /*private playIntro(ondemand:boolean=false) {    
