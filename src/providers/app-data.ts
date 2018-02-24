@@ -35,6 +35,9 @@ export const Flags = {
   LEVEL4_INTRO: (one=one<<1),
   LEVEL5_INTRO: (one=one<<1),
   SORT_HOWTO: (one=one<<1),
+  SYNONYMS_HOWTO: (one=one<<1),
+  PYTHAGOREAN_HOWTO: (one=one<<1),
+  ABACO_HOWTO: (one=one<<1)
 };
 
 @Injectable()

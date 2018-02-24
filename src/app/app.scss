@@ -399,6 +399,15 @@ Listen Interruptor Icons
   }
 }
 
+@include keyframes(fade-in){
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 @include keyframes(flash){
   0% { 
     opacity: 1.0; 

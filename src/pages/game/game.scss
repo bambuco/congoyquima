@@ -3,10 +3,48 @@ Game
 ***************************************/
 
 page-game {
-  .content-zone {
+
+  ion-backdrop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.4;
+    background-color: #fff;
+    z-index: 1000;
+
+    ion-spinner * {
+      width: 28px;
+      height: 28px;
+      stroke: #444;
+      fill: #222;
+    }
+  }
+
+  .map-zone {
+    background-image: url('../assets/game/img/shared/world_bg.png');
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    height: 100%;
+    overflow: auto;
+
+    &.loading {
+      opacity: 0;
+    }
+    &.loaded {
+      @include animation(fade-in, .5s, linear);
+    }
+  } 
+  .content-zonex {
     background-image: url('../assets/game/img/shared/world_bg.png');
     background-size: cover;
     overflow: auto;
+    &.loading {
+      margin-left: 0%;
+    }
+    &.loaded {
+      margin-left: 0%;
+    }
   }
 
   .board {

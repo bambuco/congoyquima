@@ -1,5 +1,5 @@
 <ion-content #content>
-  <div class="content-zone1" #contentZone [ngClass]="status">
+  <div class="map-zone" #contentZone [ngClass]="status">
     <div class="board" [ngStyle]="{'width.px':boardWidth}">
       <div *ngFor="let item of levels | async; let i = index"
           (click)="openLevel(item)"
@@ -27,3 +27,6 @@
   </ion-navbar>
   <div class="app-icon arrow-white help-indicator" *ngIf="showIndicator"></div>
 </ion-footer>
+<ion-backdrop *ngIf="leaving">
+  <ion-spinner name="crescent"></ion-spinner>
+</ion-backdrop>
