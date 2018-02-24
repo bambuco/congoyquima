@@ -29,6 +29,7 @@ export class GamePage {
   litStyles: Array<any>;
   status: string = 'loading';
   showIndicator: boolean = false;
+  leaving: boolean = false;
 
   constructor(
       private platform: Platform,
@@ -46,6 +47,7 @@ export class GamePage {
   }
   
   goHome(){
+    //this.leaving = true;
     this.navCtrl.setRoot(HomePage);
   }
 
@@ -104,6 +106,7 @@ export class GamePage {
 
   openLevel(level) {
     if (!level.unlocked) return false;
+    this.leaving = true;
     this.navCtrl.setRoot(GameLevelPage, { 'id': level.id });
   }
 

@@ -1,5 +1,5 @@
 import { Component, ViewChild, HostListener, ElementRef } from '@angular/core';
-import { Platform, NavController, NavParams, Content } from 'ionic-angular';
+import { NavController, NavParams, Content } from 'ionic-angular';
 import { TepuyActivityService, ResourceProvider } from '../../tepuy-angular/providers';
 
 import { Observable } from 'rxjs/Observable';
@@ -27,8 +27,6 @@ const RES_IMAGE = 0;
 export class GameChallengePage {
   @ViewChild('content')
   private content: Content;
-  @ViewChild('toolbar')
-  private toolbar: Content;
   //@ViewChild('playZone')
   //private playZone;
   @HostListener('click', ['$event']) onClick(ev) {
@@ -78,7 +76,6 @@ export class GameChallengePage {
       private audioPlayer: TepuyAudioPlayerProvider,
       private imageViewer: ImageViewerController,
       private loader: ResourceProvider,
-      private platform: Platform,
       params: NavParams      
       ) {
     this.id = params.get('id');
@@ -154,20 +151,24 @@ export class GameChallengePage {
     this.scriptLoaded.then(() => {
       setTimeout(() => {
         this.setReady();
+        let played = false;
         if (this.hasCustomHelp) {
           if (this.challenge.help.type == 'image') {
             this.contextImageUrl = this.challenge.help.path;
           }
+
           if (this.challenge.help.autoplay) {
-            this.challengeHelp(() => {
-              this.playAudioIntro();
-            });
-          }
-          else {
-            this.playAudioIntro();
+            let key = (this.challenge.help.key||'').toUpperCase();
+            if (!this.appData.hasFlag(Flags[key])) {
+              played = true;
+              this.challengeHelp(() => {
+                this.appData.setFlag(Flags[key]);
+                this.playAudioIntro();
+              });
+            }
           }
         }
-        else {
+        if (!played) {
           this.playAudioIntro();
         }
       }, 200);
@@ -177,7 +178,7 @@ export class GameChallengePage {
   @HostListener('window:resize', ['$event'])
   onResize($event=null) {
     let dim = this.content.getContentDimensions();
-    let tHeight = this.content._hdrHeight * .7; //this.toolbar.getContentDimensions().contentHeight;
+    let tHeight = this.content._hdrHeight * .7;
     setTimeout(() => {
       const height = dim.contentHeight;
       const width = Math.min(dim.contentWidth, dim.contentHeight);

@@ -40,7 +40,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
         "title": "Ingredientes del sancocho de gallina",
         "items": [
           { "value": "litros", "words": ["3", "", "de agua"] },
-          { "value": "pollo", "words": ["4 muslos de", ""] },
+          { "value": "gallina", "words": ["4 muslos de", ""] },
           { "value": "trozos", "words": ["4", "", "de yuca pelada"] },
           { "value": "", "words": ["4 trozos de plátano verde"] },
           { "value": "papas", "words": ["2", "", "picadas"] },
