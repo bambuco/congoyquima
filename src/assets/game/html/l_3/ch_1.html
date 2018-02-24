@@ -21,7 +21,7 @@
       <div class="bag-wrapper">
           <div class="bag-container" [ngStyle]="bBoxStyle"
             *tepuyValueGenerator="'randomof:array:';data:[0,1,9,10]; type:'scalar';include:[3,4,6,7];count:6;shuffle:true;let extra=values">
-            <div *ngFor="let it of extra;let i=index" class="bag-{{i}}" tepuy-autofit tepuy-item tepuy-draggable tepuy-greetable [tepuy-value]="sequence[it]">
+            <div *ngFor="let it of extra;let i=index" class="bag-{{i}}" tepuy-autofit tepuy-item tepuy-draggable tepuy-greetable [tepuy-value]="sequence[it]" [tepuy-correct]="true">
               <div class="seedbag-icon seedbag-full" [tepuy-scale]="1920">
                 <span tepuy-item-value>{{sequence[it]}}</span>
               </div>
