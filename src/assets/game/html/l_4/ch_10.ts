@@ -171,12 +171,12 @@ export function componentBuilder(template:string, css:string): Type<any> {
       const rect = this.platform.getElementBoundingClientRect(el);
       const scale = rect.height / 1920;
       let tBoxRect:any = {
-        w: 760 * scale,
+        w: 780 * scale,
         h: 690 * scale,
         t: 285 * scale,
       };
       const sw = rect.height;
-      let left = sw * (714 / 1920);
+      let left = sw * (704 / 1920);
       let offset = (sw - rect.width) / 2;
       left -= offset;
       tBoxRect.l = left;
@@ -196,7 +196,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
           'lineHeight.px': tBoxRect.h / (rows - 1)
         };
         this.phStyle = {
-          'width.px': 320 * scale,
+          'width.px': 383 * scale,
           'height.px': tBoxRect.h / rows,
         };
         this.lBoxStyle = {
