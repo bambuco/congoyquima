@@ -1,6 +1,7 @@
 import { Component, Type, ViewEncapsulation, ElementRef, NgZone, HostListener } from '@angular/core';
 import { Platform } from 'ionic-angular';
 
+import { Subject } from 'rxjs/Subject';
 import { ShufflePipe } from 'ngx-pipes';
 import { rand } from '../utils';
 
@@ -18,35 +19,36 @@ export function componentBuilder(template:string, css:string): Type<any> {
     cellSize: number;
     dimensions: number;
     matrix: any[][];
-    ready: boolean;
+    ready$: Subject<boolean>;
     enabled: boolean;
     showSelector: boolean;
     activeCell: any;
-    options: any[];
+    options: any[];    
     private shuffle:ShufflePipe;
+    private x:number;
+    private y:number;
+    private resized:boolean;
 
     constructor(private elRef: ElementRef,
         private ngZone: NgZone,
         private platform: Platform) {
       this.shuffle = new ShufflePipe();
+      this.ready$ = new Subject();
     }
 
     ngOnInit() {
       this.onResize(null);
-      const rect = this.platform.getElementBoundingClientRect(this.elRef.nativeElement);
-      const maxHeight = rect.height * 0.7 * 0.9;
-      let size = Math.min(maxHeight, rect.width * 0.95);
-      let dimensions = 10;
-      let cellSize = size / (dimensions + 1);
-      if (cellSize < MIN_CELL_SIZE) {
-        cellSize = MIN_CELL_SIZE;
-        dimensions = Math.floor(size / cellSize) - 1;
-      }
-      this.cellSize = cellSize;
-      this.dimensions = dimensions;
     }
 
     prepare($event, x, y) {
+      this.x = x;
+      this.y = y;
+      if (this.resized) {
+        this.setMatrixData(x, y);
+      }
+    }
+
+    setMatrixData(x, y) {
       let rstart = this.findRangeStart(x);
       let cstart = this.findRangeStart(y);
       let matrix = new Array(this.dimensions+1);
@@ -92,8 +94,8 @@ export function componentBuilder(template:string, css:string): Type<any> {
       setTimeout(() => {
         this.ngZone.run(() => {
           this.matrix = matrix;
-          this.ready = true;
           this.enabled = true;
+          this.ready$.next(true);
         });
       }, 0);
     }
@@ -106,8 +108,20 @@ export function componentBuilder(template:string, css:string): Type<any> {
     }
 
     calculateDimensions(el) {
-      let cellSize = this.cellSize;
+      const rect = this.platform.getElementBoundingClientRect(this.elRef.nativeElement);
+      const maxHeight = rect.height * 0.7 * 0.9;
+      let size = Math.min(maxHeight, rect.width * 0.95);
+      let dimensions = 10;
+      let cellSize = size / (dimensions + 1);
+      if (cellSize < MIN_CELL_SIZE) {
+        cellSize = MIN_CELL_SIZE;
+        dimensions = Math.floor(size / cellSize) - 1;
+      }
       this.cellSize = cellSize;
+      this.dimensions = dimensions;
+
+      this.resized = true;
+      this.setMatrixData(this.x, this.y);
       this.ngZone.run(() => {
         this.cellStyle = { 
           'width.px': cellSize,
@@ -148,7 +162,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
     }
 
     onReset() {
-      this.ready = false;
+      this.ready$.next(false);
       this.matrix = [];
     }
 

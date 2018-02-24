@@ -26,7 +26,10 @@ const videoCatalog = {
   'level2_intro': 'game/vid/l_2/intro.mp4',
   'level3_intro': 'game/vid/l_3/intro.mp4',
   'level4_intro': 'game/vid/l_4/intro.mp4',
-  'level5_intro': 'game/vid/l_5/intro.mp4'
+  'level5_intro': 'game/vid/l_5/intro.mp4',
+  'synonyms_howto': 'game/vid/shared/synonyms.mp4',
+  'pythagorean_howto': 'game/vid/shared/phytagorean.mp4',
+  'abaco_howto': 'game/vid/shared/abaco.mp4'
 };
 
 
@@ -78,6 +81,8 @@ export class MediaPlayer {
       loop: false,
       url: 'assets/' + path,
       options: options
+    }, {
+      cssClass: options && options.small ? 'small' : 'normal'
     });
     return Observable.create(observer => {
       modal.present().catch((reason) => {

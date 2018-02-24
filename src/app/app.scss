@@ -350,6 +350,9 @@ Listen Interruptor Icons
   @include appSpriteIcons($icons, 20px, 20px, 0px, 0px, 180px, 180px);
   $icons: listen-inactive;
   @include appSpriteIcons($icons, 20px, 250px, 0px, 0px, 180px, 180px);
+
+  $icons: context-help;
+  @include appSpriteIcons($icons, 250px, 20px, 0px, 0px, 155px, 155px);
 }
 /***********************************************
   Animations
@@ -393,6 +396,15 @@ Listen Interruptor Icons
   }
   100% {
     margin-left: 0;
+  }
+}
+
+@include keyframes(fade-in){
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 

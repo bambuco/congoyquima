@@ -1,5 +1,9 @@
 import {PipeTransform, Pipe} from '@angular/core';
 
+export function isObject(value: any) {
+  return value !== null && typeof value === 'object';
+}
+
 @Pipe({name: 'distribute'})
 export class DistributePipe implements PipeTransform {
 
@@ -21,6 +25,9 @@ export class DistributePipe implements PipeTransform {
         val = Math.floor(Math.random() * max);
       } while(used[val])      
       used[val] = true;
+      if (!isObject(copy[len])) {
+        copy[len] = { val: copy[len] };
+      }
       copy[len].pos = val + 1;
     }
     return copy;

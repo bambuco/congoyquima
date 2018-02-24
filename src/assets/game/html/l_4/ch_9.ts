@@ -40,7 +40,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
         "title": "Ingredientes del sancocho de gallina",
         "items": [
           { "value": "litros", "words": ["3", "", "de agua"] },
-          { "value": "pollo", "words": ["4 muslos de", ""] },
+          { "value": "gallina", "words": ["4 muslos de", ""] },
           { "value": "trozos", "words": ["4", "", "de yuca pelada"] },
           { "value": "", "words": ["4 trozos de plátano verde"] },
           { "value": "papas", "words": ["2", "", "picadas"] },
@@ -115,7 +115,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
           { "value": "libra", "words": ["1", "", "de panela raspada"] },
           { "value": "canela", "words": ["4 astillas de", ""] },
           { "value": "", "words": ["2 cucharadas de mantequilla"] },
-          { "value": "rayado", "words": ["1", "", "rayado"] },
+          { "value": "rayado", "words": ["1 coco", ""] },
           { "value": "en", "words": ["1 cucharada de canela", "", "polvo"] }
         ]
       },
@@ -217,9 +217,15 @@ export function componentBuilder(template:string, css:string): Type<any> {
         let el = ev.target.querySelector('input');
         it.item = el.$tepuyItem;
       }
+      //Clear previous selection
+      if (it.selectedOption) {
+        it.selectedOption.used = false;
+        it.text = '';
+        it.item.isCorrect = false;
+        delete it.selectedOption;
+      }
       it.active = true;
       this.activeItem = it;
-      //this.options = cell.options.slice(0);
       this.showSelector = true;
     }
 
@@ -228,9 +234,6 @@ export function componentBuilder(template:string, css:string): Type<any> {
       it.text = opt.val;
       it.active = false;
       it.item.isCorrect = (opt.val == it.value);
-      if (it.selectedOption) {
-        it.selectedOption.used = false;
-      }
       opt.used = true;
       it.selectedOption = opt;
       this.activeItem = null;

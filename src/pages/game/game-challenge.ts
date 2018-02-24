@@ -1,4 +1,4 @@
-import { Component, ViewChild, HostListener } from '@angular/core';
+import { Component, ViewChild, HostListener, ElementRef } from '@angular/core';
 import { NavController, NavParams, Content } from 'ionic-angular';
 import { TepuyActivityService, ResourceProvider } from '../../tepuy-angular/providers';
 
@@ -8,6 +8,7 @@ import { GameDataProvider } from '../../providers/game-data';
 import { MediaPlayer } from '../../providers/media-player';
 import { TepuyAudioPlayerProvider } from '../../tepuy-angular/providers';
 import { GameLevelPage } from '../game/game-level';
+import { ImageViewerController } from 'ionic-img-viewer';
 
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
@@ -43,11 +44,14 @@ export class GameChallengePage {
   activityType: string = '';
   canGoNext: boolean = false;
   pzStyle: any;
+  hStyle: any;
   levelJustCompleted: boolean = false;
   canVerify: boolean = false;
   canPlayAgain: boolean = false;
   btnHigthlight: string = '';  
   showIndicator: boolean = false;
+  hasCustomHelp: boolean = false;
+  contextImageUrl: string;
 
   private id: string;
   private nId: number;
@@ -60,6 +64,9 @@ export class GameChallengePage {
   private sourcePage: string = null;
   private introKey: string;
   private scriptLoaded: Promise<any>;
+  
+  @ViewChild('contextImage')
+  private contextImage: ElementRef;
 
   constructor(
       private navCtrl: NavController,
@@ -67,8 +74,9 @@ export class GameChallengePage {
       private gameDataProvider: GameDataProvider,
       private mediaPlayer: MediaPlayer,
       private audioPlayer: TepuyAudioPlayerProvider,
+      private imageViewer: ImageViewerController,
       private loader: ResourceProvider,
-      params: NavParams
+      params: NavParams      
       ) {
     this.id = params.get('id');
     this.nId = parseInt(this.id) + 1;
@@ -87,6 +95,7 @@ export class GameChallengePage {
         };
         if (data != null && data.template != 'NotFound') {
           this.challenge = data.setup;
+          this.hasCustomHelp = (this.challenge.help !== undefined && this.challengeHelp !== null);
           this.scriptLoaded = this.loadScript();
           let resources = [];
           if (this.challenge.preload) {
@@ -128,6 +137,10 @@ export class GameChallengePage {
 
   }
 
+  ngOnDestroy() {
+    this.audioPlayer.stopAll();
+  }
+
   initialize() {
     this.appData.setFlag(Flags.GAME_CHALLENGE_ENTERED);
     const helpKey = this.activityType+'_howto';
@@ -138,7 +151,26 @@ export class GameChallengePage {
     this.scriptLoaded.then(() => {
       setTimeout(() => {
         this.setReady();
-        this.playAudioIntro();
+        let played = false;
+        if (this.hasCustomHelp) {
+          if (this.challenge.help.type == 'image') {
+            this.contextImageUrl = this.challenge.help.path;
+          }
+
+          if (this.challenge.help.autoplay) {
+            let key = (this.challenge.help.key||'').toUpperCase();
+            if (!this.appData.hasFlag(Flags[key])) {
+              played = true;
+              this.challengeHelp(() => {
+                this.appData.setFlag(Flags[key]);
+                this.playAudioIntro();
+              });
+            }
+          }
+        }
+        if (!played) {
+          this.playAudioIntro();
+        }
       }, 200);
     });
   }
@@ -146,10 +178,12 @@ export class GameChallengePage {
   @HostListener('window:resize', ['$event'])
   onResize($event=null) {
     let dim = this.content.getContentDimensions();
+    let tHeight = this.content._hdrHeight * .7;
     setTimeout(() => {
       const height = dim.contentHeight;
       const width = Math.min(dim.contentWidth, dim.contentHeight);
       this.pzStyle = { 'height.px': height, 'width.px': width };
+      this.hStyle = { 'width.px': width, 'fontSize.px': tHeight, 'lineHeight.px': tHeight};
       this.settings.playZone.height = height;
       this.settings.playZone.width = width;
     }, 1);
@@ -175,7 +209,7 @@ export class GameChallengePage {
 
   listen() {
     if (this.busy) return;
-    if (!this.canVerify) return; //Play only if playing
+    //if (!this.canVerify) return; //Play only if playing //As David B requested to allow playing even after verified
     this.stopSounds();    
     this.playAudioIntro();
   }
@@ -287,7 +321,21 @@ export class GameChallengePage {
       this.busy = false;
     });
   }
-
+  challengeHelp(callback:()=>void=null) {
+    this.stopSounds();
+    const type = this.challenge.help.type;
+    if (type == 'video') {
+      this.mediaPlayer.playVideoFromCatalog(this.challenge.help.key, { small: true }).subscribe(() => {
+        if (callback && (typeof callback == 'function')) {
+          callback();
+        }
+      });
+    }
+    if (type == 'image') {
+      let imgCtrl = this.imageViewer.create(this.contextImage.nativeElement);
+      imgCtrl.present();
+    }
+  }
   //Helpers
   /*private playIntro(ondemand:boolean=false) {    
     this.mediaPlayer.playVideoFromCatalog(this.introKey, { centered: true }).subscribe((done) => {

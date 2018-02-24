@@ -11,7 +11,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
   })
   class L4Ch7Component {
     tBoxStyle:any;
-    bBoxStyle:any;
+    bBoxStyles:any[];
     private shuffle: ShufflePipe;
 
     private sets:any = [
@@ -41,6 +41,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
         private ngZone: NgZone,
         private platform: Platform) {
       this.shuffle = new ShufflePipe();
+      this.bBoxStyles = [];
     }
 
     ngOnInit() {
@@ -69,28 +70,28 @@ export function componentBuilder(template:string, css:string): Type<any> {
       const rect = this.platform.getElementBoundingClientRect(el);
       const scale = rect.height / 1920;
       let tBoxRect:any = {
-        w: 690 * scale,
+        w: 650 * scale,
         h: 304 * scale
       };
 
-      let bBoxRect:any = {
-        w: 402 * scale,
-        h: 240 * scale
-      };
+      let positions:any[] = [682, 1086, 854]; //
+      const sw = rect.height; // * 100 / 70;
+      let offset = (sw - rect.width) / 2;
+      positions = positions.map(pos => {
+        return pos*scale - offset;
+      });
+      let boxes = [];
+      for (let pos of positions) {
+        boxes.push({ 'left.px': pos });
+      }
 
       this.ngZone.run(() => {
         this.tBoxStyle = { 
           'width.px': tBoxRect.w,
-          //'height.px': tBoxRect.h,
-          'fontSize.px': tBoxRect.h * .25,
-          'lineHeight.px': tBoxRect.h * .3
+          'fontSize.px': tBoxRect.h * .2,
+          'lineHeight.px': tBoxRect.h * .25
         };
-        this.bBoxStyle = { 
-          'width.px': bBoxRect.w,
-          'height.px': bBoxRect.h,
-          'fontSize.px': bBoxRect.h / 3 * .6,
-          'lineHeight.px': bBoxRect.h / 3
-        };
+        this.bBoxStyles = boxes;
       });
     }
 

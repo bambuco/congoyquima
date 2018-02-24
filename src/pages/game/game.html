@@ -1,12 +1,12 @@
 <ion-content #content>
-  <div class="content-zone" #contentZone [ngClass]="status">
+  <div class="map-zone" #contentZone [ngClass]="status">
     <div class="board" [ngStyle]="{'width.px':boardWidth}">
       <div *ngFor="let item of levels | async; let i = index"
           (click)="openLevel(item)"
           class="level-block level-block-{{i+1}}" 
           [ngClass]="{'unlocked': item.unlocked }" 
           [ngStyle]="tileDimensions(item, i)" #levelItem>
-        <img *ngIf="item.unlocked" src="assets/game/img/tiles/{{i+1}}.gif" alt="   ">
+        <img *ngIf="item.unlocked" src="assets/game/img/tiles/{{i+1}}.gif" alt="">
         <div class="level-progress-icon" 
           [ngClass]="lpbCss[i].classname" 
           [ngStyle]="lpbCss[i].style">   
@@ -27,3 +27,6 @@
   </ion-navbar>
   <div class="app-icon arrow-white help-indicator" *ngIf="showIndicator"></div>
 </ion-footer>
+<ion-backdrop *ngIf="leaving">
+  <ion-spinner name="crescent"></ion-spinner>
+</ion-backdrop>

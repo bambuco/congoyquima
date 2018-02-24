@@ -110,9 +110,16 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
 
   ngAfterContentInit() {
     //Set group ids for the items
-    this.items.forEach((item) => {
+    this.items.forEach((item:any) => {
       item.group = this.id;
-    });        
+      item.$group = this;
+    });
+    
+    this.items.changes.subscribe((it) => {
+      it.forEach((item) => {
+        item.$group = this;
+      })      
+    });
     //select a set of values
     this.resetItemValues();
     this.groupinit.emit({ zone: this.zone, elRef: this.elRef });

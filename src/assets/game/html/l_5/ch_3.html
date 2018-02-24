@@ -1,0 +1,56 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-slide-delay=".5">
+  <ng-container *tepuyValueGenerator="'randomof:numbers:min=1;max=10;'; count: 5; let groups=values">
+    <ion-slides class="tepuy-activity-content" zoom="false" pager="true" paginationType="progress" effect="fade">
+      <ion-slide *ngFor="let group of groups;" [style.width]="auto"
+         tepuy-item-group
+         [tepuy-group-id]="group.id"
+         (groupInit)="prepare($event, group)"
+        >
+        <div class="container" *ngIf="group.ready">
+          <div class="row-0">
+            <div class="seed-bag-wrapper" tepuy-autofit>
+              <div class="sprite-item empty-bag" tepuy-scale="1920">
+                <span *ngFor="let k of 1|range:group.data|distribute:10; let k=index" class="sprite-item seed-icon seed-{{k.pos}}"></span>
+              </div>
+            </div>
+            <div tepuy-autofit><div class="operator" tepuy-scale="1920">-</div></div>
+            <div class="seed-bag-wrapper" tepuy-autofit>
+              <div class="sprite-item empty-bag" tepuy-scale="1920">
+                <span *ngFor="let k of 1|range:group.sustract|distribute:10; let k=index" class="sprite-item seed-icon seed-{{k.pos}}"></span>
+              </div>
+            </div>
+            <div tepuy-autofit><div class="operator" tepuy-scale="1920">=</div></div>
+            <div class="seed-bag-wrapper"
+              tepuy-drop-zone
+              tepuy-correct-values="{{group.answer}}"
+              tepuy-auto-feedback="true"
+              tepuy-autofit>
+              <div class="sprite-item mistery-bag" tepuy-scale="1920" drop-ignore>
+              </div>
+            </div>
+          </div>
+          <div class="row-1">
+            <ng-container *tepuyValueGenerator="'randomof:numbers:min=0;max=10;';include:[group.answer]; count: 3;type:'scalar';shuffle:true; let options=values">
+              <div class="seed-bag-wrapper" *ngFor="let opt of options" 
+                tepuy-autofit
+                tepuy-item
+                [tepuy-group-id]="group.id"
+                tepuy-draggable
+                tepuy-greetable
+                [tepuy-value]="opt"
+                >
+                <div class="sprite-item empty-bag" tepuy-scale="1920">
+                  <span *ngFor="let k of 1|range:opt|distribute:10; let k=index" class="sprite-item seed-icon seed-{{k.pos}}"></span>
+                </div>
+                <input type="hidden" tepuy-item-value />
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+    <div class="tepuy-feedback-summary tepuy-semaphore">
+      <span *ngFor="let g of groups" class="tepuy-{{g.state}}"></span>
+    </div>
+  </ng-container>
+</div>

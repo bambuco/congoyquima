@@ -1,0 +1,28 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-win-score="0.6" 
+  (activityRestart)="onReset()" (activityCompleted)="onComplete($event)">
+  <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.fragments;fromQ=true';count:1;type:'scalar';let fragments=values">
+    <div class="container" tepuy-item-group [tepuy-group-id]="1" (groupInit)="prepare($event, fragments[0])">
+      <ng-container *ngIf="ready">
+        <div class="listen-control" tepuy-autofit [ngStyle]="boxStyles[0]">
+          <div class="listen-icon listen-active" tepuy-scale="1920" tepuy-greetable="[greet-value]" [attr.disabled]="!enabled">
+            <input greet-value type="hidden" value="{{fragments[0]|objectkey}}" />
+          </div>
+        </div>
+        <div class="question-box" [ngStyle]="boxStyles[1]">
+          {{question}}
+        </div>
+        <ul>
+          <li *ngFor="let item of items;let i=index"
+            tepuy-item
+            tepuy-selectable
+            [tepuy-multiple]="false"
+            [tepuy-correct]="item.id === 0"
+            [ngStyle]="boxStyles[i+2]"
+            >
+            {{item.text|ucfirst}}
+          </li>
+        </ul>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>

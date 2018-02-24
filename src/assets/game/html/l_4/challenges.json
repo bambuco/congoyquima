@@ -13,6 +13,7 @@
     "label":"2",
     "type": "select",
     "script": "assets/game/html/l_4/ch_2",
+    "help": { "type": "video", "key": "pythagorean_howto", "autoplay": true },
     "autofeedback": true,
     "parameters": {
     }
@@ -23,6 +24,7 @@
     "type": "select",
     "script": "assets/game/html/l_4/ch_3",
     "preload": {"images": ["l_4/ch_3/sprite.png"]},
+    "help": { "type": "video", "key": "pythagorean_howto", "autoplay": false },
     "parameters": {
     }
   },
@@ -32,6 +34,7 @@
     "type": "select",
     "script": "assets/game/html/l_4/ch_4",
     "preload": {"images": ["l_4/ch_4/sprite.png"]},
+    "help": { "type": "image", "path": "assets/content/images/pythagorean_table.png" },
     "autofeedback": true,
     "parameters": {
     }
@@ -42,6 +45,7 @@
     "type": "drag",
     "script": "assets/game/html/l_4/ch_5",
     "preload": {"images": ["l_4/ch_5/sprite.png"]},
+    "help": { "type": "image", "path": "assets/content/images/pythagorean_table.png" },
     "autofeedback": true,
     "parameters": {
     }

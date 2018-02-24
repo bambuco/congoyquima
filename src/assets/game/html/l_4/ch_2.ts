@@ -1,6 +1,8 @@
 import { Component, Type, ViewEncapsulation, ElementRef, NgZone, HostListener } from '@angular/core';
 import { Platform } from 'ionic-angular';
 
+import { Subject } from 'rxjs/Subject';
+
 const MIN_CELL_SIZE = 45;
 
 export function componentBuilder(template:string, css:string): Type<any> {
@@ -18,14 +20,62 @@ export function componentBuilder(template:string, css:string): Type<any> {
     celHStyle:any;
     dimensions: number;
     matrix: number[][];
-
+    private groups:any[];
+    private observers:Subject<boolean>[];
+    private resized: boolean;
     constructor(private elRef: ElementRef,
         private ngZone: NgZone,
         private platform: Platform) {
+      this.groups = [];
+      this.observers = [];
+      for(let k = 0; k < 5; k++) {
+        this.observers.push(new Subject());
+      }
     }
 
     ngOnInit() {
       this.onResize(null);
+    }
+
+    prepare($event, group, value2) {
+      group.data2 = value2;
+      this.groups.push(group);
+      group.ready$ = this.observers[group.id];
+      if (this.resized) {
+        this.setGroupData(group);
+      }
+    }
+
+    setGroupData(group) {
+      let rstart = this.findRangeStart(group.data);
+      let cstart = this.findRangeStart(group.data2);
+      let matrix = new Array(this.dimensions+1);
+      for(let i = 0, iLen = this.dimensions+1; i < iLen; i++) {
+        matrix[i] = new Array(this.dimensions+1);
+        for(let k = 0; k < iLen; k++) {
+          matrix[i][k] = (i == 0 ? (k == 0 ? 0 : k + cstart) : (k == 0 ? i + rstart : (i + rstart) * (k + cstart)));
+        }
+      }
+
+      let correct_pattern = '(' + (group.data - rstart - 1) + (group.data2 - cstart - 1);
+      correct_pattern += '|' + (group.data2 - rstart - 1) + (group.data - cstart - 1) + ')';
+      setTimeout(() => {
+        this.ngZone.run(() => {
+          group.matrix = matrix;
+          group.answer = new RegExp(correct_pattern);
+          group.ready$.next(true);
+        });
+      }, 0);
+    }
+
+    @HostListener('window:resize', ['$event'])
+    onResize(el) {
+      setTimeout(() => {
+        this.calculateDimensions(this.elRef.nativeElement);
+      }, 400);
+    }
+
+    calculateDimensions(el) {
       const rect = this.platform.getElementBoundingClientRect(this.elRef.nativeElement);
       const maxHeight = rect.height * 0.7 * 0.9;
       let size = Math.min(maxHeight, rect.width * 0.95);
@@ -45,56 +95,11 @@ export function componentBuilder(template:string, css:string): Type<any> {
       this.colHStyle = Object.assign({}, this.rowHStyle);
       this.celHStyle = Object.assign({}, this.rowHStyle);
       this.dimensions = dimensions;
-    }
 
-    prepare($event, group, value2) {
-      let rstart = this.findRangeStart(group.data);
-      let cstart = this.findRangeStart(value2);
-      let matrix = new Array(this.dimensions+1);
-      for(let i = 0, iLen = this.dimensions+1; i < iLen; i++) {
-        matrix[i] = new Array(this.dimensions+1);
-        for(let k = 0; k < iLen; k++) {
-          matrix[i][k] = (i == 0 ? (k == 0 ? 0 : k + cstart) : (k == 0 ? i + rstart : (i + rstart) * (k + cstart)));
-        }
-      }
-
-      let correct_pattern = '(' + (group.data - rstart - 1) + (value2 - cstart - 1);
-      correct_pattern += '|' + (value2 - rstart - 1) + (group.data - cstart - 1) + ')';
-
-      setTimeout(() => {
-        this.ngZone.run(() => {
-          group.matrix = matrix;
-          group.answer = new RegExp(correct_pattern);
-          group.data2 = value2;
-          group.ready = true;
-        });
-      }, 0);
-    }
-
-    @HostListener('window:resize', ['$event'])
-    onResize(el) {
-      setTimeout(() => {
-        this.calculateDimensions(this.elRef.nativeElement);
-      }, 400);
-    }
-
-    calculateDimensions(el) {
-      //const rect = this.platform.getElementBoundingClientRect(el);
-      /*
-      const maxHeight = rect.height * 0.7 * 0.9;
-      let size = Math.min(maxHeight, rect.width * 0.95);
-      let dimensions = this.dimensions;
-      let cellSize = size / (dimensions + 1);
-      */
-      /*if (cellSize < MIN_CELL_SIZE) {
-        cellSize = MIN_CELL_SIZE;
-        dimensions = Math.floor(size / cellSize) - 1;
-      }
-      this.cellSize = cellSize;
-      this.dimensions = dimensions;
-      */
-      let cellSize = this.cellSize;
-      this.cellSize = cellSize;
+      this.groups.forEach((g) => {
+        this.setGroupData(g);
+      });
+      this.resized = true;
       this.ngZone.run(() => {
         this.cellStyle = { 
           'width.px': cellSize,
@@ -116,6 +121,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
     }
 
     onReset() {
+      this.groups = [];
     }
 
     private findRangeStart(value) {

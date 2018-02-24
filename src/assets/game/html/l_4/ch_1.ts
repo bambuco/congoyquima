@@ -1,6 +1,8 @@
 import { Component, Type, ViewEncapsulation, ElementRef, NgZone, HostListener } from '@angular/core';
 import { Platform } from 'ionic-angular';
 
+//import { ResizeSensor } from '../../../../tepuy-angular/providers/resize-sensor.provider';
+
 export function componentBuilder(template:string, css:string): Type<any> {
   @Component({
     selector: 'mini-game',
@@ -13,7 +15,16 @@ export function componentBuilder(template:string, css:string): Type<any> {
     rBoxStyle:any;
     constructor(private elRef: ElementRef,
         private ngZone: NgZone,
+        //private erd: ResizeSensor,
         private platform: Platform) {
+    }
+
+    ngAfterViewInit() {
+      /*this.erd.listenTo(this.elRef.nativeElement, (el) => {
+        console.log(el.offsetWidth);
+        console.log(el.offsetHeight);
+        this.onResize(null);
+      });*/
     }
 
     ngOnInit() {
@@ -32,6 +43,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
 
     calculateDimensions(el) {
       const rect = this.platform.getElementBoundingClientRect(el);
+      //console.log(`w:${rect.width},h:${rect.height}`);
       const scale = rect.height / 1920;
       let lBoxRect:any = {
         w: 588 * scale,

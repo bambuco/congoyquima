@@ -14,6 +14,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
   class L4Ch10Component {
     tBoxStyle:any;
     phStyle:any;
+    lBoxStyle:any;
     options: any[];
     items: any[];
     tag: string;
@@ -27,86 +28,86 @@ export function componentBuilder(template:string, css:string): Type<any> {
       "birthday": {
         "options": ["Querida", "viernes", "cumpleaños", "comida", "puedas", "esperando"],
         "wording":  [
-          ["", " Lina."], 
-          ["El", " próximo", "", " celebraré", " mi", "", " y", " me", " gustaría", " invitarte", " a", " una", "", " que", " estoy", " planeando.", " Espero", " que", "", " asistir."],
-          ["¡Te", " estaré", "", "!"]
+          ["_PH", " Lina."], 
+          ["El", " próximo", "_PH", " celebraré", " mi", "_PH", " y", " me", " gustaría", " invitarte", " a", " una", "_PH", " que", " estoy", " planeando.", " Espero", " que", "_PH", " asistir."],
+          ["¡Te", " estaré", "_PH!"]
         ]
       },
       "business": {
         "options": ["profesor", "febrero", "realizaremos", "reunión", "basuras", "obligatoria"],
         "wording": [
-          ["Estimado", "", ":"],
-          ["El", " miércoles", " 7", " de", "", ", a las", " 10:00 a.m.,", "", " una", "", " para", " hablar", " del", " problema", " con la", " recolección", " de", "", "."],
-          ["La", " asistencia", " es", "", "."],
+          ["Estimado", "_PH", ":"],
+          ["El", " miércoles", " 7", " de", "_PH,", " a las", " 10:00 a.m.,", "_PH", " una", "_PH", " para", " hablar", " del", " problema", " con", " la", " recolección", " de", "_PH."],
+          ["La", " asistencia", " es", "_PH."],
           ["Saludos."]
         ]
       },
       "reunion": {
         "options": ["Hola", "planeando", "colegio", "semana", "asistir", "día"],
         "wording": [
-          ["¡", "", " Camilo!"],
-          ["Estamos", "", " hacer", " un", " reencuentro", " con", " los", " compañeros", " del", "", " para", " la", " próxima", "", "."],
-          ["¿Te", " gustaría", "", "?", " ¿Qué", "", " te", " queda", " fácil?"]
+          ["¡", "_PH", " Camilo!"],
+          ["Estamos", "_PH", " hacer", " un", " reencuentro", " con", " los", " compañeros", " del", "_PH", " para", " la", " próxima", "_PH."],
+          ["¿Te", " gustaría", "_PH?", " ¿Qué", "_PH", " te", " queda", " fácil?"]
         ]
       },
       "vaccination": {
         "options": ["de", "hospital", "vereda", "vacunación", "sábado", "esperamos"],
         "wording": [
-          ["¡Información", "", " interés!"],
-          ["El", "", " invita", " a todos", " los", " habitantes", " de la", "", " a la", " gran", " jornada", " de", "", " que", " se", " realizará", " el", "", " 10", " de", " marzo", " a", " partir", " de las", " 8:00 a.m."],
-          ["¡Los", "", "!"]
+          ["¡Información", "_PH", " interés!"],
+          ["El", "_PH", " invita", " a todos", " los", " habitantes", " de", " la", "_PH", " a la", " gran", " jornada", " de", "_PH", " que", " se", " realizará", " el", "_PH", " 10", " de", " marzo", " a", " partir", " de las", " 8:00 a.m."],
+          ["¡Los", "_PH!"]
         ]
       },
       "wedding": {
         "options": ["queremos", "importante", "ceremonia", "Junio", "iglesia", "almuerzo"],
         "wording": [
-          ["¡Nos", " casaremos!", " Y", "", " pasar", " ese", " día", " tan", "", " contigo."],
-          ["La", "", " será", " el", " día", " 9 de", "", " a las", " 10:00 am", " en la", "", " del", " pueblo", " y", " después", " compartiremos", " un", "", " en", " la", " casa", " de", " mis", " padres."],
+          ["¡Nos", " casaremos!", " Y", "_PH", " pasar", " ese", " día", " tan", "_PH", " contigo."],
+          ["La", "_PH", " será", " el", " día", " 9", " de", "_PH", " a", " las", " 10:00 am", " en", " la", "_PH", " del", " pueblo", " y", " después", " compartiremos", " un", "_PH", " en", " la", " casa", " de", " mis", " padres."],
           ["¡Te", " esperamos!"]
         ]
       },
       "game": {
         "options": ["Gran", "fútbol", "febrero", "cancha", "Asiste", "equipo"],
         "wording": [
-          ["¡", "", " final", " del", " campeonato", " veredal", " de", "", "!"],
-          ["Fecha:", " viernes", " 23 de", "", "."],
+          ["¡", "_PH", " final", " del", " campeonato", " veredal", " de", "_PH!"],
+          ["Fecha:", " viernes", " 23 de", "_PH."],
           ["Hora:", " 9:00 a.m."],
-          [" Lugar:", "", " de", " la", " vereda", " San", " Joaquín."],
-          ["¡", "", " y", " anima", " a", " tu", "", " favorito!"] 
+          [" Lugar:", "_PH", " de", " la", " vereda", " San", " Joaquín."],
+          ["¡", "_PH", " y", " anima", " a", " tu", "_PH", " favorito!"] 
         ]
       },
       "fitness": {
         "options": ["bicicleta", "temprano", "Aprovechemos", "está", "salir", "abrazo"],
         "wording": [
-          ["¡Hola,", " Alejandra!", " ¿Vamos", " mañana", " a", " montar", " en", "", "?"],
-          ["Si", " te", " animas,", " paso", " por", " ti", "", " en", " la", " mañana."],
-          ["¡", "", " que", " el", " clima", "", " muy", " bueno", " para", "", "!"],
-          ["Un", "", "."]
+          ["¡Hola,", " Alejandra!", " ¿Vamos", " mañana", " a", " montar", " en", "_PH", "?"],
+          ["Si", " te", " animas,", " paso", " por", " ti", "_PH", " en", " la", " mañana."],
+          ["¡", "_PH", " que", " el", " clima", "_PH", " muy", " bueno", " para", "_PH!"],
+          ["Un", "_PH."]
         ]
       },
       "dancing": {
         "options": ["aprender", "cantar", "tarde", "hay", "talleres", "casa"],
         "wording": [
-          ["¿Te", " gustaría", "", " a", " bailar,", "", ",", " o", " actuar?", " ¡Nunca", " es", "", " para", " descubrir", " el", " artista", " que", "", " en", " ti!", " Pregunta", " por", " los", "", " gratuitos", " que", " tenemos", " en", " la", "", " de", " la", " cultura."]
+          ["¿Te", " gustaría", "_PH", " a", " bailar,", "_PH", ",", " o", " actuar?", " ¡Nunca", " es", "_PH", " para", " descubrir", " el", " artista", " que", "_PH", " en", " ti!", " Pregunta", " por", " los", "_PH", " gratuitos", " que", " tenemos", " en", " la", "_PH", " de", " la", " cultura."]
         ]
       },
       "meeting": {
         "options": ["La", "vereda", "reunión", "discutirá", "acueducto", "faltes"],
         "wording": [
-          ["", " Junta", " de", " Acción", " Comunal", " de", " la", "", " La", " Clarita", " te", " invita", " a", " la", " primera", "", " del", " año,", " donde", " se", "", " sobre", " el", " manejo", " del", "", ". ¡Es", " muy", " importante", " tu", " opinión!", " ¡No", "", "!"]
+          ["_PH", " Junta", " de", " Acción", " Comunal", " de", " la", "_PH", " La", " Clarita", " te", " invita", " a", " la", " primera", "_PH", " del", " año,", " donde", " se", "_PH", " sobre", " el", " manejo", " del", "_PH.", " ¡Es", " muy", " importante", " tu", " opinión!", " ¡No", "_PH!"]
         ]
       },
       "dating": {
         "options": ["Hola", "días", "faltado", "bien", "comer", "siempre"],
         "wording": [
-          ["¡", "", ", Santiago!", " En", " los", " últimos", "", " te", " he", " notado", " aburrido", " y", " supe", " que", " has", "", " a", " clases.", " ¿Estás", "", "?", " ¿Te", " gustaría", " que", " saliéramos", " a", "", " un", " helado?"],
-          ["Recuerda", " que", " cuentas", " conmigo", "", "."]
+          ["¡", "_PH", ", Santiago!", " En", " los", " últimos", "_PH", " te", " he", " notado", " aburrido", " y", " supe", " que", " has", "_PH", " a", " clases.", " ¿Estás", "_PH?", " ¿Te", " gustaría", " que", " saliéramos", " a", "_PH", " un", " helado?"],
+          ["Recuerda", " que", " cuentas", " conmigo", "_PH."]
         ]
       },
       "maloca": {
         "options": ["construir", "olvides", "energía", "corazón", "para", "muy"],
         "wording": [
-          ["¡Hola!", " Mañana", " vamos", " a", "", " una", " maloca.", " No", "", " traer", " contigo", " buena", "", ", canciones", " que", " alegren", " el", "", ", comida", " para", " compartir,", " y", " disposición", "", " aprender.", " Bailaremos", " y", " la", " pasaremos", "", " bien."]
+          ["¡Hola!", " Mañana", " vamos", " a", "_PH", " una", " maloca.", " No", "_PH", " traer", " contigo", " buena", "_PH,", " canciones", " que", " alegren", " el", "_PH,", " comida", " para", " compartir,", " y", " disposición", "_PH", " aprender.", " Bailaremos", " y", " la", " pasaremos", "_PH", " bien."]
         ]
       }
     };
@@ -136,8 +137,10 @@ export function componentBuilder(template:string, css:string): Type<any> {
         for(let k = 0, kLen = oInvite.wording[i].length; k < kLen; k++) {
           let text:string = oInvite.wording[i][k];
           let word:any = { text: text, index: idx++ };
-          if (!text) {
+          if (/^_PH[\s\.,!¡?¿]*$/.test(text)) {
             word.value = options[o++].val;
+            word.text = '';
+            word.extra = text.replace('_PH', '');
           }
           it.words.push(word);
         }
@@ -168,27 +171,37 @@ export function componentBuilder(template:string, css:string): Type<any> {
       const rect = this.platform.getElementBoundingClientRect(el);
       const scale = rect.height / 1920;
       let tBoxRect:any = {
-        w: 800 * scale,
-        h: 796 * scale
+        w: 760 * scale,
+        h: 690 * scale,
+        t: 285 * scale,
       };
       const sw = rect.height;
-      let left = sw * (684 / 1920);
+      let left = sw * (714 / 1920);
       let offset = (sw - rect.width) / 2;
       left -= offset;
       tBoxRect.l = left;
-      const rows = 12;
+      const rows = 11;
+      const lBox = {
+        l: sw * (1002 / 1920) - offset, //484
+        t: 1110 * scale //124
+      };
 
       this.ngZone.run(() => {
         this.tBoxStyle = { 
           'width.px': tBoxRect.w,
           'height.px': tBoxRect.h,
           'left.px': tBoxRect.l,
-          'fontSize.px': (tBoxRect.h / rows * .8),
+          'top.px': tBoxRect.t,
+          'fontSize.px': (tBoxRect.h / rows * .9),
           'lineHeight.px': tBoxRect.h / (rows - 1)
         };
         this.phStyle = {
-          'width.px': 300 * scale,
+          'width.px': 320 * scale,
           'height.px': tBoxRect.h / rows,
+        };
+        this.lBoxStyle = {
+          'left.px': lBox.l,
+          'top.px': lBox.t
         }
       });
     }
@@ -203,9 +216,16 @@ export function componentBuilder(template:string, css:string): Type<any> {
         let el = ev.target.querySelector('input');
         it.item = el.$tepuyItem;
       }
+      //Clear previous selection
+      if (it.selectedOption) {
+        it.selectedOption.used = false;
+        it.text = '';
+        it.item.isCorrect = false;
+        delete it.selectedOption;
+      }
+
       it.active = true;
       this.activeItem = it;
-      //this.options = cell.options.slice(0);
       this.showSelector = true;
     }
 
@@ -214,9 +234,6 @@ export function componentBuilder(template:string, css:string): Type<any> {
       it.text = opt.val;
       it.active = false;
       it.item.isCorrect = (opt.val == it.value);
-      if (it.selectedOption) {
-        it.selectedOption.used = false;
-      }
       opt.used = true;
       it.selectedOption = opt;
       this.activeItem = null;

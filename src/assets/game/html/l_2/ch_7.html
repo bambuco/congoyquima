@@ -1,5 +1,5 @@
 <div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-win-score="0.5" tepuy-slide-delay=".5">
-  <ng-container *tepuyValueGenerator="'randomof:array:';data:[0,1,2,3,4,5];count:1;type:'scalar';let fragments=values">
+  <ng-container *tepuyValueGenerator="'randomof:array:fromQ=true';data:[0,1,2,3,4,5];count:1;type:'scalar';let fragments=values">
   <ng-container *ngFor="let frg of fragments">
     <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.'+frg+'_correct;';type:'scalar';count:3;let correct=values">
       <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.'+frg+'_wrong;';type:'scalar';count:6;include:correct;shuffle:true;let items=values">

@@ -4,7 +4,9 @@
   <video #theVideo [attr.controls]="controls"
     [attr.loop]="loop" 
     (click)="play()"
-    [ngClass]="{'not-visible':!videoReady, 'centered':centered}"
+    [class.not-visible]="!videoReady"
+    [class.centered]="centered"
+    [class.small]="small"
     >
     <source src="{{url}}" />
   </video>

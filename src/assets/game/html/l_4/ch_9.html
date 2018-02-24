@@ -1,4 +1,4 @@
-<div ion-grid tepuy-activity #activityComponent no-margin no-padding (activityRestart)="onReset()" (activityCompleted)="onComplete($event)">
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding (activityRestart)="onReset()" (activityCompleted)="onComplete($event)" tepuy-win-score="0.6">
   <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.recipes;fromQ=true;'count:1;type:'scalar';let recipes=values">
     <div class="container" tepuy-item-group [tepuy-group-id]="1" (groupInit)="prepare($event, recipes[0])">
       <div class="recipe-wrapper">

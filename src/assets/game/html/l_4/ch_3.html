@@ -2,7 +2,7 @@
   <ng-container *tepuyValueGenerator="'randomof:numbers:min=1;max=9;fromQ=true;'count:1;type:'scalar';let X=values">
     <ng-container *tepuyValueGenerator="'randomof:numbers:min=1;max=9;'count:1;type:'scalar';let Y=values">
       <div class="container" tepuy-item-group [tepuy-group-id]="1" (groupInit)="prepare($event, X, Y)">
-        <div *ngIf="ready" class="tbl">
+        <div *ngIf="ready$|async" class="tbl">
           <div class="tbl-row">
             <div class="tbl-col" [ngStyle]="cellStyle">x</div><div class="tbl-col header" *tepuyRepeat="dimensions; let k=index" [ngStyle]="cellStyle">
               {{matrix[0][k+1].text}}
@@ -11,8 +11,10 @@
           <div class="tbl-row" *tepuyRepeat="dimensions; let i=index">
             <div class="tbl-col header" [ngStyle]="cellStyle">
               {{matrix[i+1][0].text}}
-            </div><div class="tbl-col" *ngFor="let cell of matrix[i+1]|tail:1; let k=index" [ngStyle]="cellStyle" 
+            </div><div class="tbl-col" *ngFor="let cell of matrix[i+1]|tail:1; let k=index; let odd=odd" 
+              [ngStyle]="cellStyle" 
               [class.fillable]="cell.missing"
+              [class.alt-col]="odd"
               [class.active]="cell.active"
               [class.tepuy-correct]="cell.item?.succeed === true"
               [class.tepuy-wrong]="cell.item?.succeed === false"

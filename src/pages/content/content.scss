@@ -32,6 +32,9 @@ page-content {
     ion-thumbnail, [ion-thumbnail] {      
       .img-frame, .video-over {
         padding: 10px;
+        img {
+          max-height: 70px;
+        }
       }      
       .video-over > video {
         width: 100%; 

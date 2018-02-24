@@ -34,26 +34,33 @@ export class GameLevelPage {
   constructor(private navCtrl: NavController,
       private mediaPlayer: MediaPlayer,
       private appData: AppDataProvider, 
-      gameDataProvider: GameDataProvider,
+      private gameDataProvider: GameDataProvider,
       private alertCtrl: AlertController,
       params: NavParams
       ) {
     this.id = params.get('id');
     this.introKey = 'level'+this.id+'_intro';
     this.redirectReason = params.get('reason');
-    gameDataProvider.getLevel(this.id).subscribe(data => {
-      if (data != null) {
-        this.levelInfo = data;
-        this.challenges.next(this.levelInfo.challenges);
-      }
-      else {
-        this.exit('levelNotFound');
-      }
-    });
   }
   //Lifecycle Events
 
-  //ToDo: Maybe required to implemente ionViewCanEnter to check where there is a failure loading levels
+  ionViewCanEnter() {
+    return new Promise((resolve, reject) => {
+      this.gameDataProvider.getLevel(this.id).subscribe(data => {
+        if (data != null) {
+          this.levelInfo = data;
+          this.challenges.next(this.levelInfo.challenges);
+          resolve(true);
+        }
+        else {
+          setTimeout(() => {
+            this.navCtrl.setRoot(GamePage, { reason: 'levelNotFound' });
+          }, 1);
+          resolve(false);
+        }
+      });
+    });
+  }
 
   ionViewDidEnter() {
     this.onResize(null);
@@ -81,8 +88,10 @@ export class GameLevelPage {
   }
 
   onResize($event) {
-    let dim = this.contentEl.getContentDimensions();
-    this.itemHeight = (dim.contentHeight) / 10;
+    setTimeout(() => {
+      let dim = this.contentEl.getContentDimensions();
+      this.itemHeight = (dim.contentHeight) / 10;
+    }, 400);
   }
 
   //User actions

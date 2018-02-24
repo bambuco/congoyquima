@@ -19,6 +19,7 @@ export class TepuySelectableDirective implements AfterViewInit {
   @Output('tepuySelecting') onSelecting= new EventEmitter();
 
   item:any;
+  $group: any;
   private canSelect:boolean;
 
   constructor(private audioPlayer:TepuyAudioPlayerProvider
@@ -56,10 +57,26 @@ export class TepuySelectableDirective implements AfterViewInit {
 
     if (selEvent.cancel) return;
 
-    this.isSelected = !this.isSelected;
+    if (!this.isSelected && !this.multiple) {
+      if (!this.$group && this.item.$group) {
+        this.$group = this.item.$group;
+      }
+
+      if (this.$group && this.$group.$selection) {
+        this.$group.$selection.setSelected(false);
+      }
+    }
+    this.setSelected(!this.isSelected);
+    if (this.isSelected && this.$group) {
+      this.$group.$selection = this;
+    }
+    this.checkAutofeedback();
+  }
+
+  setSelected(state:boolean) {
+    this.isSelected = state;
     this.item.isCorrect = (this.item.correct && this.isSelected);
     this.item.answered = this.isSelected;
-    this.checkAutofeedback();
   }
 
   private checkAutofeedback() {

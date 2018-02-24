@@ -1,23 +1,23 @@
-<div ion-grid tepuy-activity #activityComponent no-margin no-padding (activityRestart)="onReset()" (activityCompleted)="onComplete($event)">
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding (activityRestart)="onReset()" (activityCompleted)="onComplete($event)" tepuy-win-score="0.6">
   <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.invitations;fromQ=true;'count:1;type:'scalar';let invitations=values">
     <div class="container" tepuy-item-group [tepuy-group-id]="1" (groupInit)="prepare($event, invitations[0])">
-      <div class="invitation-wrapper">
-        <div *ngIf="ready" class="invitation-container" [ngStyle]="tBoxStyle">
-          <div class="listen-control" tepuy-autofit>
-            <div class="listen-icon listen-active" tepuy-scale="1920" tepuy-greetable="[greet-value]" [attr.disabled]="!enabled">
-              <input greet-value type="hidden" value="l4ch10_{{tag|objectkey}}" />
-            </div>
+      <div *ngIf="ready" class="invitation-wrapper">
+        <div class="listen-control" tepuy-autofit [ngStyle]="lBoxStyle">
+          <div class="listen-icon listen-active" tepuy-scale="1920" tepuy-greetable="[greet-value]" [attr.disabled]="!enabled">
+            <input greet-value type="hidden" value="l4ch10_{{tag|objectkey}}" />
           </div>
+        </div>
+        <div class="invitation-container" [ngStyle]="tBoxStyle">
           <div *ngFor="let it of items; let i=index" class="invitation-item">
             <ng-container *ngFor="let word of it.words;">
-              <span *ngIf="!word.value;else selectable_zone" class="phrase-text" [class.highlighted]="word.playing">{{word.text}}</span>
+              <span *ngIf="!word.value|test:'^[\s\.,!]$';else selectable_zone" class="phrase-text" [class.highlighted]="word.playing">{{word.text}}</span>
               <ng-template #selectable_zone>
                 <div class="word-placeholder" [ngStyle]="phStyle"
                   [class.active]="word.active"
                   [class.tepuy-correct]="word.item?.succeed === true"
                   [class.tepuy-wrong]="word.item?.succeed === false"
                   (click)="onFill($event,word)">
-                  <span [innerHTML]="word.text">&nbsp;</span>
+                  <span [innerHTML]="word.text">&nbsp;</span>{{word.extra}}
                   <input type="hidden" tepuy-item [tepuy-correct]="true" tepuy-group-id="1" />
                 </div>
               </ng-template>
