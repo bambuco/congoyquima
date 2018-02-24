@@ -18,7 +18,7 @@ export class TepuyGreetableDirective implements AfterViewInit, OnDestroy {
   private itemTouchedTime: number = 0;
   private canGreet: boolean = false;
   private item: any;
-  private audio_key: string;
+  private audio_key: any;
 
   constructor(
       private elRef: ElementRef,
@@ -30,7 +30,7 @@ export class TepuyGreetableDirective implements AfterViewInit, OnDestroy {
     this.touchStartHandler = this.onTouchStart.bind(this);
     this.elRef.nativeElement.addEventListener('touchstart', this.touchStartHandler, { passive: true });
 
-
+    let audio:string = null;
     if (!this.item) {
       this.canGreet = true;
       let valueEl = this.elRef.nativeElement;
@@ -39,8 +39,13 @@ export class TepuyGreetableDirective implements AfterViewInit, OnDestroy {
       }
 
       if (valueEl) {
-        this.audio_key = valueEl.value ? valueEl.value : valueEl.innerText;
-        this.audio_key = this.audio_key.toLowerCase();
+        audio = (valueEl.value ? valueEl.value : valueEl.innerText);
+        if (/[|]/.test(audio)) {
+          this.audio_key = audio.toLowerCase().split('|');
+        }
+        else {
+          this.audio_key = audio.toLowerCase();
+        }
       }
     }
     else {
@@ -102,14 +107,21 @@ export class TepuyGreetableDirective implements AfterViewInit, OnDestroy {
       key = this.item.value.toLowerCase();
     }
 
-    if (key) {
+    if (Array.isArray(key)) {
+      key.forEach((it, i) => {
+        this.audioPlayer.play(it, i > 0);
+      })
+    }
+    else {
       this.audioPlayer.play(key);
     }
   }
 
   private preload() {
     setTimeout(() => {
-      this.audioPlayer.preload(this.audio_key);
+      if (!Array.isArray(this.audio_key)) {
+        this.audioPlayer.preload(this.audio_key);
+      }
     });
   }
 

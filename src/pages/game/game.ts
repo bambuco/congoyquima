@@ -5,9 +5,11 @@ import { Observable } from 'rxjs/Observable';
 import { GameDataProvider } from '../../providers/game-data';
 import { AppDataProvider, Flags } from '../../providers/app-data';
 import { MediaPlayer } from '../../providers/media-player';
-
+import { ResourceProvider } from '../../tepuy-angular/providers';
 import { HomePage } from '../home/home';
 import { GameLevelPage } from './game-level';
+
+const RES_IMAGE = 0;
 
 @Component({
   selector: 'page-game',
@@ -34,7 +36,8 @@ export class GamePage {
       //private settings: AppDataProvider,
       private renderer: Renderer2,
       private mediaPlayer: MediaPlayer,
-      private appData: AppDataProvider, 
+      private appData: AppDataProvider,
+      private loader: ResourceProvider,
       gameDataProvider: GameDataProvider
     ) {
     this.lpbCss = [];
@@ -44,6 +47,31 @@ export class GamePage {
   
   goHome(){
     this.navCtrl.setRoot(HomePage);
+  }
+
+  ionViewCanEnter(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.levels.subscribe((levels) => {
+        let resources = [];
+        resources.push({type: RES_IMAGE, url: 'assets/game/img/shared/world_bg.png' });
+        for(let i = 0, iLen = levels.length; i < iLen; i++) {
+          resources.push({type: RES_IMAGE, url: `assets/game/img/tiles/${++i}.png` })
+          resources.push({type: RES_IMAGE, url: `assets/game/img/tiles/${i}_color.png` })
+          resources.push({type: RES_IMAGE, url: `assets/game/img/tiles/${i}.gif` })
+        }
+
+        this.loader.preload(resources)
+        .finally(() => {
+          resolve(true);
+        })
+        .subscribe(() => {});
+      });
+
+      this.levels.catch(error => {
+        resolve(true);
+        return Observable.of([]);
+      });
+    });
   }
 
   ionViewDidEnter() {

@@ -40,7 +40,7 @@ export class MediaCatalog {
     });
 
     //Challenge intro
-    for(let l of [1,2,3]){
+    for(let l of [1,2,3,4]){
       for (let ch = 1; ch < 11; ch++) {
         this.assets.push({
           type: 'audio',
@@ -100,6 +100,35 @@ export class MediaCatalog {
       });
     }
 
+    //Level 4 - Challenge 7 Phrases
+    const l4ch7_phrases = ["aprender", "importante", "bailar", "seca", "lavar", "caliente", "jugar", "grande", "caminar", "olvidar", "frio", "dormir", "liso", "mejorar", "joven", "ganar", "grueso", "canta", "dulce", "necesita"];
+    for(let phr of l4ch7_phrases) {
+      this.assets.push({
+        type: 'audio',
+        key: 'l4ch7_'+phr,
+        path: path + ['l_4/ch_7/fra_', phr, '.mp3'].join(''),
+        preload: false
+      });
+    }
+    const l4ch8_phrases = ["fria", "fea", "triste", "silenciosa", "valiente", "alto", "facil", "apagadas", "caerse", "luz", "morir", "verdad", "liquido", "meter", "faltar", "lejos", "construir", "blando", "preocupado", "limpio"];
+    for(let phr of l4ch8_phrases) {
+      this.assets.push({
+        type: 'audio',
+        key: 'l4ch8_'+phr,
+        path: path + ['l_4/ch_8/fra_', phr, '.mp3'].join(''),
+        preload: false
+      });
+    }
+    const l4ch10_invites = ["birthday", "business", "reunion", "vaccination", "wedding", "game", "fitness", "dancing", "meeting", "dating", "maloca"];
+    for(let inv of l4ch10_invites) {
+      this.assets.push({
+        type: 'audio',
+        key: 'l4ch10_'+inv,
+        path: path + ['l_4/ch_10/', inv, '.mp3'].join(''),
+        preload: false
+      });
+    }
+
     const signals = ["gas_inflamable", "hospedaje", "montallantas", "museo", "obra_en_la_via", "paradero_de_bus", "pare", "peligro_de_caida", "peligro_de_intoxicacion", "personas_con_discapacidad", "primeros_auxilios", "prohibido_fumar", "prohibido_parquear", "punto_de_informacion", "restaurante", "riesgo_electrico", "servicio_de_telefono", "taxis", "wifi", "zona_escolar", "ciclovia", "cruce_peatonal", "discapacitados", "baños", "estacion_de_gasolina"];
     for (let signal of signals) {
       this.assets.push({
@@ -109,7 +138,16 @@ export class MediaCatalog {
         preload: true
       });
     }
-
+    //Miscellaneous
+    const miscellaneous = ["por"];
+    for (let misc of miscellaneous) {
+      this.assets.push({
+        type: 'audio',
+        key: misc,
+        path: path + ['misc/', misc, '.mp3'].join(''),
+        preload: true
+      });
+    }
   }
 
   get audios():Array<any> {

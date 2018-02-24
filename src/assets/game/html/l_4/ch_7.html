@@ -1,0 +1,41 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding (activityRestart)="onReset()">
+  <ng-container *tepuyValueGenerator="'randomof:numbers:min=0;max=19;fromQ=true';count:5;let groups=values">
+    <ion-slides class="tepuy-activity-content" zoom="false" pager="true" paginationType="progress" effect="slide">
+      <ng-container *ngFor="let group of groups;let id=index">
+        <ion-slide tepuy-item-group [tepuy-group-id]="id" (groupInit)="prepare($event, group)">
+          <ng-container *ngIf="group.ready">
+            <div class="row-0">
+              <div class="listen-control" tepuy-autofit>
+                <div class="listen-icon listen-active" tepuy-scale="1920" tepuy-greetable="[greet-value]" [attr.disabled]="!group.active">
+                  <input greet-value type="hidden" value="l4ch7_{{group.answer|objectkey}}" />
+                </div>
+              </div>
+              <div class="phrase-container" [ngStyle]="tBoxStyle">
+                <ng-container *ngFor="let part of group.phrase;">
+                  <ng-container *ngIf="part;else drop_zone" class="phrase-text">{{part}}</ng-container>
+                  <ng-template #drop_zone>
+                    <div class="word-container" tepuy-drop-zone [tepuy-correct-values]="group.answer" tepuy-autofit tepuy-auto-feedback="true">
+                      <div class="word-holder word-empty" tepuy-scale="1920" drop-ignore></div>
+                      <div class="highlighter"></div>
+                    </div>
+                  </ng-template>
+                </ng-container>
+              </div>
+            </div>
+            <div class="row-1">
+              <div class="options-container" [ngStyle]="bBoxStyle">
+                <div class="option-{{i}}" *ngFor="let it of group.options; let i=index" tepuy-item tepuy-draggable [tepuy-value]="it" [tepuy-group-id]="id"  tepuy-autofit>
+                  <div class="word-holder word-full" tepuy-scale="1920">{{it}}</div>
+                  <input type="hidden" tepuy-item-value />
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </ion-slide>
+      </ng-container>
+    </ion-slides>
+    <div class="tepuy-feedback-summary tepuy-semaphore">
+      <span *ngFor="let g of groups" class="tepuy-{{g.state}}"></span>
+    </div>
+  </ng-container>
+</div>

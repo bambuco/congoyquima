@@ -20,6 +20,7 @@ export class TepuyActivityDirective implements OnInit, AfterContentInit {
   @Input('tepuy-slide-delay') slideDelay: number = 1;
 
   @Output() activityRestart = new EventEmitter();
+  @Output() activityCompleted = new EventEmitter();
 
   @ContentChild(TepuyValueGeneratorDirective) valueGenerator: TepuyValueGeneratorDirective;
   @ContentChildren(Slides, { descendants: true}) slides: QueryList<Slides>;
@@ -55,6 +56,9 @@ export class TepuyActivityDirective implements OnInit, AfterContentInit {
     }
     this.activityService.on(this.activityService.ITEM_GROUP_COMPLETED).subscribe((result) => {
       this.groupCompleted(result);
+    });
+    this.activityService.on(this.activityService.ACTIVITY_VERIFIED).subscribe((result) => {
+      this.activityCompleted.emit(result);
     });
     this.activityService.on(this.activityService.ACTIVITY_RESET).subscribe(() => {
       this.isComplete = false;

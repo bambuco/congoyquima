@@ -25,7 +25,8 @@ const videoCatalog = {
   'level1_intro': 'game/vid/l_1/intro.mp4',
   'level2_intro': 'game/vid/l_2/intro.mp4',
   'level3_intro': 'game/vid/l_3/intro.mp4',
-  'level4_intro': 'game/vid/l_4/intro.mp4'
+  'level4_intro': 'game/vid/l_4/intro.mp4',
+  'level5_intro': 'game/vid/l_5/intro.mp4'
 };
 
 

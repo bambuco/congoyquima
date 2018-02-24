@@ -29,9 +29,9 @@
   transform: $val;
 }
 
-@mixin transform-origin($left, $top) {
-  -webkit-transform-origin: $left $top;
-          transform-origin: $left $top;
+@mixin transform-origin($origin) {
+  -webkit-transform-origin: $origin;
+          transform-origin: $origin;
 }
 ///***********************************************
 //  Animations
@@ -344,7 +344,7 @@ Listen Interruptor Icons
   background-color: transparent;
   background-repeat: no-repeat;
   display: inline-block;
-  @include transform-origin(left, top);
+  @include transform-origin(left top);
   
   $icons: listen-active;
   @include appSpriteIcons($icons, 20px, 20px, 0px, 0px, 180px, 180px);
