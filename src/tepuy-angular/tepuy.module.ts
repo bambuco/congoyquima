@@ -19,11 +19,12 @@ import {
   //TepuyDraggableService,
   TepuyAudioPlayerProvider,
   TepuyErrorProvider,
-  ResizeSensor
+  ResizeSensor,
+  ResourceProvider
 } from './providers';
 
 import {
-  DistributePipe, ObjectKeyPipe, SpellPipe
+  DistributePipe, ObjectKeyPipe, SpellPipe, SumOfDigitsPipe
 } from './pipes';
 
 //import { TepuyUtils } from './tepuy-utils';
@@ -49,7 +50,8 @@ import {
     TepuySortableDirective,
     DistributePipe,
     ObjectKeyPipe,
-    SpellPipe
+    SpellPipe,
+    SumOfDigitsPipe
   ],
   entryComponents: [
     //TepuySelectableComponent
@@ -75,10 +77,11 @@ import {
     TepuySortableDirective,
     DistributePipe,
     ObjectKeyPipe,
-    SpellPipe
+    SpellPipe,
+    SumOfDigitsPipe
   ],
   providers: [
-    TepuyActivityService, TepuyErrorProvider, TepuyAudioPlayerProvider, ResizeSensor, ObjectKeyPipe
+    TepuyActivityService, TepuyErrorProvider, TepuyAudioPlayerProvider, ResizeSensor, ResourceProvider, ObjectKeyPipe
   ]
 })
 export class TepuyModule {}

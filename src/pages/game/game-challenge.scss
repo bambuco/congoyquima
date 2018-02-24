@@ -9,11 +9,31 @@ page-game-challenge {
     position: relative;
     overflow: hidden;
 
-    @for $l from 1 through 2 {
+    @for $l from 1 through 3 {
       @for $ch from 1 through 10 {
         &.level_#{$l}.challenge_#{$ch} {
           background-image: url('../assets/game/img/l_#{$l}/ch_#{$ch}/bg.png');
         }
+      }
+    }
+
+    .loader {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      //background-color: rgba(255, 255, 190, 0.9);
+      align-items: center;
+      justify-content: center;
+      ion-spinner * {
+        width: 70px;
+        height: 70px;
+        margin-top: -20px;
+        margin-left: -20px;
+        stroke: #3AAFA9;
+        //fill: #3AAFA9;
       }
     }
   }
@@ -126,6 +146,31 @@ page-game-challenge {
     @include animation(activity-pointer, 3s, linear, $iteration:infinite);
   }
 
+  .highlighter {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    border: solid 4px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display:none;
+  }
+
+  .tepuy-correct {
+    .highlighter {
+      border-color: map-get($colors, correct);
+      display: block;
+    }
+  }
+  .tepuy-wrong {
+    .highlighter {
+      border-color: map-get($colors, wrong);
+      display: block;
+    }
+  }
+
   //Semaphore styling
   .tepuy-feedback-summary.tepuy-semaphore {
     height: 10%;
@@ -182,6 +227,10 @@ page-game-challenge {
         right: 0;
       }
     }
+  }
+
+  [tepuy-scale] {
+    @include transform-origin(left, top);
   }
 
   @include keyframes(activity-pointer){
@@ -1917,6 +1966,706 @@ page-game-challenge {
           font-weight: bold;
         }
         @include transform-origin(left, top);
+      }
+    }
+  }
+  /**********************************************************************
+  Level 3 - Challenge 1
+  **********************************************************************/ 
+  .level_3.challenge_1 {
+
+    .row-0, .row-1 {
+      width: 100%;
+      height: auto;
+      position:absolute;
+      .bag-wrapper {
+        position: relative;
+        height: auto;
+        width: 100%;
+        .bag-container {
+          position: absolute;
+        }
+      }
+    }
+
+    .row-0 {
+      top:30%;      
+      .bag-container {
+        @for $l from 0 through 7  {
+          .bag-#{$l} {
+            position: absolute;
+            left: $l * 14.28%;
+          }
+        }
+      }
+    }
+    .row-1 {
+      bottom:46.82%;
+      .bag-container {
+        @for $l from 0 through 5  {
+          .bag-#{$l} {
+            position: absolute;
+            left: 1.5% + $l * 16.7;
+          }
+        }
+      }
+    }
+
+    .seedbag-icon {
+      background-image: url('../assets/game/img/l_3/ch_1/sprite.png');
+      background-color: transparent;
+      background-repeat: no-repeat;
+      @include transform-origin(left, top);
+      pointer-events: none;
+
+      $icons: seedbag-full seedbag-empty;
+      @include appSpriteIcons($icons, 20px, 20px, 20, 0px, 140px, 207px);
+    }
+    
+    .seedbag-full {
+      span {
+        position:absolute;
+        left: 50%;
+        top: 50%;
+        margin-top: -30px;
+        margin-left: -55px;
+        width: 110px;
+        height: 110px;
+        white-space: nowrap;
+        border-radius: 50%;
+        border: solid 9px #fff;
+        background-color: #333333;
+        text-align: center;
+        font-size: 5.5em;
+        font-weight: bold;
+        color: #fff;
+      }    
+    }
+    .tepuy-dropped {
+      &.tepuy-correct span {
+        background-color: map-get($colors, correct);
+      }
+      &.tepuy-wrong span {
+        background-color: map-get($colors, wrong);
+      }
+    }
+  }
+  /**********************************************************************
+  Level 3 - Challenge 2
+  **********************************************************************/ 
+  .level_3.challenge_2 {
+
+    .row-0 {
+      width: 100%;
+      height: auto;
+      position:absolute;
+      top: 38.75%;
+      height: 20.83%;
+      .container {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        [tepuy-sortable] {
+          position: absolute;
+        }
+      }
+    }
+
+    $w: 208px;
+    $scale: .4362;
+    .sort-item {
+      display: inline-block;
+      .sort-item-content {
+        width: $w;
+        height: 400px;
+        position: relative;
+        pointer-events: none;
+        @include transform-origin(left, top);
+
+        .highlight-circle {
+          position: absolute;
+          top: 8px;
+          left: 6px;
+          width: 194px;
+          height: 194px;
+          border-radius: 50%;
+          background-color: transparent;
+        }
+        .object-icon {
+          @include transform-origin(left, top);
+          @include scale($scale);
+          position:absolute;
+          top:0;
+          left: ($w - (420 * $scale))/2;
+        }
+
+        span {
+          position: absolute;
+          bottom: 40px;
+          height: 48px;
+          width: 157px;
+          left: 20px;
+          font-size: 3.6em;
+          text-align: center;
+        }
+      }
+      &.tepuy-correct .highlight-circle {
+        border: solid 12px map-get($colors, correct);
+      }
+      &.tepuy-wrong .highlight-circle {
+        border: solid 12px map-get($colors, wrong);
+      }
+    }
+  }
+  /**********************************************************************
+  Level 3 - Challenge 3
+  **********************************************************************/ 
+  .level_3.challenge_3 {
+
+    ion-slides {
+       height: 70%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom, .container {
+        position: relative;
+        height: 100%;
+        bottom: 0%;
+        width: 100%;
+      }
+    }
+
+    .sum-0, .sum-1,, .sum-2 {
+      color: #fff;
+      font-weight: bold;
+      position: absolute;
+      //border: solid 1px red;
+      display: flex;
+      justify-content: center;
+      .sum-wrapper {
+        position: relative;
+        width: 270px;
+        height: 104px;
+        white-space: nowrap;
+        span {
+          height: 100%;
+          font-size: 104px;
+          line-height: 104px;
+          pointer-events: none;
+          flex: 1 1 content;
+          &.operator {
+            color: map-get($colors, operator);
+          }
+        }
+        &.sum-digits-3 {
+          span { font-size: 94px; }
+        }
+        &.sum-digits-4 {
+          span { font-size: 68px; }
+        }
+      }
+      &.tepuy-correct {
+        color: map-get($colors, correct);
+      }
+      &.tepuy-wrong {
+        color: map-get($colors, wrong);
+      }
+    }
+    .sum-0 {
+      top: 29%; //570,396
+    }
+    .sum-1 {
+      top: 60%; //469,812
+    }
+    .sum-2 {
+      top: 47%;//1235,635
+    }
+  }
+  /**********************************************************************
+  Level 3 - Challenge 4
+  **********************************************************************/ 
+  .level_3.challenge_4 {
+    ion-slides {
+       height: 70%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom, .container {
+        position: relative;
+        height: 100%;
+        bottom: 0%;
+        width: 100%;
+      }
+    }
+
+    .row-0, .row-1 {
+      width: 100%;
+      height: 15%;
+      position:absolute;
+      display:flex;
+      justify-content: center;
+      .panel-container {
+        position: relative;
+      }
+    }
+
+    .row-0 {
+      top:29%;      
+      .panel-container {
+        @for $l from 0 through 2  {
+          .panel-#{$l} {
+            position: absolute;
+            left: $l * 41%;
+            .tepuy-droppable { position: relative; }
+          }
+        }
+      }
+    }
+    .row-1 {
+      bottom:15%;
+      display:flex;
+      justify-content: center;
+      .panel-container {
+        @for $l from 0 through 2  {
+          .panel-#{$l} {
+            position: absolute;
+            left: 22% + $l * 20%;
+          }
+        }
+      }
+    }
+
+    .sum-result {
+      width: 194px;
+      height: 182px;
+      @include transform-origin(left, top);
+    }
+
+    .panel-icon {
+      background-image: url('../assets/game/img/l_3/ch_4/sprite.png');
+      background-color: transparent;
+      background-repeat: no-repeat;
+      @include transform-origin(left, top);
+      pointer-events: none;
+
+      $icons: panel-full panel-empty;
+      @include appSpriteIcons($icons, 20px, 20px, 36, 0px, 194px, 182px);
+    }
+
+    .panel-icon, .sum-result {
+      font-size: 5em;
+      font-weight: bold;
+      line-height: 2em;
+      color: #fff
+    }
+    
+    .tepuy-dropped {
+      &.tepuy-correct {
+        .panel-icon { color: map-get($colors, correct); }
+      }
+      &.tepuy-wrong {
+        .panel-icon { color: map-get($colors, wrong); }
+      }
+    }
+  }
+  /**********************************************************************
+  Level 3 - Challenge 5
+  **********************************************************************/
+  .level_3.challenge_5 {
+    ion-slides {
+       height: 70%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom, .container {
+        position: relative;
+        height: 100%;
+        bottom: 0%;
+        width: 100%;
+      }
+    }
+
+    .row-0 {
+      width: 100%;
+      height: 15%;
+      top:46%;
+      position:absolute;
+      display:flex;
+      justify-content: center;
+      .panel-container {
+        position: relative;
+        .panel-0 {
+          position: absolute;
+          left: 0%;
+        }
+        .panel-1 {
+          position: absolute;
+          left: 64.5%;
+        }
+        .tepuy-selected {
+          &.tepuy-correct {
+            .panel-icon {
+              color: map-get($colors, correct);
+            }
+          }
+          &.tepuy-wrong {
+            .panel-icon {
+              color: map-get($colors, wrong);
+            }
+          }
+          .cross-out-line {
+            display:block;
+          }
+        }
+      }
+    }
+
+    .panel-icon {
+      background-image: url('../assets/game/img/l_3/ch_5/sprite.png');
+      background-color: transparent;
+      background-repeat: no-repeat;
+      @include transform-origin(left, top);
+      pointer-events: none;
+      display:flex;
+      justify-content: center;
+      align-items:center;
+      font-size: 4em;
+      font-weight: bold;
+      line-height: 2em;
+      color: #fff;
+      position: relative;
+
+      $icons: panel-board;
+      @include appSpriteIcons($icons, 20px, 20px, 36, 0px, 374px, 200px);
+
+      $icons: cross-out-line;
+      @include appSpriteIcons($icons, 450px, 20px, 36, 0px, 394px, 44px);
+
+      span.operator {
+        color: map-get($colors, operator);
+      }
+
+      .cross-out-line {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -197px;
+        margin-top: -22px;
+        display:none;
+      }
+    }
+  }
+  /**********************************************************************
+  Level 3 - Challenge 6
+  **********************************************************************/
+  .level_3.challenge_6 {
+    ion-slides {
+       height: 70%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom, .container {
+        position: relative;
+        height: 100%;
+        bottom: 0%;
+        width: 100%;
+      }
+    }
+
+    .row-0 {
+      width: 100%;
+      height: 41%;
+      top:37%;
+      position:absolute;
+      display:flex;
+      justify-content: center;
+      .signal-holder {
+        position: relative;
+
+        .signal-container {
+          position: relative;
+          display: flex;
+          //width: auto;
+          //height: auto;
+          align-items: center;
+          justify-content: center;
+          @include transform-origin(left, top);
+
+          .highlighter {
+            width: 442px;
+            height: 442px;
+            left: 52px;
+            top: 44px;
+            border-radius: 50%;
+            background-color: #fff;
+            display: block;
+            border: none;
+            z-index:-1;
+          }
+        }
+
+        &.tepuy-selected {
+          &.tepuy-correct {
+            .signal-container .highlighter {
+              background-color: map-get($colors, correct);
+            }
+          }
+          &.tepuy-wrong {
+            .signal-container .highlighter {
+              background-color: map-get($colors, wrong);
+            }
+          }
+        }
+      }
+    }
+
+    .signal-icon {
+      background-image: url('../assets/game/img/l_3/ch_6/sprite.png');
+      background-color: transparent;
+      background-repeat: no-repeat;
+      pointer-events: none;
+
+      $icons: sign-zona_escolar sign-obra_en_la_via;
+      @include appSpriteIcons($icons, 16px, 800px, 34, 0px, 350px, 342px);
+
+      $icons: sign-hospedaje;
+      @include appSpriteIcons($icons, 20px, 1200px, 108, 0px, 272px, 272px);
+
+      $icons: sign-banhos sign-museo sign-punto_de_informacion;
+      @include appSpriteIcons($icons, 400px, 1200px, 128, 0px, 272px, 272px);
+
+      $icons: sign-estacion_de_gasolina;
+      @include appSpriteIcons($icons, 20px, 1600px, 163, 0px, 217px, 294px);
+
+      $icons: sign-restaurante sign-primeros_auxilios sign-servicio_de_telefono sign-personas_con_discapacidad sign-cruce_peatonal sign-montallantas;
+      @include appSpriteIcons($icons, 400px, 1600px, 183, 0px, 217px, 294px);
+
+      $icons: sign-prohibido_parquear;
+      @include appSpriteIcons($icons, 20px, 2000px, 71, 0px, 309px, 309px);
+
+      $icons: sign-prohibido_fumar sign-paradero_de_bus sign-taxis sign-ciclovia;
+      @include appSpriteIcons($icons, 400px, 2000px, 88, 0px, 312px, 312px);
+
+      $icons: sign-gas_inflamable;
+      @include appSpriteIcons($icons, 20px, 2400px, 73, 0px, 307px, 272px);
+
+      $icons: sign-riesgo_electrico sign-peligro_de_intoxicacion sign-peligro_de_caida;
+      @include appSpriteIcons($icons, 400px, 2400px, 93, 0px, 307px, 272px);
+
+      $icons: sign-pare;
+      @include appSpriteIcons($icons, 20px, 2800px, 0, 0px, 313px, 313px);
+
+      $icons: sign-wifi;
+      @include appSpriteIcons($icons, 400px, 2800px, 36, 0px, 247px, 188px);
+
+      &.signal-container {
+        background-position: -20px -14px;
+        width: 540px;
+        height: 540px;
+      }
+    }
+  }
+  /**********************************************************************
+  Level 3 - Challenge 7
+  **********************************************************************/
+  .level_3.challenge_7 {
+    .container {
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      top: 34.58%;
+      width: 100%;
+
+      .tepuy-sortable {
+        display:flex;
+        justify-content:space-between;
+      }
+
+      .sequence-container {
+        display: inline-block;
+        position: relative;
+      }
+    }
+
+    .sequence-stage {
+      background-image: url('../assets/game/img/l_3/ch_7/sprite.png');
+      background-color: transparent;
+      background-repeat: no-repeat;
+      position: relative;
+      @include transform-origin(left, top);
+      pointer-events: none;
+
+      @for $seq from 1 through 12  {
+        $icons: seq-#{$seq}-stage-1 seq-#{$seq}-stage-2 seq-#{$seq}-stage-3 seq-#{$seq}-stage-4 seq-#{$seq}-stage-5;
+        @include appSpriteIcons($icons, 17px, 20px + (300 * ($seq - 1)), 54, 0px, 196px, 232px);
+      }
+    }
+  }
+  /**********************************************************************
+  Level 3 - Challenge 8
+  **********************************************************************/
+  .level_3.challenge_8 {
+    ion-slides {
+       height: 70%;
+    }
+    ion-slide {
+      width: 100% !important;
+      .slide-zoom, .container {
+        position: relative;
+        height: 100%;
+        bottom: 0%;
+        width: 100%;
+      }
+    }
+    .container {
+      .object-container {
+        position: absolute;
+        top: 36.45%; //490
+      }
+      .label-container {
+        position: absolute;
+        top: 75%; //1005
+        span.text-label {
+          color: #fff;
+        }
+      }
+      .words-container {
+        position: absolute;
+        top: 31.25%; //420
+        display: flex;
+        flex-wrap: wrap;
+        align-content: space-between;
+
+        & > [tepuy-autofit] {
+          position: relative;
+        }
+      }
+
+      span.text-label {
+        display: block;
+        width: 498px;
+        height: 106px;
+        font-size: 66px;
+        line-height: 96px;
+        font-weight: bold;
+        color: map-get($colors, text-normal);
+        text-align:center;
+        white-space: nowrap;
+      }
+    }
+  }
+  /**********************************************************************
+  Level 3 - Challenge 9
+  **********************************************************************/
+  .level_3.challenge_9 {
+    
+    .text-label {
+      background-image: url('../assets/game/img/l_3/ch_9/sprite.png');
+      background-color: transparent;
+      background-repeat: no-repeat;
+      pointer-events: none;
+
+      $icons: right-label left-label;
+      @include appSpriteIcons($icons, 20px, 20px, 32, 0px, 498px, 110px);
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      top: 9%; //178
+      width: 100%;
+      heigth: 40.73%; //782
+
+      .container-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .left-box, .right-box {
+        position: absolute;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: space-between;
+
+        .text-label {
+          display: block;
+          font-size: 66px;
+          line-height: 106px;
+          font-weight: bold;
+          color: map-get($colors, text-normal);
+          text-align:center;
+          white-space: nowrap;
+        }
+
+        & > [tepuy-autofit] {
+          position: relative;
+
+          &.tepuy-correct {
+            .text-label { color: map-get($colors, correct); }
+          }
+          &.tepuy-wrong {
+            .text-label { color: map-get($colors, wrong); }
+          }
+        }
+      }
+    }
+  }
+  /**********************************************************************
+  Level 3 - Challenge 10
+  **********************************************************************/
+  .level_3.challenge_10 {
+    
+    .text-label {
+      background-image: url('../assets/game/img/l_3/ch_10/sprite.png');
+      background-color: transparent;
+      background-repeat: no-repeat;
+      pointer-events: none;
+
+      $icons: right-label left-label;
+      @include appSpriteIcons($icons, 20px, 20px, 32, 0px, 498px, 110px);
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      top: 9%; //178
+      width: 100%;
+      heigth: 40.73%; //782
+
+      .container-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .left-box, .right-box {
+        position: absolute;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: space-between;
+
+        .text-label {
+          font-size: 66px;
+          line-height: 106px;
+          font-weight: bold;
+          color: map-get($colors, text-normal);
+          text-align:center;
+          white-space: nowrap;
+        }
+
+        & > [tepuy-autofit] {
+          position: relative;
+
+          &.tepuy-correct {
+            .text-label { color: map-get($colors, correct); }
+          }
+          &.tepuy-wrong {
+            .text-label { color: map-get($colors, wrong); }
+          }
+        }
       }
     }
   }

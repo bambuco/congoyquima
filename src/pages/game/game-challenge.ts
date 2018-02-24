@@ -1,6 +1,6 @@
 import { Component, ViewChild, HostListener } from '@angular/core';
 import { NavController, NavParams, Content } from 'ionic-angular';
-import { TepuyActivityService } from '../../tepuy-angular/providers';
+import { TepuyActivityService, ResourceProvider } from '../../tepuy-angular/providers';
 
 import { Observable } from 'rxjs/Observable';
 import { AppDataProvider, Flags } from '../../providers/app-data';
@@ -11,10 +11,12 @@ import { GameLevelPage } from '../game/game-level';
 
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/finally';
 
 //const maxChallenges = 10;
 const maxPrizes = 3;
 const maxScore = 1;
+const RES_IMAGE = 0;
 
 @Component({
   selector: 'page-game-challenge',
@@ -33,7 +35,7 @@ export class GameChallengePage {
   status: string = 'loading';
   loading: boolean = true;
   challenge: any;
-  template: string = '<div class="container" text-center><ion-spinner name="circles"></ion-spinner></div>';
+  template: string = '<div class="loader"><ion-spinner name="crescent"></ion-spinner></div>';
   templateCss: string = '';
   message: string = "";
   settings: any;
@@ -65,6 +67,7 @@ export class GameChallengePage {
       private gameDataProvider: GameDataProvider,
       private mediaPlayer: MediaPlayer,
       private audioPlayer: TepuyAudioPlayerProvider,
+      private loader: ResourceProvider,
       params: NavParams
       ) {
     this.id = params.get('id');
@@ -85,9 +88,18 @@ export class GameChallengePage {
         if (data != null && data.template != 'NotFound') {
           this.challenge = data.setup;
           this.scriptLoaded = this.loadScript();
+          let resources = [];
+          if (this.challenge.preload) {
+            if (this.challenge.preload.images) {
+              this.challenge.preload.images.forEach((img) => resources.push({type: RES_IMAGE, url: 'assets/game/img/' + img}));
+            }
+          }
+          let assetsObserver = this.loader.preload(resources);
           this.scriptLoaded.then(() => {
-            this.template = data.template;
-            this.templateCss = data.css;
+            assetsObserver.finally(() => {
+              this.template = data.template;
+              this.templateCss = data.css;
+            }).subscribe(() => {});
           });
           this.activityType = this.challenge.type;
           this.introKey = this.activityType+'_howto';

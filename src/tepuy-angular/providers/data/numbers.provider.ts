@@ -13,6 +13,8 @@ export class NumbersProvider extends DataProvider {
   seed: number;
   repeat: boolean;
   fn: string = 'random';
+  values: Array<any>;
+  usequeue: boolean = false;
 
   constructor(fn:string, opts:any) {
     super();
@@ -35,6 +37,18 @@ export class NumbersProvider extends DataProvider {
     }
     this.repeat = /^true$/i.test(opts.repeat+'');
 
+    if (opts.fromQ) {
+      this.usequeue = /^true$/i.test(opts.fromQ);
+    }
+
+    if (this.usequeue) {
+      this.values = [];
+      for(let it = this.min; it <= this.max; it+=this.step) {
+        this.values.push(it);
+      }
+      this.queue = this.shuffle(this.values.slice(0));
+    }
+
     this.fn = fn;
     if (fn == 'sequence') {
       this.seed = this.random(this.min, this.max);
@@ -43,6 +57,9 @@ export class NumbersProvider extends DataProvider {
 
   next():number {
     if (this.fn == 'random') {
+      if (this.usequeue) {
+        return this.fromQ(this.values);
+      }
       return this.random(this.min, this.max, undefined, this.repeat);
     }
     else {

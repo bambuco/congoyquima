@@ -1,5 +1,5 @@
 import { Directive, Input, HostBinding, HostListener, OnChanges,
-  ElementRef, AfterViewInit, Renderer2
+  ElementRef, AfterViewInit
 } from '@angular/core';
 /*
 function _window() : any {
@@ -71,7 +71,7 @@ export class TepuyScaleDirective implements OnChanges, AfterViewInit {
   onResize($event=null) {
     setTimeout(() => {
       this.calculateScale();
-    }, 200);
+    }, 300);
   }
 
   private originalDisplay: string;

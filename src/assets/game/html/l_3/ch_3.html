@@ -1,0 +1,24 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding (activityRestart)="onReset()">
+  <ng-container *tepuyValueGenerator="'sequenceof:numbers:min=0;max=0;'count:5;let groups=values">
+    <ion-slides class="tepuy-activity-content" zoom="false" pager="true" paginationType="progress" effect="slide">
+      <ng-container *ngFor="let group of groups;let id=index">
+        <ion-slide tepuy-item-group [tepuy-group-id]="id" (groupInit)="prepare($event, group)">
+          <ng-container *ngIf="group.ready">
+            <ng-container *tepuyValueGenerator="'randomof:numbers:min=0;max='+group.max+';'; include:[group.value];   exclude:exclude; count:3;shuffle:true;type:'scalar' let options=values">
+              <div *ngFor="let opt of options; let i=index" class="sum-{{i}}" [ngStyle]="boxStyle[i]" tepuy-item tepuy-selectable tepuy-auto-feedback="true" [tepuy-correct]="group.value==opt" [tepuy-group-id]="group.id">
+                <div tepuy-autofit>
+                  <div class="sum-wrapper sum-digits-{{group.digits}}" tepuy-scale="1920">
+                    <span *ngFor="let ch of opt|sumofdigits:group.digits" [class.operator]="ch=='+'">{{ch}}</span>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ion-slide>
+      </ng-container>
+    </ion-slides>
+    <div class="tepuy-feedback-summary tepuy-semaphore">
+      <span *ngFor="let g of groups" class="tepuy-{{g.state}}"></span>
+    </div>
+  </ng-container>
+</div>

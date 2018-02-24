@@ -1,0 +1,14 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-win-score="0.6" (activityRestart)="onReset()">
+  <ng-container *tepuyValueGenerator="'randomof:numbers:min=1;max=10;fromQ=true';count:1;type:'scalar';let seq=values">
+    <div class="container" tepuy-item-group [tepuy-group-id]="1" (groupInit)="prepare($event)">
+      <div *ngIf="itemsSorted" tepuy-sortable="true" [tepuy-order]="itemsSorted" [ngStyle]="boxStyle" (tepuyItemReorder)="itemsReorder($event)">
+        <div class="sequence-container" *ngFor="let it of items; let i=index" tepuy-item [tepuy-correct]="false"  tepuy-autofit [tepuy-value]="it.val">
+          <div class="sequence-stage seq-{{seq[0]}}-stage-{{it.val}}" tepuy-scale="1920">
+             <input type="hidden" tepuy-item-value />
+          </div> 
+          <div class="highlighter"></div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

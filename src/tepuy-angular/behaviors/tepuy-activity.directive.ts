@@ -1,5 +1,5 @@
 import { Directive, ContentChild, ContentChildren, QueryList, Input, ViewContainerRef,
-  OnInit, AfterContentInit, HostBinding
+  OnInit, AfterContentInit, HostBinding, Output, EventEmitter
 } from '@angular/core';
 import { Slides } from 'ionic-angular';
 
@@ -18,6 +18,8 @@ export class TepuyActivityDirective implements OnInit, AfterContentInit {
   @Input('tepuy-activity-id') id: string;
   @Input('tepuy-win-score') winScore: number;
   @Input('tepuy-slide-delay') slideDelay: number = 1;
+
+  @Output() activityRestart = new EventEmitter();
 
   @ContentChild(TepuyValueGeneratorDirective) valueGenerator: TepuyValueGeneratorDirective;
   @ContentChildren(Slides, { descendants: true}) slides: QueryList<Slides>;
@@ -56,6 +58,7 @@ export class TepuyActivityDirective implements OnInit, AfterContentInit {
     });
     this.activityService.on(this.activityService.ACTIVITY_RESET).subscribe(() => {
       this.isComplete = false;
+      this.activityRestart.emit();
       this.resetGroupValues();
     });
   }

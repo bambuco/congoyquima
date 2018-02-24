@@ -101,12 +101,24 @@ export class GameDataProvider {
         let level = settings.levels.find(l => { return l.id == id });
         if (level && level.unlocked && !level.prepared) {
 
-          this.storage.get(level_state_key.replace('$id', id)).then((state:LevelState) => {
+          let challenges = this.http.get(['assets/game/html/l_', id, '/challenges.json'].join(''))
+            .catch(error => {
+              let items = [];
+              for(let i = 0; i < 10; i++) items.push({id: i, label: (i+1)+''});
+              items[0].unavailable = true;
+              return Observable.of(items);
+            });
+          let levelState = this.storage.get(level_state_key.replace('$id', id));
+
+          Observable.forkJoin([challenges, Observable.fromPromise(levelState)]).subscribe((data) => {
+            const challenges:any[] = data[0];
+            let state:LevelState = data[1];
             if (state == null) state = new LevelState();
             level.currentChallenge = state.currentChallenge;
+            level.challenges = challenges;
 
-            for(var i = 0; i < level.challenges.length; i++){
-              let challenge = level.challenges[i];
+            for(var i = 0, iLen = challenges.length; i < iLen; i++){
+              let challenge = challenges[i];
               challenge.levelId = parseInt(id);
               challenge.unlocked = i <= state.currentChallenge && !challenge.unavailable; //Added to control when the next label is not imlemented yet
               challenge.completed =  i < state.currentChallenge;
@@ -157,7 +169,7 @@ export class GameDataProvider {
           nextChallenge = data[0].challenges[id];
         }
         else if (levelId < this.settings.levels.length) {
-          nextChallenge = this.settings.levels[levelId].challenges[0];
+          nextChallenge = null; //There is no next level
         }
 
         let challengeInfo = {
@@ -211,7 +223,7 @@ export class GameDataProvider {
             let nextLevel = this.settings.levels[challenge.levelId];
             nextLevel.unlocked = true;
             nextLevel.currentChallenge = 0;
-            nextChallenge = nextLevel.challenges[0];
+            nextChallenge = null; //nextLevel.challenges[0];
           }
         }
         else {

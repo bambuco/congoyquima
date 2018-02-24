@@ -1,0 +1,25 @@
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-slide-delay="1">
+  <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.signals;fromQ=true;';count:5;let groups=values">
+    <ion-slides class="tepuy-activity-content" zoom="false" pager="true" paginationType="progress" effect="slide">
+      <ion-slide *ngFor="let group of groups;let id=index" [ngStyle]="{'width.px':playZone?.width}">
+        <ng-container *tepuyValueGenerator="'randomof:setup:key=parameters.signals;'; type:'scalar';count:2;include:[group.data];shuffle:true;let options=values">
+          <div class="row-0" tepuy-item-group data-tepuy-group-id="{{group.id}}">
+            <div class="signal-holder" *ngFor="let opt of options; let i=index" tepuy-item tepuy-selectable data-tepuy-auto-feedback="true" [tepuy-correct]="(group.data==opt)" tepuy-autofit>
+              <div class="signal-icon signal-container" tepuy-scale="1920">
+                <div class="highlighter"></div>
+                <div class="signal-icon sign-{{opt|objectkey}}"></div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ion-slide>
+    </ion-slides>
+    <div class="tepuy-feedback-summary tepuy-semaphore">
+      <div *ngFor="let g of groups" class="listen-control" tepuy-autofit>
+        <div class="tepuy-{{g.state}} listen-icon" [class.listen-active]="g.active" [class.listen-inactive]="!g.active" tepuy-scale="1920" tepuy-greetable="[greet-value]" [attr.disabled]="!g.active">
+          <input greet-value type="hidden" value="{{g.data}}" />
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

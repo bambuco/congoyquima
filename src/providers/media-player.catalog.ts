@@ -40,13 +40,13 @@ export class MediaCatalog {
     });
 
     //Challenge intro
-    for(let l of [1,2]){
+    for(let l of [1,2,3]){
       for (let ch = 1; ch < 11; ch++) {
         this.assets.push({
           type: 'audio',
           key: ['l_', l, '_ch_', ch, '_intro'].join(''),
           path: path + ['l_', l, '/ch_', ch, '_intro.mp3'].join(''),
-          preload: true 
+          preload: true
         });
       }
     }
@@ -65,7 +65,7 @@ export class MediaCatalog {
         type: 'audio',
         key: word,
         path: path + ['words/', word, '.mp3'].join(''),
-        preload: true 
+        preload: true
       });
     }
 
@@ -76,7 +76,7 @@ export class MediaCatalog {
         type: 'audio',
         key: dir,
         path: path + ['l_2/ch_3/', dir, '.mp3'].join(''),
-        preload: true 
+        preload: true
       });
     }
     //Level 2 - Challenge 4 questions
@@ -86,7 +86,7 @@ export class MediaCatalog {
         type: 'audio',
         key: q,
         path: path + ['l_2/ch_4/', q, '.mp3'].join(''),
-        preload: true 
+        preload: true
       });
     }
     //Level 2 - Challenge 7 Fragments
@@ -96,7 +96,17 @@ export class MediaCatalog {
         type: 'audio',
         key: frg,
         path: path + ['l_2/ch_7/', frg, '.mp3'].join(''),
-        preload: true 
+        preload: true
+      });
+    }
+
+    const signals = ["gas_inflamable", "hospedaje", "montallantas", "museo", "obra_en_la_via", "paradero_de_bus", "pare", "peligro_de_caida", "peligro_de_intoxicacion", "personas_con_discapacidad", "primeros_auxilios", "prohibido_fumar", "prohibido_parquear", "punto_de_informacion", "restaurante", "riesgo_electrico", "servicio_de_telefono", "taxis", "wifi", "zona_escolar", "ciclovia", "cruce_peatonal", "discapacitados", "baños", "estacion_de_gasolina"];
+    for (let signal of signals) {
+      this.assets.push({
+        type: 'audio',
+        key: signal,
+        path: path + ['signals/', signal, '.mp3'].join(''),
+        preload: true
       });
     }
 

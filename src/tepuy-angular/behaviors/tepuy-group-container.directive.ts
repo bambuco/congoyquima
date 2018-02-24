@@ -2,6 +2,10 @@ import { Directive, Input, TemplateRef, ViewContainerRef, OnChanges } from '@ang
 
 import { TepuyActivityService, IDataProvider } from '../providers';
 
+export function isFunction(functionToCheck) {
+ return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]';
+}
+
 @Directive({ selector: '[tepuyValueGenerator]' })
 export class TepuyValueGeneratorDirective implements OnChanges {
 
@@ -44,9 +48,13 @@ export class TepuyValueGeneratorDirective implements OnChanges {
     this.values = [];
     const isArray = this.tepuyValueGeneratorArray;
     let exclude = [];
+    let excludeFn = null;
     if (this.tepuyValueGeneratorExclude) {
       if (Array.isArray(this.tepuyValueGeneratorExclude)) {
         exclude = this.tepuyValueGeneratorExclude;
+      }
+      else if (isFunction(this.tepuyValueGeneratorExclude)) {
+        excludeFn = this.tepuyValueGeneratorExclude
       }
       else if (typeof(this.tepuyValueGeneratorExclude) === 'string') {
         exclude = this.tepuyValueGeneratorExclude.split('');
@@ -69,6 +77,7 @@ export class TepuyValueGeneratorDirective implements OnChanges {
     let val;
     let attempts = 0;
     const maxAttempts = 100;
+    let invalid;
     for(let i = include.length; i < this.tepuyValueGeneratorCount; i++) {
       do {
         val = (this.tepuyValueGeneratorType == 'scalar') ?
@@ -78,7 +87,9 @@ export class TepuyValueGeneratorDirective implements OnChanges {
         if (isArray && this.tepuyValueGeneratorShuffle) {
           val = this.dataProvider.shuffle(val);
         }
-      } while(exclude.indexOf(val) >= 0 && (attempts++) < maxAttempts)
+        invalid = (exclude.length && exclude.indexOf(val) >= 0);
+        if (!invalid && excludeFn) invalid = excludeFn(val);
+      } while(invalid && (attempts++) < maxAttempts)
       if (attempts == maxAttempts) {
         throw new Error('Unable to generate value not in the exclude array');
       }
