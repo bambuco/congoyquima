@@ -1,5 +1,5 @@
 import { Component, ViewChild, HostListener, ElementRef } from '@angular/core';
-import { NavController, NavParams, Content } from 'ionic-angular';
+import { Platform, NavController, NavParams, Content } from 'ionic-angular';
 import { TepuyActivityService, ResourceProvider } from '../../tepuy-angular/providers';
 
 import { Observable } from 'rxjs/Observable';
@@ -27,6 +27,8 @@ const RES_IMAGE = 0;
 export class GameChallengePage {
   @ViewChild('content')
   private content: Content;
+  @ViewChild('toolbar')
+  private toolbar: Content;
   //@ViewChild('playZone')
   //private playZone;
   @HostListener('click', ['$event']) onClick(ev) {
@@ -44,6 +46,7 @@ export class GameChallengePage {
   activityType: string = '';
   canGoNext: boolean = false;
   pzStyle: any;
+  hStyle: any;
   levelJustCompleted: boolean = false;
   canVerify: boolean = false;
   canPlayAgain: boolean = false;
@@ -75,7 +78,8 @@ export class GameChallengePage {
       private audioPlayer: TepuyAudioPlayerProvider,
       private imageViewer: ImageViewerController,
       private loader: ResourceProvider,
-      params: NavParams
+      private platform: Platform,
+      params: NavParams      
       ) {
     this.id = params.get('id');
     this.nId = parseInt(this.id) + 1;
@@ -136,6 +140,10 @@ export class GameChallengePage {
 
   }
 
+  ngOnDestroy() {
+    this.audioPlayer.stopAll();
+  }
+
   initialize() {
     this.appData.setFlag(Flags.GAME_CHALLENGE_ENTERED);
     const helpKey = this.activityType+'_howto';
@@ -169,10 +177,12 @@ export class GameChallengePage {
   @HostListener('window:resize', ['$event'])
   onResize($event=null) {
     let dim = this.content.getContentDimensions();
+    let tHeight = this.content._hdrHeight * .7; //this.toolbar.getContentDimensions().contentHeight;
     setTimeout(() => {
       const height = dim.contentHeight;
       const width = Math.min(dim.contentWidth, dim.contentHeight);
       this.pzStyle = { 'height.px': height, 'width.px': width };
+      this.hStyle = { 'width.px': width, 'fontSize.px': tHeight, 'lineHeight.px': tHeight};
       this.settings.playZone.height = height;
       this.settings.playZone.width = width;
     }, 1);

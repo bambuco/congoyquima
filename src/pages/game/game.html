@@ -1,5 +1,5 @@
 <ion-content #content>
-  <div class="content-zone" #contentZone [ngClass]="status">
+  <div class="content-zone1" #contentZone [ngClass]="status">
     <div class="board" [ngStyle]="{'width.px':boardWidth}">
       <div *ngFor="let item of levels | async; let i = index"
           (click)="openLevel(item)"

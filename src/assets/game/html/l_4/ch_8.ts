@@ -88,7 +88,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
       this.ngZone.run(() => {
         this.tBoxStyle = { 
           'width.px': tBoxRect.w,
-          'fontSize.px': tBoxRect.h * .22,
+          'fontSize.px': tBoxRect.h * .2,
           'lineHeight.px': tBoxRect.h * .25
         };
         this.bBoxStyles = boxes;

@@ -1,15 +1,15 @@
 <ion-header>
-  <ion-toolbar text-center>
+  <ion-toolbar #toolbar text-center [ngStyle]="hStyle">
     <div class="prize-viewer">
       <span class="app-icon prize-{{challenge?.prize_1}}"></span>
       <span class="app-icon prize-{{challenge?.prize_2}}"></span>
       <span class="app-icon prize-{{challenge?.prize_3}}"></span>
     </div>
+    <div class="challenge-label">{{nId}}</div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [ngClass]="{'center-vertical': loading}" #content>
-  <button *ngIf="hasCustomHelp" class="listen-icon context-help" (click)="challengeHelp($event)" tepuy-scale="1920"></button>
   <div class="content-zone level_{{levelId}} challenge_{{nId}}"
       [ngClass]="status" 
       [ngStyle]="pzStyle">
@@ -20,6 +20,8 @@
     <div class="feedback" text-center *ngIf="challengeResult != ''">
       <img src="assets/game/img/shared/ch_r_{{challengeResult}}.gif"/>
     </div>
+    <button *ngIf="hasCustomHelp" class="listen-icon context-help" (click)="challengeHelp($event)" tepuy-scale="1920">
+    </button>
   </div>  
 </ion-content>
 <ion-footer>

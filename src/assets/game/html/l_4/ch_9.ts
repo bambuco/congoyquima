@@ -115,7 +115,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
           { "value": "libra", "words": ["1", "", "de panela raspada"] },
           { "value": "canela", "words": ["4 astillas de", ""] },
           { "value": "", "words": ["2 cucharadas de mantequilla"] },
-          { "value": "rayado", "words": ["1", "", "rayado"] },
+          { "value": "rayado", "words": ["1 coco", ""] },
           { "value": "en", "words": ["1 cucharada de canela", "", "polvo"] }
         ]
       },

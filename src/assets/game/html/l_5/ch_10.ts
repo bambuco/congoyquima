@@ -2,8 +2,6 @@ import { Component, Type, ViewEncapsulation, ElementRef, NgZone, HostListener } 
 import { Platform } from 'ionic-angular';
 import { ShufflePipe } from 'ngx-pipes';
 
-import { rand } from '../utils';
-
 export function componentBuilder(template:string, css:string): Type<any> {
   @Component({
     selector: 'mini-game',
@@ -28,9 +26,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
       "fr_6": ["Diana se inspira más en la noche para escribir.", "Diana prefiere madrugar, porque le rinde más el día.", "Diana se acuesta temprano, porque le da sueño leer."]
     };
 
-    private questionsToUse:any = {};
-
-   constructor(private elRef: ElementRef,
+    constructor(private elRef: ElementRef,
         private ngZone: NgZone,
         private platform: Platform) {
       this.shufflePipe = new ShufflePipe();

@@ -70,7 +70,9 @@ export function componentBuilder(template:string, css:string): Type<any> {
         h: 150 * scale
       };
 
-      let positions:any[] = [[470,822],[734,252],[1138,326],[896,600]]; //
+      //let positions:any[] = [[470,822],[734,252],[1138,326],[896,600]]; //
+      let positions:any[] = [[470,822],[739,241],[1123,315],[881,585]]; //
+      //754x251,1138x325,896x600
       const sw = rect.height; // * 100 / 70;
       let offset = (sw - rect.width) / 2;
       positions = positions.map(pos => {

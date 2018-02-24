@@ -70,11 +70,11 @@ export function componentBuilder(template:string, css:string): Type<any> {
       const rect = this.platform.getElementBoundingClientRect(el);
       const scale = rect.height / 1920;
       let tBoxRect:any = {
-        w: 690 * scale,
+        w: 650 * scale,
         h: 304 * scale
       };
 
-      let positions:any[] = [672, 1086, 854]; //
+      let positions:any[] = [682, 1086, 854]; //
       const sw = rect.height; // * 100 / 70;
       let offset = (sw - rect.width) / 2;
       positions = positions.map(pos => {
@@ -88,8 +88,8 @@ export function componentBuilder(template:string, css:string): Type<any> {
       this.ngZone.run(() => {
         this.tBoxStyle = { 
           'width.px': tBoxRect.w,
-          'fontSize.px': tBoxRect.h * .25,
-          'lineHeight.px': tBoxRect.h * .3
+          'fontSize.px': tBoxRect.h * .2,
+          'lineHeight.px': tBoxRect.h * .25
         };
         this.bBoxStyles = boxes;
       });

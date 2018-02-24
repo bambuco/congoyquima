@@ -1,6 +1,6 @@
 <div ion-grid tepuy-activity #activityComponent no-margin no-padding (activityRestart)="onReset()">
   <ng-container *tepuyValueGenerator="'randomof:numbers:min=1;max=9;fromQ=true';count:5;let groups=values">
-    <ion-slides class="tepuy-activity-content" zoom="false" pager="true" paginationType="progress" effect="slide">
+    <ion-slides class="tepuy-activity-content" zoom="false" pager="true" paginationType="progress" effect="fade">
       <ng-container *ngFor="let group of groups;let id=index">
         <ion-slide tepuy-item-group [tepuy-group-id]="id" (groupInit)="prepare($event, group)">
           <ng-container *ngIf="group.ready">
