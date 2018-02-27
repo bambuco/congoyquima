@@ -118,13 +118,13 @@ export function componentBuilder(template:string, css:string): Type<any> {
       const rect = this.platform.getElementBoundingClientRect(el);
       const scale = rect.height / 1920;
       let tBoxRect:any = {
-        w: 940 * scale,
+        w: 1054 * scale,
         h: 700 * scale
       };
       const sw = rect.height; // * 100 / 70;
       let boxes = [];
 
-      let left = sw * (512 / 1920);
+      let left = sw * (455 / 1920);
       const offset = (sw - rect.width) / 2;
       left -= offset;
       boxes.push(Object.assign({
