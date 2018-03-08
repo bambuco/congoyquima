@@ -136,11 +136,19 @@
 Application General
 ************************************************/
 
+
 ion-content {
   background-image: url('../assets/imgs/app_bg.png');
   background-size: cover;
   height: 100%;
   background-position: bottom;
+}
+
+.platform-core {
+  /*ion-content {
+    max-width: 1080px;
+    margin: 0 auto;
+  }*/
 }
 
 .header-md:after, .footer-md:before {

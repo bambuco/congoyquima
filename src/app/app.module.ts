@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 //import { JitCompiler } from '@angular/compiler';
 import { IonicApp, IonicModule } from 'ionic-angular';
 import { HttpClientModule } from '@angular/common/http';
@@ -12,6 +13,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen';
 import { MobileAccessibility } from '@ionic-native/mobile-accessibility';
+import { UniqueDeviceID } from '@ionic-native/unique-device-id';
+import { Device } from '@ionic-native/device';
+import { Network } from '@ionic-native/network';
 //import { NativeAudio } from '@ionic-native/native-audio';
 //import { StreamingMedia } from '@ionic-native/streaming-media';
 //import { File } from '@ionic-native/file';
@@ -28,6 +32,8 @@ import { GameChallengePage } from '../pages/game/game-challenge';
 import { ContentPage } from '../pages/content/content';
 import { ProgressPage } from '../pages/progress/progress';
 import { AboutPage } from '../pages/about/about';
+import { SignPage } from '../pages/sign/sign';
+import { ConfigPage } from '../pages/config/config';
 import { ErrorsPage } from '../pages/errors/errors';
 import { ErrorDetailComponent } from '../pages/errors/error-detail';
 
@@ -36,7 +42,9 @@ import { CompileDirective } from '../directives/compile.directive';
 
 import { ContentProvider } from '../providers/content';
 import { GameDataProvider } from '../providers/game-data';
+import { AppConfigProvider } from '../providers/app-config';
 import { AppDataProvider } from '../providers/app-data';
+import { RemoteDataProvider } from '../providers/remote-data';
 import { MediaPlayer } from '../providers/media-player';
 import { MediaCatalog } from '../providers/media-player.catalog';
 import { CustomErrorHandler } from '../providers/custom-error.handler';
@@ -52,6 +60,8 @@ import { CustomErrorHandler } from '../providers/custom-error.handler';
     ContentPage,
     ProgressPage,
     AboutPage,
+    SignPage,
+    ConfigPage,
     VideoPlayerComponent,
     ErrorsPage,
     ErrorDetailComponent,
@@ -60,6 +70,7 @@ import { CustomErrorHandler } from '../providers/custom-error.handler';
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
     TepuyModule,
     NgPipesModule,
     IonicImageViewerModule,
@@ -87,6 +98,8 @@ import { CustomErrorHandler } from '../providers/custom-error.handler';
     ContentPage,
     ProgressPage,
     AboutPage,
+    SignPage,
+    ConfigPage,
     VideoPlayerComponent,
     ErrorsPage,
     ErrorDetailComponent,
@@ -97,6 +110,9 @@ import { CustomErrorHandler } from '../providers/custom-error.handler';
     AndroidFullScreen,
     SplashScreen,
     MobileAccessibility,
+    UniqueDeviceID,
+    Device,
+    Network,
     //NativeAudio,
     //StreamingMedia,
     //VideoPlayer,
@@ -107,7 +123,9 @@ import { CustomErrorHandler } from '../providers/custom-error.handler';
     //{provide: Compiler, useClass: JitCompiler},
     ContentProvider,    
     GameDataProvider,
+    AppConfigProvider,
     AppDataProvider,
+    RemoteDataProvider,
     MediaPlayer,
     MediaCatalog
   ]

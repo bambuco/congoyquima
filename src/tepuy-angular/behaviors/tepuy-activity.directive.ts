@@ -113,6 +113,7 @@ export class TepuyActivityDirective implements OnInit, AfterContentInit {
     delete this.valueGenerator.values[group].active;
     //is it last group?
     if (group == (this.valueGenerator.tepuyValueGeneratorCount - 1)) {
+
       this.activityService.verify();
       this.isComplete = true;
     }

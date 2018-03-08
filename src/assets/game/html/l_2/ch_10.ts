@@ -12,7 +12,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
   class L2Ch10Component {
     missings: any[];
     chars: any[];
-    prepared:boolean = false;
+    ready:boolean = false;
     lBoxStyle:any;
     rBoxStyle:any;
 
@@ -55,7 +55,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
         $event.zone.run(() => {
           this.missings = missings;
           this.chars = this.shufflePipe.transform(chars);
-          this.prepared = true;
+          this.ready = true;
         });
       }, 100);
     }
@@ -70,6 +70,10 @@ export function componentBuilder(template:string, css:string): Type<any> {
       setTimeout(() => {
         this.calculateDimensions(this.elRef.nativeElement);
       }, 400);
+    }
+
+    onReset() {
+      this.ready = false;
     }
 
     calculateDimensions(el) {

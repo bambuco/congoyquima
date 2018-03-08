@@ -4,6 +4,12 @@ import { DomController } from 'ionic-angular';
 
 import { TepuyDraggableService } from '../providers';
 
+
+export function getElementIndex(el) {
+  for (var i = 0; el = el.previousElementSibling; i++);
+  return i;
+}
+
 @Directive({ 
   selector: '[tepuy-drop-zone]',
   host: {
@@ -19,8 +25,9 @@ export class TepuyDropZoneDirective implements AfterViewInit {
   @Input("tepuy-drop-zone") enabled: boolean = true;
   @Input("tepuy-correct-values") correctValueList;
   @Input('tepuy-auto-feedback') autoFeedback: boolean = false;
+  @Input('tepuy-index') index: number;
 
-  private correctValues: Array<any> = [];
+  correctValues: Array<any> = [];
   private dropTarget:any;
   private valuePresenter:any;
   private subscription: any;
@@ -42,6 +49,7 @@ export class TepuyDropZoneDirective implements AfterViewInit {
     if (this.enabled === false) return;
     const el = this.elRef.nativeElement;
     let dropTarget = el.querySelector('.drop-target');
+    if (this.index == undefined) this.index = getElementIndex(el);
     this.dropTarget = (dropTarget == null ? el : dropTarget);
     this.valuePresenter = el.querySelector('.drop-value');
     if (!this.correctValueList) {
@@ -79,6 +87,7 @@ export class TepuyDropZoneDirective implements AfterViewInit {
       });
       ev.item.isCorrect = !(this.correctValues.indexOf(ev.item.value) < 0);
       ev.item.answered = true;
+      ev.item.index = this.index;
       this.subscription = ev.item.resolved.subscribe(() => {
         this.succeed = ev.item.succeed;
       });

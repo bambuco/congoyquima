@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, PopoverController } from 'ionic-angular';
+import { Platform, NavController, PopoverController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { GamePage } from '../game/game';
@@ -20,7 +20,8 @@ export class HomePage {
   pages: any = { game: GamePage, contents: ContentPage };
   showIndicator: boolean = false;
 
-  constructor(private navCtrl: NavController,
+  constructor(private platform: Platform,
+    private navCtrl: NavController,
     private popOverCtrl: PopoverController,
     private splashScreen: SplashScreen,
     private mediaPlayer: MediaPlayer,
@@ -31,8 +32,10 @@ export class HomePage {
   ionViewDidEnter() {
     this.appData.ready().subscribe((settings) => {
       setTimeout(() => {
-        this.splashScreen.hide();
-        this.initialize();  
+        if (this.platform.is('cordova')) {
+          this.splashScreen.hide();
+        }
+        this.initialize();
       }, 1);      
     });
   }

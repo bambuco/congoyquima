@@ -5,6 +5,7 @@ import { TepuyActivityService, ResourceProvider } from '../../tepuy-angular/prov
 import { Observable } from 'rxjs/Observable';
 import { AppDataProvider, Flags } from '../../providers/app-data';
 import { GameDataProvider } from '../../providers/game-data';
+import { RemoteDataProvider } from '../../providers/remote-data';
 import { MediaPlayer } from '../../providers/media-player';
 import { TepuyAudioPlayerProvider } from '../../tepuy-angular/providers';
 import { GameLevelPage } from '../game/game-level';
@@ -72,6 +73,7 @@ export class GameChallengePage {
       private navCtrl: NavController,
       private appData: AppDataProvider, 
       private gameDataProvider: GameDataProvider,
+      private remoteDataProvider: RemoteDataProvider,
       private mediaPlayer: MediaPlayer,
       private audioPlayer: TepuyAudioPlayerProvider,
       private imageViewer: ImageViewerController,
@@ -274,6 +276,9 @@ export class GameChallengePage {
     if (result.success) {
       storage = this.gameDataProvider.registerScore(this.challenge, result.score, result.success);
     }
+
+    //Call remote service to register the stats or store them for later sync
+    this.remoteDataProvider.registerGameFacts(result.gameFacts);
 
     this.feedbackDismissed = false;
     this.audioPlayer.play('result-' + result.rate) //this.mediaPlayer.playAudio({key: 'result-' + result.rate });

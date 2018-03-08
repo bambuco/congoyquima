@@ -18,16 +18,15 @@
           </div>
           <div class="puzzle-container">
             <div class="word-container">
-              <div *ngFor="let ch of word.data|lowercase|spell; let i=index">
-                <div tepuy-drop-zone 
-                  [tepuy-correct-values]="ch|lowercase"
-                  data-tepuy-allow-multiple="true"
-                  data-tepuy-auto-feedback="true" tepuy-autofit>
-                  <div class="keyholder-icon keyholder" tepuy-scale="1920" drop-ignore>
-                    &nbsp;
-                  </div> 
-                </div>               
-              </div>         
+              <div *ngFor="let ch of word.data|lowercase|spell; let i=index"
+                tepuy-drop-zone 
+                [tepuy-correct-values]="ch|lowercase"
+                data-tepuy-allow-multiple="true"
+                data-tepuy-auto-feedback="true" tepuy-autofit>
+                <div class="keyholder-icon keyholder" tepuy-scale="1920" drop-ignore>
+                  &nbsp;
+                </div>
+              </div>             
             </div>
           </div>
         </div>

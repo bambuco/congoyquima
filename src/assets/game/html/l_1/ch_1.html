@@ -1,11 +1,13 @@
 <div ion-grid tepuy-activity #activityComponent>
   <div tepuy-item-group
       data-tepuy-group-id="1"
-      data-tepuy-type="multiselect" 
+      data-tepuy-type="multiselect"
       data-tepuy-options-size="10"
       data-tepuy-correct-size="6"
       data-tepuy-correct-options="randomof:numbers:min=0;max=99"
-      data-tepuy-wrong-options="randomof:letters:min=a;max=Z">    
+      data-tepuy-wrong-options="randomof:letters:min=a;max=Z"
+      data-tepuy-question="Es número"
+      >
     <div ion-row *ngFor="let size of [4, 3, 3]; let i = index" class="row-{{i}}">
       <div text-center>
         <div *tepuyRepeat="size" tepuy-item tepuy-selectable tepuy-greetable class="seed_bag">

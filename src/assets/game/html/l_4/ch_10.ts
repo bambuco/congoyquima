@@ -221,6 +221,7 @@ export function componentBuilder(template:string, css:string): Type<any> {
         it.selectedOption.used = false;
         it.text = '';
         it.item.isCorrect = false;
+        it.item.answered = false;
         delete it.selectedOption;
       }
 
@@ -234,6 +235,8 @@ export function componentBuilder(template:string, css:string): Type<any> {
       it.text = opt.val;
       it.active = false;
       it.item.isCorrect = (opt.val == it.value);
+      it.item.answered = true;
+      it.item.value = opt.val;
       opt.used = true;
       it.selectedOption = opt;
       this.activeItem = null;

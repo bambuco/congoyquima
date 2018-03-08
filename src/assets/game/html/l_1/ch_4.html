@@ -10,6 +10,7 @@
                 <div class="seed-grid">
                   <span *ngFor="let k of seeds | distribute:12" class="seed-icon seed-icon-{{k.data}} seed-{{k.pos}}"></span>
                 </div>
+                <input type="hidden" tepuy-item-value value="{{pair.data[0]}}">
               </div>
             </div>
           </div>
@@ -20,6 +21,7 @@
                 <div class="seed-grid">
                   <span *ngFor="let k of seeds | distribute:12" class="seed-icon seed-icon-{{k.data}} seed-{{k.pos}}"></span>
                 </div>
+                <input type="hidden" tepuy-item-value value="{{pair.data[1]}}">
               </div>
             </div>
           </div>

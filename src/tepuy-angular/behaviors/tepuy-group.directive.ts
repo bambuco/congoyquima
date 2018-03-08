@@ -28,18 +28,22 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
   @Input('tepuy-correct-options') correctSource: any;
   @Input('tepuy-wrong-options') wrongSource: any;
   @Input('tepuy-autocomplete-after') autocompleteAfter: number = 1;
+  @Input('tepuy-question') question: string;
   
   @Output('groupInit') groupinit = new EventEmitter();
-
-  valueSource: Array<any>;
-  isCorrect: boolean;
-  correctDataProvider: IDataProvider;
-  wrongDataProvider: IDataProvider;
-  private subscriptions: Subscription[] = [];
 
   @ContentChildren(TepuyItemDirective, { descendants: true}) items: QueryList<TepuyItemDirective>;
   @ContentChildren(TepuyDropZoneDirective, { descendants: true}) targets: QueryList<TepuyDropZoneDirective>;
  
+  valueSource: Array<any>;
+  isCorrect: boolean;
+  correctDataProvider: IDataProvider;
+  wrongDataProvider: IDataProvider;
+  available_answers: any[];
+  expected_answers: any[];
+  user_answers: any[];
+  private subscriptions: Subscription[] = [];
+
   //private actProvider: TepuySelectableService;
   groupValue:any;
 
@@ -48,8 +52,11 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
     private zone: NgZone,
     private errorProvider: TepuyErrorProvider,
     //private groupProvider: TepuyGroupService,
-    private actProvider: TepuyActivityService) 
-  { 
+    private actProvider: TepuyActivityService
+  ){
+    this.available_answers = [];
+    this.expected_answers = [];
+    this.user_answers = [];
   }
 
   ngOnDestroy() {
@@ -61,6 +68,11 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
   }
 
   ngOnInit() {
+
+    this.available_answers = [];
+    this.expected_answers = [];
+    this.user_answers = [];
+
     this.actProvider.registerEvent(this.actProvider.ITEM_GROUP_COMPLETING, this.id);
     //Get options, it must be an object
     let options = (this.options && typeof(this.options) == 'object') ? this.options : {};
@@ -100,6 +112,9 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
     }));
     
     this.subscriptions.push(this.actProvider.on(this.actProvider.ACTIVITY_RESET).subscribe(() => {
+      this.available_answers = [];
+      this.expected_answers = [];
+      this.user_answers = [];
       this.resetItemValues();
     }));
 
@@ -113,21 +128,54 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
     this.items.forEach((item:any) => {
       item.group = this.id;
       item.$group = this;
+      setTimeout(() => {
+        this.available_answers.push(item.value);
+        this.grabCorrectAnswerFromItem(item);
+      }, 100);
     });
     
     this.items.changes.subscribe((it) => {
       it.forEach((item) => {
         item.$group = this;
+        this.available_answers.push(item.value);
+        this.grabCorrectAnswerFromItem(item);
       })      
     });
+
+    
+    this.grabCorrectAnswersFromDropZones(this.targets);
+    this.targets.changes.subscribe((targets) => {
+      this.grabCorrectAnswersFromDropZones(targets);
+    });
+
     //select a set of values
     this.resetItemValues();
     this.groupinit.emit({ zone: this.zone, elRef: this.elRef });
+    this.actProvider.setStartTime();
+  }
+
+  private grabCorrectAnswerFromItem(item:any) {
+    if (!this.correctDataProvider && item.correct && !item.actAsDraggable) {
+      this.expected_answers.push(item.value);
+    }
+  }
+
+  private grabCorrectAnswersFromDropZones(targets) {
+    if (!this.correctDataProvider) {
+      targets.forEach((target:any) => {
+        if (target.correctValues && target.correctValues.length) {
+          let value = target.correctValues.length > 1 ? target.correctValues : target.correctValues[0];
+          this.expected_answers.push(value);
+        }
+      });
+    }
   }
 
   private resetItemValues() {
-    
     if (!this.correctDataProvider) return;
+    this.available_answers = [];
+    this.expected_answers = [];
+    this.user_answers = [];
 
     this.correctDataProvider.reset();
     if (this.wrongDataProvider){
@@ -136,7 +184,9 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
 
     let values = new Array<any>();
     for(let i = 0; i < this.options.correctSize; i++){
-      values.push({value: this.correctDataProvider.next(), correct: true });
+      const value = this.correctDataProvider.next();
+      values.push({value: value, correct: true });
+      this.expected_answers.push(value);
     }
 
     for(let i = this.options.correctSize; i < this.options.size; i++){
@@ -167,16 +217,22 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
     //Need to make sure it will count only as one if the markable does not accept multiple selection.
     const answered = this.items.filter((it) => { return it.answered === true });
     if (this.items.length && answered.length < this.autocompleteAfter) return;
+    this.user_answers = answered.map((it:any, i) => { return { value: it.value, index: it.index != undefined ? it.index : i }; })
+      .sort((a,b) => { return a.index - b.index })
+      .map((it => it.value));
 
     const groupFailures = this.items.find((itm) => { return itm.group == this.id && itm.isCorrect === false });
     const succeed = (this.items.length) ? groupFailures == null : result.succeed;
     result.group = this.id;
     result.state = succeed ? 'correct' : 'wrong';
     answered.forEach((it) => { it.resolve(it.isCorrect); });
+    
     this.actProvider.addGroup({
       id: this.id,
-      succeed: succeed
+      succeed: succeed,
+      $group: this
     });
+    
     this.actProvider.emit(this.actProvider.ITEM_GROUP_COMPLETED, result);
     this.isComplete = true;
   }

@@ -20,8 +20,8 @@
               [class.tepuy-wrong]="cell.item?.succeed === false"
               (click)="onFill($event,cell)">
               <span [innerHTML]="cell.text"></span>
-              <input *ngIf="cell.missing" type="hidden" tepuy-item [tepuy-correct]="true" tepuy-group-id="1" />
-            </div>
+              <input *ngIf="cell.missing" type="hidden" tepuy-item [tepuy-correct]="true" tepuy-group-id="1" value="{{cell.val}}" />
+            </div> 
           </div>
         </div>
       </div>

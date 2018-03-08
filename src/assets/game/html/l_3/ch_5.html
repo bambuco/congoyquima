@@ -11,6 +11,7 @@
                       <span *ngFor="let ch of group.left|spell" [class.operator]="ops[ch]">{{ch}}</span>
                       <div class="panel-icon cross-out-line"></div>
                     </div>
+                    <input type="hidden" tepuy-item-value value="{{group.left}}" />
                   </div>
                   <div class="panel-1">
                     <div tepuy-autofit tepuy-item tepuy-selectable tepuy-auto-feedback="true" [tepuy-correct]="group.isleft" [tepuy-group-id]="group.id">
@@ -18,6 +19,7 @@
                         <span *ngFor="let ch of group.right|spell" [class.operator]="ops[ch]">{{ch}}</span>
                         <div class="panel-icon cross-out-line"></div>
                       </div>
+                      <input type="hidden" tepuy-item-value value="{{group.right}}" />
                     </div>
                   </div>
                 </div>

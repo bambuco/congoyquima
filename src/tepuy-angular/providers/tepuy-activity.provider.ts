@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { TepuyErrorProvider, Errors } from './error.provider';
 import { DataProviderFactory, IDataProvider } from './data/data.provider.factory';
-import { TepuyUtils } from '../tepuy-utils';
+import { bool2int, nowTimestamp } from '../tepuy-utils';
 
 export { DataProviderFactory, IDataProvider };
 
@@ -19,6 +19,8 @@ export class TepuyActivityService {
   private items: Array<any> = [];
   private groups: Array<any> = [];
   private setup: any;
+  private startTime: number;
+  private endTime: number;
 
   private correctDataProvider:IDataProvider;
   private wrongDataProvider:IDataProvider;
@@ -83,6 +85,13 @@ export class TepuyActivityService {
   addGroup(group) {
     this.groups.push(group);
   }
+
+  setStartTime() {
+    if (this.startTime == null) {
+      this.startTime = nowTimestamp();
+    }
+  }
+  
   /**
    * Evaluates the result of the activity.
    * @emit {event} {id: activityId, score: the score for the activity }
@@ -90,27 +99,58 @@ export class TepuyActivityService {
   verify() {
     let good = 0;
     let total = 0;
+    let correct_answers: any[];
+    let user_answers: any[] = [];
+    this.endTime = nowTimestamp();   
     if (this.groups.length > 1) {
       total = this.groups.length;
       good = this.groups.filter((g) => g.succeed).length;
+      correct_answers = [];
+      this.groups.forEach((g) => {
+        correct_answers.push(g.$group.expected_answers);
+        user_answers.push(g.$group.user_answers);
+      });
     }
     else {
+      let index = 0;
       for(let item of this.items) {
+        if (correct_answers == null && item.$group) {
+          correct_answers = item.$group.expected_answers;
+        }
+        if (item.answered) {
+          user_answers.push({ value: item.value, index: item.index != null ? item.index : index++ });
+        }
         item.succeed = item.isCorrect; //(item.correct && item.selected);
-        total += TepuyUtils.bValue(item.correct) + TepuyUtils.bValue((!item.correct && item.answered));
-        good += TepuyUtils.bValue(item.succeed);
+        total += bool2int(item.correct) + bool2int((!item.correct && item.answered));
+        good += bool2int(item.succeed);
         item.resolve(item.succeed);
       }
+      user_answers = user_answers
+        .sort((a,b) => { return a.index - b.index; })
+        .map(it => it.value);
     }
+
     const score = (good / total);
     const rate = score == 1 ? 'perfect' : score >= this.minScore ? 'good' : 'wrong';
-    this.emit('activityVerified', { 
-      id: this.id, 
+
+    let gameFacts = {
+      level: this.setup.levelId,
+      challenge: this.setup.id + 1,
+      duration: (this.endTime - this.startTime),
+      score: score,
+      win_score: this.minScore,
+      correct_answers: JSON.stringify(correct_answers),
+      user_answers: JSON.stringify(user_answers),
+      answer_at: nowTimestamp()
+    };
+
+    this.emit('activityVerified', {
+      id: this.id,
       score: score,
       rate: rate,
-      success: score >= this.minScore
+      success: score >= this.minScore,
+      gameFacts: gameFacts
     });
-
     //(las correctas marcadas) / (las que deben ser marcadas + las marcadas incorrectas) * 100;
   }
 
@@ -119,6 +159,10 @@ export class TepuyActivityService {
    * 
    */  
   restart() {
+    //reset values after verification
+    this.startTime = null;
+    this.endTime = null;
+
     this.emit(this.ACTIVITY_RESET);
   }
   /**

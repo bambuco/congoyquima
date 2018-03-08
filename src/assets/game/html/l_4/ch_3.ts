@@ -152,6 +152,8 @@ export function componentBuilder(template:string, css:string): Type<any> {
       cell.text = it;
       cell.active = false;
       cell.item.isCorrect = (it == cell.val);
+      cell.item.answered = true;
+      cell.item.value = it;
       this.activeCell = null;
       this.showSelector = false;
     }

@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+  <ion-toolbar>
+    <ion-title text-center>Configuración</ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+      <span ion-text color="primary" showWhen="ios">Atrás</span>
+      <ion-icon name="md-close" showWhen="android,windows,core"></ion-icon>
+      </button>
+    </ion-buttons>
+    </ion-toolbar>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-toggle [ngModel]="wifiOnly" (ngModelChange)="onChange('wifi')"></ion-toggle>
+      <ion-label>Conectarse solo sobre WiFi</ion-label>
+      <ion-icon name="wifi" item-start></ion-icon>
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>

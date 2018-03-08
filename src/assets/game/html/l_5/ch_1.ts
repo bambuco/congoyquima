@@ -127,7 +127,9 @@ export function componentBuilder(template:string, css:string): Type<any> {
         bar.item = itemEl.$tepuyItem;
       }
       bar.value = value;
+      bar.item.value = value;
       bar.item.isCorrect = bar.value == bar.answer;
+      bar.item.answered = true;
     }
     
     onReset() {
