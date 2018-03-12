@@ -233,14 +233,12 @@ export class MyApp implements AfterViewInit {
   private checkSyncStatus(attempt:number=1) {
     let key = this.appData.get(GAME_FACTS_NEXT_KEY_TO_SYNC, null); //attempt == 1 ? 174 : 
     let nextKey = this.appData.get(GAME_FACTS_NEXT_KEY, null);
-    console.log(key);
     if (attempt > MAX_SYNC_ATTEMPTS) {
       this.appData.set(GAME_FACTS_NEXT_KEY_TO_SYNC, null);
     }
 
     if (key != null) {
       let skey = `facts_${key}`;
-      console.log(skey);
       this.storage.get(skey)
         .then((facts) => {
           if (facts == null) {

@@ -39,4 +39,9 @@ export class ErrorsPage {
     modal.present();
   }
 
+  clear() {
+    this.storage.remove(errors_key);
+    this.errors = Observable.of([]);
+  }
+
 }

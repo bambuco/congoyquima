@@ -35,6 +35,7 @@ export class AboutPage {
     this.lastEggClicked = now;
 
     if (this.eggCounter == 7) {
+      this.dismiss();      
       this.navCtrl.setRoot(ErrorsPage);
     }
   }

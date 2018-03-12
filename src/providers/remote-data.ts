@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ErrorHandler } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 
 import { AppConfigProvider } from './app-config';
 import { AppDataProvider } from './app-data';
 import { encrypt, decypher } from './utils';
+
 
 import { GAME_FACTS_NEXT_KEY, GAME_FACTS_NEXT_KEY_TO_SYNC } from './constants';
 
@@ -18,7 +19,8 @@ export class RemoteDataProvider {
     config:AppConfigProvider,
     private http: HttpClient,
     private appData: AppDataProvider,
-    private storage: Storage
+    private storage: Storage,
+    private errHanlder: ErrorHandler
   ) {
     this.apiUrl = config.get('api.url', '');
     this.apiUrl = this.apiUrl.replace(/[\/\s]+$/, '');
@@ -40,14 +42,24 @@ export class RemoteDataProvider {
     const registryinfo = this.appData.getMemory('registryinfo');   
     return new Promise((resolve, reject) => {
       if (online) {
-        gameFacts.uuid = registryinfo.uuid;
-        gameFacts.token = registryinfo.token;
-        let payload = { traceinfo: encrypt(JSON.stringify(gameFacts), this.pubKey) };
+        let securityinfo:any = {
+          uuid: registryinfo.uuid,
+          token: registryinfo.token,
+          current_call: new Date().getTime()
+        };
+        delete gameFacts.uuid;
+        delete gameFacts.token;
+
+        let payload = { 
+          traceinfo: JSON.stringify(gameFacts),
+          securityinfo: encrypt(JSON.stringify(securityinfo), this.pubKey)
+        };
         this.http.post<any>(this.apiUrl+"/tracers", payload)
           .subscribe(() => {
             //remote call succeed, nothing else to do
             resolve(true);
-          }, () => {
+          }, (error) => {
+            this.errHanlder.handleError(error);
             //Store it locally for later synchronization
             if (onErrorStore) {
               this.storeFactsLocally(gameFacts);

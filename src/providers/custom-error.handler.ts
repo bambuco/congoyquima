@@ -29,15 +29,21 @@ export class CustomErrorHandler extends IonicErrorHandler {
 
     try{
       let obj = {};
-
       Object.getOwnPropertyNames(err).forEach(function (key) {
           obj[key] = err[key];
         }, this);
 
+      let raw: string;
+      try {
+        raw = JSON.stringify(obj);
+      }
+      catch(err) {}
+
       let obj1 = {
         message: err.message,
         stack: err.stack,
-      }
+        raw: raw
+      };
 
       this.storage.get(errors_key).then((result:any) => {
         let errors = result == null ? [] : result;
