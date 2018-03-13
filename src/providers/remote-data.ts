@@ -71,7 +71,7 @@ export class RemoteDataProvider {
         //Store it for later synchronization
         if (onErrorStore) {
           this.storeFactsLocally(gameFacts);
-        }
+        }  
         resolve(false);
       }
     });

@@ -49,7 +49,7 @@ export class SignPage {
 
     if (form.invalid) return;
 
-    let registryinfo = {
+    let registryinfo:any = {
       uuid: this.registryinfo.uuid,
       password: this.registryinfo.password,
       username: form.controls['username'].value,
@@ -58,14 +58,15 @@ export class SignPage {
 
     this.remoteData.register(registryinfo)
       .subscribe((result) => {
-        this.registryinfo.token = result.token;
+        registryinfo.token = result.token;
         this.appData.set(REGISTRY_INFO_KEY, registryinfo)
           .then(() => {
             this.appData.setMemory(REGISTRY_INFO_KEY, registryinfo);
-          })
+            Object.assign(this.registryinfo, registryinfo);
+          });
         
         this.alertCtrl.create({
-          title: 'Registro exitoso!',
+          title: '¡Registro exitoso!',
           subTitle: 'El registro se ha completado exitosamente!',
           buttons: [{
             text: 'OK',
@@ -75,10 +76,9 @@ export class SignPage {
           }]
         }).present();
       }, (error) => {
-        console.log(error);
         this.alertCtrl.create({
-          title: 'Registro fallido!',
-          subTitle: 'El registro no se ha podido completar. Intente nuevamente mas tarde!',
+          title: '¡Registro fallido!',
+          subTitle: 'El registro no se ha podido completar. Intente nuevamente mas tarde',
           buttons: [{
             text: 'OK',
             handler: () => {
