@@ -50,7 +50,7 @@ const defaulStyles = {
         [class.tepuy-wrong]="isCorrect === false"
       >
       </div>
-      <div *ngFor="let shape of shapes;let i=index" tepuy-item></div>
+      <div *ngFor="let shape of shapes;let i=index" tepuy-item><input type="hidden" tepuy-item-value value="{{i+1}}" /></div>
     </div>
   `
 })

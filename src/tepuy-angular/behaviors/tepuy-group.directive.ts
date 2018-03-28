@@ -12,6 +12,7 @@ import {
 
 import { TepuyItemDirective } from './tepuy-item.directive';
 import { TepuyDropZoneDirective } from './tepuy-drop-zone.directive';
+import { TepuyMarkableComponent } from './tepuy-markable.directive';
 
 @Directive({ 
   selector: '[tepuy-item-group]',
@@ -34,6 +35,7 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
 
   @ContentChildren(TepuyItemDirective, { descendants: true}) items: QueryList<TepuyItemDirective>;
   @ContentChildren(TepuyDropZoneDirective, { descendants: true}) targets: QueryList<TepuyDropZoneDirective>;
+  @ContentChildren(TepuyMarkableComponent, { descendants: true}) markables: QueryList<TepuyMarkableComponent>;
  
   valueSource: Array<any>;
   isCorrect: boolean;
@@ -142,6 +144,10 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
       })      
     });
 
+    this.grabCorrectAnswersFromMarkables(this.markables);
+    this.markables.changes.subscribe((changes) => {
+      this.grabCorrectAnswersFromMarkables(this.markables);
+    });
     
     this.grabCorrectAnswersFromDropZones(this.targets);
     this.targets.changes.subscribe((targets) => {
@@ -169,6 +175,20 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
         }
       });
     }
+  }
+
+  private grabCorrectAnswersFromMarkables(markables) {
+    if (!markables) return;
+    setTimeout(() => {
+      markables.forEach((markable:any) => {
+        if (!markable.items) return;
+        markable.items.forEach((it:any) => {
+          if (it.correct) {
+            this.expected_answers.push(it.value);
+          }
+        });
+      });
+    }, 100);
   }
 
   private resetItemValues() {
@@ -220,6 +240,7 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
     this.user_answers = answered.map((it:any, i) => { return { value: it.value, index: it.index != undefined ? it.index : i }; })
       .sort((a,b) => { return a.index - b.index })
       .map((it => it.value));
+    this.grabUserAnswersFromMarkables();
 
     const groupFailures = this.items.find((itm) => { return itm.group == this.id && itm.isCorrect === false });
     const succeed = (this.items.length) ? groupFailures == null : result.succeed;
@@ -235,5 +256,17 @@ export class TepuyGroupDirective implements OnInit, AfterContentInit, OnDestroy 
     
     this.actProvider.emit(this.actProvider.ITEM_GROUP_COMPLETED, result);
     this.isComplete = true;
+  }
+
+  private grabUserAnswersFromMarkables() {
+    if (this.markables && this.markables.length) {
+      this.markables.forEach((markable) => {
+        markable.items.forEach((it) => {
+          if (it.answered) {
+            this.user_answers.push(it.value);
+          }
+        });
+      });
+    }
   }
 }

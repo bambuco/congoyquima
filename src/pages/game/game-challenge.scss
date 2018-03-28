@@ -15,7 +15,11 @@ page-game-challenge {
       float: left;
     }
   }
-
+  
+  .scroll-content {
+    overflow: hidden;
+  }
+  
   .content-zone {
     max-width: 1080px;
     background-size: auto 100%;
