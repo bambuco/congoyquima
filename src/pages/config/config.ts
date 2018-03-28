@@ -4,7 +4,12 @@ import { ViewController, Events } from 'ionic-angular';
 
 import { AppDataProvider } from '../../providers/app-data';
 
-import { WIFI_ONLY_KEY, WIFI_CONFIGURATION_EVENT } from '../../providers/constants';
+import {
+  WIFI_ONLY_KEY,
+  WIFI_CONFIGURATION_EVENT,
+  GAME_FACTS_NEXT_KEY_TO_SYNC,
+  NETWORK_CONNECTED_EVENT
+} from '../../providers/constants';
 
 
 @Component({
@@ -13,6 +18,11 @@ import { WIFI_ONLY_KEY, WIFI_CONFIGURATION_EVENT } from '../../providers/constan
 })
 export class ConfigPage {
   wifiOnly: boolean;
+  synced: boolean;
+  syncColor: string;
+
+  private syncInterval: any;
+  private onLine: boolean = false;
 
 	constructor(private viewCtrl: ViewController,
     private appData: AppDataProvider,
@@ -23,6 +33,12 @@ export class ConfigPage {
 
   ngOnInit() {
     this.wifiOnly = this.appData.getConfig(WIFI_ONLY_KEY, true);
+
+    this.checkSyncStatus();
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.syncInterval);
   }
 
 	dismiss() {
@@ -42,6 +58,23 @@ export class ConfigPage {
       default:
         // code...
         break;
+    }
+  }
+
+  syncNow() {
+    this.events.publish(NETWORK_CONNECTED_EVENT, this.onLine);
+  }
+
+  private checkSyncStatus() {
+    let key = this.appData.get(GAME_FACTS_NEXT_KEY_TO_SYNC, null);
+    this.synced = (key == null);
+    this.syncColor = (this.synced ? 'secondary' : 'danger');
+    this.onLine = this.appData.getMemory('onLine');
+
+    if (!this.synced) {
+      this.syncInterval = setTimeout(() => {
+        this.checkSyncStatus();
+      }, 3000);      
     }
   }
 }
