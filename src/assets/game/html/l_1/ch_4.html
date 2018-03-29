@@ -7,10 +7,13 @@
             <div class="seed-container">
               <div class="seed-wrapper" *tepuyValueGenerator="'randomof:numbers:min=1;max=5;repeat=true';count: pair.data[0]; let seeds=values" tepuy-scale="1920" tepuy-item tepuy-selectable 
                 data-tepuy-auto-feedback="true" [tepuy-correct]="pair.data[0]>pair.data[1]">
-                <div class="seed-grid">
-                  <span *ngFor="let k of seeds | distribute:12" class="seed-icon seed-icon-{{k.data}} seed-{{k.pos}}"></span>
+                <div class="effect-wrapper">
+                  <span class="ripple"></span>
+                  <div class="seed-grid">
+                    <span *ngFor="let k of seeds | distribute:12" class="seed-icon seed-icon-{{k.data}} seed-{{k.pos}}"></span>
+                  </div>
+                  <input type="hidden" tepuy-item-value value="{{pair.data[0]}}">
                 </div>
-                <input type="hidden" tepuy-item-value value="{{pair.data[0]}}">
               </div>
             </div>
           </div>
@@ -18,10 +21,13 @@
             <div class="seed-container">
               <div class="seed-wrapper" *tepuyValueGenerator="'randomof:numbers:min=1;max=5;repeat=true';count: pair.data[1]; let seeds=values" tepuy-scale="1920" tepuy-item tepuy-selectable 
                 data-tepuy-auto-feedback="true" [tepuy-correct]="pair.data[1]>pair.data[0]">
-                <div class="seed-grid">
-                  <span *ngFor="let k of seeds | distribute:12" class="seed-icon seed-icon-{{k.data}} seed-{{k.pos}}"></span>
+                <div class="effect-wrapper">
+                  <span class="ripple"></span>
+                  <div class="seed-grid">
+                    <span *ngFor="let k of seeds | distribute:12" class="seed-icon seed-icon-{{k.data}} seed-{{k.pos}}"></span>
+                  </div>
+                  <input type="hidden" tepuy-item-value value="{{pair.data[1]}}">
                 </div>
-                <input type="hidden" tepuy-item-value value="{{pair.data[1]}}">
               </div>
             </div>
           </div>
