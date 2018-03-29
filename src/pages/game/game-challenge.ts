@@ -37,7 +37,7 @@ export class GameChallengePage {
   status: string = 'loading';
   loading: boolean = true;
   challenge: any;
-  template: string = '<div class="loader"><ion-spinner name="crescent"></ion-spinner></div>';
+  template: string = '&nbsp;';
   templateCss: string = '';
   message: string = "";
   settings: any;
@@ -362,9 +362,9 @@ export class GameChallengePage {
   }
   private setReady() {
     this.loading = false;
-    this.status = 'loaded';
     this.canVerify = true;
     this.busy = false;
+    setTimeout(() => { this.status = 'loaded'; }, 100);
   }
   private clearFlags() {
     this.levelJustCompleted = false;
