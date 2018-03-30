@@ -15,14 +15,13 @@ export class VideoPlayerComponent {
   notPlaying: boolean;
   autoclose: boolean;
   centered: boolean;
+  square: boolean;
   videoReady: boolean = false;
 
 
   constructor(private viewCtrl: ViewController, params: NavParams) {
     let value = params.get('loop');
     this.loop = value === true ? '' : null;
-    value = params.get('controls');
-    this.controls = (value === false ) ? null : '';
     value = params.get('autoplay');
     this.autoplay = value === true ? 'autoplay' : null;
     this.url = params.get('url');
@@ -30,6 +29,8 @@ export class VideoPlayerComponent {
     this.autoclose = !(params.get('autoclose') === false);
     let options = params.get('options');
     this.centered = options && options.centered === true;
+    this.square = options && options.square === true;
+    this.controls = (options && options.controls === true ) ? '' : null;
   }
 
   dismiss() {

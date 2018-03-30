@@ -1,7 +1,8 @@
 <ion-content #content>
-  <div class="content-zone level_{{id}}" #contentZone>
+  <div class="content-zone level_{{id}} {{status}}" #contentZone>
     <div class="app-icon arrow-white help-indicator" *ngIf="showIndicator"></div>
-    <div *ngFor="let item of challenges | async" class="item-challenge" [ngClass]="getClass(item)" [ngStyle]="{'height.px': itemHeight}">
+    <div *ngFor="let item of challenges | async" class="item-challenge"
+      [class.playing]="item.playing" [class.locked]="!item.unlocked" [ngStyle]="{'height.px': itemHeight}">
       <span class="level-label">{{item.label}}</span>
       <div *ngIf="item.unlocked" class="prize-viewer">
         <span class="app-icon prize-{{item.prize_1}}"></span>
