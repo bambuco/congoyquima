@@ -30,6 +30,7 @@ export class GameLevelPage {
   challenges: ReplaySubject<any> = new ReplaySubject(1);
   showIndicator: boolean = false;
   id: any;
+  status: string = 'loading';
 
   constructor(private navCtrl: NavController,
       private mediaPlayer: MediaPlayer,
@@ -64,10 +65,7 @@ export class GameLevelPage {
 
   ionViewDidEnter() {
     this.onResize(null);
-
-    //ToDo: Ask to play an audio if there is a redirect reason
-    //this.redirectReason = challengeNotFound;
-    this.appData.ready().subscribe((settings) => {
+    this.challenges.subscribe(() => {
       this.initialize();
     });
   }
@@ -82,6 +80,7 @@ export class GameLevelPage {
       //this.playIntro();
       this.showIndicator = true;
     }
+    setTimeout(() => { this.status = 'loaded'; }, 100);
   }
   
   ngOnInit(){
@@ -136,7 +135,7 @@ export class GameLevelPage {
 
   //Helpers
   private playIntro(ondemand:boolean=false) {
-    this.mediaPlayer.playVideoFromCatalog(this.introKey, { centered: true }).subscribe((done) => {
+    this.mediaPlayer.playVideoFromCatalog(this.introKey, { square: true }).subscribe((done) => {
       //Should update status here
       if (!ondemand){
         this.appData.setFlag(Flags[this.introKey.toUpperCase()]);

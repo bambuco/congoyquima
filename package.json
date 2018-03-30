@@ -1,8 +1,8 @@
 {
     "name": "congoyquima",
-    "version": "1.0.31",
-    "author": "Bambuco",
-    "homepage": "https://bambuco.co",
+    "version": "1.0.32",
+    "author": "BambuCo",
+    "homepage": "http://bambuco.co/",
     "private": true,
     "scripts": {
         "clean": "ionic-app-scripts clean",
@@ -70,7 +70,7 @@
         "@types/node": "^8.5.1",
         "angular2-template-loader": "^0.6.2",
         "html-loader": "^0.5.1",
-        "ionic": "3.19.1",
+        "ionic": "3.20.0",
         "istanbul-instrumenter-loader": "^3.0.0",
         "jasmine": "^2.8.0",
         "jasmine-spec-reporter": "^4.2.1",

@@ -68,10 +68,10 @@ export class MediaPlayer {
   }
 
   playVideoFromCatalog(key:string, options?:any) {
-    return this.playVideo({ path: videoCatalog[key] }, 'portrait', options);
+    return this.playVideo({ path: videoCatalog[key] }, options);
   }
 
-  playVideo(video, orientation:string = 'portrait', options?:any):Observable<any> {
+  playVideo(video, options?:any):Observable<any> {
     return this.playVideoBrowser(video.path, options);
   }
 
