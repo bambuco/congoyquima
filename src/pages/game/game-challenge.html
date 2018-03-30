@@ -11,7 +11,7 @@
 
 <ion-content [ngClass]="{'center-vertical': loading}" #content>
   <div class="content-zone level_{{levelId}} challenge_{{nId}}"
-      [ngClass]="status" 
+      [ngClass]="status"
       [ngStyle]="pzStyle">
     <ng-container *compile="template; css: templateCss; context: settings;"></ng-container>
     <div class="level_completed" text-center *ngIf="levelJustCompleted">
@@ -42,3 +42,4 @@
   <div class="app-icon arrow-white help-indicator" *ngIf="showIndicator"></div>
   <img *ngIf="contextImageUrl" [hidden]="true" #contextImage [src]="contextImageUrl" />
 </ion-footer>
+<div class="loader" [ngClass]="status"><ion-spinner name="crescent"></ion-spinner></div>
