@@ -48,6 +48,7 @@ export class MyApp implements AfterViewInit {
   private registryinfo: any;
   private onDevice: boolean;
   private onLine: boolean = false;
+  private inSync: boolean = false;
   //appData and GameData providers are injected here so they get preoloaded
   constructor(private platform: Platform,
     private statusBar: StatusBar,
@@ -231,6 +232,8 @@ export class MyApp implements AfterViewInit {
   }
 
   private checkSyncStatus(attempt:number=1) {
+    if (this.inSync) return;
+    this.inSync = true;
     let key = this.appData.get(GAME_FACTS_NEXT_KEY_TO_SYNC, null); //attempt == 1 ? 174 : 
     let nextKey = this.appData.get(GAME_FACTS_NEXT_KEY, null);
     if (attempt > MAX_SYNC_ATTEMPTS) {
@@ -243,11 +246,13 @@ export class MyApp implements AfterViewInit {
         .then((facts) => {
           if (facts == null) {
             this.appData.set(GAME_FACTS_NEXT_KEY_TO_SYNC, ++key);
+            this.inSync = false;
             this.checkSyncStatus(attempt+1);
             return;
           }
           this.remoteData.registerGameFacts(facts, false)
             .then((succeed) => {
+              this.inSync = false;
               if (succeed) {
                 key++;
                 if (key < nextKey) {
@@ -261,8 +266,13 @@ export class MyApp implements AfterViewInit {
                 //clear the synced key
                 this.storage.remove(skey);
               }
-            })
+            });
+        }, () => {
+          this.inSync = false;
         });
+    }
+    else {
+      this.inSync = false;
     }
   }
 }

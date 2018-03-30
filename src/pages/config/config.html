@@ -15,11 +15,21 @@
 <ion-content>
 
   <ion-list>
-
+    <ion-list-header>
+      General
+    </ion-list-header>
     <ion-item>
       <ion-toggle [ngModel]="wifiOnly" (ngModelChange)="onChange('wifi')"></ion-toggle>
       <ion-label>Conectarse solo sobre WiFi</ion-label>
       <ion-icon name="wifi" item-start></ion-icon>
+    </ion-item>
+    <ion-list-header>
+      Datos
+    </ion-list-header>
+    <ion-item>
+      <button *ngIf="!synced && onLine" ion-button outline item-end icon-left (click)="syncNow()">Sincronizar ahora</button>
+      <ion-label>{{synced?'Sincronizado':'Pendiente por sincronizar'}}</ion-label>
+      <ion-icon name="sync" item-start [color]="syncColor"></ion-icon>
     </ion-item>
 
   </ion-list>
