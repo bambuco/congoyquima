@@ -11,6 +11,7 @@
                     <span *ngFor="let ch of opt|sumofdigits:group.digits" [class.operator]="ch=='+'">{{ch}}</span>
                   </div>
                 </div>
+                <input type="hidden" tepuy-item-value value="{{opt}}" />
               </div>
             </ng-container>
           </ng-container>

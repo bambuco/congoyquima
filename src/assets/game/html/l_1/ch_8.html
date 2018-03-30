@@ -14,6 +14,7 @@
               *tepuyValueGenerator="'randomof:setup:key=parameters.words';type:'scalar';include:[word.data];count:3; let extra=values">
               <div *ngFor="let w of extra|shuffle;let i=index" class="object-icon obj-{{w|objectkey}} object-pos-{{i}}"
                 tepuy-item tepuy-selectable data-tepuy-auto-feedback="true" [tepuy-correct]="w == word.data">
+                <input type="hidden" tepuy-item-value value="{{w}}" />
               </div>
             </div>
             </div>

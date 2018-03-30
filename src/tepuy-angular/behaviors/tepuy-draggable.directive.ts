@@ -51,7 +51,8 @@ export class TepuyDraggableDirective implements AfterViewInit {
   onItemReady(item) {
     this.canDrag = true;
     this.item = item;
-    this.isDragging = false;  
+    this.item.actAsDraggable = true;
+    this.isDragging = false;
     this.resetPosition();
   }
   
@@ -80,6 +81,7 @@ export class TepuyDraggableDirective implements AfterViewInit {
     }
 
     if (targetEl && targetEl == this.originalParent) { //Allows to return to the parent container
+      delete this.item.index;
       this.clearTarget();
       this.resetPosition();
     }

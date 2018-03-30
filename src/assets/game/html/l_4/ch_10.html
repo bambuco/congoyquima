@@ -18,7 +18,7 @@
                   [class.tepuy-wrong]="word.item?.succeed === false"
                   (click)="onFill($event,word)">
                   <span [innerHTML]="word.text">&nbsp;</span>{{word.extra}}
-                  <input type="hidden" tepuy-item [tepuy-correct]="true" tepuy-group-id="1" />
+                  <input type="hidden" tepuy-item [tepuy-correct]="true" tepuy-group-id="1" value="{{word.value}}" />
                 </div>
               </ng-template>
             </ng-container>

@@ -24,7 +24,7 @@
             </div>
             <div class="options-container">
               <div *tepuyRepeat="9; let i=index" tepuy-item tepuy-selectable [tepuy-correct]="(i+1)==extra[0]" tepuy-auto-feedback="true" tepuy-autofit (click)="onSelect(i, group, extra[0])">
-                <div class="option-value" tepuy-scale="1920" [class.opt-unselected]="i !== group.answer" [class.opt-selected]="i == group.answer">{{i+1}}</div>
+                <div class="option-value" tepuy-scale="1920" [class.opt-unselected]="i !== group.answer" [class.opt-selected]="i == group.answer" tepuy-item-value>{{i+1}}</div>
               </div>
             </div>
           </ng-container>

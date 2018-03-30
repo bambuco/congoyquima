@@ -28,7 +28,7 @@ export class MediaCatalog {
         type: 'audio',
         key: 'result-'+type,
         path: path + 'shared/ch_r_'+type+'.mp3',
-        preload: true
+        preload: false
       });
     }
     //Challenge completed
@@ -36,7 +36,7 @@ export class MediaCatalog {
       type: 'audio',
       key: 'ch_completed',
       path: path + 'shared/ch_completed.mp3',
-      preload: true
+      preload: false
     });
 
     //Challenge intro
@@ -46,7 +46,7 @@ export class MediaCatalog {
           type: 'audio',
           key: ['l_', l, '_ch_', ch, '_intro'].join(''),
           path: path + ['l_', l, '/ch_', ch, '_intro.mp3'].join(''),
-          preload: true
+          preload: false
         });
       }
     }
@@ -65,7 +65,7 @@ export class MediaCatalog {
         type: 'audio',
         key: word,
         path: path + ['words/', word, '.mp3'].join(''),
-        preload: true
+        preload: false
       });
     }
 
@@ -76,7 +76,7 @@ export class MediaCatalog {
         type: 'audio',
         key: dir,
         path: path + ['l_2/ch_3/', dir, '.mp3'].join(''),
-        preload: true
+        preload: false
       });
     }
     //Level 2 - Challenge 4 questions
@@ -86,7 +86,7 @@ export class MediaCatalog {
         type: 'audio',
         key: q,
         path: path + ['l_2/ch_4/', q, '.mp3'].join(''),
-        preload: true
+        preload: false
       });
     }
     //Level 2 - Challenge 7 Fragments
@@ -96,7 +96,7 @@ export class MediaCatalog {
         type: 'audio',
         key: frg,
         path: path + ['l_2/ch_7/', frg, '.mp3'].join(''),
-        preload: true
+        preload: false
       });
     }
 
@@ -135,7 +135,7 @@ export class MediaCatalog {
         type: 'audio',
         key: signal,
         path: path + ['signals/', signal, '.mp3'].join(''),
-        preload: true
+        preload: false
       });
     }
     //Miscellaneous
@@ -145,7 +145,7 @@ export class MediaCatalog {
         type: 'audio',
         key: misc,
         path: path + ['misc/', misc, '.mp3'].join(''),
-        preload: true
+        preload: false
       });
     }
   }

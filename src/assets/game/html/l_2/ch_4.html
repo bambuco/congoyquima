@@ -7,7 +7,9 @@
             <ion-slide *ngFor="let group of groups;let id=index" [ngStyle]="{'width.px':playZone?.width}">
               <div class="question-container" tepuy-item-group data-tepuy-group-id="{{group.id}}">
                 <div *ngFor="let item of [inside[id], outside[id]]|shuffle" class="image-zone" tepuy-autofit [tepuy-square]="true" tepuy-item tepuy-selectable data-tepuy-auto-feedback="true" [tepuy-correct]="(group.data==0 && item==inside[id] || group.data==1 && item==outside[id])">
-                  <div tepuy-autofit><div class="object-icon obj-{{item}}" [tepuy-scale]="1920*2"></div></div>
+                  <div tepuy-autofit><div class="object-icon obj-{{item}}" [tepuy-scale]="1920*2"></div>
+                    <input type="hidden" tepuy-item-value value="{{item}}" />
+                  </div>
                 </div>
               </div>
             </ion-slide>

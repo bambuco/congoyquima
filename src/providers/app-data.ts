@@ -6,7 +6,8 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { AppState } from './models/app-state';
 
-const data_key: string = 'app_state';
+import { APP_STATE_KEY, APP_CONFIG_KEY } from './constants';
+
 let one = 0x1;
 export const Flags = {
   APP_INTRO: (one),
@@ -37,16 +38,27 @@ export const Flags = {
   SORT_HOWTO: (one=one<<1),
   SYNONYMS_HOWTO: (one=one<<1),
   PYTHAGOREAN_HOWTO: (one=one<<1),
-  ABACO_HOWTO: (one=one<<1)
+  ABACO_HOWTO: (one=one<<1),
+  APP_ISREGISTERED: (one=one<<1)
 };
 
 @Injectable()
 export class AppDataProvider {
   private observer: ReplaySubject<any> = new ReplaySubject<any>(1);
   private settings: AppState;
+  private config: any;
+
+  private memory: any = {};
   constructor(private storage: Storage){
     //this.storage.remove(data_key); //clear level 1 each time the application starts
-    this.storage.get(data_key).then((data) => {
+    this.storage.get(APP_CONFIG_KEY).then((data) => {
+      this.config = {};
+      if (data) {
+        this.config = data;
+      }
+    });
+
+    this.storage.get(APP_STATE_KEY).then((data) => {
       this.settings = new AppState();
       if (data) {
         this.settings = data;
@@ -73,12 +85,40 @@ export class AppDataProvider {
     this.update();
   }
 
-  private update() {
-    this.storage.set(data_key, this.settings)
+  get(key:string, defaultValue?:any):any {
+    let v = this.settings && this.settings[key];
+    return v === undefined ? defaultValue : v;
+  }
+  
+  getConfig(key:string, defaultValue?:any):any {
+    let v = this.config && this.config[key];
+    return v === undefined ? defaultValue : v;
+  }
+
+  set(key:string, value:any) {
+    this.settings[key] = value;
+    return this.update();
+  }
+
+  setConfig(key:string, value:any) {
+    this.config[key] = value;
+    return this.update(APP_CONFIG_KEY);
+  }
+
+  getMemory(key:string, defaultValue?:any) {
+    let v = this.memory && this.memory[key];
+    return v === undefined ? defaultValue : v;
+  }
+
+  setMemory(key:string, value:any) {
+    this.memory[key] = value;
+  }
+
+  private update(key:string = APP_STATE_KEY) {
+    return this.storage.set(key, (key == APP_STATE_KEY ? this.settings : this.config))
     .catch(reason => {
-      console.log('failed to store ' + data_key);
+      console.log('failed to store ' + APP_STATE_KEY);
       console.log(reason);
     });
   }
-
 }

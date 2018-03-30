@@ -33,4 +33,8 @@ page-errors {
       border-top: solid 4px map-get($colors, border);
     }
   }
+
+  ion-buttons {
+    ion-icon { font-size: x-large; }
+  }
 }

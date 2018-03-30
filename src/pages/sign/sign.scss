@@ -1,0 +1,26 @@
+/***************************************
+Sign
+***************************************/
+
+page-sign {
+
+  color: #000000;
+
+  .item-md, .item-ios {
+    color: #000000;
+  }
+  
+  ion-content {
+    background-image: none;
+    background-color: map-get($colors, lightgreencustom);
+  }
+
+  .header-ios, .header-md,  .footer-ios, .footer-md {
+    background-color: map-get($colors, darkgreencustom);
+  }
+
+  ion-item p.error {
+    color: #f53d3d;
+  }
+
+}

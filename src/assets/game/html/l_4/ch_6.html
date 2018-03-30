@@ -6,7 +6,7 @@
         <div class="left-box" [ngStyle]="boxStyles[0]">
           <span class="list-label">Verbos</span>
           <div *tepuyRepeat="3; let i=index" tepuy-autofit
-            tepuy-drop-zone [tepuy-correct-values]="verbs"
+            tepuy-drop-zone [tepuy-correct-values]="verbs" [tepuy-index]="i"
             >
             <div class="word-container word-holder" tepuy-scale="1920" drop-ignore></div>
           </div>
@@ -14,7 +14,7 @@
         <div class="right-box" [ngStyle]="boxStyles[1]">
           <span class="list-label">Adjetivos</span>
           <div *tepuyRepeat="3; let i=index" tepuy-autofit
-            tepuy-drop-zone [tepuy-correct-values]="adjectives"
+            tepuy-drop-zone [tepuy-correct-values]="adjectives" [tepuy-index]="i+3"
             >
             <div class="word-container word-holder" tepuy-scale="1920" drop-ignore></div>
           </div>

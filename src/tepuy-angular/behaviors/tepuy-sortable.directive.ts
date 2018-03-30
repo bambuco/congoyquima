@@ -35,6 +35,7 @@ export class TepuySortableDirective implements ItemReorderGestureDelegate, After
   _reorderGesture: ItemReorderGesture;
   _lastToIndex: number = -1;
   _element: HTMLElement;
+  private $group: any;
 
   /**
    * @output {object} Emitted when the item is reordered. Emits an object
@@ -48,6 +49,9 @@ export class TepuySortableDirective implements ItemReorderGestureDelegate, After
   @Input('tepuy-order')
   set order(order: any[]) {
     this._order = order;
+    if (this.$group) {
+      this.$group.expected_answers = order;
+    }
   }
 
   @Input('tepuy-direction')
@@ -75,6 +79,12 @@ export class TepuySortableDirective implements ItemReorderGestureDelegate, After
       if (item) {
         item.answered = true;
         item.isCorrect = (item.value == this._order[i]);
+        setTimeout(() => {
+          if (!this.$group && item.$group) {
+            this.$group = item.$group;
+            item.$group.expected_answers = this._order;
+          }
+        }, 100);
       }
 
     }

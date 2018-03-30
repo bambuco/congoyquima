@@ -1,4 +1,4 @@
-<div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-win-score="0.6">
+<div ion-grid tepuy-activity #activityComponent no-margin no-padding tepuy-win-score="0.6" (activityRestart)="onReset()" >
   <ng-container *tepuyValueGenerator="'randomof:numbers:min=100;max=99999';count:1;type:'scalar';let numbers=values">
     <div class="container" tepuy-item-group [tepuy-group-id]="1" (groupInit)="prepare($event, numbers[0])">
       <ng-container *ngIf="ready">
@@ -11,7 +11,7 @@
                   [tepuy-correct]="true"
                   tepuy-group-id="1"
                   [tepuy-is-correct]="(bar.value === bar.answer)"
-                  [tepuy-value]="bar.value"
+                  [tepuy-value]="bar.answer"
                   >
                   <div class="abaco-column-wrapper" tepuy-autofit>
                     <div class="abaco-icon abaco-column-bg" tepuy-scale="1920">

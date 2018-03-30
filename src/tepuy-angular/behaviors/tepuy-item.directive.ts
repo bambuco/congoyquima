@@ -29,7 +29,9 @@ export class TepuyItemDirective implements OnInit, AfterViewInit, OnDestroy {
 
   //Property setters/getters
   get value() {
-    return ('value' in this.valueEl) ? this.valueEl.value : this.valueEl.innerText;
+    let isLI = this.valueEl.tagName == 'LI';
+    let val = ('value' in this.valueEl && !isLI) ? this.valueEl.value : this.valueEl.innerText;
+    return val.trim();
   }
   @Input('tepuy-value')
   set value(val) {

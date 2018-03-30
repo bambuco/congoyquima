@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+  <ion-toolbar>
+    <ion-title text-center>Registro</ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+      <span ion-text color="primary" showWhen="ios">Atrás</span>
+      <ion-icon name="md-close" showWhen="android,windows,core"></ion-icon>
+      </button>
+    </ion-buttons>
+    </ion-toolbar>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="form" (ngSubmit)="doRegistration(form)" novalidate>
+    <ion-list>
+
+      <ion-item>
+        <ion-label stacked>Usuario</ion-label>
+        <ion-input type="text" formControlName="username"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Nombre</ion-label>
+        <ion-input type="text" formControlName="displayname"></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="form.controls['username'].errors && form.controls['username'].dirty">
+        <p class="error">* Debe ingresar un identificador de usuario</p>
+      </ion-item>
+
+      <input item-content type="submit" ion-button block value="Registrar" />
+    </ion-list>
+    
+  </form>
+
+</ion-content>
